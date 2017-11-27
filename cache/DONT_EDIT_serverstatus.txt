@@ -1,5 +1,5 @@
 serverStatus_checkInterval = "8"
-	serverStatus_lastCheck = "1511805534"
+	serverStatus_lastCheck = "1511820251"
 	serverStatus_online = "0"
 	serverStatus_players = "0"
 	serverStatus_playersMax = "0"
