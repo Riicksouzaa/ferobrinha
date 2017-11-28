@@ -126,17 +126,55 @@ if($action == '')
                 }
             $main_content .= '</table><br>';
         }
-        $main_content .= '<form action="?subtopic=houses" method="post">
-            <table border=0 cellspacing=1 cellpadding=4 width=100%>
-                <tr bgcolor="'.$config['site']['vdarkborder'].'" class=white>
-                    <td colspan="3" style="color:white;"><b>Search House</b></td>
-                </tr>
-                <tr bgcolor="'.$config['site']['darkborder'].'">';
-                    $main_content .= '<td width=25%><b>Town</b></td>
-                    <td width=25%><b>Status</b>
-                    </td><td width=25%><b>Sort</b></td>
-                </tr>
-                <tr bgcolor="'.$config['site']['darkborder'].'">';
+        $main_content .= '
+		<form action="?subtopic=houses" method="post">
+			<div class="TopButtonContainer">
+				<div class="TopButton">
+					<a href="#top">
+						<img style="border:0px;" src="'.$layout_name.'/images/global/content/back-to-top.gif">
+					</a>
+				</div>
+			</div>
+		<div class="TableContainer" >
+
+				<div class="CaptionContainer" >
+					<div class="CaptionInnerContainer" > 
+						<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
+						<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
+						<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
+						<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>						
+						<div class="Text" >Search House</div>
+						<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>
+						<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
+						<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
+						<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
+					</div>
+				</div>
+				<tr>
+				<table class="Table3" cellpadding="0" cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="InnerTableContainer">
+                        <table style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                       <div class="TableShadowContainerRightTop">
+										<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"></div>
+									</div>
+                                        <div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
+										<div class="TableContentContainer">
+											<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                    <tbody>
+                                                        
+				
+				
+				
+                <tr bgcolor="#D4C0A1" ><td width=25% style="border:1px solid #faf0d7;"><b>Town</b></td>
+                    <td width=25% style="border:1px solid #faf0d7;"><b>Status</b>
+                    </td><td width=25% style="border:1px solid #faf0d7;"><b>Sort</b></td>
+                </tr>';
                     $main_content .= '<td valign=top rowspan=2>';
                         foreach($towns_list as $id => $town_n)
                         {
@@ -189,13 +227,39 @@ if($action == '')
                             $main_content .= '>guildhalls<br>';
                         }
                         $main_content .= '
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan='.$colspan.'><br><center><input type=image name="Submit" alt="Submit" src="'.$layout_name.'/images/global/buttons/sbutton_submit.gif" border="0" WIDTH=120 HEIGHT=18></center></td>
-                </tr>
+ </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                       <div class="TableShadowContainer">
+										<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
+											<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
+											<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
+										</div>
+									</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+					
             </table>
-        </form>';
+        </div>
+		<table border=0 cellspacing=1 cellpadding=4 width=100%
+		<tr>
+        <td colspan=><br><center>
+		<div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton.gif)" >
+		<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_over.gif);" ></div>
+		<input class="ButtonText" type="image" name="Submit" alt="Submit" src="'.$layout_name.'/images/global/buttons/_sbutton_submit.gif" border="0" WIDTH=120 HEIGHT=18>
+		</div></center></td>
+        </tr>
+		</table>
+		</form>';
     }
     ##-- Show House --##
     else
