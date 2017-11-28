@@ -5,7 +5,7 @@ if(!defined('INITIALIZED'))
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Tibia - Free Multiplayer Online Role Playing Game</title>
+    <title>Ferobra - Free Multiplayer Online Role Playing Game</title>
     <meta name="author" content="Marco Oliveira and Felipe Monteiro">
     <meta http-equiv="content-language" content="pt-br">
     <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog, online role playing game, online multiplayer game, internet game, online rpg, rpg">
@@ -314,14 +314,14 @@ if(!defined('INITIALIZED'))
                                     </a>
                                 <?php } ?>
                                 <?php if(!$logged){ ?>
-                                    <!--<a href="?subtopic=createaccount">
+                                    <a href="?subtopic=createaccount">
   										<div id="submenu_createaccount" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
 											<div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
 											<div id="ActiveSubmenuItemIcon_createaccount" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
 											<div id="ActiveSubmenuItemLabel_createaccount" class="SubmenuitemLabel">Create Account</div>
 											<div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
   										</div>
-									</a>-->
+									</a>
                                 <?php } ?>
                                 <a href="?subtopic=downloadclient&step=downloadagreement">
                                     <div id="submenu_downloadclient" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
@@ -598,7 +598,7 @@ if(!defined('INITIALIZED'))
                             <div id="Footer">
                                 <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
                                 Copyright by <a href="https://www.cipsoft.com" target="_new"><b>CipSoft GmbH</b></a>. All rights reserveds<br>
-                                <a href=?subtopic=forum><b>Game Forum</b></a> | <a href=<?php echo $config['social']['facebook']; ?>><b>Facebook</b></a> | <a href=?subtopic=cipinfo><b>Support Game</b></a><br>
+                                <a href=?subtopic=forum><b>Game Forum</b></a> | <a href=<?php echo $config['social']['facebook']; ?>><b>Facebook</b></a> | <a href=?subtopic=team><b>Support Game</b></a><br>
                             </div>
                         </div>
                     </div>
