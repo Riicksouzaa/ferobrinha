@@ -250,10 +250,10 @@ if(!ONLY_PAGE)
 			$statustimeout = $statustimeout * $status_var;
 	$statustimeout = $statustimeout / 1000;
 	$config['status'] = parse_ini_file('cache/DONT_EDIT_serverstatus.txt');
-//	if($config['status']['serverStatus_lastCheck'] <= date("Y-m-d H:i:s"))
-//	{
+	if($config['status']['serverStatus_lastCheck']+$statustimeout < time())
+	{
 		$config['status']['serverStatus_checkInterval'] = $statustimeout+3;
-		$config['status']['serverStatus_lastCheck'] = date("Y-m-d H:i:s");
+		$config['status']['serverStatus_lastCheck'] = time();
 		$statusInfo = new ServerStatus($config['server']['ip'], $config['server']['statusProtocolPort'], 1);
 		if($statusInfo->isOnline())
 		{
@@ -281,7 +281,7 @@ if(!ONLY_PAGE)
 		rewind($file);
 		fwrite($file, $file_data);
 		fclose($file);
-//	}
+	}
 	//PAGE VIEWS COUNTER
 	$views_counter = "cache/DONT_EDIT_usercounter.txt";
 	// checking if the file exists
