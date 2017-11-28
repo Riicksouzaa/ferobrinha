@@ -250,7 +250,7 @@ if(!ONLY_PAGE)
 			$statustimeout = $statustimeout * $status_var;
 	$statustimeout = $statustimeout / 1000;
 	$config['status'] = parse_ini_file('cache/DONT_EDIT_serverstatus.txt');
-	if($config['status']['serverStatus_lastCheck']-$statustimeout <= time())
+	if($config['status']['serverStatus_lastCheck']-$statustimeout-456 <= time())
 	{
 		$config['status']['serverStatus_checkInterval'] = $statustimeout+3;
 		$config['status']['serverStatus_lastCheck'] = time();
