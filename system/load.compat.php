@@ -250,11 +250,11 @@ if(!ONLY_PAGE)
 			$statustimeout = $statustimeout * $status_var;
 	$statustimeout = $statustimeout / 1000;
 	$config['status'] = parse_ini_file('cache/DONT_EDIT_serverstatus.txt');
-	if($config['status']['serverStatus_lastCheck']+$statustimeout < time())
+	if($config['status']['serverStatus_lastCheck']+$statustimeout <= time())
 	{
 		$config['status']['serverStatus_checkInterval'] = $statustimeout+3;
 		$config['status']['serverStatus_lastCheck'] = time();
-		$statusInfo = new ServerStatus($config['server']['ip'], $config['server']['statusProtocolPort']);
+		$statusInfo = new ServerStatus($config['server']['ip'], $config['server']['statusProtocolPort'], 1);
 		if($statusInfo->isOnline())
 		{
 			$config['status']['serverStatus_online'] = 1;
