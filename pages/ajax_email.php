@@ -1,7 +1,5 @@
 <?php
-if(!defined('INITIALIZED'))
-    exit;
-
+if(!defined('INITIALIZED'))exit;
 
 function f($e) {
 	echo('{"AjaxObjects": [{"DataType": "Attributes","Data": "style=background-image:url(account/nok.gif)","Target": "#email_indicator"},{"DataType": "HTML","Data": "'.$e.'","Target": "#email_errormessage"},{"DataType": "Attributes","Data": "class=red","Target": "#email_label"}]}');

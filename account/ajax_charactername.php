@@ -77,7 +77,7 @@ foreach(explode(' ', $s) as $k => $v) {
 $s = strtolower($s);
 for($i = 0; $i < strlen($s); $i++)
 	if($s[$i] == $s[($i+1)] && $s[$i] == $s[($i+2)])
-		f('This character name is already used. Please select another one!');
+		f('This character name have more than 3 letters repeated together. Please select another one!');
 foreach(array('aa ', 'ee', 'ii', 'oo', 'uu', 'gm','cm', 'aff ', 'god ', 'abc', 'tutor', 'game', 'admin', 'the ') as $v)
 	if($v == substr($s, 0, strlen($v)))
 		f('This character name is already used. Please select another one!');

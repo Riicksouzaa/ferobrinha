@@ -80,25 +80,16 @@ if(isset($_REQUEST['step']) && $_REQUEST['step'] == "downloadagreement") {
 															<table class="TableContent" width="100%">
 																<tr>
 																	<td><table style="width:100%;text-align:center">
-																	<center><h1>Official '.$config['server']['serverName'].' Client</h1></center>
+																	<center><h1>Official Tibia Client</h1></center>
 																			<tr>
-																				<td>
-																					<img style="width: 90; height: 90px; border: 0px;" src="'.$layout_name.'/images/account/download_windows.png"/>
-																				</td>
-																				<td>
-																					<img style="width: 90; height: 90px; border: 0px;" src="'.$layout_name.'/images/account/download_windows.png"/>
-																				</td>
+																				<td><a href="#" target="_blank" type="application/octet-stream" target="_top"><img style="width: 90; height: 90px; border: 0px;" src="'.$layout_name.'/images/account/download_windows.png"/></a></td>
+																					</a></td>
 																			</tr>
 																			<tr>
-																			<td valign="top">
-																					<a href="#" target="_blank" type="application/octet-stream" target="_top">Download Tibia 11.50<br/>Windows Client</a>
-																				</td>
-																				<td valign="top">
-																					<a href="#" target="_blank" type="application/octet-stream" target="_top">Download Tibia 10.00<br/>Windows Client</a>
-																				</td>
+																				<td valign="top"><a href="#" target="_blank" type="application/octet-stream" target="_top">Download Tibia 11<br/>Windows Client</a></td>
 																			</tr>
 																			<tr>
-																				<td colspan="2" >[<span class="HelpLink" style="width: 18px; height: 18px;" ><a href="/common/tibiaclientrequirements.php" target="_blank" ><span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Requirements:\', \'<p><b>Minimum:</b><ul><li>OS: Windows XP SP3</li><li>Processor: 1.5 GHz Pentium 4 or equivalent with SSE2 instruction set support</li><li>Memory: 1GB RAM</li><li>Graphics: 128MB; if DirectX 9c or OpenGL 2.1 are not supported, only software renderer mode is available (no light effects)</li><li>Hard Drive: min. 150 MB</li></ul><b>Recommended:</b><ul><li>OS: System: Windows 7 or newer</li><li>Processor: 2.5 GHz Intel Core i3 processor or equivalent</li><li>Memory: 4GB RAM</li><li>Graphics: 512MB; OpenGL 2.1 support</li><li>Hard Drive: min. 150 MB</li><ul></ul>\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >system requirements</span></a></span>]</td>
+																				<td colspan="2" >[<span class="HelpLink" style="width: 18px; height: 18px;" ><a href="#" target="_blank" ><span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Requirements:\', \'<p><b>Minimum:</b><ul><li>OS: Windows XP SP3</li><li>Processor: 1.5 GHz Pentium 4 or equivalent with SSE2 instruction set support</li><li>Memory: 1GB RAM</li><li>Graphics: 128MB; if DirectX 9c or OpenGL 2.1 are not supported, only software renderer mode is available (no light effects)</li><li>Hard Drive: min. 150 MB</li></ul><b>Recommended:</b><ul><li>OS: System: Windows 7 or newer</li><li>Processor: 2.5 GHz Intel Core i3 processor or equivalent</li><li>Memory: 4GB RAM</li><li>Graphics: 512MB; OpenGL 2.1 support</li><li>Hard Drive: min. 150 MB</li><ul></ul>\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >system requirements</span></a></span>]</td>
 																			</tr>
 																		</table>
 																	</td>
@@ -136,8 +127,8 @@ if(isset($_REQUEST['step']) && $_REQUEST['step'] == "downloadagreement") {
 																				<td><img src="'.$layout_name.'/images/account/flash-text-2.gif"/><br/>
 																			</tr>
 																			<tr>
-																			<td valign="top"> Just log in to your account and start playing '.$config['server']['serverName'].' by click on the <a href="?subtopic=accountmanagement">play</a> button in your <a href="?subtopic=accountmanagement">character list</a>! 
-																			<td valign="top"> Play without downloading!<br>Play without installing!<br>Enjoy your Client settings on every computer!<br>Rum '.$config['server']['serverName'].' in every supported web browser!
+																			<td valign="top"> Just log in to your account and start playing Malvera by click on the <a href="?subtopic=accountmanagement">play</a> button in your <a href="?subtopic=accountmanagement">character list</a>! 
+																			<td valign="top"> Play without downloading!<br>Play without installing!<br>Enjoy your Client settings on every computer!<br>Rum Malvera in every supported web browser!
 																			</td>
 																			</tr>
 																		</table>

@@ -1,8 +1,8 @@
 <?php
-if(!defined('INITIALIZED'))
-	exit;
+if (!defined('INITIALIZED'))
+    exit;
 require 'config/namesblocked.php';
-if(!$logged) {
+if (!$logged) {
     $voc = array(); // Rookgard Active !
 
     if (isset($_POST['step']) && $_POST['step'] == 'docreate') {
@@ -54,10 +54,30 @@ if(!$logged) {
             $erro['pass'] = 'The two passwords do not match!';
         else {
             $err = array();
-            if (strlen($password1) < 6 || strlen($password1) > 29)
+            if (strlen($password1) < 8 || strlen($password1) > 29)
                 $err[] = 'The password must have at least 8 and less than 30 letters!';
-            if (!ctype_alnum($password1))
-                $err[] = 'The password contains invalid letters!';
+            /**
+             * Function Encrontrou numeros by Ricardo Souza
+             * Serve para saber se foi encontrado algum numero na string
+             *
+             * @param $string
+             * @return bool
+             */
+            function encontrouNumeros($string)
+            {
+                return strpbrk($string, '0123456789') !== false;
+            }
+
+            if (!ctype_alnum($password1) || !encontrouNumeros($password1)) {
+                $err[] = 'The password must contain at least one number!';
+            }
+            if(is_numeric($password1)){
+                $err[] = 'The password must contain at least one letter A-Z or a-z!!';
+            }
+
+//            if (ctype_alnum($password1))
+//                $err[] = 'The password contains invalid letters!';
+
 
             if (count($err) != 0) {
                 $erro['pass'] = '';
@@ -70,9 +90,256 @@ if(!$logged) {
             $erro['rules'] = 'You have to agree to the ' . $config['server']['serverName'] . ' Rules in order to create an account!';
 
         if (count($erro) != 0) {
-            $main_content = '<div class="SmallBox"><div class="MessageContainer"><div class="BoxFrameHorizontal" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-horizontal.gif)"/></div><div class="BoxFrameEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif)"/></div><div class="BoxFrameEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif)"/></div><div class="ErrorMessage"><div class="BoxFrameVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif)"/></div><div class="BoxFrameVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif)"/></div><div class="AttentionSign" style="background-image:url(' . $layout_name . '/images/global/content/attentionsign.gif)"/></div><b>The Following Errors Have Occurred:</b><br/>';
+
+            $main_content = '
+                <div class="SmallBox">
+                <div class="MessageContainer">
+                <div class="BoxFrameHorizontal" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-horizontal.gif)"/></div>
+                <div class="BoxFrameEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif)"/></div>
+                <div class="BoxFrameEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif)"/></div>
+                <div class="ErrorMessage"><div class="BoxFrameVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif)"/></div>
+                <div class="BoxFrameVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif)"/></div>
+                <div class="AttentionSign" style="background-image:url(' . $layout_name . '/images/global/content/attentionsign.gif)"/></div>
+                <b>The Following Errors Have Occurred:</b>
+                <br/>';
             foreach ($erro as $error) $main_content .= $error . '<br/>';
-            $main_content .= '</div><div class="BoxFrameHorizontal" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-horizontal.gif)"/></div><div class="BoxFrameEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif)"/></div><div class="BoxFrameEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/content/global/box-frame-edge.gif)"/></div></div></div><br/>';
+            $main_content .= '</div>
+                <div class="BoxFrameHorizontal" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-horizontal.gif)"/></div>
+                <div class="BoxFrameEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif)"/></div>
+                <div class="BoxFrameEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/content/global/box-frame-edge.gif)"/>
+                </div>
+                </div>
+                </div>
+                <br/>';
+
+            $main_content .= '
+			<script src="' . $layout_name . '/create_character.js"></script>
+			<div style="position:relative;top:0px;left:0px;" >
+				<form action="?subtopic=createaccount" method=post name="CreateAccountAndCharacter" >
+					<div class="TableContainer" >
+						<table class="Table5" cellpadding="0" cellspacing="0" >
+							<div class="CaptionContainer" >
+								<div class="CaptionInnerContainer" > 
+									<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+									<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+									<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span> 
+									<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>								
+									<div class="Text" >Create New Account</div>
+									<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
+									<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span> 
+									<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+									<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+								</div>
+							</div>';
+            //Account
+            $main_content .= '
+							<tr>
+								<td>
+									<div class="InnerTableContainer" >
+										<table style="width:100%;" >
+											<tr>
+												<td>
+													<div class="TableShadowContainerRightTop" >
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
+													</div>
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
+														<div class="TableContentContainer" >
+															<table class="TableContent" width="100%"  style="border:1px solid #faf0d7;" >
+																<tr>
+																	<td class="LabelV150" >
+																		<span id="accountname_label"' . (isset($e['acc']) ? ' class="red"' : '') . ' >Account Name:</span>
+																	</td>																	
+																	<td>
+																		<input id="accountname" 
+																		name="accountname" 
+																		class="CipAjaxInput" 
+																		style="width:206px;float:left;" 
+																		value="' . (isset($_POST['accountname']) ? htmlspecialchars(substr($_POST['accountname'], 0, 30)) : '') . '" 
+																		size="30" 
+																		maxlength="30" 
+																		onBlur="SendAjaxCip({DataType: \'Container\'}, {Href: \'./ajax_account.php\',PostData: \'a_AccountName=\'+getElementById(\'accountname\').value,Method: \'POST\'});" />
+																		<div id="accountname_indicator" class="InputIndicator" style="background-image:url(' . $layout_name . '/images/global/general/' . (isset($e['acc']) ? 'n' : '') . 'ok.gif);" ></div>
+																	</td>
+																</tr>
+																<tr>
+																	<td></td>
+																	<td><span id="accountname_errormessage" class="FormFieldError">' . (isset($e['acc']) ? $e['acc'] : '') . '</span></td>
+																</tr>
+																<tr>
+																	<td class="LabelV150" >
+																		<span id="email_label"' . (isset($e['email']) ? ' class="red"' : '') . '>Email Address:</span>
+																	</td>
+																	<td>
+																		<input id="email" name="email" class="CipAjaxInput" style="width:206px;float:left;" value="' . (isset($_POST['email']) ? htmlspecialchars(substr($_POST['email'], 0, 50)) : '') . '" size="30" maxlength="50" onBlur="SendAjaxCip({DataType: \'Container\'}, {Href: \'./ajax_email.php\',PostData: \'a_EMail=\'+encodeURIComponent(getElementById(\'email\').value),Method: \'POST\'});" />
+																		<div id="email_indicator" class="InputIndicator" style="background-image:url(' . $layout_name . '/images/global/general/' . ($_POST['step'] != 'docreate' || isset($e['email']) ? 'n' : '') . 'ok.gif);" ></div>
+																	</td>																	
+																</tr>
+																<tr>
+																	<td></td>
+																	<td><span id="email_errormessage" class="FormFieldError">' . (isset($e['email']) ? $e['email'] : '') . '</span></td>
+																</tr>
+																<tr>
+																	<td class="LabelV150" >
+																		<span id="password1_label"' . (isset($e['pass']) ? ' class="red"' : '') . '>Password:</span>
+																	</td>
+																	<td>
+																		<input id="password1" type="password" name="password1" style="width:206px;float:left;" value="' . (isset($_POST['password1']) ? htmlspecialchars(substr($_POST['password1'], 0, 30)) : '') . '" size="30" maxlength="30" onBlur="SendAjaxCip({DataType: \'Container\'}, {Href: \'./account/ajax_password.php\',PostData: \'a_Password1=\'+getElementById(\'password1\').value+\'&a_Password2=\'+getElementById(\'password2\').value,Method: \'POST\'});" />
+																		<div id="password1_indicator" class="InputIndicator" style="background-image:url(' . $layout_name . '/images/global/general/' . ($_POST['step'] != 'docreate' || isset($e['pass']) ? 'n' : '') . 'ok.gif);" ></div>
+																	</td>
+																</tr>
+																<tr>
+																	<td class="LabelV150" >
+																		<span id="password2_label"' . (isset($e['pass']) ? ' class="red"' : '') . '>Password Again:</span>
+																	</td>
+																	<td>
+																		<input id="password2" type="password" name="password2" style="width:206px;float:left;" value="' . (isset($_POST['password2']) ? htmlspecialchars(substr($_POST['password2'], 0, 30)) : '') . '" size="30" maxlength="30" onBlur="SendAjaxCip({DataType: \'Container\'}, {Href: \'./account/ajax_password.php\',PostData: \'a_Password1=\'+getElementById(\'password1\').value+\'&a_Password2=\'+getElementById(\'password2\').value,Method: \'POST\'});" />
+																		<div id="password2_indicator" class="InputIndicator" style="background-image:url(' . $layout_name . '/images/global/general/' . ($_POST['step'] != 'docreate' || isset($e['pass']) ? 'n' : '') . 'ok.gif);" ></div>
+																	</td>
+																</tr>
+																<tr>
+																	<td></td>
+																	<td><span id="password_errormessage" class="FormFieldError">' . (isset($e['pass']) ? $e['pass'] : '') . '</span></td>
+																</tr>
+															</table>
+														</div>
+													</div>
+													<script>
+                                                        window.onload = function() {
+                                                          SendAjaxCip({DataType: \'Container\'}, {Href: \'./ajax_account.php\',PostData: \'a_AccountName=\'+document.getElementById(\'accountname\').value,Method: \'POST\'});
+                                                          SendAjaxCip({DataType: \'Container\'}, {Href: \'./ajax_email.php\',PostData: \'a_EMail=\'+encodeURIComponent(document.getElementById(\'email\').value),Method: \'POST\'});
+                                                          SendAjaxCip({DataType: \'Container\'}, {Href: \'./ajax_email.php\',PostData: \'a_EMail=\'+encodeURIComponent(document.getElementById(\'email\').value),Method: \'POST\'});
+                                                          SendAjaxCip({DataType: \'Container\'}, {Href: \'./account/ajax_password.php\',PostData: \'a_Password1=\'+document.getElementById(\'password1\').value+\'&a_Password2=\'+document.getElementById(\'password2\').value,Method: \'POST\'});
+                                                          //SendAjaxCip({DataType: \'Container\'}, {Href: \'./account/ajax_password.php\',PostData: \'a_Password1=\'+document.getElementById(\'password1\').value+\'&a_Password2=\'+document.getElementById(\'password2\').value,Method: \'POST\'});
+                                                            
+                                                        
+                                                        };
+                                                    </script>
+													<div class="TableShadowContainer" >
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
+														</div>
+													</div>
+												</td>
+											</tr>';
+            $main_content .= '									
+<tr>
+									 <tr>
+                <td>
+                    <div class="TableShadowContainerRightTop" >
+                        <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
+                    </div>
+                    <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
+                        <div class="TableContentContainer" >
+                            <table class="TableContent" width="100%"  style="border:1px solid #faf0d7;" >
+													<tbody>
+													<tr>
+															<td class="LabelV150" valign="top"><span><b>World Type:</b></span></td>
+															<td>
+																<table width="40%">
+																	<tbody><tr>
+																		<td align="center"><img src="' . $layout_name . '/images/account/option_server_pvp_type_open.gif"></td>
+																	</tr>
+																	<tr>
+																		<td align="center"><input type="radio" checked="checked"> <b>Open PvP</b></td>
+																	</tr>
+																	<tr>
+																		<td align="center">Killing other characters is possible, but restricted</td>
+																	</tr>
+																	</tbody></table><br>
+															</td>
+														</tr>
+														
+														<tr>
+																	<td valign="top"><span><b>World Name:</b></span></td>
+																	<td>Suggested world: <b>' . $config['server']['serverName'] . '</b> 
+																	<span>
+																	<span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Free premium game world:\', \'This game world free premium for players\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >
+																		<image style="border:0px;" src="' . $layout_name . '/images/global/content/info.gif" />
+																		</span></span>
+																		<span>
+																	<span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Staff present in game world:\', \'On this game world, Staff blocks cheats from the game. The game world has been protected by Staff since its release.\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >
+																		<image style="border:0px;" src="' . $layout_name . '/images/global/content/icon_battleyeinitial.gif" />
+																		</span></span>
+																	
+																	
+																	<br><small> [<a href="#">change game world</a>]</small><br><br></td>
+																	</tr>
+														
+														
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="TableShadowContainer" >
+                        <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+                            <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+                            <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+		
+		';
+            $main_content .= '
+											<tr>
+												<td>
+													<div class="TableShadowContainerRightTop" >
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
+													</div>
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
+														<div class="TableContentContainer" >
+															<table class="TableContent" width="100%"  style="border:1px solid #faf0d7;" >
+																<tr>
+																	<td><b>Please select the following check box:</b></td>
+																</tr>
+																<tr>
+																	<td><input type="checkbox" name="agreeagreements" value="true"  onClick="if(this.checked == true) {  document.getElementById(\'agreeagreements_errormessage\').innerHTML = \'\';} else {  document.getElementById(\'agreeagreements_errormessage\').innerHTML = \'You have to agree to the ' . $config['server']['serverName'] . ' Rules in order to create an account!\';}"' . ($_POST['step'] == 'docreate' && !isset($e['rules']) ? ' checked="checked"' : '') . '/>
+																		I agree to the <a href="?subtopic=tibiarules" target="_blank" >' . $config['server']['serverName'] . ' Rules</a>.</td>
+																</tr>
+																<tr>
+																	<td><span id="agreeagreements_errormessage" class="FormFieldError">' . (isset($e['rules']) ? $e['rules'] : '') . '</span></td>
+																</tr>
+															</table>
+														</div>
+													</div>
+													<div class="TableShadowContainer" >
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
+														</div>
+													</div>
+												</td>
+											</tr>';
+            $main_content .= '
+										</table>
+									</div>
+								</td>
+							</tr>';
+
+            $main_content .= '
+						</table>
+					</div>
+					<br />
+					<center>
+						<table border="0" cellspacing="0" cellpadding="0" >
+						<tr>
+							<td style="border:0px;" >
+								<input type="hidden" name=step value=docreate >
+								<input type="hidden" name=noframe value= >
+								<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" >
+									<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div>
+										<input class="ButtonText" type="image" name="Submit" alt="Submit" src="' . $layout_name . '/images/global/buttons/_sbutton_submit.gif" >
+									</div>
+								</div>
+							</td>
+						<tr>
+					</form>
+				</table>
+			</center>
+		</form>		
+	</div>';
+
         } else {
             $reg_account = new Account();
             $reg_account->setName(strtoupper($_POST['accountname']));
@@ -137,10 +404,9 @@ if(!$logged) {
                     </TD></TR></TABLE>
                     </TD></TR></TABLE>';
 
-                }
-                else{
+                } else {
                     $main_content .= '<h2>Your account has been created.</h2>';
-                    error_log('Error sending e-mail: '.$mail->ErrorInfo,1);
+                    error_log('Error sending e-mail: ' . $mail->ErrorInfo, 1);
                 }
             } else header("Location: ?subtopic=latestnews");
 
@@ -240,14 +506,14 @@ if(!$logged) {
 													</div>
 												</td>
 											</tr>';
-		$main_content .= '									
+        $main_content .= '									
 <tr>
 									 <tr>
                 <td>
                     <div class="TableShadowContainerRightTop" >
-                        <div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);" ></div>
+                        <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
                     </div>
-                    <div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);" >
+                    <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
                         <div class="TableContentContainer" >
                             <table class="TableContent" width="100%"  style="border:1px solid #faf0d7;" >
 													<tbody>
@@ -256,7 +522,7 @@ if(!$logged) {
 															<td>
 																<table width="40%">
 																	<tbody><tr>
-																		<td align="center"><img src="'.$layout_name.'/images/account/option_server_pvp_type_open.gif"></td>
+																		<td align="center"><img src="' . $layout_name . '/images/account/option_server_pvp_type_open.gif"></td>
 																	</tr>
 																	<tr>
 																		<td align="center"><input type="radio" checked="checked"> <b>Open PvP</b></td>
@@ -266,36 +532,39 @@ if(!$logged) {
 																	</tr>
 																	</tbody></table><br>
 															</td>
-														</tr>											
+														</tr>
+														
 														<tr>
 																	<td valign="top"><span><b>World Name:</b></span></td>
-																	<td>Suggested world: <b>'.$config['server']['serverName'].'</b> 
+																	<td>Suggested world: <b>' . $config['server']['serverName'] . '</b> 
 																	<span>
 																	<span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Free premium game world:\', \'This game world free premium for players\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >
-																		<image style="border:0px;" src="'.$layout_name.'/images/global/content/info.gif" />
+																		<image style="border:0px;" src="' . $layout_name . '/images/global/content/info.gif" />
 																		</span></span>
 																		<span>
 																	<span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Staff present in game world:\', \'On this game world, Staff blocks cheats from the game. The game world has been protected by Staff since its release.\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >
-																		<image style="border:0px;" src="'.$layout_name.'/images/global/content/icon_battleyeinitial.gif" />
+																		<image style="border:0px;" src="' . $layout_name . '/images/global/content/icon_battleyeinitial.gif" />
 																		</span></span>
-
-																	<br>
-																	<small> [<a href="#">change game world</a>]</small><br><br></td>
-																	</tr>	
+																	
+																	
+																	<br><small> [<a href="#">change game world</a>]</small><br><br></td>
+																	</tr>
+														
+														
 													</tbody>
 												</table>
 											</div>
 										</div>
 										<div class="TableShadowContainer" >
-                        <div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);" >
-                            <div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);" ></div>
-                            <div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);" ></div>
+                        <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+                            <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+                            <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
                         </div>
                     </div>
                 </td>
             </tr>
 		
-		';									
+		';
         $main_content .= '
 											<tr>
 												<td>
@@ -331,7 +600,7 @@ if(!$logged) {
 									</div>
 								</td>
 							</tr>';
-							
+
         $main_content .= '
 						</table>
 					</div>
@@ -352,7 +621,10 @@ if(!$logged) {
 					</form>
 				</table>
 			</center>
-		</form>
-	</div>';
+		</form>		
+            </div>';
+
     }
-}else header("Location: ./?subtopic=accountmanagement");
+
+
+} else header("Location: ./?subtopic=accountmanagement");

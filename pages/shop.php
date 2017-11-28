@@ -1,6 +1,6 @@
 <?php
 
-	$main_content .= '
+    $main_content .= '
 		<script>				
 			// mouse over effect for payment methods
 			function MouseOverPMCID(a_PMCID) {
@@ -43,7 +43,7 @@
 				</tbody>
 			</table>
 		</center>
-		<p>Below you will see some services that we offer in our online shop, also items, addons and mounts. This shop is simply for you to be inside of new offers that will be shown here, because to make the purchase you must go to the <a href="?subtopic=accountmanagement&action=manage#Products+Available">page of your account</a>.</p>';
+		<p>Abaixo você vai ver alguns serviços que oferecemos em nosso shop online, também itens, addons e montarias. Esse shop é simplesmente para você estar por dentro de novas ofertas que aqui serão mostradas, pois para realizar a compra você deverá ir até a página <a href="?subtopic=accountmanagement&action=manage#Products+Available">principal de sua conta</a>.</p>';
 
 if(!isset($_REQUEST['ServiceCategoryID']) || $_REQUEST['ServiceCategoryID'] == "")
 	$serviceCategoryId = 2;
@@ -205,6 +205,33 @@ $main_content .= '
 														$main_content .= '<p>None <strong>'.$itemName.'</strong> has been added for sale yet .</p>';
 													}
 													$main_content .= '
+														</div>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div class="TableShadowContainer" >
+										<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);" >
+											<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);" ></div>
+											<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);" ></div>
+										</div>
+									</div>
+								</td>
+							</tr>';	
+					$main_content .= '
+							<tr>
+								<td>
+									<div class="TableShadowContainerRightTop" >
+										<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);" ></div>
+									</div>
+									<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);" >
+										<div class="TableContentContainer" >
+											<table class="TableContent" width="100%"  style="border:1px solid #faf0d7;" >
+												<tr>
+													<td style="text-align: center;" align="center" >
+														<div style="max-height: 500px; min-height: 100px; overflow-y: auto;">
+															<p>Faça uma <a href="?subtopic=accountmanagement&action=donate">doação para nosso servidor</a>, para que assim possamos sempre estar trazendo novos conteúdos e mantendo o melhor atendimento possível para você jogador. Sinta-se a vontade em doar, esteja certo de que faremos por merecer sua doação.</p>
 														</div>
 													</td>
 												</tr>

@@ -44,7 +44,7 @@ if(in_array($_REQUEST['subtopic'], array("play", "refresh", "client_options_serv
 	echo $main_content;
 } else {
     if (!ONLY_PAGE)
-		include_once('./system/load.layout.php');
+        include_once('./system/load.layout.php');
 	else
 		echo $main_content;
 }

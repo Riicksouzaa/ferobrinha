@@ -9,19 +9,31 @@
 require 'config/config.php';
 // comment to show E_NOTICE [undefinied variable etc.], comment if you want make script and see all errors
 error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
+// true = show sent queries and SQL queries status/status code/error message
 define('DEBUG_DATABASE', false);
 define('INITIALIZED', true);
 if (!defined('ONLY_PAGE'))
     define('ONLY_PAGE', true);
+// check if site is disabled/requires installation
 include_once('./system/load.loadCheck.php');
+// fix user data, load config, enable class auto loader
 include_once('./system/load.init.php');
+// DATABASE
 include_once('./system/load.database.php');
 if (DEBUG_DATABASE)
     Website::getDBHandle()->setPrintQueries(true);
+// DATABASE END
+/*error example:
+{
+    "errorCode":3,
+    "errorMessage":"Account name or password is not correct."
+}*/
+# Declare variables with array structure
 $characters = array();
 $playerData = array();
 $data = array();
 $isCasting = false;
+# error function
 function sendError($msg){
     $ret = array();
     $ret["errorCode"] = 3;
@@ -29,11 +41,15 @@ function sendError($msg){
     
     die(json_encode($ret));
 }
+# getting infos
 $request = file_get_contents('php://input');
 $result = json_decode($request, true);
+# account infos
 $accountName = $result["accountname"];
 $password = $result["password"];
-$port = 7172;
+# game port
+$port = $config['server']['gameProtocolPort'];
+# check if player wanna see cast list
 if (strtolower($accountName) == "cast")
 	$isCasting = true;
 if ($isCasting) {
@@ -49,7 +65,7 @@ if ($isCasting) {
 			$characters[] = $char;
 		}			
 	}
-	$port = 7173;
+	$port = $config['server']['liveCastPort'];
 	$lastLogin = 0;
 	$premiumAccount = true;
 	$timePremium = 0;

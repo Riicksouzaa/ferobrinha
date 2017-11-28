@@ -1,4 +1,7 @@
 <?php
+/**
+ * SECURITY IMPLEMENT BY RIICKSOUZAA
+ */
 if (!$_POST){
     header("Location: ./");
 }else{

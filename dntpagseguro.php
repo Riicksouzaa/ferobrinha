@@ -4,9 +4,7 @@
 ### WORKING FINE 19/08/2006 ###
 ###       IVENSPONTES       ###
 ### github.com/ivenspontes/ ###
-define('INITIALIZED', true);
-if (!defined('ONLY_PAGE'))
-    define('ONLY_PAGE', true);
+
 require_once 'custom_scripts/PagSeguroLibrary/PagSeguroLibrary.php';
 require 'config/config.php';
 

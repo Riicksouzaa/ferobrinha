@@ -29,7 +29,7 @@ if (!ctype_alnum($s1))
 if (!preg_match('/[a-zA-Z]/', $s1))
     $err[] = 'The password must contain at least one letter A-Z or a-z!';
 elseif (!preg_match('/[0-9]/', $s1))
-    $err[] = 'The password must contain at least one letter other than A-Z or a-z!';
+    $err[] = 'The password must contain at least one number!';
 
 if (count($err) != 0) {
     $s = '';

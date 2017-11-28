@@ -66,10 +66,10 @@ if (isset($_POST['a_CharacterName'])) {
         f('This name contains a space at the end. Please remove this space!');
         die();
     }
-    elseif (!ctype_upper($s[0])){
+    /*elseif (!ctype_upper($s[0])){
         f('The first letter of a name has to be a capital letter!');
         die();
-    }
+    }*/
     elseif (strpos($s, '  ') !== false){
         f('This name contains more than one space between words. Please use only one space between words!');
         die();
@@ -109,7 +109,7 @@ if (isset($_POST['a_CharacterName'])) {
     $s = strtolower($s);
     for ($i = 0; $i < strlen($s); $i++)
         if ($s[$i] == $s[($i + 1)] && $s[$i] == $s[($i + 2)]){
-            f('This character name is already used. Please select another one!');
+            f('This character name have more them 3 letters repeated together.<br> Please select another one!');
             die();
         }
     foreach (array('aa ', 'ee', 'ii', 'oo', 'uu', 'gm', 'cm', 'aff ', 'god ', 'abc', 'tutor', 'game', 'admin', 'the ') as $v)
