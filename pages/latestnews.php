@@ -1,7 +1,7 @@
 <?php
 if(!defined('INITIALIZED'))
 	exit;
-var_dump($config['server']);
+//var_dump($config['server']);
 //News Ticker
 $news_content .= '
 	<div id="newsticker" class="Box">
