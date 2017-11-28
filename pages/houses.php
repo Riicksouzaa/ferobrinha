@@ -1,4 +1,9 @@
 <?php
+//-----------------------------//
+# Date: 28/11/2017
+# Por: Marco Oliviera
+# Contato: +55 (38) 99186-3004
+//------------------------------//
 if(!defined('INITIALIZED'))
     exit;
 // CONFIG
@@ -231,15 +236,103 @@ if($action == '')
                 $owner = 'The house is currently being auctioned. No bid has been submitted so far.';
             }
         }
-        $main_content .= '<table border=0 cellspacing=1 cellpadding=4 width=100%><tr><td><img src="images/house/' . $house['id'] . '.png" alt="house image" /></td><td><table border=0 cellspacing=1 cellpadding=4 width=100%>
+        $main_content .= '
+		
+				<table border=0 cellspacing=1 cellpadding=4 >
+		<tr>
+		<td>
+		<div class="SmallBox">
+				<div class="MessageContainer">
+					<div class="BoxFrameHorizontal" style="background-image:url('.$layout_name.'/images/global/content/box-frame-horizontal.gif);"></div>
+					<div class="BoxFrameEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></div>
+					<div class="BoxFrameEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></div>
+					<div class="Message">
+						<div class="BoxFrameVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></div>
+						<div class="BoxFrameVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></div>
+						<table style="width:100%;">
+							<tbody><tr><td style="width:100%;text-align:center;">
+							<img border="3" width=300 height=222 src="images/house/'.$house['name'].'.jpeg" alt="house image" /></td>
+						</tr>
+					</tbody></table>
+				</div>
+				<div class="BoxFrameHorizontal" style="background-image:url('.$layout_name.'/images/global/content/box-frame-horizontal.gif);"></div>
+				<div class="BoxFrameEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></div>
+				<div class="BoxFrameEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></div>
+			</div>
+		</div>
+		<br>
+		</td>
+		<td>
+		<center>
+			<table>
+				<tbody>
+					<tr>
+						<td><img src="'.$layout_name.'/images/global/content/headline-bracer-left.gif"></td>
+						<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">'.$house['name'].'</td>
+						<td><img src="'.$layout_name.'/images/global/content/headline-bracer-right.gif"></td>
+					</tr>
+					</tbody>
+			</table> 
+		</center>
+		<br>
+		<table class="Table5" cellpadding="0" cellspacing="0">
+        <tbody>
             <tr>
+                <td>
+                    <div class="InnerTableContainer">
+                        <table style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td>
+									<div class="TableShadowContainerRightTop">
+										<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"></div>
+									</div>
+                                       <div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
+										<div class="TableContentContainer">
+											<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                    <tbody>
+                                                        <tr>
+		
+		
+		
+		<table border=0 cellspacing=1 cellpadding=4 width=100%>
+            <tr bgcolor="#D4C0A1">
                 <td></td>
                 <td>
                     <b>'.$house['name'].'</b><br>
                     This house has <b>'.$door.'</b> and <b>'.$bed.'</b> and it is placed in <b>'.$towns_list[$house['town_id']].'</b>.<br><br>
                     The house has a size of <b>'.$house['size'].' square meters</b>.
-                    The monthly rent is <b>'.$house['rent'].' gold</b> and will be debited to the bank account on <b>' . $config['server']['serverName'] . '</b><br>
-                    '.$owner;
+                    The monthly rent is <b>'.$house['rent'].' gold</b> and will be debited to the bank account on <b>' . $config['server']['serverName'] . '</b><br><br>
+                   '.$owner.'
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2></td>
+            </tr>
+        
+		
+		</tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="TableShadowContainer">
+										<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
+											<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
+											<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
+										</div>
+									</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+		</table>
+		';
                    
         if(Visitor::isLogged())
         {
@@ -259,8 +352,18 @@ if($action == '')
 
         if($house['owner'] == 0 && ($house['bid_end'] > time() || $house['bid_end'] == 0))
         {
-            // bid button
-            $main_content .= '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=100%><TR><TD><center><a href="index.php?subtopic=houses&action=bid&house=' . $house['id'] . '"><img src="'.$layout_name.'/images/global/buttons/sbutton_bid.gif" BORDER=0 /></a></center></TD><TD><center><a href="index.php?subtopic=houses&town=' . (int) $house['town_id'] . '&owner=' . (($house['owner'] > 0) ? 1 : 0) . '&order=0&status=0"><img src="'.$layout_name.'/images/global/buttons/sbutton_back.gif" BORDER=0 /></a></center></TD></TR></TABLE>';
+            //Button Back
+            $main_content .= '
+			<center>
+		<form action="?subtopic=houses&town=' . (int) $house['town_id'] . '&owner=' . (($house['owner'] > 0) ? 1 : 0) . '&order=0&status=0" method="post">
+					<tr>
+						<td style="border:0px;" ><div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton.gif)" >
+						<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_over.gif);" ></div>
+						<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/buttons/_sbutton_back.gif" >
+					</div>
+				</div>
+			</form>
+		</center>';
         }
         else
         {
@@ -413,7 +516,6 @@ elseif($action == 'bid')
                                             </tr>
                                             <tr bgcolor="'.$config['site']['lightborder'].'">
                                                 <td><b>Owner</b></td>
-                                                <td><input type=image name="Submit" alt="Submit" src="'.$layout_name.'/images/global/buttons/sbutton_bid.gif" border="0" WIDTH=120 HEIGHT=18></td>
                                             </tr>
                                         </table>
                                     </form><br />If your offer is now highest on auction you can bid to make your maximum offer lower (cannot be lower then current "bid") or higher.<br />You can also bid you change character that will own house, if you win auction.';
