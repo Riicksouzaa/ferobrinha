@@ -254,7 +254,7 @@ if(!ONLY_PAGE)
 	{
 		$config['status']['serverStatus_checkInterval'] = $statustimeout+3;
 		$config['status']['serverStatus_lastCheck'] = time();
-		$statusInfo = new ServerStatus($config['server']['ip'], $config['server']['statusProtocolPort'], 1);
+		$statusInfo = new ServerStatus($config['server']['ip'], $config['server']['statusProtocolPort']);
 		if($statusInfo->isOnline())
 		{
 			$config['status']['serverStatus_online'] = 1;
