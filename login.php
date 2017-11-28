@@ -33,7 +33,7 @@ $request = file_get_contents('php://input');
 $result = json_decode($request, true);
 $accountName = $result["accountname"];
 $password = $result["password"];
-$port = 7172;
+$port = $config['server']['gameProtocolPort'];
 if (strtolower($accountName) == "cast")
 	$isCasting = true;
 if ($isCasting) {
@@ -49,7 +49,7 @@ if ($isCasting) {
 			$characters[] = $char;
 		}			
 	}
-	$port = 7173;
+	$port = $config['server']['liveCastPort'];
 	$lastLogin = 0;
 	$premiumAccount = true;
 	$timePremium = 0;

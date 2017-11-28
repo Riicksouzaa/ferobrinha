@@ -152,7 +152,7 @@ if (!$logged)
 										</div>
 										</form>
 										</div>
-										If your Tibia Account is already connected to an authenticator, click on "Use Authenticator". A field will be displayed which allows you to provide your authenticator token along with your account data upon login. Otherwise, you will be asked for your authenticator token in the next step.<p>An authenticator is a security feature which helps to prevent any unauthorised access to your Tibia account! You can connect your account to an authenticator via your account management page.</p></td></tr>
+										If your '.$config['server']['serverName'].' Account is already connected to an authenticator, click on "Use Authenticator". A field will be displayed which allows you to provide your authenticator token along with your account data upon login. Otherwise, you will be asked for your authenticator token in the next step.<p>An authenticator is a security feature which helps to prevent any unauthorised access to your '.$config['server']['serverName'].' account! You can connect your account to an authenticator via your account management page.</p></td></tr>
 												</table>
 											</div>
 										</div>
@@ -419,7 +419,8 @@ else {
 				</table>
 			</div>
 			<br>';
-		$main_content .='
+			
+			$main_content .='
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 							<div class="CaptionInnerContainer">
@@ -503,8 +504,7 @@ else {
 							</td>
 						</tr>
 					</tbody></table>
-				</div><br>
-		';
+				</div><br>';	
 
         $main_content .= '
 				<div class="TableContainer" >
@@ -535,7 +535,7 @@ else {
 				<img style="width: 45px; height: 45px; border: 0px; margin-right: 10px;" src="' . $layout_name . '/images/account/download_windows.gif" /></a>
 				<br/>
 				<a style="position: absolute; bottom: -5px; right: 0px;" href="?subtopic=downloadclient" >Download</a></div>
-				<span style="position: relative; top: 18px;" >Click <a href="?subtopic=downloadclient" >here</a> to download the latest '.$config['server']['serverName'].' Client!</span>
+				<span style="position: relative; top: 18px;" >Click <a href="?subtopic=downloadclient" >here</a> to download the latest '.$config['server']['serverName'].' client!</span>
 				</div></td></tr>    </table>  </div></div><div class="TableShadowContainer" >  
 				<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
 				<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" >
@@ -1253,12 +1253,9 @@ else {
 																		</div>
 																	</form>
 																</div>
-																<b>Donate to ' . $config['server']['serverName'] . '</b><span style=" margin-left: 5px;" >
-																	<span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Information:\', \'Just click on donate if really interested in helping the server to grow.<br/><br/>If you have more than 3 donations unconfirmed or false , your account may be banned, or even permanent exclusion.\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >
-																			<image style="border:0px;" src="' . $layout_name . '/images/global/content/info.gif" />
-																		</span>
-																	</span>
-																<br/>
+																<b>Donate to ' . $config['server']['serverName'] . '</b> <span style=" margin-left: 5px;" ><span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Information:\', \'Just click on donate if really interested in helping the server to grow.<br/><br/>If you have more than 3 donations unconfirmed or false , your account may be banned, or even permanent exclusion.\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >
+																							<image style="border:0px;" src="' . $layout_name . '/images/global/content/info.gif" />
+																							</span></span><br/>
 																Your donations are an incentive for us always bring the best.<br/>
 																<ul>
 																	<li>Your donations will be reversed in tibia coins.</li>
@@ -2643,21 +2640,26 @@ else {
             $delChar = new Player();
             $delChar->find($charName);
             if ($delChar->isLoaded()) {
+                $delPlayerName = $delChar->getName();
+                $delPlayerAcc = new Account();
+                $delPlayerAcc->loadByName($_SESSION['account']);
+                if($delChar->data['account_id'] == $delPlayerAcc->data['id']) {
 
-                if (isset($_REQUEST['function']) && $_REQUEST['function'] == "deletecharacter") {
-                    $spanColor = "";
-                    $delPassword = trim(stripslashes($_POST['password']));
-                    if (!$account_logged->isValidPassword($delPassword)) {
-                        $erro = "Password is not correct!";
-                        $spanColor = "class=red";
-                    }
-                    if (empty($erro)) {
-                        $delChar->setDeleted(1);
-                        $delChar->setDeletion(time() + ($config['site']['daystodelete'] * 86400));
-                        $delChar->save();
-                        header("Location: ?subtopic=accountmanagement&action=deletecharacter&step=deletecharacter&name=$charName");
-                    } else {
-                        $main_content .= '
+
+                    if (isset($_REQUEST['function']) && $_REQUEST['function'] == "deletecharacter") {
+                        $spanColor = "";
+                        $delPassword = trim(stripslashes($_POST['password']));
+                        if (!$account_logged->isValidPassword($delPassword)) {
+                            $erro = "Password is not correct!";
+                            $spanColor = "class=red";
+                        }
+                        if (empty($erro)) {
+                            $delChar->setDeleted(1);
+                            $delChar->setDeletion(time() + ($config['site']['daystodelete'] * 86400));
+                            $delChar->save();
+                            header("Location: ?subtopic=accountmanagement&action=deletecharacter&step=deletecharacter&name=$charName");
+                        } else {
+                            $main_content .= '
 							<div class="SmallBox" >
 								<div class="MessageContainer" >
 									<div class="BoxFrameHorizontal" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-horizontal.gif);" /></div>
@@ -2676,9 +2678,9 @@ else {
 								</div>
 							</div>
 							<br/>';
+                        }
                     }
-                }
-                $main_content .= '
+                    $main_content .= '
 					To delete this character enter your password and click on "Submit".<br/>
 					You can undelete the character within the first 7 days after the deletion.<br/>
 					After this time the character is deleted for good and cannot be restored anymore!<br/>
@@ -2710,13 +2712,13 @@ else {
 													<td class="LabelV" ><span ' . $spanColor . '>Password:</td>
 													<td><input type="password" name="password" size="30" maxlength="29" ></td>
 												</tr>';
-                if (!empty($erro))
-                    $main_content .= '
+                    if (!empty($erro))
+                        $main_content .= '
 												<tr>
 													<td></td>
 													<td><span class="FormFieldError">' . $erro . '</span></td>
 												</tr>';
-                $main_content .= '
+                    $main_content .= '
 											</table>
 										</div>
 									</table>
@@ -2760,6 +2762,9 @@ else {
 					</td>
 				</tr>
 			</table>';
+                }else{
+                    header("Location: ?subtopic=accountmanagement");
+                }
             } else {
                 header("Location: ?subtopic=accountmanagement");
             }

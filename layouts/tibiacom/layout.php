@@ -45,7 +45,19 @@ if(!defined('INITIALIZED'))
         echo '<script src="'.$layout_name.'/create_character.js"></script>';
     ?>
     <script src="<?php echo $layout_name; ?>/generic.js"></script>
-    <script>  var loginStatus=0; loginStatus='<?php if($logged){ ?>true<?php }else{ ?>false<?php } ?>'; var activeSubmenuItem='<?php echo $subtopic; ?>'; var JS_DIR_IMAGES=0; JS_DIR_IMAGES='<?php echo $layout_name; ?>/images/'; var JS_DIR_ACCOUNT=0; JS_DIR_ACCOUNT=''; var g_FormName=''; var g_FormField=''; var g_Deactivated=false; var g_FlashClientInPopUp= true; </script>
+    <script>
+        var loginStatus=0;
+        loginStatus='<?php if($logged){ ?>true<?php } else { ?>false<?php } ?>';
+        var activeSubmenuItem='<?php echo $subtopic; ?>';
+        var JS_DIR_IMAGES=0;
+        JS_DIR_IMAGES='<?php echo $layout_name; ?>/images/';
+        var JS_DIR_ACCOUNT=0;
+        JS_DIR_ACCOUNT='';
+        var g_FormName='';
+        var g_FormField='';
+        var g_Deactivated=false;
+        var g_FlashClientInPopUp= true;
+    </script>
     <script>
         if(top.location != window.location) {
             g_FlashClientInPopUp = false;
@@ -101,7 +113,18 @@ if(!defined('INITIALIZED'))
                             </div>
                         </div>
                         <div class="Loginstatus" style="background-image:url(<?php echo $layout_name; ?>/images/global/loginbox/loginbox-textfield-background.gif)">
-                            <div id="LoginstatusText" onclick="LoginstatusTextAction(this);" onmouseover="MouseOverLoginBoxText(this);" onmouseout="MouseOutLoginBoxText(this);"><div id="LoginstatusText_1" class="LoginstatusText" style="background-image: url(<?php echo $layout_name; ?>/images/global/loginbox/loginbox-font-create-account.gif);"></div><div id="LoginstatusText_2" class="LoginstatusText" style="background-image: url(<?php echo $layout_name; ?>/images/global/loginbox/loginbox-font-create-account-over.gif);"></div>
+                            <div id="LoginstatusText"
+                                 onclick="LoginstatusTextAction(this);"
+                                 onmouseover="MouseOverLoginBoxText(this);"
+                                 onmouseout="MouseOutLoginBoxText(this);">
+                                <div id="LoginstatusText_1"
+                                     class="LoginstatusText"
+                                     style="background-image: url(<?php echo $layout_name; ?>/images/global/loginbox/loginbox-font-create-account.gif);">
+                                </div>
+                                <div id="LoginstatusText_2"
+                                     class="LoginstatusText"
+                                     style="background-image: url(<?php echo $layout_name; ?>/images/global/loginbox/loginbox-font-create-account-over.gif);">
+                                </div>
                             </div>
                         </div>
                         <div id="BorderRight" class="LoginBorder" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif)"></div>
