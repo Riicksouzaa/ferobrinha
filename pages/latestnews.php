@@ -3,7 +3,9 @@ if(!defined('INITIALIZED'))
 	exit;
 //var_dump($config['server']);
 $statusInfo = new ServerStatus($config['server']['ip'], $config['server']['statusProtocolPort'], 1);
-var_dump($statusInfo);
+echo '<pre>';
+var_dump($statusInfo->loadStatus(), $statusInfo);
+echo '</pre>';
 //News Ticker
 $news_content .= '
 	<div id="newsticker" class="Box">
