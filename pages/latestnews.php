@@ -2,9 +2,9 @@
 if(!defined('INITIALIZED'))
 	exit;
 //var_dump($config['server']);
-$statusInfo = new ServerStatus($config['server']['ip'], $config['server']['statusProtocolPort'], 1);
+$statusInfo = new ServerStatus($config['server']['ip'], $config['server']['statusProtocolPort'], 1, 'test');
 echo '<pre>';
-var_dump($statusInfo->loadStatus(), $statusInfo);
+var_dump($statusInfo);
 echo '</pre>';
 //News Ticker
 $news_content .= '
