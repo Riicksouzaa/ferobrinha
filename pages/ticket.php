@@ -88,17 +88,18 @@
 		$playerName = "";
 		$subject = $_POST['reportSubject'];
 		$description = $_POST['reportText'];
-		$date = date('M m Y', time());
+//		$date = date('M m Y', time());
+		$date = date("Y-m-d H:i:s");
 		$generateId = rand(238493, 995849);
 		$accid = $account_logged->getID();
-		
-	  $checkId = $SQL->query('SELECT * FROM tickets WHERE ticket_id = '.$generateId.'');
+
+	     $checkId = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_id` ='.$generateId.'");
 	     foreach($checkId as $result){
 	      $ticketId = $result['ticket_id'];
 	     }
 	     while ($ticketId <> ''){
 	      $generateId = rand(238493, 995849);
-	      $checkId = $SQL->query('SELECT * FROM tickets WHERE ticket_id = '.$generateId.'');
+	      $checkId = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_id` ='.$generateId.'");
 	      foreach($checkId as $result){
 	       $ticketId = $result['ticket_id'];
 	      }   
@@ -730,9 +731,10 @@
 												</div>
 											</td>
 										</tr>';
-										$ticketReply = $SQL->query("SELECT * FROM tickets_reply WHERE ticket_id = $idTicket");
+										$ticketReply = $SQL->query("SELECT * FROM `tickets_reply` WHERE `ticket_id` = $idTicket");
 										$index = 1;
-										
+
+//										var_dump($ticketReply);
 										foreach ($ticketReply as $resultadoReply){
 										$player = new Player();
 										$player->find($resultadoReply['reply_author']);

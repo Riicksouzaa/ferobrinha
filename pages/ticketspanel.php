@@ -13,7 +13,7 @@
 					<tbody>
 						<tr>
 							<td><img src="'.$layout_name.'/images/global/images/content/headline-bracer-left.gif"></td>
-							<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Tickets - CaterOT Support<br></td>
+							<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Tickets - '.$config['server']['serverName'].' Support<br></td>
 							<td><img src="'.$layout_name.'/images/global/images/content/headline-bracer-right.gif"></td>
 						</tr>
 					</tbody>
@@ -293,7 +293,7 @@
 					</tbody></table>
 				</div>
 				<br>
-				<table style="width:100%;">
+				<!--<table style="width:100%;">
 					<tbody><tr align="center">
 						<td><table border="0" cellspacing="0" cellpadding="0">
 								
@@ -312,7 +312,7 @@
 							</table>
 						</td>
 					</tr>
-				</tbody></table>
+				</tbody></table>-->
 			</div>';	
 	}		
 ?>
