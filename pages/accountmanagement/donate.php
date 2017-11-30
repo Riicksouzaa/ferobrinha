@@ -206,7 +206,7 @@ if($logged) {
 													<div class="TableContentContainer" >
 														<table class="TableContent" width="100%"  style="border:1px solid #faf0d7;" >
 															<tr>
-																<td><input type="radio" name="donateMethod" value="pagseguro" '.(($_REQUEST['donateMethod'] == "pagseguro") ? 'checked' : '').'></td>
+																<td><input type="radio" name="donateMethod" value="pagseguro" '.(($_REQUEST['donateMethod'] == "pagseguro") ? 'checked' : 'checked').'></td>
 																<td class="LabelV" style="vertical-align: inherit;">PagSeguro</td>
 																<td>This method doesn\'t require confirmation. Coins are credited to your account automatically.</td>
 															</tr>														
