@@ -5,7 +5,7 @@ if($logged)
 {
 	if($group_id_of_acc_logged >= $config['site']['access_admin_panel'])
 	{
-		if ($action == "") {
+		if($action == "") {
 			$main_content .= '
 				<center>
 					<table>
@@ -173,7 +173,7 @@ if($logged)
 						</tbody>
 					</table>
 				</div><br>';
-			
+            include 'ticketspanel.php';
 			$main_content .= '
 				<div class="TableContainer">
 					<div class="CaptionContainer">
@@ -295,7 +295,6 @@ if($logged)
 							</div>
 						</form>
 					</center>';
-			
 		}
 		if($action == "manageplayers") {
 			$main_content .= '
@@ -1067,7 +1066,7 @@ if($logged)
 					</form>
 				</center>';
 		}
-		if ($action == "historymore") {
+		if($action == "historymore") {
 			$serviceGo = trim($_POST['service']);
 			
 			if ($serviceGo == "items") {
