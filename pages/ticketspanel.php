@@ -6,15 +6,15 @@
 		return false;
 	}
 	if($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {		
-		$main_content .= '<div class="BoxContent" style="background-image:url('.$layout_name.'/images/global/images/content/scroll.gif)">
+		$main_content .= '<div class="BoxContent" style="background-image:url('.$layout_name.'/images/global/content/scroll.gif)">
 
 			<center>
 				<table>
 					<tbody>
 						<tr>
-							<td><img src="'.$layout_name.'/images/global/images/content/headline-bracer-left.gif"></td>
+							<td><img src="'.$layout_name.'/images/global/content/headline-bracer-left.gif"></td>
 							<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Tickets - '.$config['server']['serverName'].' Support<br></td>
-							<td><img src="'.$layout_name.'/images/global/images/content/headline-bracer-right.gif"></td>
+							<td><img src="'.$layout_name.'/images/global/content/headline-bracer-right.gif"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -23,15 +23,15 @@
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 							<div class="CaptionInnerContainer">
-								<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/images/content/table-headline-border.gif);"></span>
-								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-vertical.gif);"></span>								
+								<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>								
 								<div class="Text"> Open Tickets </div>
-								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-vertical.gif);"></span>
-								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/images/content/table-headline-border.gif);"></span>
-								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
+								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
 							</div>
 						</div><table class="Table3" cellpadding="0" cellspacing="0">
 						
@@ -41,9 +41,9 @@
 									<table style="width:100%;">
 										<tbody><tr>
 											<td><div class="TableShadowContainerRightTop">
-													<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-rt.gif);"></div>
+													<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"></div>
 												</div>
-												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-rm.gif);">
+												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
 													<div class="TableContentContainer">
 														<table class="TableContent" width="100%">
 															<tbody><tr style="background-color:#D4C0A1;">
@@ -97,9 +97,9 @@
 													</div>
 												</div>
 												<div class="TableShadowContainer">
-													<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-bm.gif);">
-														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-bl.gif);"></div>
-														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-br.gif);"></div>
+													<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
+														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
+														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
 													</div>
 												</div>
 											</td>
@@ -115,15 +115,15 @@
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 							<div class="CaptionInnerContainer">
-								<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/images/content/table-headline-border.gif);"></span>
-								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-vertical.gif);"></span>								
+								<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>								
 								<div class="Text"> Tickets aguardando resposta do player</div>
-								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-vertical.gif);"></span>
-								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/images/content/table-headline-border.gif);"></span>
-								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
+								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
 							</div>
 						</div><table class="Table3" cellpadding="0" cellspacing="0">
 						
@@ -133,9 +133,9 @@
 									<table style="width:100%;">
 										<tbody><tr>
 											<td><div class="TableShadowContainerRightTop">
-													<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-rt.gif);"></div>
+													<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"></div>
 												</div>
-												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-rm.gif);">
+												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
 													<div class="TableContentContainer">
 														<table class="TableContent" width="100%">
 															<tbody><tr style="background-color:#D4C0A1;">
@@ -189,9 +189,9 @@
 													</div>
 												</div>
 												<div class="TableShadowContainer">
-													<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-bm.gif);">
-														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-bl.gif);"></div>
-														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-br.gif);"></div>
+													<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
+														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
+														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
 													</div>
 												</div>
 											</td>
@@ -207,15 +207,15 @@
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 							<div class="CaptionInnerContainer">
-								<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/images/content/table-headline-border.gif);"></span>
-								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-vertical.gif);"></span>								
+								<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>								
 								<div class="Text"> Closed Tickets </div>
-								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-vertical.gif);"></span>
-								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/images/content/table-headline-border.gif);"></span>
-								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/images/content/box-frame-edge.gif);"></span>
+								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
 							</div>
 						</div><table class="Table3" cellpadding="0" cellspacing="0">
 						
@@ -224,9 +224,9 @@
 									<table style="width:100%;">
 										<tbody><tr>
 											<td><div class="TableShadowContainerRightTop">
-													<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-rt.gif);"></div>
+													<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"></div>
 												</div>
-												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-rm.gif);">
+												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
 													<div class="TableContentContainer">
 														<table class="TableContent" width="100%">
 															<tbody><tr style="background-color:#D4C0A1;">
@@ -279,9 +279,9 @@
 													</div>
 												</div>
 												<div class="TableShadowContainer">
-													<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-bm.gif);">
-														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-bl.gif);"></div>
-														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/images/content/table-shadow-br.gif);"></div>
+													<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
+														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
+														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
 													</div>
 												</div>
 											</td>
@@ -298,11 +298,11 @@
 						<td><table border="0" cellspacing="0" cellpadding="0">
 								
 									<tbody><tr>
-										<td style="border:0px;"><div class="BigButton" style="background-image:url('.$layout_name.'/images/global/images/buttons/sbutton.gif)">
+										<td style="border:0px;"><div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton.gif)">
 												<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
-													<div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/images/buttons/sbutton_over.gif);"> </div>
+													<div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_over.gif);"> </div>
 													<form action="?subtopic=accountmanagement" method="post">
-													<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/images/buttons/_sbutton_back.gif">
+													<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/buttons/_sbutton_back.gif">
 													</form>	
 												</div>
 											</div>
