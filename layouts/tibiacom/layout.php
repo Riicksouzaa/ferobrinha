@@ -48,7 +48,11 @@ if(!defined('INITIALIZED'))
     <script>
         var loginStatus=0;
         loginStatus='<?php if($logged){ ?>true<?php } else { ?>false<?php } ?>';
+        <?php if ($_REQUEST['subtopic'] == 'accountmanagement' && $_REQUEST['action'] == 'donate'){?>
+        var activeSubmenuItem='donate';
+        <?php }else{?>
         var activeSubmenuItem='<?php echo $subtopic; ?>';
+        <?php }?>
         var JS_DIR_IMAGES=0;
         JS_DIR_IMAGES='<?php echo $layout_name; ?>/images/';
         var JS_DIR_ACCOUNT=0;
