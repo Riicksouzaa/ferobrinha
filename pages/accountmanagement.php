@@ -4756,7 +4756,7 @@ else {
             if (empty($newchar_errors)) {
                 // load items and skills of player before we change ID
                 $char_to_copy->getItems()->load();
-
+                $char_to_copy->loadStorages();
                 if ($newchar_sex == "0")
                     $char_to_copy->setLookType(136);
                     $char_to_copy->setID(null); // save as new character
@@ -4776,6 +4776,9 @@ else {
                     $char_to_copy->save(); // now it will load 'id' of new player
                 if ($char_to_copy->isLoaded()) {
                     $char_to_copy->saveItems();
+                    foreach ($char_to_copy->storages as $key=>$value){
+                        $SQL->query("INSERT INTO `player_storage` (`player_id`, `key`, `value`)VALUES(".$char_to_copy->data['id'].", ".$key.", ".$value.")");
+                    }
                     $main_content .= '<div class="TableContainer" >  <table class="Table1" cellpadding="0" cellspacing="0" >    <div class="CaptionContainer" >      <div class="CaptionInnerContainer" >        <span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>        <span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>        <div class="Text" >Character Created</div>        <span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>        <span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>        <span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>      </div>    </div>    <tr>      <td>        <div class="InnerTableContainer" >          <table style="width:100%;" ><tr><td>The character <b>' . htmlspecialchars($newchar_name) . '</b> has been created.<br/>Please select the outfit when you log in for the first time.<br/><br/><b>See you on ' . $config['server']['serverName'] . '!</b></td></tr>          </table>        </div>  </table></div></td></tr><br/><center><table border="0" cellspacing="0" cellpadding="0" ><form action="?subtopic=accountmanagement" method="post" ><tr><td style="border:0px;" ><div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" ><div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div><input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif" ></div></div></td></tr></form></table></center>';
                 } else {
                     echo "Error. Can\'t create character. Probably problem with database. Try again or contact with admin.";
