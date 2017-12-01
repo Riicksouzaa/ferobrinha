@@ -528,7 +528,7 @@ if(!defined('INITIALIZED'))
                                     if (isset($_SESSION['server_status_last_check'])) {
                                         $last = $_SESSION['server_status_last_check'];
                                     }
-                                    if ($last == null || time() > $last + 5) {
+                                    if ($last == null || time() > $last + 30) {
                                         $_SESSION['server_status_last_check'] = time();
                                         $_SESSION['server_status'] = $config['status']['serverStatus_online'];
                                     }
