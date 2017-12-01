@@ -517,10 +517,29 @@ if(!defined('INITIALIZED'))
                                     <img id="Monster" src="<?php echo $layout_name; ?>/images/global/header/monsters/dragonlord.gif" alt="Monster of the Week">
                                     <img id="PedestalAndOnline" src="<?php echo $layout_name; ?>/images/global/header/pedestal-and-online.gif" alt="Monster Pedestal and Players Online Box">
                                     <?php
-                                    if($config['status']['serverStatus_online'] == 1)
+
+                                    if ( ! session_id() ) @ session_start();
+
+                                    $last = null;
+                                    if (!isset($_SESSION)) {
+                                        $_SESSION = [];
+                                    }
+
+                                    if (isset($_SESSION['server_status_last_check'])) {
+                                        $last = $_SESSION['server_status_last_check'];
+                                    }
+                                    if ($last == null || time() > $last + 5) {
+                                        $_SESSION['server_status_last_check'] = time();
+                                        $_SESSION['server_status'] = $config['status']['serverStatus_online'];
+                                    }
+
+
+                                    if($_SESSION['server_status'] == 1){
                                         $players_online = $config['status']['serverStatus_players'].'<br>Players Online';
-                                    else
+                                    }
+                                    else{
                                         $players_online = 'Server<br>Offline';
+                                    }
                                     ?>
                                     <div id="PlayersOnline" onclick="window.location = &#39;?subtopic=whoisonline&#39;;"><?php echo $players_online; ?></div>
                                 </div>
