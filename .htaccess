@@ -1,0 +1,11 @@
+RewriteEngine on
+Options All -Indexes
+
+# WC HTTPS Redirect
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+RewriteCond $1 !^(index\.php|css|js|assets|img|static|uploads|favicon\.ico)
+RewriteRule ^(.*)$ index.php/$1 [L]
