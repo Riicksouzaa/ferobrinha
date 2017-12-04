@@ -67,7 +67,7 @@ if($action == "") {
 														</tr>
 														<tr style="background-color:#F1E0C6;" >
 															<td class="LabelV">Free bless to level:</td>
-															<td>50</td>
+															<td>100</td>
 														</tr>
 													</table>
 												</div>
