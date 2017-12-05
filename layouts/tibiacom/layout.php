@@ -574,7 +574,7 @@ if(!defined('INITIALIZED'))
                                                     <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
                                                         <div class="BigButtonOver" style="background-image:url(<?php echo $layout_name; ?>/images/global/buttons/sbutton_green_over.gif);">
                                                         </div>
-                                                        <input class="ButtonText" type="image" name="Get Premium" alt="Get Premium" src="<?php echo $layout_name; ?>/images/global/buttons/_sbutton_getpremium.gif">
+                                                        <input class="ButtonText" type="image" name="Get Premium" alt="Get Premium" src="<?php echo $layout_name; ?>/images/global/buttons/_sbutton_gettibiacoins.gif">
                                                     </div>
                                                 </div>
                                             </form>
