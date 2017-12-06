@@ -104,7 +104,7 @@ if(!defined('INITIALIZED'))
                     <div id="LeftArtwork">
                         <a href="./?subtopic=latestnews">
                             <img id="TibiaLogoArtworkTop"
-                                 src="<?php echo $layout_name; ?>/images/global/header/tibia-logo-website-ferobra-production.png"
+                                 src="<?php echo $layout_name; ?>/images/global/header/tibia-logo-website-ferobra-production-beta.png"
                                  alt="logoartwork">
                         </a>
                     </div>
