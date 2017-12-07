@@ -56,6 +56,7 @@
 .Content #NewsTicker .NewsTickerShortText {
   margin-left: 85px;
   height: 14px;
+  overflow: hidden;
 }
 
 .Content #NewsTicker .NewsTickerFullText {
