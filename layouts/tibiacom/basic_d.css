@@ -14,10 +14,6 @@ body {
     vertical-align: middle;
 }
 
-.TickerEntry-0-ShortText{
-  overflow:hidden;
-}
-
 #DeactivationContainer {
     position: absolute;
     top: 0px;
