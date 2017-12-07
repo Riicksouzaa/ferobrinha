@@ -165,18 +165,27 @@ if(!empty($name))
 			}
 			
 			$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
-			if ($account->getPremDays() > 0)
-				$main_content .= '
+			if ($account->getPremDays() > 0){
+                $main_content .= '
 					<tr bgcolor="' . $bgcolor . '">
 						<td>Account Status:</td>
 						<td>Premium Account</td>
 					</tr>';
-			else
-				$main_content .= '
+            }
+			else if($config['server']['freePremium'] == "yes"){
+                $main_content .= '
+					<tr bgcolor="' . $bgcolor . '">
+						<td>Account Status:</td>
+						<td>Premium Account</td>
+					</tr>';
+            }else{
+                $main_content .= '
 					<tr bgcolor="' . $bgcolor . '">
 						<td>Account Status:</td>
 						<td>Free Account</td>
 					</tr>';
+            }
+
 			
 			$main_content .= '	</tr>
 												<tr>
