@@ -165,7 +165,8 @@ if(!empty($name))
 			}
 			
 			$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
-			if ($account->getPremDays() > 0)
+			$premium = $player->loadAccount();
+			if ($premium->getPremDays() > 0)
 				$main_content .= '
 					<tr bgcolor="' . $bgcolor . '">
 						<td>Account Status:</td>
