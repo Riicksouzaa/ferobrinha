@@ -86,7 +86,7 @@
 		$category = $_POST['reportCategory'];
 		$playerID = $_POST['reportPlayer'];
 		$playerName = "";
-		$subject = $_POST['reportSubject'];
+		$subject = trim(htmlspecialchars($_POST['reportSubject']));
 		$description = $_POST['reportText'];
 //		$date = date('M m Y', time());
 		$date = date("Y-m-d H:i:s");
