@@ -419,7 +419,8 @@ else {
 				</table>
 			</div>
 			<br>';
-			
+
+
 					$main_content .='
 				<div class="TableContainer">
 					<div class="CaptionContainer">
@@ -475,19 +476,49 @@ else {
 												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
 													<div class="TableContentContainer">
 														<table class="TableContent" width="100%">
-															<tbody><tr style="background-color:#D4C0A1;">
+															<tbody>
+															<tr style="background-color:#D4C0A1;">
 																	<td class="LabelV">Ticket</td>
 																	<td class="LabelV">Player</td>
 																	<td class="LabelV">Subject</td>
 																	<td class="LabelV">Status</td>
 																	<td class="LabelV">Last answer</td>
 																	<td class="LabelV">Category</td>
-															</tr>
-																</tr><tr bgcolor="#D4C0A1">
-																	<td align="left" colspan="5"><small>To see all your tickets click on <i>Show all</i></small></td>
-																	<td><a href="?subtopic=accountmanagement&action=showtickets"><small>Show All</small></a></td>																
-																</tr>
-																	</tbody>
+															</tr>';
+					                            $account_id = $account_logged->getID();
+					                            $tickets = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_author_acc_id` = ".$account_id." ORDER BY `ticket_date` DESC LIMIT 5");
+					                            if($tickets){
+					                                foreach ($tickets as $tickets_content){
+                                                        $main_content .= "
+                                                                <tr>
+                                                                    <td><a href='?subtopic=ticket&amp;action=showticket&amp;do=number&amp;id={$tickets_content['ticket_id']}'>#{$tickets_content['ticket_id']}</a></td>
+                                                                    <td><a href='?subtopic=characters&amp;name={$tickets_content['ticket_author']}'>{$tickets_content['ticket_author']}</td>
+                                                                    <td>{$tickets_content['ticket_subject']}</td>";
+                                                        if($tickets_content['ticket_status'] == "Waiting"){
+                                                            $main_content .= "
+                                                                    <td style='color: gray !important;'>{$tickets_content['ticket_status']}</td>";
+                                                        }elseif ($tickets_content['ticket_status'] == "Closed"){
+                                                            $main_content .= "
+                                                                    <td style='color: red !important;'>{$tickets_content['ticket_status']}</td>";
+                                                        }else{
+                                                            $main_content .= "
+                                                                    <td>{$tickets_content['ticket_status']}</td>";
+                                                        }
+                                                        $main_content .= "
+                                                                    <td>{$tickets_content['ticket_last_reply']}</td>
+                                                                    <td>{$tickets_content['ticket_category']}</td>
+                                                                </tr>
+                                                                ";
+                                                    }
+                                                }
+
+
+                                                $main_content .= '
+                                                            <tr bgcolor="#D4C0A1">                                                                
+                                                                <td align="left" colspan="5"><small>To see all your tickets click on <i>Show all</i></small></td>
+                                                                <td><a href="?subtopic=accountmanagement&action=showtickets"><small>Show All</small></a></td>
+                                                            </tr> 
+															</tbody>
 														</table>
 													</div>
 												</div>
@@ -2950,7 +2981,7 @@ else {
         }
     }
     //Register account and get Recovery key
-    if ($action == "registeraccount")
+    if ($action == "registeraccount"){
         if (empty($account_reckey)) {
             $main_content .= '
 				<div id="ProgressBar">
@@ -3340,7 +3371,7 @@ else {
                     header("Location: ?subtopic=accountmanagement&action=manage");
                 }
             }
-        }
+        }}
 
     if ($action == "changecharacterinformation") {
         if (!isset($_REQUEST['step'])) {
@@ -3800,7 +3831,7 @@ else {
 				</center>';
     }
 
-    if ($action == "passowordchanged")
+    if ($action == "passowordchanged"){
         $main_content .= '
 				<div class="TableContainer" >
 					<table class="Table1" cellpadding="0" cellspacing="0" >
@@ -3843,7 +3874,7 @@ else {
 							</tr>
 						</form>
 					</table>
-				</center>';
+				</center>';}
 
     if ($action == "paymentshistory") {
 
@@ -4558,9 +4589,9 @@ else {
         }
     }
 
-    if ($action == "services")
+    if ($action == "services"){
         include 'accountmanagement/shop.php';
-
+    }
     //## CREATE CHARACTER on account ###
     if ($action == "createcharacter") {
         $main_content .= '
@@ -4963,6 +4994,13 @@ else {
             $main_content .= 'Here you can tell other players about yourself. This information will be displayed alongside the data of your characters. If you do not want to fill in a certain field, just leave it blank.<br/><br/><form action="?subtopic=accountmanagement&action=changeinfo" method=post><div class="TableContainer" >  <table class="Table1" cellpadding="0" cellspacing="0" >    <div class="CaptionContainer" >      <div class="CaptionInnerContainer" >        <span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>        <span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>        <div class="Text" >Change Public Information</div>        <span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>        <span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>        <span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>      </div>    </div>    <tr>      <td>        <div class="InnerTableContainer" >          <table style="width:100%;" ><tr><td class="LabelV" >Real Name:</td><td style="width:90%;" ><input name="info_rlname" value="' . $account_rlname . '" size="30" maxlength="50" ></td></tr><tr><td class="LabelV" >Location:</td><td><input name="info_location" value="' . $account_location . '" size="30" maxlength="50" ></td></tr></table>        </div>  </table></div></td></tr><br/><table width="100%"><tr align="center"><td><table border="0" cellspacing="0" cellpadding="0" ><tr><td style="border:0px;" ><input type="hidden" name="changeinfosave" value="1" ><div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" ><div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div><input class="ButtonText" type="image" name="Submit" alt="Submit" src="' . $layout_name . '/images/global/buttons/_sbutton_submit.gif" ></div></div></td><tr></form></table></td><td><table border="0" cellspacing="0" cellpadding="0" ><form action="?subtopic=accountmanagement" method="post" ><tr><td style="border:0px;" ><div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" ><div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div><input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif" ></div></div></td></tr></form></table></td></tr></table>';
         }
     }
-    if ($action == "donate")
+    if ($action == "donate"){
         include 'accountmanagement/donate.php';
+    }
+    /**
+     * SHOW TICKETS BY RICARDO SOUZA
+     */
+    if($action == "showtickets"){
+        include 'accountmanagement/showtickets.php';
+    }
 }

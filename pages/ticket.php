@@ -572,83 +572,81 @@
 	}
 	
 	if ($action == "showticket") {
-		
-		$metodo = $_GET['do'];
-		$idTicket = $_GET['id'];		
-		
-		if ($metodo == 'closeticket'){
-			$date = date('M m Y', time());
-			$SQL->query("UPDATE tickets SET ticket_status = 'Closed', ticket_ended = '$date' WHERE ticket_id = $idTicket");
-		}
-		
-		if ($metodo == 'reply'){
-			$idTicket = $_GET['id'];
-			$mensagem = $_POST['reportText'];
-			$date = $result['ticket_date'];
-			$dadosTicket = $SQL->query("SELECT * FROM tickets WHERE ticket_id = $idTicket");
-			
-			
-			if (strlen($mensagem) < 10 || strlen($mensagem) > 1000){
-				$main_content .= "<center><h2>Description need to have 10 up to 1000 characters.</h2></center>";
-				
-			} else {
-				foreach($dadosTicket as $resultado){
-					$replyAuthor = $resultado['ticket_author'];
-					$replyAuthorId = $resultado['ticket_author_acc_id'];
-				}
-				
-				if ($replyAuthorId == $account_logged->getID()){
-					$replyAuthorTrue = $replyAuthor;
-				} else {
-					if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']){
-						$players_from_logged_acc = $account_logged->getPlayersList();
-						foreach($players_from_logged_acc as $player){
-							if ($player->getGroupID() == 5){
-								$replyAuthorTrue = $player->getName();
-							}
-						}
-					}
-				}
-				
-				$SQL->query("INSERT INTO `tickets_reply`(`ticket_id`, `reply_author`, `reply_message`, `reply_date`) VALUES ($idTicket,'$replyAuthorTrue','$mensagem','$date')");
-				if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']){
-					$SQL->query("UPDATE `tickets` SET `ticket_last_reply` = 'Staff', `ticket_admin_reply` = 1 WHERE ticket_id = $idTicket");
-					
-					echo "to aqui";
-				} else {
-					$SQL->query("UPDATE `tickets` SET `ticket_admin_reply` = 0, `ticket_last_reply`= 'You' WHERE ticket_id = $idTicket");
-				}					
-			}			
-		}
-		
-		$ticket = $SQL->query("SELECT * FROM tickets WHERE ticket_id = $idTicket");
-		foreach ($ticket as $result){
-			$subject = $result['ticket_subject'];
-			$playerName = $result['ticket_author'];
-			$date = $result['ticket_date'];
-			$ended = $result['ticket_ended'];
-			$status = $result['ticket_status'];
-			$category = $result['ticket_category'];
-			$description = $result['ticket_description'];
-			$authorid = $result['ticket_author_acc_id'];
-		}
-		
-		if ($authorid <> $account_logged->getID()){		
-			if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']){
-				
-			} else {
-				return;
-			}
-		}
-		
-		$main_content .= '<div class="BoxContent" style="background-image:url('.$layout_name.'/images/global/content/scroll.gif)">
+
+        $metodo = $_GET['do'];
+        $idTicket = $_GET['id'];
+
+        if ($metodo == 'closeticket') {
+            $date = date('M m Y', time());
+            $SQL->query("UPDATE tickets SET ticket_status = 'Closed', ticket_ended = '$date' WHERE ticket_id = $idTicket");
+        }
+
+        if ($metodo == 'reply') {
+            $idTicket = $_GET['id'];
+            $mensagem = $_POST['reportText'];
+            $date = date("Y-m-d H:i:s");
+            $dadosTicket = $SQL->query("SELECT * FROM tickets WHERE ticket_id = $idTicket");
+
+
+            if (strlen($mensagem) < 10 || strlen($mensagem) > 1000) {
+                $main_content .= "<center><h2>Description need to have 10 up to 1000 characters.</h2></center>";
+
+            } else {
+                foreach ($dadosTicket as $resultado) {
+                    $replyAuthor = $resultado['ticket_author'];
+                    $replyAuthorId = $resultado['ticket_author_acc_id'];
+                }
+
+                if ($replyAuthorId == $account_logged->getID()) {
+                    $replyAuthorTrue = $replyAuthor;
+                } else {
+                    if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
+                        $players_from_logged_acc = $account_logged->getPlayersList();
+                        foreach ($players_from_logged_acc as $player) {
+                            if ($player->getGroupID() == 5) {
+                                $replyAuthorTrue = $player->getName();
+                            }
+                        }
+                    }
+                }
+
+                $SQL->query("INSERT INTO `tickets_reply`(`ticket_id`, `reply_author`, `reply_message`, `reply_date`) VALUES ($idTicket,'$replyAuthorTrue','$mensagem','$date')");
+                if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
+                    $SQL->query("UPDATE `tickets` SET `ticket_last_reply` = 'Staff', `ticket_admin_reply` = 1 WHERE ticket_id = $idTicket");
+                } else {
+                    $SQL->query("UPDATE `tickets` SET `ticket_admin_reply` = 0, `ticket_last_reply`= 'You' WHERE ticket_id = $idTicket");
+                }
+            }
+        }
+
+        $ticket = $SQL->query("SELECT * FROM tickets WHERE ticket_id = $idTicket");
+        foreach ($ticket as $result) {
+            $subject = $result['ticket_subject'];
+            $playerName = $result['ticket_author'];
+            $date = $result['ticket_date'];
+            $ended = $result['ticket_ended'];
+            $status = $result['ticket_status'];
+            $category = $result['ticket_category'];
+            $description = $result['ticket_description'];
+            $authorid = $result['ticket_author_acc_id'];
+        }
+
+        if ($authorid <> $account_logged->getID()) {
+            if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
+
+            } else {
+                return;
+            }
+        }
+
+        $main_content .= '<div class="BoxContent" style="background-image:url(' . $layout_name . '/images/global/content/scroll.gif)">
 		<center>
 				<table>
 					<tbody>
 						<tr>
-							<td><img src="'.$layout_name.'/images/global/content/headline-bracer-left.gif"></td>
-							<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Tickets - '.$config['server']['serverName'].' Support<br></td>
-							<td><img src="'.$layout_name.'/images/global/content/headline-bracer-right.gif"></td>
+							<td><img src="' . $layout_name . '/images/global/content/headline-bracer-left.gif"></td>
+							<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Tickets - ' . $config['server']['serverName'] . ' Support<br></td>
+							<td><img src="' . $layout_name . '/images/global/content/headline-bracer-right.gif"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -657,15 +655,15 @@
 							<div class="TableContainer">
 					<div class="CaptionContainer">
 							<div class="CaptionInnerContainer"> 
-								<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"> </span>
-								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>								
+								<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"> </span>
+								<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>								
 								<div class="Text"> Ticket View </div>
-								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
-								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span> 
+								<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 							</div>
 						</div><table class="Table3" cellpadding="0" cellspacing="0">
 						
@@ -673,50 +671,50 @@
 							<td><div class="InnerTableContainer">
 									<table style="width:100%;"><tbody><tr>
 											<td colspan="2"><div class="TableShadowContainerRightTop">
-													<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"> </div>
+													<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
 												</div>
-												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
+												<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
 													<div class="TableContentContainer">
 																<table class="TableContent" width="100%">
 															<tbody><tr style="background-color:#F1E0C6;">
 																<td class="LabelV"> Ticket </td>
-																<td>'.$idTicket.'</td>
+																<td>' . $idTicket . '</td>
 															</tr>
 															<tr style="background-color:#D4C0A1;">
 																<td class="LabelV"> Subject </td>
-																<td>'.$subject.'</td>
+																<td>' . $subject . '</td>
 															</tr>
 															<tr style="background-color:#F1E0C6;">
 																<td class="LabelV"> Created By </td>
-																<td><a href="?subtopic=characters&amp;name=">'.$playerName.'</a></td>
+																<td><a href="?subtopic=characters&amp;name=">' . $playerName . '</a></td>
 															</tr>
 															<tr style="background-color:#D4C0A1;">
 																<td class="LabelV" width="20%"> Date </td>
-																<td width="80%">'.$date.'</td>
+																<td width="80%">' . $date . '</td>
 															</tr>
 															<tr style="background-color:#F1E0C6;">
 																<td class="LabelV" width="20%"> Ended in </td>
-																<td width="80%">'.$ended.'</td>
+																<td width="80%">' . $ended . '</td>
 																</tr>
 															<tr style="background-color:#D4C0A1;"><td class="LabelV"> Status </td>';
-														
-															if ($status == 'Waiting'){
-															$main_content .='<td><font color="gray"><b>'.$status.'</b></font></td>';
-															} 
-															if ($status == 'Closed'){
-															$main_content .='<td><font color="red"><b>'.$status.'</b></font></td>';
-															} 
-															$main_content .='
+
+        if ($status == 'Waiting') {
+            $main_content .= '<td><font color="gray"><b>' . $status . '</b></font></td>';
+        }
+        if ($status == 'Closed') {
+            $main_content .= '<td><font color="red"><b>' . $status . '</b></font></td>';
+        }
+        $main_content .= '
 															</tr>
 															<tr style="background-color:#F1E0C6;">
 																<td class="LabelV"> Category </td>
-																<td>'.$category.'</td>
+																<td>' . $category . '</td>
 															</tr>
 															<tr style="background-color:#D4C0A1;">
 																<td class="LabelV"> Description </td>
 																<td width="70%" style="word-wrap: break-word;">
 																<p>
-																	'.$description.'
+																	' . $description . '
 																</p>
 															</td>
 															</tr>
@@ -724,71 +722,72 @@
 													</div>
 												</div>
 												<div class="TableShadowContainer">
-													<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
-														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
-														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
+													<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+														<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+														<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
 													</div>
 												</div>
 											</td>
 										</tr>';
-										$ticketReply = $SQL->query("SELECT * FROM `tickets_reply` WHERE `ticket_id` = $idTicket");
-										$index = 1;
+                                        $ticketReply = $SQL->query("SELECT * FROM `tickets_reply` WHERE `ticket_id` = $idTicket");
+                                        $index = 1;
 
-//										var_dump($ticketReply);
-										foreach ($ticketReply as $resultadoReply){
-										$player = new Player();
-										$player->find($resultadoReply['reply_author']);
-										$main_content .= '
-										<tr>
-													<td width="30%">
-														<div class="TableShadowContainerRightTop">
-															<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"> </div>
-														</div>
-														<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
-															<div class="TableContentContainer">														
-																<table class="TableContent" width="100%" height="80px">
-																	<tbody><tr>
-																		<td><small><strong>Name:</strong> <a href="?subtopic=characters&amp;name=">'.$resultadoReply['reply_author'].'</a></small></td>
-																	</tr>
-																	<tr>
-																		<td><small><strong>Position:</strong>&nbsp'.htmlspecialchars(Website::getGroupName($player->getGroup())).'</small></td>
-																	</tr>
-																	<tr>
-																		<td><small><strong>Reply:</strong> #'.$index.' &nbsp;&nbsp;&nbsp;'.$resultadoReply['reply_date'].'</small></td>
-																	</tr>
-																</tbody></table>
-															</div>
-														</div>
-														<div class="TableShadowContainer">
-															<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
-																<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
-																<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
-															</div>
-														</div>
-													</td>
-													<td class="CipPost">
-														<div class="TableShadowContainerRightTop">
-															<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"> </div>
-														</div>
-														<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
-															<div class="TableContentContainer"><table class="TableContent" width="100%" height="80px">
-																	<tbody><tr style="background-color:#D4C0A1;">
-																		<td><div style="max-height: 80px; overflow-y: auto;"><small>
-																			'.$resultadoReply['reply_message'].'
-																			</small></div></td>
-																	</tr>
-																</tbody></table></div>
-														</div>
-														<div class="TableShadowContainer">
-															<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
-																<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
-																<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
-															</div>
-														</div>
-													</td>
-										</tr>';
-										$index++;
-										}
+                                        if ($ticketReply){
+                                            foreach ($ticketReply as $resultadoReply) {
+                                                $player = new Player();
+                                                $player->find($resultadoReply['reply_author']);
+                                                $main_content .= '
+                                                                        <tr>
+                                                                                    <td width="30%">
+                                                                                        <div class="TableShadowContainerRightTop">
+                                                                                            <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
+                                                                                        </div>
+                                                                                        <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+                                                                                            <div class="TableContentContainer">														
+                                                                                                <table class="TableContent" width="100%" height="80px">
+                                                                                                    <tbody><tr>
+                                                                                                        <td><small><strong>Name:</strong> <a href="?subtopic=characters&amp;name=">' . $resultadoReply['reply_author'] . '</a></small></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td><small><strong>Position:</strong>&nbsp' . htmlspecialchars(Website::getGroupName($player->getGroup())) . '</small></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td><small><strong>Reply:</strong> #' . $index . ' &nbsp;&nbsp;&nbsp;' . $resultadoReply['reply_date'] . '</small></td>
+                                                                                                    </tr>
+                                                                                                </tbody></table>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="TableShadowContainer">
+                                                                                            <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+                                                                                                <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+                                                                                                <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="CipPost">
+                                                                                        <div class="TableShadowContainerRightTop">
+                                                                                            <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
+                                                                                        </div>
+                                                                                        <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+                                                                                            <div class="TableContentContainer"><table class="TableContent" width="100%" height="80px">
+                                                                                                    <tbody><tr style="background-color:#D4C0A1;">
+                                                                                                        <td><div style="max-height: 80px; overflow-y: auto;"><small>
+                                                                                                            ' . $resultadoReply['reply_message'] . '
+                                                                                                            </small></div></td>
+                                                                                                    </tr>
+                                                                                                </tbody></table></div>
+                                                                                        </div>
+                                                                                        <div class="TableShadowContainer">
+                                                                                            <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+                                                                                                <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+                                                                                                <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                        </tr>';
+                                                $index++;
+                                            }
+                                        }
 										$main_content .= '
 										<tr>
 												<td>
