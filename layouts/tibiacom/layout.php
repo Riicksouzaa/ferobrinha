@@ -67,8 +67,8 @@ if(!defined('INITIALIZED'))
             g_FlashClientInPopUp = false;
         }
     </script>
-    <script async src="<?php echo $layout_name; ?>/initialize.js"></script>
-    <script async src="<?php echo $layout_name; ?>/swfobject.js" ></script>
+    <script src="<?php echo $layout_name; ?>/initialize.js"></script>
+    <script src="<?php echo $layout_name; ?>/swfobject.js" ></script>
     <?php if($_REQUEST['subtopic'] == "accountmanagement") { ?>
         <script type="text/javascript">
             function openGameWindow(a_URL)
