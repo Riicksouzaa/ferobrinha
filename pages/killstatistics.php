@@ -6,7 +6,7 @@ if(!defined('INITIALIZED'))
 $players_deaths = new DatabaseList('PlayerDeath');
 $players_deaths->setFilter(new SQL_Filter(new SQL_Field('id', 'players'), SQL_Filter::EQUAL, new SQL_Field('player_id', 'player_deaths')));
 $players_deaths->addOrder(new SQL_Order(new SQL_Field('time'), SQL_Order::DESC));
-$players_deaths->setLimit(50);
+$players_deaths->setLimit(7);
 $players_deaths_count = 0;
 
 foreach($players_deaths as $death)
