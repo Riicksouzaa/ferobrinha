@@ -93,7 +93,7 @@ $main_content .= '
 								<td class="LabelV200" >Players Online:</td>';
 								$playersOnline = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
                                 $main_content .= '
-								<td>'.$playersOnline.' Players Online</td>';
+								<td>'.$playersOnline['total'].' Players Online</td>';
                             $main_content .= '
 							</tr>
 							<tr>
