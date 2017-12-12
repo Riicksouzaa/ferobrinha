@@ -92,7 +92,7 @@ $main_content .= '
 							<tr>
 								<td class="LabelV200" >Players Online:</td>
 								<td>'.$config['status']['serverStatus_players'].' Players Online</td>
-								'.$test = $SQL->query("SELECT `count(*)` as total from `players_online`").'
+								'.$test = $SQL->query("SELECT count(*) as total from `players_online`").'
 								'.var_dump($test).'
 							</tr>
 							<tr>
