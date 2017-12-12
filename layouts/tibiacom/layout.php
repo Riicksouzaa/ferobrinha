@@ -535,7 +535,8 @@ if(!defined('INITIALIZED'))
 
 
                                     if($_SESSION['server_status'] == 1){
-                                        $players_online = $config['status']['serverStatus_players'].'<br>Players Online';
+                                        $qtd_players_online = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
+                                        $players_online = $qtd_players_online["total"].'<br>Players Online';
                                     }
                                     else{
                                         $players_online = 'Server<br>Offline';
