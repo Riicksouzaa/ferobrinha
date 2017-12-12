@@ -90,10 +90,10 @@ $main_content .= '
 									'.(($config['status']['serverStatus_online'] == 1) ? 'Online' : 'Offline').'</td>
 							</tr>
 							<tr>
-								<td class="LabelV200" >Players Online:</td>
-								<td>'.$config['status']['serverStatus_players'].' Players Online</td>';
-								$test = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
-								var_dump($test["total"]);
+								<td class="LabelV200" >Players Online:</td>';
+								$playersOnline = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
+                                $main_content .= '
+								<td>'.$playersOnline.' Players Online</td>';
                             $main_content .= '
 							</tr>
 							<tr>
