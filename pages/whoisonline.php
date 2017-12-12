@@ -92,8 +92,14 @@ $main_content .= '
 							<tr>
 								<td class="LabelV200" >Players Online:</td>';
 								$playersOnline = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
-                                $main_content .= '
-								<td>'.$playersOnline['total'].' Players Online</td>';
+								if($playersOnline == 1){
+                                    $main_content .= '
+								    <td>'.$playersOnline['total'].' Player Online</td>';
+                                }else{
+                                    $main_content .= '
+								    <td>'.$playersOnline['total'].' Players Online</td>';
+                                }
+
                             $main_content .= '
 							</tr>
 							<tr>
