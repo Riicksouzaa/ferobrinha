@@ -235,7 +235,7 @@ if(!empty($name))
 			$player_deaths = new DatabaseList('PlayerDeath');
 			$player_deaths->setFilter(new SQL_Filter(new SQL_Filter(new SQL_Field('player_id'), SQL_Filter::EQUAL, $player->getId()), SQL_Filter::CRITERIUM_AND,new SQL_Filter(new SQL_Field('id', 'players'), SQL_Filter::EQUAL, new SQL_Field('player_id', 'player_deaths'))));
 			$player_deaths->addOrder(new SQL_Order(new SQL_Field('time'), SQL_Order::DESC));
-			$player_deaths->setLimit(20);
+			$player_deaths->setLimit(5);
 	
 			foreach($player_deaths as $death)
 			{
