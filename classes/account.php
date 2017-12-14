@@ -111,15 +111,16 @@ class Account extends ObjectData
 	{
 		$this->loadBans($forceReload);
 		$lastExpires = 0;
-		foreach($bans as $ban)
+		$now = date('Y-m-d h:i:s');
+		foreach($this->bans->data as $ban)
 		{
-			if($ban->getExpiresAt() <= 0)
+			if($ban['expires_at'] <= $now)
 			{
 				$lastExpires = 0;
 				break;
 			}
-			if($ban->getExpiresAt() > time() && $ban->getExpiresAt() > $lastExpires)
-				$lastExpires = $ban->getExpiresAt();
+			if($ban['expires_at'] > $now && $ban['expires_at'] > $lastExpires)
+				$lastExpires = $ban['expires_at'];
 		}
 		return $lastExpires;
 	}

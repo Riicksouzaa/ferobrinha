@@ -283,7 +283,7 @@ if(!empty($name))
 					$main_content .= '
 						<tr bgcolor="'.$bgcolor.'" >
 							<td style="color:red;">Banished:</td>
-							<td style="color:red;">'.date("j F Y, g:i a", $account->getBanTime()).'</td>
+							<td style="color:red;">'.date("j F Y, g:i a", strtotime($account->getBanTime())).'</td>
 						</tr>';
 				}
 				$main_content .= '
