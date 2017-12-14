@@ -62,7 +62,7 @@ $main_content .="</tr>";
 if($changelogs){
     foreach ($changelogs as $result){
         $main_content .= "<tr class='row".($i++ & 1)."'>";
-        $main_content .= "<td><b>".$result['date']."</b></td>";
+        $main_content .= "<td><b>".date('d/m/Y', strtotime($result['date']))."</b></td>";
         $main_content .= "<td>".htmlspecialchars_decode($result['description'])."</td>";
         if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']){
             $main_content .= '<form method="POST" action="?subtopic=adminpanel&action=changelog&acao=del" id="delet_changelog'.$result["id_changelog"].'">
