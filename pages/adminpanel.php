@@ -174,6 +174,7 @@ if($logged)
 					</table>
 				</div><br>';
             include 'ticketspanel.php';
+            include 'adminpanel/changelog.php';
 			$main_content .= '
 				<div class="TableContainer">
 					<div class="CaptionContainer">
@@ -2563,5 +2564,8 @@ if($logged)
 					</div>';
 			}
 		}
+		if($action == "changelog"){
+		    include "adminpanel/changelog.php";
+        }
 	}
 }
