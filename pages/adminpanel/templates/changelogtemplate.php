@@ -108,35 +108,16 @@ $main_content .= '
 if(!$erro){
     $main_content .='                                                  <tr style="background-color:#D4C0A1;">
                                                                             <td class="LabelV">Last Changelog:</td>
-                                                                            <td style="width:90%;">';
-    $lastchangelog = $SQL->query("SELECT * FROM `z_changelogs` ORDER BY `id_changelog` DESC")->fetchAll();
-    extract($lastchangelog[0]);
-    $description = htmlspecialchars_decode($description);
-    $main_content .="{$description}";
-    if($lastchangelog[0]){
-        $main_content .= '          <form method="POST" action="?subtopic=adminpanel&action=changelog&acao=del" id="delet_changelog'.$id_changelog.'">
-                                        <input type="hidden" name="id" value="'.$id_changelog.'">
-                                        <input type="hidden" name="from" value="adminpanel">
-                                        <td style="color: red">
-                                             <b>';
-
-        $main_content .="                        <a onclick='document.getElementById(\"delet_changelog{$id_changelog}\").submit();' href='#'>deletar</a>";
-
-        $main_content .='                    </b>
-                                        </td>
-                                    </form>';
-    }else{
-        $main_content .="NENHUM DADO PARA SER EXIBIDO.</td>";
-    }
-
-    $main_content .='
+                                                                            <td style="width:90%;">                                                                                
+                                                                                Nenhum changelog inserido ainda.
                                                                             </td>
                                                                         </tr>';
 }
 $main_content.='
+                                                                        
 																        <tr>
 																	        <td class="LabelV">Add changelog:</td>
-                                                                            <td colspan="2">																		
+                                                                            <td>																		
                                                                                 <table class="TableChangelog" style="border: 0px transparent !important;" width="100%">
                                                                                     <form id="form-changelog" method="POST" action="?subtopic=adminpanel&action=changelog&acao=add">
                                                                                         <tbody>

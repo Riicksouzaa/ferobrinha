@@ -121,10 +121,6 @@ include "templates/changelogtemplate.php";
     }else{
         $id_changelog = $_POST['id'];
         $SQL->query("DELETE FROM `z_changelogs` WHERE `id_changelog` = {$id_changelog}");
-        if($_POST['from'] == 'adminpanel'){
-            header("Location: ./?subtopic=adminpanel");
-        }else{
-            header("Location: ./?subtopic=changelogs");
-        }
+        header("Location: ./?subtopic=changelogs");
     }
 }
