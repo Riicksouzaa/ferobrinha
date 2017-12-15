@@ -1758,18 +1758,7 @@ body {
     padding-bottom: 2px;
 }
 
-/**
-    TABLE CHANGELOG
- */
-.TableChangelog{
-    width: 100%;
-    border-collapse: collapse;
-}
-.TableContainer .Table3 .TableContentAndRightShadow .TableChangelog td{
-    border: 0px;
-}
-
-    /* INNERLYOUT 1 */
+/* INNERLYOUT 1 */
 .TableContainer .Table1 {
     width: 100%;
     background-color: #d4c0a1;
@@ -2127,7 +2116,6 @@ body {
     height: 37px;
     width: 150px;
     z-index: 20;
-    cursor: pointer;
 }
 
 .MediumButtonBackground {
@@ -2178,7 +2166,6 @@ body {
     height: 25px;
     width: 135px;
     z-index: 20;
-    cursor: pointer;
 }
 
 .TopButtonContainer {
