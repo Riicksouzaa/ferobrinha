@@ -110,9 +110,7 @@ if(!$erro){
                                                                             <td class="LabelV">Last Changelog:</td>
                                                                             <td style="width:90%;">';
     $lastchangelog = $SQL->query("SELECT * FROM `z_changelogs` ORDER BY `id_changelog` DESC")->fetchAll();
-    if($lastchangelog[0]){
-        extract($lastchangelog[0]);
-    }
+    extract($lastchangelog[0]);
     $description = htmlspecialchars_decode($description);
     $main_content .="{$description}";
     if($lastchangelog[0]){
