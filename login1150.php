@@ -35,13 +35,6 @@ if (DEBUG_DATABASE){
  * EndDatabase
  */
 
-/**
- * error example:
- * {
- *      "errorCode":3,
- *      "errorMessage":"Account name or password is not correct."
- * }
- */
 
 /**
  * Declare variables
@@ -58,8 +51,8 @@ function sendError($msg){
 
     die(json_encode($ret));
 }
-$request = file_get_contents('php://input');
-$result = json_decode($request, true);
+//$request = file_get_contents('php://input');
+$result = $_REQUEST;
 
 /**
  * Tibia client post submit values
