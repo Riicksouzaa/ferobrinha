@@ -51,8 +51,8 @@ function sendError($msg){
 
     die(json_encode($ret));
 }
-//$request = file_get_contents('php://input');
-$result = $_REQUEST;
+$request = file_get_contents('php://input');
+$result = json_decode($request, true);
 
 /**
  * Tibia client post submit values
@@ -139,7 +139,7 @@ $session = [
     "optiontracking" => false
 ];
 
-$worlds = [
+$worlds[] = [
     "id" => 0,
     "name" => $config['server']['serverName'],
     "externaladdressprotected" => $config['server']['ip'],
