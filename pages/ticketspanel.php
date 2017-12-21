@@ -6,20 +6,7 @@
 		return false;
 	}
 	if($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {		
-		$main_content .= '<div class="BoxContent" style="background-image:url('.$layout_name.'/images/global/content/scroll.gif)">
-
-			<center>
-				<table>
-					<tbody>
-						<tr>
-							<td><img src="'.$layout_name.'/images/global/content/headline-bracer-left.gif"></td>
-							<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Tickets - '.$config['server']['serverName'].' Support<br></td>
-							<td><img src="'.$layout_name.'/images/global/content/headline-bracer-right.gif"></td>
-						</tr>
-					</tbody>
-				</table>
-			</center>
-			<br>
+		$main_content .= '
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 							<div class="CaptionInnerContainer">
@@ -290,29 +277,8 @@
 								</div>
 							</td>
 						</tr>
-					</tbody></table>
-				</div>
-				<br>
-				<!--<table style="width:100%;">
-					<tbody><tr align="center">
-						<td><table border="0" cellspacing="0" cellpadding="0">
-								
-									<tbody><tr>
-										<td style="border:0px;"><div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton.gif)">
-												<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
-													<div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_over.gif);"> </div>
-													<form action="?subtopic=accountmanagement" method="post">
-													<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/buttons/_sbutton_back.gif">
-													</form>	
-												</div>
-											</div>
-										</td>
-									</tr>
-							</tbody>
-							</table>
-						</td>
-					</tr>
-				</tbody></table>-->
+					</tbody>
+					</table>
 			</div>';	
 	}		
 ?>

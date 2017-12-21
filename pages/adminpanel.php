@@ -175,6 +175,7 @@ if($logged)
 				</div><br>';
             include 'ticketspanel.php';
 			$main_content .= '
+				<br>
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer"> 
