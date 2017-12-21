@@ -3,4 +3,4 @@
 #--$ crontab -e
 #--0 * * * * /home/user/repositorio/update.sh
 #----------------------------------------------/
-git pull
+sudo git pull
