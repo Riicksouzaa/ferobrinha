@@ -5,8 +5,6 @@ $record = $SQL->query("SELECT `value` FROM `server_config` WHERE `config` = 'pla
 
 if($_REQUEST['world'] == ""){
     $main_content = '
-
-<div class="BoxContent" style="background-image:url('.$layout_name.'/images/global/content/scroll.gif);">
     <div class="TableContainer">
         <div class="CaptionContainer">
             <div class="CaptionInnerContainer">
@@ -90,15 +88,12 @@ if($_REQUEST['world'] == ""){
             </tr>
             </tbody>
         </table>
-    </div>
-</div>
-';
+    </div>';
+
 }else{
     if($_REQUEST['world'] == $config['server']['serverName'] || $_POST['world'] == $config['server']['serverName']){
         include "whoisonline.php";
     }else{
         header("Location: ./?subtopic=worlds");
     }
-
 }
-
