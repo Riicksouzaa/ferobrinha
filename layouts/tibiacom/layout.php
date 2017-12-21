@@ -90,7 +90,10 @@ if(!defined('INITIALIZED'))
 </head>
 
 <body onbeforeunload="SaveMenu();"
-      style="background-image:url(<?php echo $layout_name; ?>/images/global/header/background-artwork.jpg); background-size: cover; background-attachment: fixed;"
+      style="background-image:url(<?php echo $layout_name; ?>/images/global/header/background-artwork.jpg);
+              background-size: 100%;
+              background-repeat: no-repeat;
+              "
       onunload="SaveMenu();"
       onload="SetFormFocus()"
       data-twttr-rendered="true">
