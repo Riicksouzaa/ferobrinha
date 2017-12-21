@@ -29,7 +29,6 @@ body {
     display: none;
 }
 
-
 #DeactivationContainerThemebox {
     position: absolute;
     top: 0px;
@@ -2116,6 +2115,7 @@ body {
     height: 37px;
     width: 150px;
     z-index: 20;
+    cursor: pointer;
 }
 
 .MediumButtonBackground {
@@ -2166,6 +2166,7 @@ body {
     height: 25px;
     width: 135px;
     z-index: 20;
+    cursor: pointer;
 }
 
 .TopButtonContainer {
