@@ -109,7 +109,9 @@ if(!defined('INITIALIZED'))
                         <a href="./?subtopic=latestnews">
                             <img id="TibiaLogoArtworkTop"
                                  src="<?php echo $layout_name; ?>/images/global/header/tibia-logo-artwork-top.png"
-                                 alt="logoartwork">
+                                 alt="logoartwork"
+                                 name="Ferobra Global"
+                            >
                         </a>
                     </div>
 
@@ -152,7 +154,7 @@ if(!defined('INITIALIZED'))
                     <div id="Menu">
                         <div id="MenuTop" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-top.gif);"></div>
                         <div id="news" class="menuitem">
-								<span onclick="MenuItemAction(&#39;news&#39;)">
+								<span onclick="MenuItemAction('news')">
   									<div class="MenuButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
     									<div onmouseover="MouseOverMenuItem(this);" onmouseout="MouseOutMenuItem(this);"><div class="Button" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
 											<span id="news_Lights" class="Lights" style="visibility: hidden;">
@@ -195,7 +197,7 @@ if(!defined('INITIALIZED'))
                         </div>
 
                         <div id="community" class="menuitem">
-								<span onclick="MenuItemAction(&#39;community&#39;)">
+								<span onclick="MenuItemAction('community')">
   									<div class="MenuButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
     									<div onmouseover="MouseOverMenuItem(this);" onmouseout="MouseOutMenuItem(this);"><div class="Button" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
       										<span id="community_Lights" class="Lights" style="visibility: visible;">
@@ -218,14 +220,25 @@ if(!defined('INITIALIZED'))
                                         <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                     </div>
                                 </a>
-                                <a href="?subtopic=whoisonline">
-                                    <div id="submenu_whoisonline" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
-                                        <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
-                                        <div id="ActiveSubmenuItemIcon_whoisonline" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
-                                        <div id="ActiveSubmenuItemLabel_whoisonline" class="SubmenuitemLabel">Who is Online</div>
-                                        <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
-                                    </div>
-                                </a>
+                                <?php if($_REQUEST['subtopic'] == 'worlds'){ ?>
+                                    <a href="?subtopic=worlds">
+                                        <div id="submenu_worlds" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
+                                            <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                            <div id="ActiveSubmenuItemIcon_worlds" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
+                                            <div id="ActiveSubmenuItemLabel_worlds" class="SubmenuitemLabel">Worlds</div>
+                                            <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                        </div>
+                                    </a>
+                                <?php }else{ ?>
+                                    <a href="?subtopic=whoisonline">
+                                        <div id="submenu_whoisonline" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
+                                            <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                            <div id="ActiveSubmenuItemIcon_whoisonline" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
+                                            <div id="ActiveSubmenuItemLabel_whoisonline" class="SubmenuitemLabel">Who is Online</div>
+                                            <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                        </div>
+                                    </a>
+                                <?php } ?>
                                 <a href="?subtopic=highscores">
                                     <div id="submenu_highscores" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
                                         <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
@@ -269,7 +282,7 @@ if(!defined('INITIALIZED'))
                             </div>
                         </div>
                         <div id="forum" class="menuitem">
-								<span onclick="MenuItemAction(&#39;forum&#39;)">
+								<span onclick="MenuItemAction('forum')">
   									<div class="MenuButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
     									<div onmouseover="MouseOverMenuItem(this);" onmouseout="MouseOutMenuItem(this);"><div class="Button" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
       										<span id="forum_Lights" class="Lights" style="visibility: visible;">
@@ -296,7 +309,7 @@ if(!defined('INITIALIZED'))
                         </div>
 
                         <div id="account" class="menuitem">
-								<span onclick="MenuItemAction(&#39;account&#39;)">
+								<span onclick="MenuItemAction('account')">
   									<div class="MenuButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
     									<div onmouseover="MouseOverMenuItem(this);" onmouseout="MouseOutMenuItem(this);"><div class="Button" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
       										<span id="account_Lights" class="Lights" style="visibility: visible;">
@@ -359,7 +372,7 @@ if(!defined('INITIALIZED'))
                         </div>
 
                         <div id="library" class="menuitem">
-								<span onclick="MenuItemAction(&#39;library&#39;)">
+								<span onclick="MenuItemAction('library')">
   									<div class="MenuButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
     									<div onmouseover="MouseOverMenuItem(this);" onmouseout="MouseOutMenuItem(this);"><div class="Button" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
       										<span id="library_Lights" class="Lights" style="visibility: visible;">
@@ -394,7 +407,7 @@ if(!defined('INITIALIZED'))
                         </div>
 
                         <div id="support" class="menuitem">
-								<span onclick="MenuItemAction(&#39;support&#39;)">
+								<span onclick="MenuItemAction('support')">
   									<div class="MenuButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
     									<div onmouseover="MouseOverMenuItem(this);" onmouseout="MouseOutMenuItem(this);"><div class="Button" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
       										<span id="support_Lights" class="Lights" style="visibility: visible;">
@@ -438,7 +451,7 @@ if(!defined('INITIALIZED'))
                             </div>
                         </div>
                         <div id="shop" class="menuitem">
-								<span onclick="MenuItemAction(&#39;shop&#39;)">
+								<span onclick="MenuItemAction('shop')">
   									<div class="MenuButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
     									<div onmouseover="MouseOverMenuItem(this);" onmouseout="MouseOutMenuItem(this);"><div class="Button" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
       										<span id="shop_Lights" class="Lights" style="visibility: visible;">
@@ -558,7 +571,7 @@ if(!defined('INITIALIZED'))
                                         $players_online = 'Server<br>Offline';
                                     }
                                     ?>
-                                    <div id="PlayersOnline" onclick="window.location = &#39;?subtopic=whoisonline&#39;;"><?php echo $players_online; ?></div>
+                                    <div id="PlayersOnline" onclick="window.location = '?subtopic=worlds';"><?php echo $players_online; ?></div>
                                 </div>
                                 <div id="Themeboxes">
                                     <?php

@@ -65,6 +65,51 @@ foreach($players_online_data as $player) {
 }
 
 $main_content .= '
+<form action="./?subtopic=worlds" method="post">
+   <div class="TableContainer">
+      <div class="CaptionContainer">
+         <div class="CaptionInnerContainer">
+            <span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>        <span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>        <span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>        <span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>        
+            <div class="Text">World Selection</div>
+            <span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>        <span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>        <span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>        <span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>      
+         </div>
+      </div>
+      <table class="Table1" cellpadding="0" cellspacing="0">
+         <tbody>
+            <tr>
+               <td>
+                  <div class="InnerTableContainer">
+                     <table style="width:100%;">
+                        <tbody>
+                           <tr>
+                              <td style="vertical-align:middle;" class="LabelV150">World Name:</td>
+                              <td style="width:170px;">
+                                 <select size="1" name="world" style="width:165px;">
+                                    <option value="'.$config["server"]["serverName"].'" selected="selected">'.$config["server"]["serverName"].'</option>
+                                 </select>
+                              </td>
+                              <td style="text-align:left;">
+                                 <div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton.gif)">
+                                    <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                                       <div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_over.gif);"></div>
+                                       <input class="ButtonText" type="image" name="Submit" alt="Submit" src="'.$layout_name.'/images/global/buttons/_sbutton_submit.gif">
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</form>
+
+
+
+
 	<div class="TableContainer" >
 		<table class="Table1" cellpadding="0" cellspacing="0">
 			<div class="CaptionContainer" >
