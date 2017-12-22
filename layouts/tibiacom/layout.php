@@ -212,7 +212,6 @@ if(!defined('INITIALIZED'))
                                         <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                     </div>
                                 </a>
-                                <?php if($_REQUEST['subtopic'] == 'worlds'){ ?>
                                     <a href="?subtopic=worlds">
                                         <div id="submenu_worlds" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
                                             <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
@@ -221,16 +220,6 @@ if(!defined('INITIALIZED'))
                                             <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                         </div>
                                     </a>
-                                <?php }else{ ?>
-                                    <a href="?subtopic=whoisonline">
-                                        <div id="submenu_whoisonline" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
-                                            <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
-                                            <div id="ActiveSubmenuItemIcon_whoisonline" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
-                                            <div id="ActiveSubmenuItemLabel_whoisonline" class="SubmenuitemLabel">Who is Online</div>
-                                            <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
-                                        </div>
-                                    </a>
-                                <?php } ?>
                                 <a href="?subtopic=highscores">
                                     <div id="submenu_highscores" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
                                         <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
