@@ -120,32 +120,32 @@ if ($_REQUEST['page'] && $_REQUEST['page'] > 0) {
 }
 if ($list_order) {
     if ($vocation == 0) {
-        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` = 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC")->fetchAll();
+        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` = 1 and name!= 'rook sample' AND `deleted` = 0 ORDER BY `{$list_order}` DESC")->fetchAll();
         $tr = count($allquery);
         $tp = $tr / $limit;
         if ($offset > $tr) {
             $offset = ($tp * $limit) - 1;
             var_dump($offset);
         }
-        $skills = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` = 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
+        $skills = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` = 1 and name!= 'rook sample' AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
     } elseif ($vocations_equival) {
-        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` IN ({$vocation},{$vocations_equival}) AND `deleted` = 0 AND `group_id` = 1 ORDER BY `{$list_order}` DESC")->fetchAll();
+        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` IN ({$vocation},{$vocations_equival}) and name!= 'rook sample' AND `deleted` = 0 AND `group_id` = 1 ORDER BY `{$list_order}` DESC")->fetchAll();
         $tr = count($allquery);
         $tp = $tr / $limit;
         if ($offset > $tr) {
             $offset = ($tp * $limit) - 1;
             var_dump($offset);
         }
-        $skills = $SQL->query("SELECT * FROM `players` WHERE `vocation` IN ({$vocation},{$vocations_equival}) AND `deleted` = 0 AND `group_id` = 1 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
+        $skills = $SQL->query("SELECT * FROM `players` WHERE `vocation` IN ({$vocation},{$vocations_equival}) and name!= 'rook sample' AND `deleted` = 0 AND `group_id` = 1 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
     } else {
-        $allquery = $SQL->query("SELECT * FROM `players` WHERE `group_id` = 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC")->fetchAll();
+        $allquery = $SQL->query("SELECT * FROM `players` WHERE `group_id` = 1 and name!= 'rook sample' AND `deleted` = 0 ORDER BY `{$list_order}` DESC")->fetchAll();
         $tr = count($allquery);
         $tp = $tr / $limit;
         if ($offset > $tr) {
             $offset = ($tp * $limit) - 1;
             var_dump($offset);
         }
-        $skills = $SQL->query("SELECT * FROM `players` WHERE `group_id` = 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
+        $skills = $SQL->query("SELECT * FROM `players` WHERE `group_id` = 1 and name!= 'rook sample' AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
     }
 }
 $main_content = '
