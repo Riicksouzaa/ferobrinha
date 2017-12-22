@@ -61,7 +61,7 @@ switch ($list) {
         $list_order = 'skill_club';
         break;
     case 4:
-        $list_order = 'skill_distance';
+        $list_order = 'skill_dist';
         break;
     case 5:
         $list_order = 'experience';
