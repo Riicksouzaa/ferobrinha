@@ -69,7 +69,7 @@ $news_content .= '
                     <div style="position: relative; top: -9px; margin-bottom: 10px;"><br>
 				 <font size="2px"></font><center><font size="2px"><b> IP:</b> ferobraglobal.com |&nbsp;  <b>Port:</b> 7171 |&nbsp;  <b>Version:</b> 10.00 and 11.50</font> <br> </a></center><br><font size="2px"><b>'.$config['server']['serverName'].'</b> - <a href="/?subtopic=serverinfo" <b="">Server Info</a> - <small>(learn to do <b><a href="/?subtopic=serverinfo&action=tutorialdonate" <b="">Donate</a></b> and use our <b><a href="/?subtopic=serverinfo&action=tutorialshop" <b="">Shop Online</a></b>)</small> <br><br> Welcome to <b><font color="green">'.$config['server']['serverName'].'</font></b>, we count on map most complete of all servers currently, Cooldown and reworked Spells for a more dynamic and fun PvP.<br>Several bugs fixed and being fixed daily. Come check out the best server of all time! <br><a href="/?subtopic=createaccount" <b="">Create your account now</a> here your fun is guaranteed!
                 </font> </div>
-						<a id="Link" style="position: absolute; margin-bottom: 10px; top: 40px;" href="/index.php?subtopic=newsarchive&view=3">» read more</a>
+						<a id="Link" style="position: absolute; margin-bottom: 10px; top: 40px;" href="?subtopic=newsarchive&view=1">» read more</a>
 						</div>
       				</div>
     			</div>
