@@ -149,7 +149,6 @@ if ($list_order) {
     }
 }
 $main_content = '
-<div class="BoxContent" style="background-image:url(' . $layout_name . '/images/global/content/scroll.gif);">
    <form action="./?subtopic=highscores" method="POST">
       <div class="TableContainer">
          <div class="CaptionContainer">
@@ -358,5 +357,4 @@ $main_content .= '
          </tbody>
       </table>
    </div>
-</div>
 ';
