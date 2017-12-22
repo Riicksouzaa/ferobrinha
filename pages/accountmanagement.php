@@ -1269,8 +1269,8 @@ else {
 															<td><div style="float: right; width: 135px;" >
 																	<form action="?subtopic=accountmanagement&action=donate" method="post" style="padding:0px;margin:0px;" >
 																		<input type="hidden" name="step" value="1" >
-																		<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" >
-																			<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div>
+																		<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green.gif)" >
+																			<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green_over.gif);" ></div>
 																				<input class="ButtonText" type="image" name="Donate" alt="Donate" src="' . $layout_name . '/images/global/buttons/_sbutton_gettibiacoins.gif" >
 																			</div>
 																		</div>
