@@ -1271,7 +1271,7 @@ else {
 																		<input type="hidden" name="step" value="1" >
 																		<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" >
 																			<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div>
-																				<input class="ButtonText" type="image" name="Donate" alt="Donate" src="' . $layout_name . '/images/global/buttons/_sbutton_getextraservice.gif" >
+																				<input class="ButtonText" type="image" name="Donate" alt="Donate" src="' . $layout_name . '/images/global/buttons/_sbutton_gettibiacoins.gif" >
 																			</div>
 																		</div>
 																	</form>
