@@ -692,19 +692,20 @@ if($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "pagseguro"
         <form target="pagseguro" method="post" action="dntpagseguro.php">
             <input type="hidden" name="accname" value="' . $account_logged->getName() . '">
             <input type="hidden" name="pid" value="' . $payment_data['ServiceID'] . '">	
-            <input type="hidden" name="store_id" value="128">
-            <input type="hidden" name="return" value="https://payments.cipsoft.com/tibia/payment/index.php?page=OrderService&amp;action=returnFromRedirect&amp;Language=en&amp;CustomerID=&amp;AuthID=&amp;Repayment=0&amp;OrderID=16390770">
-            <input type="hidden" name="notify_url" value="https://paymentgateway.cipsoft.com/boacompragateway.php">
-            <input type="hidden" name="order_id" value="16390770">
-            <input type="hidden" name="order_description" value="750 Coins">
-            <input type="hidden" name="amount" value="10100">
-            <input type="hidden" name="currency_code" value="BRL">
-            <input type="hidden" name="client_email" value="souzaariick@gmail.com">
-            <input type="hidden" name="hash_key" value="e91f6ee467b347e5de8576ec929b30dd">
-            <input type="hidden" name="payment_id" value="43">
-            <input type="hidden" name="language" value="pt_BR">
-            <input type="hidden" name="country_payment" value="BR">
-            <input type="hidden" name="project_id" value="1">
+            <!--
+            <input type="hidden" name="store_id" value="">
+            <input type="hidden" name="return" value="">
+            <input type="hidden" name="notify_url" value="">
+            <input type="hidden" name="order_id" value="">
+            <input type="hidden" name="order_description" value="">
+            <input type="hidden" name="amount" value="">
+            <input type="hidden" name="currency_code" value="">
+            <input type="hidden" name="client_email" value="">
+            <input type="hidden" name="hash_key" value="">
+            <input type="hidden" name="payment_id" value="">
+            <input type="hidden" name="language" value="">
+            <input type="hidden" name="country_payment" value="">
+            <input type="hidden" name="project_id" value="">-->
             <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green.gif)">
                 <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
                     <div class="BigButtonOver" style="background-image: url(&quot;' . $layout_name . '/images/global/buttons/sbutton_green_over.gif&quot;); visibility: hidden;"></div>
