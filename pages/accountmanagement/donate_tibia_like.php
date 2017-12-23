@@ -372,7 +372,8 @@ if ($logged) {
                                                     <input type="hidden" name="storage_OrderServiceData[PaymentMethodCategoryID]" value="'.$payment_data["PMCID"].'">
                                                     <input type="hidden" name="storage_OrderServiceData[ServiceCategoryID]" value="'.$payment_data["ServiceCategoryID"].'">
                                                     <input type="hidden" name="storage_OrderServiceData[Price]" value="R$ '.($payment_data["ServiceID"]/100).'.00">
-                                                    <!--<input type="hidden" name="storage_OrderServiceData[VATPercentage]" value="0">
+                                                    <!--
+                                                    <input type="hidden" name="storage_OrderServiceData[VATPercentage]" value="0">
                                                     <input type="hidden" name="storage_OrderServiceData[FormToken]" value="151399923984211117981340">
                                                     <input type="hidden" name="storage_OrderServiceData[CombinedSelection]" value="1">
                                                     <input type="hidden" name="storage_OrderServiceData[Repayment]" value="0">-->
@@ -455,9 +456,9 @@ if ($logged) {
             ';
         }
     }elseif ($step == 3){
-
         $payment_data = $_POST;
-        $main_content .= '
+        if($payment_data['storage_OrderServiceData']){
+            $main_content .= '
 <div class="TableContainer">
     <div class="CaptionContainer">
         <div class="CaptionInnerContainer">
@@ -631,6 +632,10 @@ if ($logged) {
 </div>
         
         ';
+        }else{
+            header("Location: ./?subtopic=accountmanagement&action=donate");
+        }
+
     }elseif ($step == 4){
         $payment_data = $_POST;
         if($payment_data["Form_OrderServiceStep4"]["TermsOfService"] == 1) {
@@ -744,15 +749,12 @@ if($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "pagseguro"
 }else{
     header("Location: ./?subtopic=accountmanagement&action=donate");
 }
-
         }else{
             header("Location: ./?subtopic=accountmanagement&action=donate");
         }
     }else{
         header("Location: ./?subtopic=accountmanagement&action=donate");
     }
-
-
 } else {
     header("Location: ./?subtopic=accountmanagement");
 }
