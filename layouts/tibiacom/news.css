@@ -203,13 +203,13 @@
   color: white;
 }
 
-.Content #News .MostPowerfullGuilds {
-  position: relative;
-  top: 7px;
-  text-align:center;
-  font-size: 10pt;
-  font-weight: bold;
-  color: white;
+.Content .NewsHeadline .MostPowerfullGuilds {
+    position: relative;
+    top: 7px;
+    text-align:center;
+    font-size: 10pt;
+    font-weight: bold;
+    color: white;
 }
 
 /* News Archive */
