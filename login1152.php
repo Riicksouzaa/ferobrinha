@@ -127,7 +127,7 @@ if($isCasting){
     $timePremium = time() + ($account->getPremDays() * 86400);
 }
 $session = [
-    "sessionkey" => $accountName.$password,
+    "sessionkey" => $accountName.'\n'.$password,
     "lastlogintime" => $lastLogin,
     "ispremium" => $premiumAccount,
     "premiumuntil" => $timePremium,
