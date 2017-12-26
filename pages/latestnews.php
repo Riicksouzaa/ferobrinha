@@ -4,7 +4,7 @@ if(!defined('INITIALIZED'))
 //var_dump($config['server']);
 //News Ticker
 $news_content .= '
-	<div id="newsticker" class="Box">
+	<div id="NewsTicker" class="Box">
 		<div class="Corner-tl" style="background-image:url('.$layout_name.'/images/global/content/corner-tl.gif);"></div>
 		<div class="Corner-tr" style="background-image:url('.$layout_name.'/images/global/content/corner-tr.gif);"></div>
 		<div class="Border_1" style="background-image:url('.$layout_name.'/images/global/content/border-1.gif);"></div>
@@ -54,7 +54,7 @@ $news_content .= '
 
 //Featured Article
 	$news_content .= '
-		<div id="featuredarticle" class="Box">
+		<div id="FeaturedArticle" class="Box">
 			<div class="Corner-tl" style="background-image:url('.$layout_name.'/images/global/content/corner-tl.gif);"></div>
 			<div class="Corner-tr" style="background-image:url('.$layout_name.'/images/global/content/corner-tr.gif);"></div>
 			<div class="Border_1" style="background-image:url('.$layout_name.'/images/global/content/border-1.gif);"></div>

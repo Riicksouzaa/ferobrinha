@@ -352,7 +352,7 @@ body {
     visibility: hidden;
 }
 
-#LoginBox #LoginButtonContainer {
+#Loginbox #LoginButtonContainer {
     position: relative;
     height: 39px;
     width: 160px;

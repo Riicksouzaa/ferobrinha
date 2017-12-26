@@ -2,6 +2,7 @@
 if(!defined('INITIALIZED'))
     exit;
 ?>
+<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8">
@@ -486,7 +487,7 @@ if(!defined('INITIALIZED'))
                         <div id="ContentHelper">
                             <script type="text/javascript" src="<?php echo $layout_name; ?>/newsticker.js"></script>
                             <?php echo $news_content; ?>
-                            <div id="news" class="Box">
+                            <div id="NewsArchive" class="Box">
                                 <div class="Corner-tl" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-tl.gif);"></div>
                                 <div class="Corner-tr" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-tr.gif);"></div>
                                 <div class="Border_1" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/border-1.gif);"></div>
