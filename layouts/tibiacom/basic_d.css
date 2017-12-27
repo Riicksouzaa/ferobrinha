@@ -1,13 +1,12 @@
 body {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     background-color: #051122;
 }
 
 .OptionContainer input {
     vertical-align: middle;
-    margin: 0px;
-    margin-right: 3px;
+    margin: 0 3px 0 0;
 }
 
 .OptionContainer label {
@@ -16,9 +15,9 @@ body {
 
 #DeactivationContainer {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
+    top: 0;
+    left: 0;
+    bottom: 0;
     z-index: 80;
     width: 100%;
     min-height: 1250px;
@@ -31,8 +30,8 @@ body {
 
 #DeactivationContainerThemebox {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 95;
     height: 1000px;
     width: 100%;
@@ -42,7 +41,7 @@ body {
 #MainHelper1 {
     position: relative;
     text-align: center;
-    top: 0px;
+    top: 0;
     height: 100%;
     min-width: 1000px;
     overflow: visible;
@@ -53,7 +52,7 @@ body {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    top: 0px;
+    top: 0;
     height: 100%;
     max-width: 1200px;
     overflow: visible;
@@ -64,8 +63,8 @@ body {
     position: absolute;
     max-width: 1200px;
     text-align: center;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     overflow: visible;
@@ -75,8 +74,8 @@ body {
 #ArtworkHelper2 {
     position: absolute;
     text-align: center;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     overflow: visible;
@@ -91,13 +90,13 @@ body {
     background-position: top left;
     background-attachment: scroll;
     background-repeat: no-repeat;
-    top: 0px;
+    top: 0;
     height: 800px;
     width: 100%;
 }
 
 * html #HeaderArtworkDiv {
-    left: 0px;
+    left: 0;
 }
 
 /* container to implement min/max width */
@@ -107,10 +106,10 @@ body {
     max-width: 1200px;
     width: 100%;
     height: 100%;
-    margin: 0px;
+    margin: 0;
     margin-left: auto;
     margin-right: auto;
-    padding: 0px;
+    padding: 0;
     display: table;
 }
 
@@ -120,7 +119,7 @@ body {
     top: 160px;
     margin-right: 15px;
     margin-left: 15px;
-    padding: 0px;
+    padding: 0;
     font-family: Arial, sans-serif;
     font-size: 10pt;
     font-weight: bold;
@@ -134,7 +133,7 @@ body {
 }
 
 #ContentColumn {
-    margin: 0px;
+    margin: 0;
     margin-left: 205px;
     margin-right: 205px;
     text-align: left;
@@ -146,8 +145,8 @@ body {
 
 #ThemeboxesColumn {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     width: 180px;
     margin-top: -144px;
     margin-left: 15px;
@@ -226,7 +225,7 @@ body {
     width: 203px;
     z-index: 5;
     cursor: pointer;
-    border: 0px;
+    border: 0;
 }
 
 #LeftArtwork #LogoLink {
@@ -316,7 +315,7 @@ body {
 
 #Loginbox .LoginBorder {
     position: absolute;
-    top: 0px;
+    top: 0;
     height: 52px;
     width: 8px;
     background-repeat: repeat-y;
@@ -329,7 +328,7 @@ body {
 
 #Loginbox .Loginstatus {
     position: relative;
-    top: 0px;
+    top: 0;
     left: 5px;
     height: 13px;
     width: 160px;
@@ -370,9 +369,9 @@ body {
 }
 
 #PlayNowContainer form {
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 .BigBoldText {
@@ -409,7 +408,7 @@ body {
 
 .SmallMenuBox .LoginBorder {
     position: absolute;
-    top: 0px;
+    top: 0;
     height: 52px;
     width: 8px;
     background-repeat: repeat-y;
@@ -422,7 +421,7 @@ body {
 
 .SmallMenuBox .Loginstatus {
     position: relative;
-    top: 0px;
+    top: 0;
     left: 5px;
     height: 13px;
     width: 160px;
@@ -464,9 +463,9 @@ body {
 }
 
 #PlayNowContainer form {
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 .BigBoldText {
@@ -483,7 +482,7 @@ body {
 #Menu {
     position: relative;
     left: 5px;
-    top: 0px;
+    top: 0;
     background-repeat: no-repeat;
 }
 
@@ -499,7 +498,7 @@ body {
 #MenuBottom {
     position: relative;
     left: -5px;
-    bottom: 0px;
+    bottom: 0;
     height: 12px;
     width: 180px;
     background-repeat: no-repeat;
@@ -566,7 +565,7 @@ body {
     position: absolute;
     height: 32px;
     width: 32px;
-    top: 0px;
+    top: 0;
     left: 8px;
 }
 
@@ -582,7 +581,7 @@ body {
 
 .LeftChain {
     position: absolute;
-    top: 0px;
+    top: 0;
     left: -5px;
     height: 33px;
     width: 7px;
@@ -591,7 +590,7 @@ body {
 
 .RightChain {
     position: absolute;
-    top: 0px;
+    top: 0;
     right: -4px;
     height: 33px;
     width: 7px;
@@ -608,8 +607,8 @@ body {
 
 .Submenuitem {
     position: relative;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 .ActiveSubmenuItemIcon {
@@ -624,7 +623,7 @@ body {
 }
 
 .SubmenuitemLabel {
-    margin: 0px;
+    margin: 0;
     border-top: 0;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -676,7 +675,7 @@ body {
 
 .Content {
     position: relative;
-    top: 0px;
+    top: 0;
     width: 100%;
     z-index: 100;
 }
@@ -686,7 +685,7 @@ body {
     position: relative;
     top: 796px;
     margin: 20px;
-    border: 0px dashed #051122;
+    border: 0 dashed #051122;
     border-right-width: 550px;
 }
 
@@ -857,7 +856,7 @@ body {
 
 .Content .Border_2 {
     margin: 4px;
-    padding: 0px;
+    padding: 0;
     background-color: #793d03;
 }
 
@@ -875,7 +874,7 @@ body {
     font-family: Courier New;
     border: 1px solid grey;
     font-weight: normal !important;
-    background-image: url("/TibiaWebsite_refactoring/html/images/global/content/scroll.gif");
+    background-image: url("layouts/tibiacom/images/global/content/scroll.gif");
 }
 
 .Content .BoxContent .ScrollableTextBox td {
@@ -913,8 +912,8 @@ body {
 
 #Themeboxes .Bottom {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
     height: 12px;
     width: 180px;
 }
@@ -1054,7 +1053,7 @@ body {
 #Themeboxes #FansiteLogoFrame {
     position: relative;
     top: 31px;
-    width: 180;
+    width: 180px;
     height: 145px;
 }
 
@@ -1384,8 +1383,8 @@ body {
 
 .SmallBox .BoxFrameVerticalRight {
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 0;
+    top: 0;
     width: 3px;
     background-repeat: repeat-y;
     height: 100%;
@@ -1393,8 +1392,8 @@ body {
 
 .SmallBox .BoxFrameVerticalLeft {
     position: absolute;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     width: 3px;
     background-repeat: repeat-y;
     height: 100%;
@@ -1486,8 +1485,8 @@ body {
 
 #ProgressBar #BackgroundContainerCenter {
     position: absolute;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     height: 17px;
     width: 100%;
 }
@@ -1501,8 +1500,8 @@ body {
 
 #ProgressBar #BackgroundContainerRightEnd {
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 0;
+    top: 0;
     float: right;
 }
 
@@ -1548,7 +1547,7 @@ body {
 #ProgressBar .Tube {
     position: relative;
     top: 16px;
-    left: 0px;
+    left: 0;
     width: 100%;
     height: 7px;
     background: #FFFFFF none repeat scroll 0%;
@@ -1560,10 +1559,10 @@ body {
 
 #ProgressBar .SingleStepContainer {
     position: absolute;
-    top: 0px;
+    top: 0;
     width: 47px;
     height: 30px;
-    right: 0px;
+    right: 0;
     text-align: center;
 }
 
@@ -1575,7 +1574,7 @@ body {
 
 #ProgressBar .StepIcon {
     position: absolute;
-    right: 0px;
+    right: 0;
 }
 
 * html #ProgressBar .StepIcon {
@@ -1583,8 +1582,8 @@ body {
 }
 
 #ProgressBar #FirstStep .StepIcon {
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
 }
 
 #ProgressBar .StepText {
@@ -1641,8 +1640,8 @@ body {
     text-align: left;
     color: white;
     padding-left: 10px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .CaptionContainer .CaptionEdgeLeftTop {
@@ -1686,7 +1685,7 @@ body {
     position: absolute;
     width: 100%;
     height: 4px;
-    left: 0px;
+    left: 0;
     top: -1px;
 }
 
@@ -1694,7 +1693,7 @@ body {
     position: absolute;
     width: 100%;
     height: 4px;
-    left: 0px;
+    left: 0;
     bottom: -2px;
 }
 
@@ -1703,7 +1702,7 @@ body {
     height: 100%;
     width: 3px;
     left: -1px;
-    top: 0px;
+    top: 0;
 }
 
 .CaptionContainer .CaptionVerticalRight {
@@ -1711,7 +1710,7 @@ body {
     height: 100%;
     width: 3px;
     right: -1px;
-    top: 0px;
+    top: 0;
 }
 
 * html .TableContainer .CaptionContainer .CaptionEdgeRightTop {
@@ -1728,7 +1727,7 @@ body {
 }
 
 * html .TableContainer .CaptionContainer .CaptionBorderBottom {
-    bottom: -3;
+    bottom: -3px;
 }
 
 * html .TableContainer .CaptionContainer .CaptionVerticalRight {
@@ -1742,7 +1741,7 @@ body {
     margin-right: 4px;
     height: 100%;
     background-color: #d4c0a1;
-    padding: 0px;
+    padding: 0;
 }
 
 .TableContent {
@@ -1773,14 +1772,14 @@ body {
     width: 100%;
     border: 2px solid #55636c;
     background-color: #f1e0c5;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     border-collapse: collapse;
 }
 
 .TableContainer .Table2 td {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .TableContainer .Table2 .InnerTableContainer {
@@ -1864,9 +1863,9 @@ body {
 /* SHADOWS */
 .TableShadowContainerRightTop {
     position: relative;
-    top: 0px;
+    top: 0;
     right: 3px;
-    margin-right: 0px;
+    margin-right: 0;
     font-size: 1px;
     float: right;
     z-index: 98;
@@ -1874,8 +1873,8 @@ body {
 
 .TableShadowRightTop {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     width: 4px;
     height: 5px;
     z-index: 98;
@@ -1899,8 +1898,8 @@ body {
     font-size: 1px;
     height: 5px;
     width: 100%;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .TableBottomLeftShadow {
@@ -1908,15 +1907,15 @@ body {
     height: 5px;
     width: 4px;
     float: left;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .TableBottomRightShadow {
     position: relative;
     float: right;
     right: -2px;
-    top: 0px;
+    top: 0;
     height: 5px;
     width: 4px;
 }
@@ -1927,7 +1926,7 @@ body {
     float: left;
     top: 5px;
     margin-left: 1px;
-    margin-right: 0px;
+    margin-right: 0;
     cursor: pointer;
     vertical-align: middle;
     width: 105px;
@@ -1962,23 +1961,23 @@ body {
 }
 
 .InnerTableTab a {
-    border: 0px;
+    border: 0;
     color: #5A2800;
     font-weight: normal;
 }
 
 .InnerTableTab a img {
-    border: 0px;
+    border: 0;
     width: 105px;
     height: 45px;
     position: absolute;
-    top: 0px;
+    top: 0;
 }
 
 .InnerTableTabLabel {
     position: relative;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     text-align: center;
     width: 86px;
     height: 35px;
@@ -1989,7 +1988,7 @@ body {
 }
 
 .InnerTableTab a:hover {
-    border: 0px;
+    border: 0;
     color: #5A2800;
     /*  font-weight: normal;*/
     text-decoration: none;
@@ -2029,7 +2028,7 @@ body {
 
 /* HEADLESS CONTENT TABLE */
 .HeadlessTable {
-    border: 0px;
+    border: 0;
     border-style: solid;
     border-color: #656565;
     border-top-width: 1px;
@@ -2094,9 +2093,9 @@ body {
 .InnerTableButtonRow {
     width: 100%;
     padding-left: 1px;
-    padding-right: 0px;
+    padding-right: 0;
     padding-bottom: 4px;
-    border: 0px;
+    border: 0;
 }
 
 .InnerTableButtonRow td {
@@ -2110,8 +2109,8 @@ body {
 
 .MediumButtonText {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     height: 37px;
     width: 150px;
     z-index: 20;
@@ -2120,8 +2119,8 @@ body {
 
 .MediumButtonBackground {
     position: relative;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 37px;
     z-index: 10;
@@ -2129,8 +2128,8 @@ body {
 
 .MediumButtonOver {
     position: relative;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 37px;
     visibility: hidden;
@@ -2138,8 +2137,8 @@ body {
 }
 
 .MediumButtonForm {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 .BigButton {
@@ -2151,8 +2150,8 @@ body {
 
 .BigButtonOver {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 135px;
     height: 25px;
     visibility: hidden;
@@ -2161,8 +2160,8 @@ body {
 
 .ButtonText {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     height: 25px;
     width: 135px;
     z-index: 20;
@@ -2189,7 +2188,7 @@ body {
 
 .TopButtonContainer .TopButton {
     position: absolute;
-    right: 0px;
+    right: 0;
     z-index: 55;
 }
 
@@ -2215,7 +2214,7 @@ label {
 }
 
 * html .InputIndicator {
-    left: 0px;
+    left: 0;
 }
 
 .sortarrow {
@@ -2239,7 +2238,7 @@ label {
     clear: both;
     border-top: 1px solid #fff0d9;
     height: 50px;
-    padding: 4px 0px;
+    padding: 4px 0;
 }
 
 .PostSeparatorV {
@@ -2274,7 +2273,7 @@ label {
 .PostDetails {
     width: 175px;
     float: left;
-    padding: 0px 5px;
+    padding: 0 5px;
     font-size: 7pt;
 }
 
@@ -2285,7 +2284,7 @@ label {
     word-wrap: break-word;
     font-size: 8pt;
     padding: 10px;
-    padding-right: 0px;
+    padding-right: 0;
     margin-left: 180px;
     width: 600px;
 }
@@ -2294,7 +2293,7 @@ label {
     float: right;
     white-space: nowrap;
     text-align: right;
-    margin: 4px 4px 0px 0px;
+    margin: 4px 4px 0 0;
 }
 
 /* FORUM - CipSoft post format */
@@ -2307,15 +2306,15 @@ label {
 }
 
 .CipPost .CipBorderBottom .CipBorder {
-    bottom: 0px;
+    bottom: 0;
 }
 
 .CipPost .CipBorder .CipBorderCornerL {
     position: absolute;
     width: 3px;
     height: 3px;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 99;
 }
 
@@ -2323,7 +2322,7 @@ label {
     position: absolute;
     width: 792px;
     height: 3px;
-    top: 0px;
+    top: 0;
     left: 3px
 }
 
@@ -2331,8 +2330,8 @@ label {
     position: absolute;
     width: 3px;
     height: 3px;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     z-index: 99;
 }
 
@@ -2340,23 +2339,23 @@ label {
     font-size: 1px;
     width: 3px;
     position: absolute;
-    top: 0px;
+    top: 0;
     height: 100%;
     z-index: 0;
 }
 
 .CipPost .CipBorderLeft .CipBorderV {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 3px;
     height: 100%;
 }
 
 .CipPost .CipBorderRight .CipBorderV {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     width: 3px;
     height: 100%;
 }
@@ -2390,13 +2389,13 @@ label {
 }
 
 * html .ThreadClassificationNumberContainer {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 #BoardView td {
-    padding-top: 0px;
+    padding-top: 0;
     padding-right: 3px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     padding-left: 3px;
 }
 
@@ -2416,10 +2415,10 @@ label {
     width: 15px;
     height: 15px;
     margin-top: 1px;
-    margin-left: 0px;
-    margin-bottom: 0px;
+    margin-left: 0;
+    margin-bottom: 0;
     margin-right: 7px;
-    border: 0px;
+    border: 0;
 }
 
 .ThreadTitleHeadline .ThreadClassificationNumber {
@@ -2430,12 +2429,12 @@ label {
 .BoardThreadLine {
     margin-left: -61px;
     margin-top: -3px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     min-height: 47px;
 }
 
 * html .BoardThreadLine {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 * html .BoardThreadLine {
@@ -2455,7 +2454,7 @@ label {
 }
 
 * html .Text {
-    margin-top: 0px;
+    margin-top: 0;
     margin-left: 4px;
 }
 
@@ -2481,7 +2480,7 @@ label {
 }
 
 .HintBox p {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .HintBox .BoxButtons {
@@ -2559,7 +2558,7 @@ label {
     position: relative;
     white-space: normal;
     text-align: justify;
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 15px;
 }
 
@@ -2626,7 +2625,7 @@ label {
     position: absolute;
     color: white;
     left: 20px;
-    width: 112;
+    width: 112px;
     top: 5px;
     font-size: 11px;
     text-align: center;
@@ -2658,8 +2657,8 @@ label {
 }
 
 #LoginCreateAccountBox p {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-size: 12pt;
 }
 
@@ -2684,7 +2683,7 @@ label {
 #VoucherDurationSlider {
     margin: 5px;
     margin-top: 15px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     height: 5px;
 }
 
@@ -2996,8 +2995,8 @@ label {
 
 .ServiceID_Icon .ServiceID_Deactivated {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 150px;
     z-index: 99;
@@ -3005,8 +3004,8 @@ label {
 
 .ServiceID_Icon .ServiceID_Icon_Selected {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 150px;
     z-index: 98;
@@ -3014,11 +3013,11 @@ label {
 
 .ServiceID_Icon .ServiceIDLabelContainer {
     position: absolute;
-    left: 0px;
+    left: 0;
     display: table;
     top: 6px;
     height: 35px;
-    width: 130;
+    width: 130px;
     margin-left: 10px;
     margin-right: 10px;
     z-index: 99;
@@ -3035,9 +3034,9 @@ label {
 
 .ServiceID_Icon .ServiceIDPriceContainer {
     position: absolute;
-    left: 0px;
+    left: 0;
     bottom: 10px;
-    width: 140;
+    width: 140px;
     margin-left: 5px;
     margin-right: 5px;
     z-index: 99;
@@ -3045,15 +3044,15 @@ label {
 
 .ServiceID_Icon .ServiceIDSpecialOffer {
     position: absolute;
-    left: 0px;
+    left: 0;
     top: -5px;
     z-index: 100;
 }
 
 .ServiceID_Icon .ServiceID_Icon_Over {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 150px;
     z-index: 97;
@@ -3061,8 +3060,8 @@ label {
 
 .ServiceID_Icon .ServiceID_HelperDiv {
     position: relative;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 150px;
     z-index: 399;
@@ -3088,8 +3087,8 @@ label {
 
 .ServiceID_Icon .ServiceID_Icon_Animation_1 {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     width: 150px;
     height: 150px;
     display: none;
@@ -3152,8 +3151,8 @@ label {
 
 .PMCID_Icon .PMCID_Icon_Selected {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 100px;
     z-index: 98;
@@ -3161,8 +3160,8 @@ label {
 
 .PMCID_Icon .PMCID_Deactivated {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 100px;
     z-index: 99;
@@ -3170,27 +3169,27 @@ label {
 
 .PMCID_Icon .PMCID_Icon_Over {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 150px;
     height: 100px;
 }
 
 .PermanentDeactivated {
     position: absolute;
-    left: 0px;
+    left: 0;
     z-index: 400;
 }
 
 .PermanentDeactivated .PMCID_Deactivated {
     position: relative;
-    left: 0px;
+    left: 0;
     width: 150px;
 }
 
 .PermanentDeactivated .ServiceID_Deactivated {
     position: relative;
-    left: 0px;
+    left: 0;
     width: 150px;
 }
 
@@ -3242,8 +3241,8 @@ label {
     position: absolute;
     height: 64px;
     width: 128px;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
 }
 
 /** -------------------------------
@@ -3295,8 +3294,8 @@ label {
 /* light box an control elements */
 #LightBox {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     display: none;
     width: 100%;
     height: 300%;
@@ -3324,12 +3323,12 @@ label {
 }
 
 * html #LightBoxBackground {
-    left: 0px;
+    left: 0;
 }
 
 * html #LightBoxContent {
     position: absolute;
-    left: 0px;
+    left: 0;
     top: expression( ( 10 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
 }
 
@@ -3363,8 +3362,8 @@ label {
 
 .NavigationButton div {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     border: 1px solid gray;
     text-align: center;
     width: 198px;
@@ -3384,7 +3383,7 @@ label {
     width: 976px;
     margin-left: auto;
     margin-right: auto;
-    left: 0px;
+    left: 0;
     z-index: 202;
 }
 

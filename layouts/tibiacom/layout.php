@@ -475,6 +475,16 @@ if(!defined('INITIALIZED'))
                                         <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                     </div>
                                 </a>
+                                <?php if($_REQUEST['subtopic'] == 'tankyou'){?>
+                                    <a>
+                                        <div id="submenu_tankyou" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
+                                            <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                            <div id="ActiveSubmenuItemIcon_tankyou" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
+                                            <div id="ActiveSubmenuItemLabel_tankyou" class="SubmenuitemLabel">Tankyou</div>
+                                            <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                        </div>
+                                    </a>
+                                <?php } ?>
                             </div>
                         </div>
                         <div id="MenuBottom" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif);"></div>
