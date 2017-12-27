@@ -106,9 +106,7 @@ $main_content .= '
       </table>
    </div>
 </form>
-
-
-
+</br>
 
 	<div class="TableContainer" >
 		<table class="Table1" cellpadding="0" cellspacing="0">
