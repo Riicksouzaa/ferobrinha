@@ -706,7 +706,7 @@ if ($logged) {
         <script>
         function enviaPagseguro() {
           $.post("pagsegurolightbox.php", {pid:"' . $payment_data['ServiceID'] . '",accname:"' . $account_logged->getName() . '"}, function(data) {
-              alert(data);
+              //alert(data);
               var isOpenLightbox = PagSeguroLightbox({
                     code: data
               }, {
