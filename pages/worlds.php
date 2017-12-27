@@ -65,9 +65,19 @@ if($_REQUEST['world'] == ""){
                                                     <td><a href="./?subtopic=worlds&world='.$config["server"]["serverName"].'">'.$config["server"]["serverName"].'</a></td>
                                                     <td>'.$playersOnline[0].'</td>
                                                     <td>'.$config["server"]["location"].'</td>
-                                                    <td>'.$config["server"]["worldType"].'</td>
-                                                    <td align="center" valign="middle"> <span style="width: 18px; height: 18px;"><a href="../common/help.php?subtopic=battleye" target="_blank"><span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'BattlEye Protected Game World\', \'<p>On this game world, BattlEye blocks cheats from the game. The game world has been protected by BattlEye since September 5, 2017.</p>\', \'\');" onmouseout="$(\'#HelperDivContainer\').hide();"><img style="border:0px;" src="'.$layout_name.'/images/global/content/icon_battleye.gif"></span></a></span></td>
-                                                    <td>premium, blocked</td>
+													<td>Open PVP</td>
+                                                    <!--<td>'.$config["server"]["worldType"].'</td>-->
+                                                    <td align="center" valign="middle"> <span style="width: 18px; height: 18px;"><a href="../common/help.php?subtopic=battleye" target="_blank">
+													<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'BattlEye Protected Game World\', \'<p>On this game world, BattlEye blocks cheats from the game. The game world has been protected by BattlEye since September 5, 2017.</p>\', \'\');" onmouseout="$(\'#HelperDivContainer\').hide();">
+													<img style="border:0px;" src="'.$layout_name.'/images/global/content/icon_battleyeinitial.gif"></span></a></span></td>
+                                                    <td>premium, released
+														<span>
+															<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'Free Premium game world:\', \'<p>This game world free premium for players.</p>\', \'\');" onmouseout="$(\'#HelperDivContainer\').hide();">
+															<image style="border:0px;" src="'.$layout_name.'/images/global/content/info.gif" />
+															</span>
+														</span>
+													</td>
+
                                                 </tr>
                                                 </tbody>
                                             </table>
