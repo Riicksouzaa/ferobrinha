@@ -51,7 +51,7 @@ if (isset($_POST)) {
             ]
         ],
         "reference" => $account_name . "-" . $coinCount,
-        "redirectURL" => $config['pagseguro']['urlRedirect'],
+        "redirectURL" => $config['pagseguro']['urlNotification'],
         "receiver" => [
             "email" => $email
         ]
