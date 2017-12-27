@@ -706,8 +706,7 @@ if ($logged) {
         <script>
         function enviaPagseguro() {
           $.post("pagsegurolightbox.php", {pid:"' . $payment_data['ServiceID'] . '",accname:"' . $account_logged->getName() . '"}, function(data) {
-              //$("#code").val(data);
-              //$("#comprar").submit();
+              alert(data);
               var isOpenLightbox = PagSeguroLightbox({
                     code: data
               }, {
@@ -722,7 +721,6 @@ if ($logged) {
               if (!isOpenLightbox){
                     location.href="https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code="+code;
               }
-//              alert(data);
           })
         }
         </script>

@@ -13,10 +13,10 @@ if (isset($_POST)) {
 
     if ($config['pagseguro']['testing'] == true) {
         $token = $config['pagseguro']['tokentest'];
-        $url = 'https://ws.pagseguro.uol.com.br/v2/checkout';
+        $url = 'https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?';
     } else {
         $token = $config['pagseguro']['token'];
-        $url = 'https://ws.pagseguro.uol.com.br/v2/checkout';
+        $url = 'https://ws.pagseguro.uol.com.br/v2/checkout?';
     }
     $email = $config['pagseguro']['email'];
 
@@ -31,7 +31,6 @@ if (isset($_POST)) {
                 if ($key == (int)$key) {
                     $key = "$key";
                 }
-
                 $object->addChild($key, $value);
             }
         }
@@ -61,7 +60,7 @@ if (isset($_POST)) {
     to_xml($data, $pagseguroDados);
     $data = $data->asXML();
 
-    $curl = curl_init("https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email={$email}&token={$token}");
+    $curl = curl_init("{$url}email={$email}&token={$token}");
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER, Array('Content-Type: application/xml; charset=ISO-8859-1'));
