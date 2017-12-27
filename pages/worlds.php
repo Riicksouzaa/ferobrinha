@@ -68,7 +68,7 @@ if($_REQUEST['world'] == ""){
 													<td>Open PVP</td>
                                                     <!--<td>'.$config["server"]["worldType"].'</td>-->
                                                     <td align="center" valign="middle"> <span style="width: 18px; height: 18px;"><a href="../common/help.php?subtopic=battleye" target="_blank">
-													<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'BattlEye Protected Game World\', \'<p>On this game world, BattlEye blocks cheats from the game. The game world has been protected by BattlEye since September 5, 2017.</p>\', \'\');" onmouseout="$(\'#HelperDivContainer\').hide();">
+													<span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Staff present in game world:\', \'On this game world, Staff blocks cheats from the game. The game world has been protected by Staff since its release.\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >
 													<img style="border:0px;" src="'.$layout_name.'/images/global/content/icon_battleyeinitial.gif"></span></a></span></td>
                                                     <td>premium, released
 														<span>
