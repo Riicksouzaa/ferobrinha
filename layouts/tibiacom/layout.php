@@ -514,6 +514,8 @@ if(!defined('INITIALIZED'))
                                     $headline = "Who is Online";
                                 elseif($_REQUEST['subtopic'] == "adminpanel")
                                     $headline = "Admin Panel";
+                                elseif($_REQUEST['subtopic'] == "tankyou")
+                                    $headline = "Thank you";
                                 ?>
                                 <img id="ContentBoxHeadline" class="Title" src="pages/headline.php?txt=<?PHP echo ucwords(str_replace('_', ' ', strtolower($headline))); ?>" alt="Contentbox headline">
                                 <div class="Border_2">
