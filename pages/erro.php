@@ -13,7 +13,7 @@ $main_content .= '
 
 $main_content .= '
 		<center>
-			<form action="?subtopic=downloadclient" method="post">
+			<form action="?subtopic=latestnews" method="post">
 					<tr>
 						<td style="border:0px;" ><div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_red.gif)" >
 						<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_red_over.gif);" ></div>
