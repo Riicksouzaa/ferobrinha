@@ -209,7 +209,7 @@ if (!$_POST) {
                 echo json_encode(array('status' => 'success', 'points' => $pointsD));
         }
     }else{
-        header("Location: ./");
+        exit;
     }
     exit;
 }
