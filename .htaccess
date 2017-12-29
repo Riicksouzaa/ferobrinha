@@ -1,4 +1,4 @@
-ErrorDocument 404 https://%{HTTP_HOST}/?subtopic=erro
+ErrorDocument 404 https://ferobraglobal.com/?subtopic=erro
 
 RewriteEngine on
 Options All -Indexes
