@@ -429,7 +429,7 @@ if(!defined('INITIALIZED'))
                                         <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                     </div>
                                 </a>
-                            <?}?>
+                            <?php } ?>
 							<?php if (isset($_SESSION['account'])){?>
 							    <a href="?subtopic=ticket">
                                     <div id="submenu_ticket" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
