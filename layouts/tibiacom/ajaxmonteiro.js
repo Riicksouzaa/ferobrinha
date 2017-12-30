@@ -31,7 +31,7 @@ $(document).ready(function() { // This show and hide category manage button and 
 });
 
 $(document).ready(function() {
-	$('#addP').click(function(){
+	$('#addP').click(function(e){
 		//vars
 		var newPoints = $('input[name=addPoints]').val();
 		var accountPoints = $('input[name=accountPoints]').val();
@@ -429,8 +429,8 @@ function refreshPage() {
 	location.reload();
 }
 
-$(document).ready(function(e) {
-	$('#doubleStatus').live("click", function() {
+$(document).ready(function() {
+	$('#doubleStatus').live("click", function(e) {
 		$.ajax({
 			url: 'ajax.php',
 			type: 'POST',
