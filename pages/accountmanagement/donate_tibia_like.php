@@ -91,7 +91,7 @@ if ($logged) {
             $main_content .= '
             <script> 
             window.onload = function() {
-                ChangeService(' . $_POST['storage_OrderServiceData']['ServiceID'] . ', 13);
+                ChangeService(' . $_POST['Coins'] . ', 13);
                 ChangePMC(' . $_POST["PMCID"] . ');
             };
             </script>
@@ -446,8 +446,9 @@ if ($logged) {
             <input type="hidden" name="storage_OrderServiceData[Repayment]" value="0">-->
             <input type="hidden" name="storage_OrderServiceData[Country]" value="' . $payment_data["CountryCode"] . '">
             <input type="hidden" name="storage_OrderServiceData[EMailAddress]" value="' . htmlspecialchars($account_logged->getEmail()) . '">
-            <input type="hidden" name="ServiceCategoryID" value="' . $payment_data["ServiceID"] . '">
-            <input type="hidden" name="ServiceID" value="' . $payment_data["ServiceCategoryID"] . '">
+            <input type="hidden" name="ServiceCategoryID" value="' . $payment_data["ServiceCategoryID"] . '">
+            <input type="hidden" name="ServiceID" value="' . $payment_data["ServiceID"] . '">
+            <input type="hidden" name="Coins" value="' . $payment_data["coins"] . '">            
             <input type="hidden" name="PMCID" value="' . $payment_data["PMCID"] . '">
             <input type="hidden" name="source" value="">
             <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
