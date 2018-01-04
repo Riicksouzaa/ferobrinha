@@ -278,6 +278,12 @@ if(!empty($name))
 							<td>Created:</td>
 							<td>'.date("j F Y, g:i a", $account->getCreateDate()).'</td>
 						</tr>';
+					$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+					$main_content .= '
+						<tr bgcolor="'.$bgcolor.'" >
+							<td>Real Name:</td>
+							<td>'.$account_rlname.'</td>
+						</tr>';				
 				if($account->isBanned() > 0) {
 					$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
 					$main_content .= '
