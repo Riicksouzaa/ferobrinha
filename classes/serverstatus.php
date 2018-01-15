@@ -40,16 +40,23 @@ class ServerStatus
 
 	public function __construct($ip = null, $port = null, $waitTime = null, $packet = null)
 	{
-		if($ip !== null)
-			$this->ip = $ip;
-		if($port !== null)
-			$this->port = $port;
-		if($waitTime !== null)
-			$this->waitAnswerTime = $waitTime;
-		if($packet !== null)
-			$this->packet = $packet;
-		else
-			$this->packet = chr(6).chr(0).chr(255).chr(255).'info';
+		if($ip !== null){
+		    $this->ip = $ip;
+        }
+		if($port !== null){
+		    $this->port = $port;
+        }
+		if($waitTime !== null){
+		    $this->waitAnswerTime = $waitTime;
+        }
+		if($packet !== null){
+		    $this->packet = $packet;
+        }
+		else{
+            $this->packet = chr(6).chr(0).chr(255).chr(255).'info';
+//            $this->packet = chr(0xFF).'info';
+        }
+
 	}
 
 	public function getErrorNumber($forceReload = false)
@@ -72,7 +79,7 @@ class ServerStatus
 			$sock = @fsockopen($this->ip, $this->port, $this->errorNumber, $this->errorMessage, $this->waitAnswerTime);
 			if($sock)
 			{
-				fwrite($sock, $this->packet); 
+				fwrite($sock, $this->packet);
 				$answer = ''; 
 				while (!feof($sock))
 					$answer .= fgets($sock, 1024);
