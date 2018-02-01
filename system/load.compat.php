@@ -118,11 +118,11 @@ function check_name_new_char($name)
 	$name = (string) $name;
 	$name_to_check = strtolower($name);
 	//first word can't be:
-	$first_words_blocked = array('gm ','cm ', 'god ','tutor ', "'", '-');
+	$first_words_blocked = array('gm ','adm', 'admin', 'administrador', 'cm ', 'god ','tutor ', "'", '-');
 	//names blocked:
-	$names_blocked = array('gm','cm', 'god', 'tutor');
+	$names_blocked = array('gm','cm', 'god', 'tutor', 'adm', 'admin', 'administrador');
 	//name can't contain:
-	$words_blocked = array('gamemaster', 'game master', 'game-master', "game'master", '--', "''","' ", " '", '- ', ' -', "-'", "'-", 'fuck', 'sux', 'suck', 'noob', 'tutor');
+	$words_blocked = array('gamemaster','adm', 'admin', 'administrador', 'game master', 'game-master', "game'master", '--', "''","' ", " '", '- ', ' -', "-'", "'-", 'fuck', 'sux', 'suck', 'noob', 'tutor');
 	foreach($first_words_blocked as $word)
 		if($word == substr($name_to_check, 0, strlen($word)))
 			return false;

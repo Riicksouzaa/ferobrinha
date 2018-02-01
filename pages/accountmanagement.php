@@ -4756,6 +4756,8 @@ else {
             if (empty($newchar_errors)) {
                 if (!check_name_new_char($newchar_name))
                     $newchar_errors[] = 'This name contains invalid letters, words or format. Please use only a-Z, - , \' and space.<br> Remember not to use more than 3 letters repeated together.';
+                if(preg_match('/[^a-zA-Z ]/', $newchar_name))
+                    $newchar_errors[] = 'This name contains invalid letters, words or format. Please use only a-Z, - , \' and space.<br> Remember not to use more than 3 letters repeated together.';
                 if ($newchar_sex != 1 && $newchar_sex != "0")
                     $newchar_errors[] = 'Sex must be equal <b>0 (female)</b> or <b>1 (male)</b>.';
                 if (count($config['site']['newchar_vocations']) > 1) {
