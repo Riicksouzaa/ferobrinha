@@ -1,10 +1,4 @@
 <?php
-/**
- * HIGHSCORES PAGE BY RICARDO SOUZA - NÂO COMPRE ESSA PÁGINA SEM ENTRAR EM CONTATO COM ricardo@codenome.com
- * User: Ricardo Souza
- * Date: 21/12/2017
- * Time: 20:25
- */
 
 $list = 5;
 if (isset($_REQUEST['list'])) {
@@ -113,39 +107,41 @@ switch ($vocation) {
 }
 
 
-$limit = 20;
+$limit = 25;  //limite players por de pagina
 $offset = 0 * $limit;
+$limitOffsetAll = 300; //Limita a quantidade maxima de players no rank
+$grupacc = "1,2,3,6"; //Seleciona os grupos de class que irão aparecer no rank
 if ($_REQUEST['page'] && $_REQUEST['page'] > 0) {
     $offset = (intval($_REQUEST['page']) - 1) * $limit;
 }
 if ($list_order) {
     if ($vocation == 0) {
-        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` = 1 and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC")->fetchAll();
+        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` IN ({$grupacc}) and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT `{$limitOffsetAll}`")->fetchAll();
         $tr = count($allquery);
         $tp = $tr / $limit;
         if ($offset > $tr) {
             $offset = ($tp * $limit) - 1;
-            var_dump($offset);
+            //var_dump($offset);
         }
-        $skills = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` = 1 and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
+        $skills = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` IN ({$grupacc}) and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
     } elseif ($vocations_equival) {
-        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` IN ({$vocation},{$vocations_equival}) and `account_id`!= 1 AND `deleted` = 0 AND `group_id` = 1 ORDER BY `{$list_order}` DESC")->fetchAll();
+        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` IN ({$vocation},{$vocations_equival}) and `account_id`!= 1 AND `deleted` = 0 AND `group_id` IN ({$grupacc}) ORDER BY `{$list_order}` DESC LIMIT {$limitOffsetAll}")->fetchAll();
         $tr = count($allquery);
         $tp = $tr / $limit;
         if ($offset > $tr) {
             $offset = ($tp * $limit) - 1;
-            var_dump($offset);
+            //var_dump($offset);
         }
-        $skills = $SQL->query("SELECT * FROM `players` WHERE `vocation` IN ({$vocation},{$vocations_equival}) and `account_id`!= 1 AND `deleted` = 0 AND `group_id` = 1 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
+        $skills = $SQL->query("SELECT * FROM `players` WHERE `vocation` IN ({$vocation},{$vocations_equival}) and `account_id`!= 1 AND `deleted` = 0 AND `group_id` IN ({$grupacc}) ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
     } else {
-        $allquery = $SQL->query("SELECT * FROM `players` WHERE `group_id` = 1 and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC")->fetchAll();
+        $allquery = $SQL->query("SELECT * FROM `players` WHERE `group_id` IN ({$grupacc}) and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limitOffsetAll}")->fetchAll();
         $tr = count($allquery);
         $tp = $tr / $limit;
         if ($offset > $tr) {
             $offset = ($tp * $limit) - 1;
-            var_dump($offset);
+            //var_dump($offset);
         }
-        $skills = $SQL->query("SELECT * FROM `players` WHERE `group_id` = 1 and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
+        $skills = $SQL->query("SELECT * FROM `players` WHERE `group_id` IN ({$grupacc}) and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limit} OFFSET {$offset}")->fetchAll();
     }
 }
 $main_content = '
@@ -329,7 +325,11 @@ if(!isset($_REQUEST["page"])){
     $_REQUEST["page"] = 1;
 }
 for ($i = 0; $i < $tp; $i++) {
-    $main_content .= '                                   <a '.(($_REQUEST["page"]-1) == $i ? "style=\"text-decoration:underline\"": "").' href="./?subtopic=highscores&world=' . $config["server"]["serverName"] . '&vocation=' . $vocation . '&page=' . ($i + 1) . '">' . ($i + 1) . '</a>';
+    if($_REQUEST["page"]-1 != $i){
+        $main_content .= '                                   <a '.(($_REQUEST["page"]-1) == $i ? "style=\"text-decoration:underline\"": "").' href="./?subtopic=highscores&world=' . $config["server"]["serverName"] . '&vocation=' . $vocation . '&page=' . ($i + 1) . '">' . ($i + 1) . '</a>';
+    }else{
+        $main_content .= "<b style='margin-left:4px;'>".($i + 1)."</b>";
+    }
 }
 $main_content .= '
                                                       </div>

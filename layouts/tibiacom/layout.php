@@ -683,21 +683,24 @@ if(!defined('INITIALIZED'))
     </div>
     </div>
     <div id="fb-root"></div>
-    <script>
+    <script type="text/javascript">
         // disable all control elements which are not part of the content container element
         if (g_Deactivated == true) {
-            document.getElementById('LoginButtonContainer').style.zIndex = "1";
-            document.getElementById('DeactivationContainer').style.display = "block";
-            document.getElementById('DeactivationContainer').style.zIndex = "50";
-            document.getElementById('DeactivationContainerThemebox').style.display = "block";
-            document.getElementById('Monster').style.cursor = "auto";
-            document.getElementById('PlayersOnline').style.cursor = "auto";
-            document.getElementById('ThemeboxesColumn').style.opacity = "0.30";
-            document.getElementById('ThemeboxesColumn').style.MozOpacity = "0.30";
-            document.getElementById('ThemeboxesColumn').filters.alpha.opacity = "0.75";
-            document.getElementById('ThemeboxesColumn').style.filter = "alpha(opacity=50); opacity: 0.30";
-            document.getElementById('Monster').setAttribute("onclick", "");
-            document.getElementById('PlayersOnline').setAttribute("onclick", "");
+            $(document).ready(function() {
+                document.getElementById('Monster').setAttribute('onclick', '');
+                document.getElementById('PlayersOnline').setAttribute('onclick', '');
+                document.getElementById('DeactivationContainer').setAttribute('onclick', '');
+                document.getElementById('LoginButtonContainer').style.zIndex = '1';
+                document.getElementById('DeactivationContainer').style.display = 'block';
+                document.getElementById('DeactivationContainer').style.zIndex = '50';
+                document.getElementById('DeactivationContainerThemebox').style.display = 'block';
+                document.getElementById('Monster').style.cursor = 'auto';
+                document.getElementById('PlayersOnline').style.cursor = 'auto';
+                document.getElementById('ThemeboxesColumn').style.opacity = '0.30';
+                document.getElementById('ThemeboxesColumn').style.MozOpacity = '0.30';
+                document.getElementById('ThemeboxesColumn').filters.alpha.opacity = '0.75';
+                document.getElementById('ThemeboxesColumn').style.filter = 'alpha(opacity=50); opacity: 0.30';
+            });
         }
     </script>
     <script>(function(d, s, id) {
