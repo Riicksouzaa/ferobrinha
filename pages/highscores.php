@@ -87,7 +87,7 @@ switch ($list) {
 
 switch ($vocation) {
     case 15:
-        $vocation = "0";
+        $vocation = 0;
         break;
     case 1:
         $vocations_equival = 5;
@@ -116,7 +116,7 @@ if ($_REQUEST['page'] && $_REQUEST['page'] > 0) {
 }
 if ($list_order) {
     if ($vocation == 0) {
-        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` IN ({$grupacc}) and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT `{$limitOffsetAll}`")->fetchAll();
+        $allquery = $SQL->query("SELECT * FROM `players` WHERE `vocation` = 0 AND `group_id` IN ({$grupacc}) and `account_id`!= 1 AND `deleted` = 0 ORDER BY `{$list_order}` DESC LIMIT {$limitOffsetAll}")->fetchAll();
         $tr = count($allquery);
         $tp = $tr / $limit;
         if ($offset > $tr) {
@@ -258,42 +258,44 @@ if ($list == 5) {
                                              </tr>';
 }
 
-foreach ($skills as $skill) {
-    $voc = $skill['vocation'];
-    switch ($voc) {
-        case 0:
-            $voc = "No Vocation";
-            break;
-        case 1:
-            $voc = "Sorcerer";
-            break;
-        case 2:
-            $voc = "Druid";
-            break;
-        case 3:
-            $voc = "Paladin";
-            break;
-        case 4:
-            $voc = "Knight";
-            break;
-        case 5:
-            $voc = "Master Sorcerer";
-            break;
-        case 6:
-            $voc = "Elder Druid";
-            break;
-        case 7:
-            $voc = "Royal Paladin";
-            break;
-        case 8:
-            $voc = "Elite Knight";
-            break;
-        default:
-            break;
-    }
-    $bgcolor = (($number_of_rows++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
-    if ($list == 5) {
-        $main_content .= '
+if(count($skills) != 0){
+
+    foreach ($skills as $skill) {
+        $voc = $skill['vocation'];
+        switch ($voc) {
+            case 0:
+                $voc = "No Vocation";
+                break;
+            case 1:
+                $voc = "Sorcerer";
+                break;
+            case 2:
+                $voc = "Druid";
+                break;
+            case 3:
+                $voc = "Paladin";
+                break;
+            case 4:
+                $voc = "Knight";
+                break;
+            case 5:
+                $voc = "Master Sorcerer";
+                break;
+            case 6:
+                $voc = "Elder Druid";
+                break;
+            case 7:
+                $voc = "Royal Paladin";
+                break;
+            case 8:
+                $voc = "Elite Knight";
+                break;
+            default:
+                break;
+        }
+        $bgcolor = (($number_of_rows++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
+        if ($list == 5) {
+            $main_content .= '
                                             <tr style="background-color: ' . $bgcolor . ';">
                                                 <td>' . ($offset + $number_of_rows) . '</td>
                                                 <td><a href="./?subtopic=characters&name=' . urlencode($skill["name"]) . '">' . htmlspecialchars($skill["name"]) . '</a></td>
@@ -302,9 +304,9 @@ foreach ($skills as $skill) {
                                                 <td style="text-align: right;">' . $skill["experience"] . '</td>
                                              </tr>
     ';
-    } else {
+        } else {
 
-        $main_content .= '
+            $main_content .= '
                                             <tr style="background-color: ' . $bgcolor . ';">
                                                 <td>' . ($offset + $number_of_rows) . '</td>
                                                 <td><a href="./?subtopic=characters&name=' . urlencode($skill["name"]) . '">' . htmlspecialchars($skill["name"]) . '</a></td>
@@ -313,9 +315,19 @@ foreach ($skills as $skill) {
                                                 <!--<td style="text-align: right;">' . $skill["experience"] . '</td>-->
                                              </tr>
     ';
+        }
+
     }
 
+}else{
+    $bgcolor = $config['site']['lightborder'];
+    $main_content .= '
+                                            <tr style="background-color: ' . $bgcolor . ';">
+                                                <td colspan="5" style="text-align: center">Nenhum personagem encontrado.</td>
+                                             </tr>
+     ';
 }
+
 $main_content .= '
                                              <tr>
                                                 <td style="padding-right: 10px;" colspan="5">
@@ -325,8 +337,8 @@ if(!isset($_REQUEST["page"])){
     $_REQUEST["page"] = 1;
 }
 for ($i = 0; $i < $tp; $i++) {
-    if($_REQUEST["page"]-1 != $i){
-        $main_content .= '                                   <a '.(($_REQUEST["page"]-1) == $i ? "style=\"text-decoration:underline\"": "").' href="./?subtopic=highscores&world=' . $config["server"]["serverName"] . '&vocation=' . $vocation . '&page=' . ($i + 1) . '">' . ($i + 1) . '</a>';
+    if((int)$_REQUEST["page"]-1 != $i){
+        $main_content .= '<a style="margin-left:4px;" href="./?subtopic=highscores&world=' . $config["server"]["serverName"] . '&vocation=' . $vocation . '&page=' . ($i + 1) . '">' . ($i + 1) . '</a>';
     }else{
         $main_content .= "<b style='margin-left:4px;'>".($i + 1)."</b>";
     }
