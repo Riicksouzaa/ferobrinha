@@ -1,2 +1,5 @@
 .idea/
 .cache/
+cache/DONT_EDIT_usercounter.txt
+cache/DONT_EDIT_serverstatus.txt
+vendor/

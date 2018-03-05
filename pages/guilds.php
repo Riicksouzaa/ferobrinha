@@ -1095,7 +1095,7 @@ if($action == "create") {
 		}
 	}
 }
-if ($action == "invite") {
+if($action == "invite") {
 	//set rights in guild
 	$guild_name = (string) $_REQUEST['GuildName'];
 	$name = $_REQUEST['character'];
@@ -2273,7 +2273,6 @@ if($action == "ranks") {
 }
 
 #organize ranks
-
 if($action == "members") {
 	
 	#infos
