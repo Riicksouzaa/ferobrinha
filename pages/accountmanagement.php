@@ -3,7 +3,7 @@ if (!defined('INITIALIZED'))
     exit;
 
 if (!$logged)
-    if ($action == "logout")
+    if ($action == "logout"){
         $main_content .= '
 			<div class="TableContainer" >
 				<table class="Table1" cellpadding="0" cellspacing="0" >
@@ -32,6 +32,7 @@ if (!$logged)
 					</tr>
 				</table>
 			</div>';
+    }
     else {
         $passB = '<span>Password:</span>';
         $logB = '<span>Account Name:</span>';
@@ -55,6 +56,12 @@ if (!$logged)
                 case Visitor::LOGINSTATE_WRONG_PASSWORD:
                     $main_content .= 'Wrong password to account.<br/>';
                     $passB = '<span style="color:red;">Password:</span>';
+                    break;
+                case Visitor::LOGINSTATE_WRONG_SECRETCODE:
+                    $main_content .= '<li>This account have a Secret Code to login, please insert you login code.</li>';
+                    $main_content .= '<li>Secret Code to inválido.</li>';
+                    $secretL = '<span style="color:red;">Secret Code:</span>';
+                    $login_secret = true;
                     break;
             }
             $main_content .= '
@@ -98,14 +105,36 @@ if (!$logged)
 															<tr>
 																<td>
 																	<table style="float: left; width: 370px;" cellpadding="0" cellspacing="0" >
-																		<tr>
+																	';
+                                                                    if($login_secret){
+                                                                        $main_content.='
+                                                                            <tr>
+                                                                                <td class="LabelV120" ><span>' . $logB . '</span></td>
+                                                                                <td><input type="password" name="account_login" value="'.$_POST["account_login"].'" size="35" maxlength="30" ></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="LabelV120" ><span>' . $passB . '</span></td>
+                                                                                <td><input type="password" name="password_login" value="'.$_POST["password_login"].'" size="35" maxlength="29" ></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="LabelV120" ><span>' . $secretL . '</span></td>
+                                                                                <td><input type="number" autofocus name="secretCode_login" size="35" maxlength="6" ></td>
+                                                                            </tr>
+                                                                        ';
+                                                                    }else{
+                                                                        $main_content.='
+                                                                        <tr>
 																			<td class="LabelV120" ><span>' . $logB . '</span></td>
-																			<td><input type="password" name="account_login" size="35" maxlength="30" ></td>
+																			<td><input type="password" autofocus name="account_login" size="35" maxlength="30" ></td>
 																		</tr>
 																		<tr>
 																			<td class="LabelV120" ><span>' . $passB . '</span></td>
 																			<td><input type="password" name="password_login" size="35" maxlength="29" ></td>
 																		</tr>
+                                                                        ';
+                                                                    }
+
+                                                                    $main_content.='																		
 																	</table>
 																	<div style="float: right; font-size: 1px;" >
 																		<input type="hidden" name="page" value="overview" >
@@ -237,6 +266,7 @@ if (!$logged)
 				</tr>';
     }
 else {
+    Visitor::setSecretCode($tfa->getCode($account_logged->getSecret()));
     //Here start our new accountmanagement ;D
     if ($action == "") {
         if ($account_logged->getPremDays() > 0)
@@ -536,6 +566,138 @@ else {
 						</tr>
 					</tbody></table>
 				</div><br>';
+
+        $main_content .= '
+            <div class="TableContainer" style="margin-bottom: 10px">
+                <div class="CaptionContainer">
+                    <div class="CaptionInnerContainer">
+                        <span class="CaptionEdgeLeftTop" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
+                        <span class="CaptionEdgeRightTop" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
+                        <span class="CaptionBorderTop" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>        
+                        <span class="CaptionVerticalLeft" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>        
+                        <div class="Text">Authenticator</div>
+                        <span class="CaptionVerticalRight" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>
+                        <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
+                        <span class="CaptionEdgeLeftBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
+                        <span class="CaptionEdgeRightBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
+                    </div>
+                </div>
+                <table class="Table5" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="InnerTableContainer">
+                                    <table style="width:100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="TableShadowContainerRightTop">
+                                                        <div class="TableShadowRightTop" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-rt.gif);">
+                                                        </div>
+                                                    </div>
+                                                    <div class="TableContentAndRightShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-rm.gif);">
+                                                        <div class="TableContentContainer">
+                                                            <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style="float: right; width: 135px;">
+                                                                                <form id="requestSecret" action="./valida_secret.php" method="post" style="padding:0px;margin:0px;">
+                                                                                    <input type="hidden" name="step" value="requestwarning">
+                                                                                    <input type="submit" value="Request">                                                                               
+                                                                                </form>
+                                                                            </div>
+                                                                            <script>
+                                                                            $("#requestSecret").submit(function() {
+                                                                                var form = $(this);
+                                                                                var data = form.serialize();
+                                                                                var url = form.attr("action");
+                                                                                var method = form.attr("method");
+                                                                                
+                                                                                $.ajax({
+                                                                                    url: url,
+                                                                                    method:method,
+                                                                                    dataType:"json",
+                                                                                    data: data,
+                                                                                    beforeSend: function() {
+                                                                                      
+                                                                                    },
+                                                                                    success: function(response) {
+                                                                                      if(response.status === "error"){
+                                                                                          
+                                                                                      }else{
+                                                                                          
+                                                                                      }
+                                                                                    }
+                                                                                })
+                                                                              return false;
+                                                                            });
+                                                                            
+</script>
+                                                                            <b>Connect your Tibia account to an authenticator!</b>
+                                                                            <p>An authenticator offers you an additional layer of security to help prevent unauthorised access to your Tibia account.</p>
+                                                                            <p>As a first step to connect an authenticator to your account, click on "Request"! An email with a confirmation key will be sent to the email address assigned to your account.</p>
+                                                                            </td>
+                                                                            <td>
+                                                                            <div> <p>Your account is not protected.</p></div>
+                                                                            <img src="' . $tfa->getQRCodeImageAsDataUri('My label', $secret) . '">
+                                                                            <form id="protectCode" action="./valida_secret.php" method="post">
+                                                                            <p class="response"></p>
+                                                                            <input type="number" placeholder="SecretCode" id="SecretCode" name="SecretCode">
+                                                                            <input type="submit" value="Proteger" id="test">
+                                                                            </form>
+                                                                            <script>
+                                                                            $("#protectCode").submit(function() {
+                                                                                var form = $(this);
+                                                                                var data = form.serialize();
+                                                                                var url = form.attr("action");
+                                                                                var type = form.attr("method");
+                                                                                
+                                                                                console.log(data);
+                                                                                
+                                                                              $.ajax({
+                                                                                url: url,
+                                                                                data: data,
+                                                                                type: type,
+                                                                                dataType: "json",
+                                                                                beforeSend: function(){
+                                                                                    
+                                                                                },
+                                                                                success: function(response) {
+                                                                                  if(response.status === "error"){
+                                                                                      $(".response").html("Error");
+                                                                                  }else{
+                                                                                      $(".response").html("OK");
+                                                                                  }
+                                                                                }
+                                                                              })
+                                                                              return false;
+                                                                            });
+                                                                            </script>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="TableShadowContainer">
+                                                        <div class="TableBottomShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-bm.gif);">
+                                                            <div class="TableBottomLeftShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-bl.gif);">
+                                                            </div>
+                                                            <div class="TableBottomRightShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-br.gif);"></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        ';
 
         $main_content .= '
 				<div class="TableContainer" >
