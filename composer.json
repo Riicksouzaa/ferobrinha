@@ -1,0 +1,17 @@
+{
+  "name": "Gesior-Premium",
+  "description": "Gesior premium with composer",
+  "authors": [
+    {
+      "name": "Ricardo Souza",
+      "email": "ricardo@codenome.com",
+      "homepage": "http://codenome.com",
+      "role": "Developer"
+    }
+
+  ],
+  "license": "GPL-3.0+",
+  "require": {
+    "robthree/twofactorauth": "^1.6"
+  }
+}
