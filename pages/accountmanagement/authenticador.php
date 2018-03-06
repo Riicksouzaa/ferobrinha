@@ -177,7 +177,7 @@ if ($logged) {
               window.location.href = "./?subtopic=accountmanagement&action=auth&step=autenticar";
           }
         }
-        })
+        });
         return false;
         });
     </script>   
