@@ -1,6 +1,7 @@
 <?php
-if(!defined('INITIALIZED'))
+if (!defined('INITIALIZED'))
     exit;
+
 use \RobThree\Auth\TwoFactorAuth;
 
 class Visitor
@@ -14,60 +15,18 @@ class Visitor
     private static $loginAccount;
     private static $loginPassword;
     private static $loginSecretCode;
+    private static $authenticStatus;
     private static $account;
     private static $loginState = self::LOGINSTATE_NOT_TRIED;
 
-    public static function setAccount($value)
+    public static function setSecretCode($code)
     {
-        $_SESSION['account'] = $value;
+        $_SESSION['SecretCode'] = $code;
     }
-
-    public static function setSecretCode($code){$_SESSION['SecretCode'] = $code;}
 
     public static function setPassword($value)
     {
         $_SESSION['password'] = $value;
-    }
-
-    public static function getAccount()
-    {
-        if(!isset(self::$account))
-            self::loadAccount();
-        return self::$account;
-    }
-
-    public static function loadAccount()
-    {
-        $tfa = new TwoFactorAuth();
-        self::$account = new Account();
-        if(!empty(self::$loginAccount))
-        {
-            self::$account->loadByName(self::$loginAccount);
-            if(self::$account->isLoaded())
-                if(self::$account->isValidPassword(self::$loginPassword))
-                    if(self::$account->getSecretStatus() == 1){
-                        if($tfa->verifyCode(self::$account->getSecret(),(self::$loginSecretCode !== null? self::$loginSecretCode: "0")) === true){
-                            self::$loginState = self::LOGINSTATE_LOGGED;
-                        }else{
-                            self::$loginState = self::LOGINSTATE_WRONG_SECRETCODE;
-                        }
-                    }else{
-                        self::$loginState = self::LOGINSTATE_LOGGED;
-                    }
-                else
-                    self::$loginState = self::LOGINSTATE_WRONG_PASSWORD;
-            else
-                self::$loginState = self::LOGINSTATE_NO_ACCOUNT;
-        }
-        else
-            self::$loginState = self::LOGINSTATE_NOT_TRIED;
-        if(self::$loginState != self::LOGINSTATE_LOGGED)
-            self::$account = new Account();
-    }
-
-    public static function isTryingToLogin()
-    {
-        return !empty(self::$loginAccount);
     }
 
     public static function getLoginState()
@@ -75,27 +34,86 @@ class Visitor
         return self::$loginState;
     }
 
-
     public static function isLogged()
     {
         return self::isTryingToLogin() && self::getAccount()->isLoaded();
     }
 
+    public static function isTryingToLogin()
+    {
+        return !empty(self::$loginAccount);
+    }
+
+    public static function getAccount()
+    {
+        if (!isset(self::$account)) {
+            self::loadAccount();
+        }
+        return self::$account;
+    }
+
+    public static function getAuthenticStatus(){
+        return self::$authenticStatus;
+    }
+
+    public static function setAccount($value)
+    {
+        $_SESSION['account'] = $value;
+    }
+
+    public static function loadAccount()
+    {
+        $tfa = new TwoFactorAuth();
+
+        if (self::$loginState != self::LOGINSTATE_LOGGED) {
+            self::$account = new Account();
+        }
+        if (!empty(self::$loginAccount)) {
+            self::$account->loadByName(self::$loginAccount);
+            if (self::$account->isLoaded()) {
+                if (self::$account->isValidPassword(self::$loginPassword)) {
+                    if (self::$account->getSecretStatus() == '1') {
+                        if(isset($_SESSION['SecretCode'])){
+                            self::$loginState = self::LOGINSTATE_LOGGED;
+                        }else{
+                            if ($tfa->verifyCode(self::$account->getSecret(), (self::$loginSecretCode !== null ? self::$loginSecretCode : "0"))) {
+                                self::$loginState = self::LOGINSTATE_LOGGED;
+                            } else {
+                                self::$loginState = self::LOGINSTATE_WRONG_SECRETCODE;
+                            }
+                        }
+                    }else{
+                        self::$loginState = self::LOGINSTATE_LOGGED;
+                    }
+                } else {
+                    self::$loginState = self::LOGINSTATE_WRONG_PASSWORD;
+                }
+            } else {
+                self::$loginState = self::LOGINSTATE_NO_ACCOUNT;
+            }
+        } else {
+            self::$loginState = self::LOGINSTATE_NOT_TRIED;
+        }
+        if(self::$loginState !== self::LOGINSTATE_LOGGED){
+            self::$account = new Account();
+        }
+    }
+
     public static function login()
     {
-        if(isset($_SESSION['account']))
+        if (isset($_SESSION['account']))
             self::$loginAccount = $_SESSION['account'];
-        if(isset($_SESSION['password']))
+        if (isset($_SESSION['password']))
             self::$loginPassword = $_SESSION['password'];
-        if(isset($_SESSION['SecretCode']))
+        if (isset($_SESSION['SecretCode']))
             self::$loginSecretCode = $_SESSION['SecretCode'];
     }
 
     public static function logout()
     {
         unset($_SESSION['account']);
-        unset($_SESSION['SecretCode']);
         unset($_SESSION['password']);
+        unset($_SESSION['SecretCode']);
         self::$loginAccount = null;
         self::$loginPassword = null;
         self::$account = new Account();

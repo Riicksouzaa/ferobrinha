@@ -11,39 +11,38 @@ include_once "system/load.login.php";
 include_once "system/load.database.php";
 include_once "system/load.compat.php";
 
+header('');
+$hue = [];
 /**
  * @param String $msg
  */
 function sendErrorMsg($msg = null)
 {
-    $hue = [];
     $hue['status'] = "error";
     if ($msg !== null) {
         $hue['msg'] = $msg;
     } else {
-        $hue['msg'] = "Somente requisições post são permitidas";
+        $hue['msg'] = "Somente requisições post são permitidas.";
     }
     echo json_encode($hue);
 }
+if(isset($_POST)){
+    if (isset($_POST['SecretCode'])) {
+        $code = $_POST['SecretCode'];
+        $secret = $account_logged->getSecret();
+        $result = $tfa->verifyCode($secret, $code);
 
-if (isset($_POST['SecretCode'])) {
-    $hue = [];
-    $code = $_POST['SecretCode'];
-    $secret = $account_logged->getSecret();
-    $hue['secret'] = $secret;
-    $hue['code'] = $code;
-    $hue['real_code'] = $tfa->getCode($secret);
-    $result = $tfa->verifyCode($secret, $code);
-
-    if ($result === true) {
-        $account_logged->setSecretStatus(true);
-        $account_logged->save();
-        $hue['status'] = 'success';
-        echo json_encode($hue);
+        if ($result === true) {
+            $hue['status'] = 'success';
+            $account_logged->setSecretStatus(true);
+            $account_logged->save();
+            echo json_encode($hue);
+        } else {
+            sendErrorMsg('Secret Code inválido.');
+        }
     } else {
-        $hue['status'] = 'error';
-        echo json_encode($hue);
+        sendErrorMsg('Dados post inválidos.');
     }
-} else {
-    sendErrorMsg('Dados post inválidos.');
+}else{
+    sendErrorMsg();
 }
