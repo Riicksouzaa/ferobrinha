@@ -1303,13 +1303,17 @@ else{
                                                                         <td>
                                                                             <div style="float: right; width: 135px;">
                                                                                 <form id="requestSecret" action="?subtopic=accountmanagement&action=auth" method="post" style="padding:0px;margin:0px;">
-                                                                                    <input type="submit" value="Request">                                                                               
+                                                                                    <div class="BigButton" style="background-image:url(./layouts/tibiacom/images/global/buttons/sbutton.gif)">
+                                                                                        <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image: url(&quot;./layouts/tibiacom/images/global/buttons/sbutton_over.gif&quot;); visibility: hidden;"></div>
+                                                                                            <input class="ButtonText" type="image" name="Request" alt="Request" src="./layouts/tibiacom/images/global/buttons/_sbutton_request.gif">
+                                                                                        </div>
+                                                                                    </div>                                                                              
                                                                                 </form>
                                                                             </div>
                                                                             <b>Connect your Tibia account to an authenticator!</b>
                                                                             <p>An authenticator offers you an additional layer of security to help prevent unauthorised access to your Tibia account.</p>
                                                                             <p>As a first step to connect an authenticator to your account, click on "Request"! An email with a confirmation key will be sent to the email address assigned to your account.</p>
-                                                                            </td>                                                                            
+                                                                        </td>                                                                            
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

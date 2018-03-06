@@ -34,13 +34,25 @@ if(isset($_POST)){
 
         if ($result === true) {
             $hue['status'] = 'success';
+            $_SESSION['SecretCode'] = $_POST['SecretCode'];
             $account_logged->setSecretStatus(true);
             $account_logged->save();
             echo json_encode($hue);
         } else {
             sendErrorMsg('Secret Code inválido.');
         }
-    } else {
+    } elseif(isset($_POST['inactivate'])){
+        $status = $account_logged->getSecretStatus();
+        if($status == 1){
+            $hue['status'] = 'success';
+            $account_logged->setSecretStatus(false);
+            $account_logged->save();
+            echo json_encode($hue);
+        }else{
+            sendErrorMsg('always inactive');
+        }
+    }
+    else {
         sendErrorMsg('Dados post inválidos.');
     }
 }else{

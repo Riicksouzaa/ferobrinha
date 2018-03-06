@@ -31,6 +31,7 @@ if(!defined('INITIALIZED'))
     <link rel="apple-touch-icon-precomposed" href="<?php echo $layout_name; ?>/images/global/general/apple-touch-icon-precomposed.png">
 
     <link href="<?php echo $layout_name; ?>/basic_d.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/pageloader.css" rel="stylesheet" type="text/css">
     <?php
     if($_REQUEST['subtopic'] == "latestnews" || $_REQUEST['subtopic'] == "newsarchive")
         echo '<link href="'.$layout_name.'/news.css" rel="stylesheet" type="text/css">';
@@ -88,6 +89,7 @@ if(!defined('INITIALIZED'))
             }
         </script>
     <?php } ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
 </head>
 
 <body onbeforeunload="SaveMenu();"
@@ -99,6 +101,7 @@ if(!defined('INITIALIZED'))
       onunload="SaveMenu();"
       onload="SetFormFocus()"
       data-twttr-rendered="true">
+<div class="se-pre-con"></div>
 <div id="DeactivationContainer" onclick="DisableDeactivationContainer();"></div>
 
 <div id="MainHelper1">
