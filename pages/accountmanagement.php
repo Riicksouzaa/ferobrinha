@@ -266,7 +266,7 @@ if (!$logged)
 				</tr>';
     }
 else{
-    if($account_logged->getSecret() === null){
+    if($account_logged->getSecret() === null || $account_logged->getSecret() == ''){
         $account_logged->setSecret($tfa->createSecret(160));
         $account_logged->save();
     }
