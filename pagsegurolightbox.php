@@ -38,14 +38,15 @@ if (isset($_POST)) {
 
     $product_id = $_POST['pid'];
     $account_name = $_POST['accname'];
-    $coinCount = $config['donate']['offers'][intval($product_id)];
+    $price = array_keys($config['donate']['offers'][intval($product_id)])[0];
+    $coinCount = array_values($config['donate']['offers'][intval($product_id)])[0];
     $pagseguroDados = [
         "currency" => "BRL",
         "items" => [
             "item" => [
                 "id" => 0001,
                 "description" => $coinCount . " " . $config['pagseguro']['produtoNome'],
-                "amount" => ($product_id / 100.0) . ".00",
+                "amount" => ($price / 100.0) . ".00",
                 "quantity" => "1"
             ]
         ],
