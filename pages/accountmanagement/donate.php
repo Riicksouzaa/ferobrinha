@@ -222,7 +222,7 @@ if($logged) {
 											</td>
 										</tr>';
 
-            /*$main_content .= '
+            $main_content .= '
                 <tr>
                     <td>
                         <div class="TableShadowContainerRightTop" >
@@ -278,7 +278,7 @@ if($logged) {
 </tr>
 </table>
 </div>
-<p style="color:red;">Paypal foi desativado temporariamente, pedimos sua paciencia. Em breve estara normalizado.</p>';*/
+<p style="color:red;">Paypal foi desativado temporariamente, pedimos sua paciencia. Em breve estara normalizado.</p>';
 
 			
 			$main_content .= '
@@ -1401,7 +1401,7 @@ if($logged) {
 			$donateMethod = $_REQUEST['donateMethod'];
 			$donateBank = $_REQUEST['donateBank'];
 			$donatePrice = $_REQUEST['pointsPackage'] . '.00';
-			$donateRef = randString(6);
+			$donateRef = random_int(0,5000);
 			$donateDate = time();
 			$donateAccount = $account_logged->getName();
 			

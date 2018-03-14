@@ -87,17 +87,6 @@ if ($logged) {
     ';
 
     if ($step == 1) {
-        if ($_POST['storage_OrderServiceData']['ServiceID']) {
-            $main_content .= '
-            <script> 
-            window.onload = function() {
-                ChangeService(' . $_POST['Coins'] . ', 13);
-                ChangePMC(' . $_POST["PMCID"] . ');
-            };
-            </script>
-            ';
-        }
-
         $main_content .= '
     <script src="' . $layout_name . '/changepmctibia.js"></script>
     <form method="POST">
@@ -183,32 +172,34 @@ if ($logged) {
                                                             <td style="text-align: center;" align="center">
                                                                 <div style="max-height: 500px; overflow-y: auto;">';
         $countOffers = 1;
-        foreach ($config['donate']['offers'] as $reais => $coins) {
-            $main_content .= '
-                                                                    <div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_' . $coins . '">
+        foreach ($config['donate']['offers'] as $id => $coins) {
+            foreach ($coins as $reais => $coins){
+                $main_content .= '
+                                                                    <div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_' . $id . '">
                                                                         <div class="ServiceID_Icon_Container_Background" id="" style="background-image:url(' . $layout_name . '/images/payment/serviceid_icon_normal.png);">
-                                                                            <div class="ServiceID_Icon" id="ServiceID_Icon_' . $coins . '" style="" onclick="ChangeService(' . $coins . ', 13);" onmouseover="MouseOverServiceID(' . $coins . ', 13);" onmouseout="MouseOutServiceID(' . $coins . ', 13);">
-                                                                                <div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_' . $coins . '" style="display: none;">
+                                                                            <div class="ServiceID_Icon" id="ServiceID_Icon_' . $id . '" style="" onclick="ChangeService(' . $id . ', 13);" onmouseover="MouseOverServiceID(' . $id . ', 13);" onmouseout="MouseOutServiceID(' . $id . ', 13);">
+                                                                                <div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_' . $id . '" style="display: none;">
                                                                                     <span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'Service Info:\', \'<p>The product is not available for the selected payment method!</p>\', \'\');" onmouseout="$(\'#HelperDivContainer\').hide();">
                                                                                         <div class="ServiceID_Deactivated" style="background-image: url(' . $layout_name . '/images/payment/serviceid_deactivated.png);"></div>
                                                                                     </span>
                                                                                 </div>
-                                                                                <div class="ServiceID_Icon_New" id="ServiceID_Icon_New_' . $coins . '" style="background-image:url(' . $layout_name . '/images/payment/serviceid_' . $countOffers . '.png);"></div>
-                                                                                <div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_' . $coins . '"></div>
-                                                                                <div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_' . $coins . '" style=""></div>
-                                                                                <label for="ServiceID_' . $coins . '">
+                                                                                <div class="ServiceID_Icon_New" id="ServiceID_Icon_New_' . $id . '" style="background-image:url(' . $layout_name . '/images/payment/serviceid_' . ($countOffers >= 5 ? '5' : $countOffers) . '.png);"></div>
+                                                                                <div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_' . $id . '"></div>
+                                                                                <div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_' . $id . '" style=""></div>
+                                                                                <label for="ServiceID_' . $id . '">
                                                                                     <div class="ServiceIDLabelContainer">
                                                                                         <div class="ServiceIDLabel">
-                                                                                        <input type="radio" id="ServiceID_' . $coins . '" name="ServiceID" value="' . $reais . '" style="display: none;">' . $coins . ' Coins  </div>
+                                                                                        <input type="radio" id="ServiceID_' . $id . '" name="ServiceID" value="' . $id . '" style="display: none;">' . $coins . ' Coins  </div>
                                                                                     </div>
                                                                                     <div class="ServiceIDPriceContainer">
-                                                                                        <span class="ServiceIDPrice" id="PD_' . $reais . '">R$ ' . ($reais / 100) . '.00</span>                                                                                        
+                                                                                        <span class="ServiceIDPrice" id="PD_' . $id . '">R$ ' . ($reais / 100) . '.00</span>                                                                                        
                                                                                     </div>
                                                                                 </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
             ';
+            }
             $countOffers++;
         }
         unset($countOffers);
@@ -268,7 +259,7 @@ if ($logged) {
                                                                             <span style="position: absolute; left: 125px; top: 53px; z-index: 99;"><span style="margin-left: 5px; position: absolute; margin-top: 2px;"><a href="../common/help.php?subtopic=Field_PaymentMethodCategory_Option_' . $payment_id . '_Comment" target="_blank"><span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'Information:\', \'This method is ' . $methodName . '\', \'\');" onmouseout="$(\'#HelperDivContainer\').hide();"><img style="border:0px;" src="' . $layout_name . '/images/global/content/info.gif"></span></a></span></span>    <img class="PMCID_CP_Icon" src="' . $layout_name . '/images/payment/' . $methodName . '.gif">    
                                                                             <div class="PMCID_CP_Label">
                                                                             <input type="radio" id="PMCID_' . $payment_id . '" name="PMCID" value="' . $payment_id . '" style="display: none;">                                                                            
-                                                                            <label for="PMCID_' . $payment_id . '">' . $methodName . '</label>
+                                                                            <label for="PMCID_' . $payment_id . '">' . ($methodName == 'transfer' ? 'Bank Transfer' : ucfirst($methodName)) . '</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -332,17 +323,32 @@ if ($logged) {
     $(\'#SelectCountrySubmitButton\').hide();
     $(\'.PMCID_CP_Label > input\').hide();
     $(\'.ServiceIDLabel > input\').hide();
-    ChangeService(1, 13);
 </script>
 </form> 
     ';
+        if ($_POST['storage_OrderServiceData']['ServiceID']) {
+            $main_content .= '
+            <script type="text/javascript"> 
+                ChangeService(' . $_POST['ServiceID'] . ', 13);
+                ChangePMC(' . $_POST["PMCID"] . ');
+            </script>
+            ';
+        }else{
+            $main_content .= '
+            <script type="text/javascript"> 
+                ChangeService(0, 13);
+                ChangePMC(1);
+            </script>
+            ';
+        }
     } elseif ($step == 2) {
         $payment_data = $_POST;
         $valid_methods = array_diff($config['paymentsMethods'], [false]);
         $valid_methods = array_keys($valid_methods);
         $payment_data['methodName'] = $valid_methods[($_POST['PMCID']) - 1];
-        $payment_data['coins'] = $config['donate']['offers'][$payment_data["ServiceID"]];
-        if (!$_POST['ServiceID'] || !$_POST['PMCID'] || $_POST['source']) {
+        $payment_data['coins'] = array_values($config['donate']['offers'][$payment_data["ServiceID"]])[0];
+        $payment_data['price'] = array_keys($config['donate']['offers'][$payment_data["ServiceID"]])[0];
+        if (!isset($_POST['ServiceID']) || !$_POST['PMCID'] || $_POST['source']) {
             header("Location: ./?subtopic=accountmanagement&action=donate");
         } else {
             $main_content .= '  
@@ -377,7 +383,7 @@ if ($logged) {
                                                     <input type="hidden" name="storage_OrderServiceData[ServiceCategoryID]" value="' . $payment_data["ServiceCategoryID"] . '">
                                                     <input type="hidden" name="storage_OrderServiceData[coins]" value="' . $payment_data["coins"] . '">
                                                     
-                                                    <input type="hidden" name="storage_OrderServiceData[Price]" value="R$ ' . ($payment_data["ServiceID"] / 100) . '.00">
+                                                    <input type="hidden" name="storage_OrderServiceData[Price]" value="R$ ' . ($payment_data['price'] / 100) . '.00">
                                                     <!--
                                                     <input type="hidden" name="storage_OrderServiceData[VATPercentage]" value="0">
                                                     <input type="hidden" name="storage_OrderServiceData[FormToken]" value="151399923984211117981340">
@@ -809,6 +815,8 @@ if ($logged) {
     </div>
 </div>';
                 }
+            } elseif ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "paypal") {
+
             } else {
                 header("Location: ./?subtopic=accountmanagement&action=donate");
             }

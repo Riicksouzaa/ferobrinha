@@ -39,17 +39,18 @@ body {
 }
 
 #DeactivationContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 80;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 200;
+    min-height: 100%;
     width: 100%;
-    min-height: 1250px;
-    background-color: rgba(0, 0, 0, .9);
+    background-color: rgba(0, 0, 0, .75);
     background-size: cover;
     background-attachment: fixed;
-    background-position: center;
+    filter: alpha(opacity=75);
+    opacity: 0.75;
+    -moz-opacity: 0.75;
     display: none;
 }
 
@@ -58,7 +59,7 @@ body {
     top: 0;
     left: 0;
     z-index: 95;
-    height: 1000px;
+    /* height: 1000px; */
     width: 100%;
     display: none;
 }

@@ -1,5 +1,9 @@
 serverStatus_checkInterval = "8"
+<<<<<<< HEAD
 	serverStatus_lastCheck = "1521071284"
+=======
+	serverStatus_lastCheck = "1521070125"
+>>>>>>> fba94bfdb1c7859f513667da77813360322064ab
 	serverStatus_online = "0"
 	serverStatus_players = "0"
 	serverStatus_playersMax = "0"
