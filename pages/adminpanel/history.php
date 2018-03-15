@@ -45,7 +45,7 @@ $main_content .= '
 																			</span>
 																			<small>
 																				<br>Saldo total de todas as doações realizadas no mês de '.date('F').'.<br>
-																				('.$config['server']['ownerName'].' possui 50% dos lucros, um total de <span class="red">R$ '.number_format(porcentagem_xn(50,$somaBalance), 2, ',', '.').'</span>
+																				<!--('.$config['server']['ownerName'].' possui 50% dos lucros, um total de <span class="red">R$ '.number_format(porcentagem_xn(50,$somaBalance), 2, ',', '.').'--></span>
 																			</small><br/>
 																			<small>O total geral em vendas em todos os meses foi de <span style="color: #1c6a12">R$ '.number_format($profitTotal[0]['price'],2,',','.').'</span></small>
 																		</td>				
