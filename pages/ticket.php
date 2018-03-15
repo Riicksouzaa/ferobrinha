@@ -90,20 +90,20 @@
 		$description = $_POST['reportText'];
 //		$date = date('M m Y', time());
 		$date = date("Y-m-d H:i:s");
-		$generateId = rand(238493, 995849);
+//		$generateId = rand(238493, 995849);
 		$accid = $account_logged->getID();
 
-	     $checkId = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_id` ='.$generateId.'");
-	     foreach($checkId as $result){
-	      $ticketId = $result['ticket_id'];
-	     }
-	     while ($ticketId <> ''){
-	      $generateId = rand(238493, 995849);
-	      $checkId = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_id` ='.$generateId.'");
-	      foreach($checkId as $result){
-	       $ticketId = $result['ticket_id'];
-	      }   
-	     }
+//	     $checkId = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_id` ='.$generateId.'");
+//	     foreach($checkId as $result){
+//	      $ticketId = $result['ticket_id'];
+//	     }
+//	     while ($ticketId <> ''){
+//	      $generateId = rand(238493, 995849);
+//	      $checkId = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_id` ='.$generateId.'");
+//	      foreach($checkId as $result){
+//	       $ticketId = $result['ticket_id'];
+//	      }
+//	     }
 
 		if ($category > 0 && $categories[$category]) {
 			$category = $categories[$category];
@@ -310,8 +310,9 @@
 			return;
 		}
 
-		$SQL->query("INSERT INTO `tickets`(`ticket_id`, `ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`)	VALUES ($generateId,'$subject','$playerName',$accid,'You',0,'$date','Not closed','Waiting','$category','$description')");
-
+//		$SQL->query("INSERT INTO `tickets`(`ticket_id`, `ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`)	VALUES ($generateId,'$subject','$playerName',$accid,'You',0,'$date','Not closed','Waiting','$category','$description')");
+		$SQL->query("INSERT INTO `tickets`(`ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`)	VALUES ('$subject','$playerName',$accid,'You',0,'$date','Not closed','Waiting','$category','$description')");
+        $generateId = $SQL->query("SELECT LAST_INSERT_ID() as id from `tickets`")->fetchAll()[0]['id'];
 		$main_content .= '<div class="BoxContent" style="background-image:url('.$layout_name.'/images/global/content/scroll.gif)">
 		<center>
 				<table>
