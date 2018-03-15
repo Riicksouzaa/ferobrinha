@@ -1,9 +1,4 @@
 <?php
-//-----------------------------//
-# Date: 28/11/2017
-# Por: Marco Oliviera
-# Contato: +55 (38) 99186-3004
-//------------------------------//
 if(!defined('INITIALIZED'))
     exit;
 // CONFIG

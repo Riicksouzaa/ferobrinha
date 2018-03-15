@@ -7,7 +7,7 @@ if(!defined('INITIALIZED'))
 <head>
     <meta charset="utf-8">
     <title>Ferobra - Free Multiplayer Online Role Playing Game</title>
-    <meta name="author" content="Marco Oliveira and Felipe Monteiro">
+    <meta name="author" content="Ricardo Souza - Codenome">
     <meta http-equiv="content-language" content="pt-br">
     <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog, online role playing game, online multiplayer game, internet game, online rpg, rpg">
 

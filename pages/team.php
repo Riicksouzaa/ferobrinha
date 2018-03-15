@@ -10,7 +10,7 @@ $main_content .= "
 <tr><td class=\"white\" align=\"center\" bgcolor=\"#505050\"><b>Contact Information</b></td></tr>
 <tr><td bgcolor=\"#D4C0A1\"><table border=\"0\" cellpadding=\"8\">
 <TR><TD>Company Website:</TD><TD>www.ferobraglobal.com</A></TD></TR>
-<TR><TD>Managing Director:</TD><TD>Marco Oliveira and Ricardo Souza</TD></TR>
+<TR><TD>Managing Director:</TD><TD>Ricardo Souza</TD></TR>
 </td></tr></table></td></tr>";
 
 $main_content .= "<table border=0 cellpadding=4 cellspacing=1 width=100%>
