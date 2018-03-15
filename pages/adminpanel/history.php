@@ -34,12 +34,11 @@ $main_content .= '
 function porcentagem_xn ( $porcentagem, $total ) {
     return ( $porcentagem / 100 ) * $total;
 }
-$getBalance = $SQL->query("SELECT sum(price)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions b where b.status = 'delivered' and YEAR(b.data) = YEAR(CURDATE()) and MONTH(b.data) = MONTH(CURDATE())) as price FROM `z_shop_donates` a WHERE YEAR(FROM_UNIXTIME(a.date)) = YEAR(CURDATE()) AND MONTH(FROM_UNIXTIME(a.date)) = MONTH(CURDATE()) AND a.status = 'received'")->fetchAll();
+$getBalance = $SQL->query("SELECT COALESCE(sum(abs(price)),0)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions b where b.status = 'delivered' and YEAR(b.data) = YEAR(CURDATE()) and MONTH(b.data) = MONTH(CURDATE())) as price FROM `z_shop_donates` a WHERE YEAR(FROM_UNIXTIME(a.date)) = YEAR(CURDATE()) AND MONTH(FROM_UNIXTIME(a.date)) = MONTH(CURDATE()) AND a.status = 'received'")->fetchAll();
 foreach($getBalance as $balance) {
     $somaBalance += $balance['price'];
 }
-$profitTotal = $SQL->query("SELECT sum(price)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions b where b.status = 'delivered') as price FROM `z_shop_donates` a WHERE a.status = 'received'")->fetchAll();
-var_dump($profitTotal);
+$profitTotal = $SQL->query("SELECT COALESCE(sum(abs(price)),0)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions b where b.status = 'delivered') as price FROM `z_shop_donates` a WHERE a.status = 'received'")->fetchAll();
 $main_content .= '
 																			<span class="red">
 																				<span class="BigBoldText">R$ '.number_format($somaBalance, 2, ',', '.').'</span>
