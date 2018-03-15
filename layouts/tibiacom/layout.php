@@ -606,7 +606,7 @@ if(!defined('INITIALIZED'))
                                         </div>
 
                                         <div class="ThemeboxButton">
-                                            <form action="?subtopic=accountmanagement&action=services&ServiceCategoryID=2" method="post" style="padding:0px;margin:0px;">
+                                            <form action="?subtopic=accountmanagement&action=donate" method="post" style="padding:0px;margin:0px;">
                                                 <div class="BigButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/buttons/sbutton_green.gif)">
                                                     <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
                                                         <div class="BigButtonOver" style="background-image:url(<?php echo $layout_name; ?>/images/global/buttons/sbutton_green_over.gif);">
@@ -670,6 +670,7 @@ if(!defined('INITIALIZED'))
                             <div id="Footer">
                                 <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
                                 Copyright by <a href="https://www.cipsoft.com" target="_new"><b>CipSoft GmbH</b></a>. All rights reserveds<br>
+                                <b>Edited by.: <a href="https://codenome.com">Codenome</a></b><br>
                                 <a href=?subtopic=forum><b>Game Forum</b></a> | <a href=<?php echo $config['social']['facebook']; ?>><b>Facebook</b></a> | <a href=?subtopic=team><b>Support Game</b></a><br>
                             </div>
                         </div>
@@ -701,7 +702,7 @@ if(!defined('INITIALIZED'))
                 document.getElementById('PlayersOnline').style.cursor = 'auto';
                 document.getElementById('ThemeboxesColumn').style.opacity = '0.30';
                 document.getElementById('ThemeboxesColumn').style.MozOpacity = '0.30';
-                document.getElementById('ThemeboxesColumn').filters.alpha.opacity = '0.75';
+                // document.getElementById('ThemeboxesColumn').filters.alpha.opacity = '0.75';
                 document.getElementById('ThemeboxesColumn').style.filter = 'alpha(opacity=50); opacity: 0.30';
             });
         }
