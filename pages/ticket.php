@@ -85,7 +85,7 @@
 						   10 => 'Others');
 		$category = $_POST['reportCategory'];
 		$playerID = $_POST['reportPlayer'];
-		$playerName = "";
+		$playerName = $playerID;
 		$subject = trim(htmlspecialchars($_POST['reportSubject']));
 		$description = $_POST['reportText'];
 //		$date = date('M m Y', time());
@@ -189,15 +189,6 @@
 		}
 
 		if (isset($account_logged)) {
-			$characters = $account_logged->getPlayersList();
-			$index = 1;
-			foreach ($characters as $char) {
-				if ($index == $playerID) {
-					$playerName = $char->getName();
-					break;
-				}
-			}
-
 			if ($playerName == "") {
 				$main_content .='
 			<div class="TableContainer" >
@@ -1010,10 +1001,8 @@
 																						
 																							if (isset($account_logged)) {
 																								$characters = $account_logged->getPlayersList();
-																								$index = 1;
 																								foreach ($characters as $char) {
-																									$main_content .= '<option value="'.$index.'">'.$char->getName().'</option>';
-																									$index++;
+																									$main_content .= '<option value="'.$char->getName().'">'.$char->getName().'</option>';
 																								}
 																							}																						
 																						$main_content .= '
