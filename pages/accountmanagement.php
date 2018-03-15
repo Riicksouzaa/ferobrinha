@@ -4355,6 +4355,27 @@ else{
 																	<td class="LabelV">Status</td>
 																	<td class="LabelV"></td>
 																</tr>';
+        $getPagseguroDonates = $SQL->query("SELECT * FROM `pagseguro_transactions` where `name` = '{$account_logged->getName()}' order by `data` desc")->fetchAll();
+        if(count($getPagseguroDonates) > 0){
+            $n = 0;
+            foreach ($getPagseguroDonates as $pagseguro){
+                $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
+                $date = new DateTime($pagseguro['data']);
+                $main_content .= "
+                    <tr bgcolor='{$bgcolor}'>
+                        <td>".$date->format('M d Y')."</td>
+                        <td>{$pagseguro['item_count']} Tibia Coins</td>                    
+                        <td>".number_format($pagseguro['payment_amount'], 2, '.', ',')." BRL</td>
+                        <td>pagseguro</td>                    
+                        <td></td>                    
+                        <td>{$pagseguro['status']}</td>                    
+                        <td></td>                    
+                    </tr>
+                ";
+            }
+            $main_content .= "<th/>";
+            unset($n);
+        }
         if (count($getHistoryDonate[0]) > 0) {
             $n = 0;
             foreach ($getHistoryDonate as $doHistory) {
