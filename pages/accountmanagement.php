@@ -953,8 +953,12 @@ else{
     //Here finish our new account management
 
     //Start Autenticação de 2 fatores
-    if($action == "auth"){
+    if ($action == "auth") {
         include_once 'accountmanagement/authenticador.php';
+    }
+
+    if ($action == "sellchar") {
+        include "accountmanagement/sellcharacters.php";
     }
 
     if ($action == "manage") {
