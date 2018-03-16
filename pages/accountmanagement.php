@@ -3,7 +3,7 @@ if (!defined('INITIALIZED'))
     exit;
 
 if (!$logged)
-    if ($action == "logout"){
+    if ($action == "logout") {
         $main_content .= '
 			<div class="TableContainer" >
 				<table class="Table1" cellpadding="0" cellspacing="0" >
@@ -32,8 +32,7 @@ if (!$logged)
 					</tr>
 				</table>
 			</div>';
-    }
-    else {
+    } else {
         $passB = '<span>Password:</span>';
         $logB = '<span>Account Name:</span>';
         if (isset($isTryingToLogin)) {
@@ -106,23 +105,23 @@ if (!$logged)
 																<td>
 																	<table style="float: left; width: 370px;" cellpadding="0" cellspacing="0" >
 																	';
-                                                                    if($login_secret){
-                                                                        $main_content.='
+        if ($login_secret) {
+            $main_content .= '
                                                                             <tr>
                                                                                 <td class="LabelV120" ><span>' . $logB . '</span></td>
-                                                                                <td><input type="password" name="account_login" value="'.$_POST["account_login"].'" size="35" maxlength="30" ></td>
+                                                                                <td><input type="password" name="account_login" value="' . $_POST["account_login"] . '" size="35" maxlength="30" ></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="LabelV120" ><span>' . $passB . '</span></td>
-                                                                                <td><input type="password" name="password_login" value="'.$_POST["password_login"].'" size="35" maxlength="29" ></td>
+                                                                                <td><input type="password" name="password_login" value="' . $_POST["password_login"] . '" size="35" maxlength="29" ></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="LabelV120" ><span>' . $secretL . '</span></td>
                                                                                 <td><input type="number" autofocus name="secretCode_login" size="35" maxlength="6" ></td>
                                                                             </tr>
                                                                         ';
-                                                                    }else{
-                                                                        $main_content.='
+        } else {
+            $main_content .= '
                                                                         <tr>
 																			<td class="LabelV120" ><span>' . $logB . '</span></td>
 																			<td><input type="password" autofocus name="account_login" size="35" maxlength="30" ></td>
@@ -132,9 +131,9 @@ if (!$logged)
 																			<td><input type="password" name="password_login" size="35" maxlength="29" ></td>
 																		</tr>
                                                                         ';
-                                                                    }
+        }
 
-                                                                    $main_content.='																		
+        $main_content .= '																		
 																	</table>
 																	<div style="float: right; font-size: 1px;" >
 																		<input type="hidden" name="page" value="overview" >
@@ -265,8 +264,8 @@ if (!$logged)
 					</td>
 				</tr>';
     }
-else{
-    if($account_logged->getSecret() === null || $account_logged->getSecret() == ''){
+else {
+    if ($account_logged->getSecret() === null || $account_logged->getSecret() == '') {
         $account_logged->setSecret($tfa->createSecret(160));
         $account_logged->save();
     }
@@ -455,19 +454,19 @@ else{
 			<br>';
 
 
-					$main_content .='
+        $main_content .= '
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 							<div class="CaptionInnerContainer">
-								<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>
-								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>								
+								<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>								
 								<div class="Text">Tickets</div>
-								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
-								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span>
-								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 							</div>
 						</div><table class="Table3" cellpadding="0" cellspacing="0">				
 						<tbody><tr>
@@ -477,37 +476,37 @@ else{
 											<tbody><tr>
 												<td>
 													<div class="TableShadowContainerRightTop">
-														<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"></div>
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
 													</div>
-													<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
 														<div class="TableContentContainer">
 															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
 																<tbody><tr>
 																	<td>
 																		<div style="float: right; margin-top: 7px;">
 																			<form action="?subtopic=ticket" method="post" style="padding:0px;margin:0px;">
-																				<div class="MediumButtonBackground" style="background-image:url('.$layout_name.'/images/global/buttons/mediumbutton.gif)" onmouseover="MouseOverMediumButton(this);" onmouseout="MouseOutMediumButton(this);"><div class="MediumButtonOver" style="background-image: url(&quot;'.$layout_name.'/images/global/buttons/mediumbutton-over.gif&quot;); visibility: hidden;" onmouseover="MouseOverMediumButton(this);" onmouseout="MouseOutMediumButton(this);"></div><input class="MediumButtonText" type="image" name="Open Ticket" alt="Open Ticket" src="'.$layout_name.'/images/global/buttons/open_ticket.png"></div>
+																				<div class="MediumButtonBackground" style="background-image:url(' . $layout_name . '/images/global/buttons/mediumbutton.gif)" onmouseover="MouseOverMediumButton(this);" onmouseout="MouseOutMediumButton(this);"><div class="MediumButtonOver" style="background-image: url(&quot;' . $layout_name . '/images/global/buttons/mediumbutton-over.gif&quot;); visibility: hidden;" onmouseover="MouseOverMediumButton(this);" onmouseout="MouseOutMediumButton(this);"></div><input class="MediumButtonText" type="image" name="Open Ticket" alt="Open Ticket" src="' . $layout_name . '/images/global/buttons/open_ticket.png"></div>
 																			</form>
 																		</div>
 																		<b>Open a support ticket</b>
 																		<span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Ticket System:\', \'<p><b>Recommended:</b><ul><li>Fill in all required fields.</li><li>Lack of respect for inappropriate use will have consequences.</li><li>If necessary post screenshots to facilitate our understanding of the problem.</li></ul>\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >
-																		<img style="border:0px;" src="'.$layout_name.'/images/global/content/info.gif"></span></a></span>
+																		<img style="border:0px;" src="' . $layout_name . '/images/global/content/info.gif"></span></a></span>
 																		</span></span><br>
 																		<small>Support for the various questions you have.</small><br>
-																		<p>Use this tool with caution because only then can we work for the server progress, help us know what problems you have faced along his journey through in '.$config['server']['serverName'].'.</p>
+																		<p>Use this tool with caution because only then can we work for the server progress, help us know what problems you have faced along his journey through in ' . $config['server']['serverName'] . '.</p>
 																	</td>
 																</tr>	
 															</tbody></table>
 														</div>
 													</div>
 													<div class="TableShadowContainer">
-														<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
-															<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
-															<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
 														</div>
 													</div>
 												<p/>	
-												<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
+												<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
 													<div class="TableContentContainer">
 														<table class="TableContent" width="100%">
 															<tbody>
@@ -519,35 +518,35 @@ else{
 																	<td class="LabelV">Last answer</td>
 																	<td class="LabelV">Category</td>
 															</tr>';
-					                            $account_id = $account_logged->getID();
-					                            $tickets = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_author_acc_id` = ".$account_id." ORDER BY `ticket_date` DESC LIMIT 5");
-					                            if($tickets){
-					                                foreach ($tickets as $tickets_content){
-                                                        $main_content .= "
+        $account_id = $account_logged->getID();
+        $tickets = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_author_acc_id` = " . $account_id . " ORDER BY `ticket_date` DESC LIMIT 5");
+        if ($tickets) {
+            foreach ($tickets as $tickets_content) {
+                $main_content .= "
                                                                 <tr>
                                                                     <td><a href='?subtopic=ticket&amp;action=showticket&amp;do=number&amp;id={$tickets_content['ticket_id']}'>#{$tickets_content['ticket_id']}</a></td>
                                                                     <td><a href='?subtopic=characters&amp;name={$tickets_content['ticket_author']}'>{$tickets_content['ticket_author']}</td>
                                                                     <td>{$tickets_content['ticket_subject']}</td>";
-                                                        if($tickets_content['ticket_status'] == "Waiting"){
-                                                            $main_content .= "
+                if ($tickets_content['ticket_status'] == "Waiting") {
+                    $main_content .= "
                                                                     <td style='color: gray !important;'>{$tickets_content['ticket_status']}</td>";
-                                                        }elseif ($tickets_content['ticket_status'] == "Closed"){
-                                                            $main_content .= "
+                } elseif ($tickets_content['ticket_status'] == "Closed") {
+                    $main_content .= "
                                                                     <td style='color: red !important;'>{$tickets_content['ticket_status']}</td>";
-                                                        }else{
-                                                            $main_content .= "
+                } else {
+                    $main_content .= "
                                                                     <td>{$tickets_content['ticket_status']}</td>";
-                                                        }
-                                                        $main_content .= "
+                }
+                $main_content .= "
                                                                     <td>{$tickets_content['ticket_last_reply']}</td>
                                                                     <td>{$tickets_content['ticket_category']}</td>
                                                                 </tr>
                                                                 ";
-                                                    }
-                                                }
+            }
+        }
 
 
-                                                $main_content .= '
+        $main_content .= '
                                                             <tr bgcolor="#D4C0A1">                                                                
                                                                 <td align="left" colspan="5"><small>To see all your tickets click on <i>Show all</i></small></td>
                                                                 <td><a href="?subtopic=accountmanagement&action=showtickets"><small>Show All</small></a></td>
@@ -557,9 +556,9 @@ else{
 													</div>
 												</div>
 												<div class="TableShadowContainer">
-													<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
-														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
-														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
+													<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+														<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+														<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
 													</div>
 												</div>
 											</td>
@@ -952,11 +951,11 @@ else{
     }
     //Here finish our new account management
 
-    //Start Autenticação de 2 fatores
+    /** Autenticação de 2 fatores by Ricardo Souza*/
     if ($action == "auth") {
         include_once 'accountmanagement/authenticador.php';
     }
-
+    /** Sell characters by Ricardo Souza */
     if ($action == "sellchar") {
         include "accountmanagement/sellcharacters.php";
     }
@@ -2788,7 +2787,7 @@ else{
                 $delPlayerName = $delChar->getName();
                 $delPlayerAcc = new Account();
                 $delPlayerAcc->loadByName($_SESSION['account']);
-                if($delChar->data['account_id'] == $delPlayerAcc->data['id']) {
+                if ($delChar->data['account_id'] == $delPlayerAcc->data['id']) {
 
 
                     if (isset($_REQUEST['function']) && $_REQUEST['function'] == "deletecharacter") {
@@ -2907,7 +2906,7 @@ else{
 					</td>
 				</tr>
 			</table>';
-                }else{
+                } else {
                     header("Location: ?subtopic=accountmanagement");
                 }
             } else {
@@ -3095,7 +3094,7 @@ else{
         }
     }
     //Register account and get Recovery key
-    if ($action == "registeraccount"){
+    if ($action == "registeraccount") {
         if (empty($account_reckey)) {
             $main_content .= '
 				<div id="ProgressBar">
@@ -3485,7 +3484,8 @@ else{
                     header("Location: ?subtopic=accountmanagement&action=manage");
                 }
             }
-        }}
+        }
+    }
 
     if ($action == "changecharacterinformation") {
         if (!isset($_REQUEST['step'])) {
@@ -3945,7 +3945,7 @@ else{
 				</center>';
     }
 
-    if ($action == "passowordchanged"){
+    if ($action == "passowordchanged") {
         $main_content .= '
 				<div class="TableContainer" >
 					<table class="Table1" cellpadding="0" cellspacing="0" >
@@ -3988,7 +3988,8 @@ else{
 							</tr>
 						</form>
 					</table>
-				</center>';}
+				</center>';
+    }
 
     if ($action == "paymentshistory") {
 
@@ -4360,16 +4361,16 @@ else{
 																	<td class="LabelV"></td>
 																</tr>';
         $getPagseguroDonates = $SQL->query("SELECT * FROM `pagseguro_transactions` where `name` = '{$account_logged->getName()}' order by `data` desc")->fetchAll();
-        if(count($getPagseguroDonates) > 0){
+        if (count($getPagseguroDonates) > 0) {
             $n = 0;
-            foreach ($getPagseguroDonates as $pagseguro){
+            foreach ($getPagseguroDonates as $pagseguro) {
                 $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
                 $date = new DateTime($pagseguro['data']);
                 $main_content .= "
                     <tr bgcolor='{$bgcolor}'>
-                        <td>".$date->format('M d Y')."</td>
+                        <td>" . $date->format('M d Y') . "</td>
                         <td>{$pagseguro['item_count']} Tibia Coins</td>                    
-                        <td>".number_format($pagseguro['payment_amount'], 2, '.', ',')." BRL</td>
+                        <td>" . number_format($pagseguro['payment_amount'], 2, '.', ',') . " BRL</td>
                         <td>pagseguro</td>                    
                         <td></td>                    
                         <td>{$pagseguro['status']}</td>                    
@@ -4724,7 +4725,7 @@ else{
         }
     }
 
-    if ($action == "services"){
+    if ($action == "services") {
         include 'accountmanagement/shop.php';
     }
     //## CREATE CHARACTER on account ###
@@ -4891,7 +4892,7 @@ else{
             if (empty($newchar_errors)) {
                 if (!check_name_new_char($newchar_name))
                     $newchar_errors[] = 'This name contains invalid letters, words or format. Please use only a-Z, - , \' and space.<br> Remember not to use more than 3 letters repeated together.';
-                if(preg_match('/[^a-zA-Z ]/', $newchar_name))
+                if (preg_match('/[^a-zA-Z ]/', $newchar_name))
                     $newchar_errors[] = 'This name contains invalid letters, words or format. Please use only a-Z, - , \' and space.<br> Remember not to use more than 3 letters repeated together.';
                 if ($newchar_sex != 1 && $newchar_sex != "0")
                     $newchar_errors[] = 'Sex must be equal <b>0 (female)</b> or <b>1 (male)</b>.';
@@ -4927,25 +4928,25 @@ else{
                 $char_to_copy->loadStorages();
                 if ($newchar_sex == "0")
                     $char_to_copy->setLookType(136);
-                    $char_to_copy->setID(null); // save as new character
-                    $char_to_copy->setLastIP(0);
-                    $char_to_copy->setLastLogin(0);
-                    $char_to_copy->setLastLogout(0);
-                    $char_to_copy->setName($newchar_name);
-                    $char_to_copy->setAccount($account_logged);
-                    $char_to_copy->setSex($newchar_sex);
-                    $char_to_copy->setPosX(0);
-                    $char_to_copy->setPosY(0);
-                    $char_to_copy->setPosZ(0);
-                    $char_to_copy->setBalance(0);
-                    $char_to_copy->setCreateIP(Visitor::getIP());
-                    $char_to_copy->setCreateDate(time());
-                    $char_to_copy->setSave(); // make character saveable
-                    $char_to_copy->save(); // now it will load 'id' of new player
+                $char_to_copy->setID(null); // save as new character
+                $char_to_copy->setLastIP(0);
+                $char_to_copy->setLastLogin(0);
+                $char_to_copy->setLastLogout(0);
+                $char_to_copy->setName($newchar_name);
+                $char_to_copy->setAccount($account_logged);
+                $char_to_copy->setSex($newchar_sex);
+                $char_to_copy->setPosX(0);
+                $char_to_copy->setPosY(0);
+                $char_to_copy->setPosZ(0);
+                $char_to_copy->setBalance(0);
+                $char_to_copy->setCreateIP(Visitor::getIP());
+                $char_to_copy->setCreateDate(time());
+                $char_to_copy->setSave(); // make character saveable
+                $char_to_copy->save(); // now it will load 'id' of new player
                 if ($char_to_copy->isLoaded()) {
                     $char_to_copy->saveItems();
-                    foreach ($char_to_copy->storages as $key=>$value){
-                        $SQL->query("INSERT INTO `player_storage` (`player_id`, `key`, `value`) VALUES (".$char_to_copy->data['id'].", ".$key.", ".$value.")");
+                    foreach ($char_to_copy->storages as $key => $value) {
+                        $SQL->query("INSERT INTO `player_storage` (`player_id`, `key`, `value`) VALUES (" . $char_to_copy->data['id'] . ", " . $key . ", " . $value . ")");
                     }
                     $main_content .= '<div class="TableContainer" >  <table class="Table1" cellpadding="0" cellspacing="0" >    <div class="CaptionContainer" >      <div class="CaptionInnerContainer" >        <span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>        <span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>        <div class="Text" >Character Created</div>        <span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>        <span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>        <span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>      </div>    </div>    <tr>      <td>        <div class="InnerTableContainer" >          <table style="width:100%;" ><tr><td>The character <b>' . htmlspecialchars($newchar_name) . '</b> has been created.<br/>Please select the outfit when you log in for the first time.<br/><br/><b>See you on ' . $config['server']['serverName'] . '!</b></td></tr>          </table>        </div>  </table></div></td></tr><br/><center><table border="0" cellspacing="0" cellpadding="0" ><form action="?subtopic=accountmanagement" method="post" ><tr><td style="border:0px;" ><div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" ><div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div><input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif" ></div></div></td></tr></form></table></center>';
                 } else {
@@ -5131,16 +5132,17 @@ else{
             $main_content .= 'Here you can tell other players about yourself. This information will be displayed alongside the data of your characters. If you do not want to fill in a certain field, just leave it blank.<br/><br/><form action="?subtopic=accountmanagement&action=changeinfo" method=post><div class="TableContainer" >  <table class="Table1" cellpadding="0" cellspacing="0" >    <div class="CaptionContainer" >      <div class="CaptionInnerContainer" >        <span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>        <span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>        <div class="Text" >Change Public Information</div>        <span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>        <span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>        <span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>        <span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>      </div>    </div>    <tr>      <td>        <div class="InnerTableContainer" >          <table style="width:100%;" ><tr><td class="LabelV" >Real Name:</td><td style="width:90%;" ><input name="info_rlname" value="' . $account_rlname . '" size="30" maxlength="50" ></td></tr><tr><td class="LabelV" >Location:</td><td><input name="info_location" value="' . $account_location . '" size="30" maxlength="50" ></td></tr></table>        </div>  </table></div></td></tr><br/><table width="100%"><tr align="center"><td><table border="0" cellspacing="0" cellpadding="0" ><tr><td style="border:0px;" ><input type="hidden" name="changeinfosave" value="1" ><div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" ><div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div><input class="ButtonText" type="image" name="Submit" alt="Submit" src="' . $layout_name . '/images/global/buttons/_sbutton_submit.gif" ></div></div></td><tr></form></table></td><td><table border="0" cellspacing="0" cellpadding="0" ><form action="?subtopic=accountmanagement" method="post" ><tr><td style="border:0px;" ><div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" ><div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div><input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif" ></div></div></td></tr></form></table></td></tr></table>';
         }
     }
-    if ($action == "donate_old"){
-        include 'accountmanagement/donate.php';
-    }
-    if ($action == "donate"){
+
+//    if ($action == "donate_old") {
+//        include 'accountmanagement/donate.php';
+//    }
+
+    /** new donate by ricardo souza*/
+    if ($action == "donate") {
         include 'accountmanagement/donate_tibia_like.php';
     }
-    /**
-     * SHOW TICKETS BY RICARDO SOUZA
-     */
-    if($action == "showtickets"){
+    /** SHOW TICKETS BY RICARDO SOUZA */
+    if ($action == "showtickets") {
         include 'accountmanagement/showtickets.php';
     }
 }
