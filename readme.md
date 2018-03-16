@@ -1,4 +1,4 @@
-##PREMIUM GESIOR BY RICARDO SOUZA
+## PREMIUM GESIOR BY RICARDO SOUZA
  * Bem vindo ao tutorial de instalação desse lindo website feito com amor e carinho pra vcs meus queridos tibianos.
  * Lembrando que o Projeto todo em si não é de minha autoria ele tem diversos participantes.
  * Essa se trata de uma versão Estável do produto, isso não a deixa livre de bugs.
