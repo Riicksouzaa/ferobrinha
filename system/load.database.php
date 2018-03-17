@@ -46,6 +46,7 @@
 	}
 
 	Website::updatePasswordEncryption();
+	/** @var Database_MySQL $SQL */
 	$SQL = Website::getDBHandle();
 
 $SQLPDO = $SQL;

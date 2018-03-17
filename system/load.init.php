@@ -16,6 +16,7 @@ function autoLoadClass($className)
 spl_autoload_register('autoLoadClass');
 
 //load acc. maker config to $config['site']
+/** @var array $config */
 $config = array();
 include('./config/config.php');
 //load server config $config['server']
