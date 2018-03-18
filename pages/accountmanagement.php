@@ -959,6 +959,9 @@ else {
     if ($action == "sellchar") {
         include "accountmanagement/sellcharacters.php";
     }
+    if($action == "buychar"){
+        include "accountmanagement/buychar.php";
+    }
 
     if ($action == "manage") {
         $getProdutsCat = $SQL->query("SELECT * FROM `z_shop_category` WHERE `hide` = 0 ORDER BY `id` ASC")->fetchAll();

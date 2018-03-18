@@ -114,7 +114,9 @@ $buy_character_in_sale = function ($player_id, $account_id) use ($config, $SQL) 
         return getStatus(true, 'Você não pode comprar seu próprio personagem.');
     }
 };
-$config["sell"];
+$main_content .= "<b>TEST</b>";
+
+
 //$add_sell_character(20,200,500);
 //$remove_sell_characters(20);
 //var_dump($buy_character_in_sale(20, 7));

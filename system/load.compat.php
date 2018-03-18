@@ -5,6 +5,7 @@ if (!defined('INITIALIZED'))
 use \RobThree\Auth\TwoFactorAuth;
 use \RobThree\Auth\TwoFactorAuthException;
 
+/** @var TwoFactorAuth $tfa */
 $tfa = new TwoFactorAuth($config['server']['serverName'] . " Authentication");
 
 
@@ -29,6 +30,7 @@ else
     $action = '';
 
 $logged = false;
+/** @var Account $account_logged */
 $account_logged = new Account();
 $group_id_of_acc_logged = 0;
 // with ONLY_PAGE option we want disable useless SQL queries
@@ -41,6 +43,7 @@ if (!ONLY_PAGE) {
     if (Visitor::isLogged())
         $group_id_of_acc_logged = Visitor::getAccount()->getPageAccess();
 }
+/** @var string $layout_name ./layouts/ */
 $layout_name = './layouts/' . Website::getWebsiteConfig()->getValue('layout');
 
 $title = ucwords($subtopic) . ' - ' . Website::getServerConfig()->getValue('serverName');
