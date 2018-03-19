@@ -6,26 +6,9 @@
  * Time: 22:33
  */
 
-//$mountid = 23 - 1;
-$mountid = 1 - 1;
-//$unpack = unpack("C", $mountid);
-$mountkey = (int)abs(10002001 +($mountid / 31));
-
-
-
-$mountvalue = (1 << $mountid % 31);
-$pq = $SQL->query("SELECT * FROM player_storage a where a.player_id = 33 and a.`key` = $mountkey")->fetchAll();
-//var_dump($pq);
-$mountvalue = $pq[0]['value'];
-if($pq){
-    $mountvalue += (1 << ($mountid % 31));
-}else{
-    $mountvalue = (1 << ($mountid % 31));
-}
-//var_dump($mountid);
-//var_dump($unpack);
-//var_dump($mountkey);
-//var_dump($mountvalue);
+$itens = $SQL->query("SELECT * FROM player_depotitems WHERE player_id = 33")->fetchAll();
+var_dump(unpack('C', $itens[0]['attributes']));
+die();
 
 $player_id = $_REQUEST['id'];
 if ($player_id) {
