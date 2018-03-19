@@ -2,6 +2,10 @@ body {
     margin: 0;
     padding: 0;
     background-color: #051122;
+    -webkit-animation: fadeIn 1s ease-in-out;
+    -moz-animation: fadeIn 1s ease-in-out;
+    -o-animation: fadeIn 1s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .OptionContainer input {
