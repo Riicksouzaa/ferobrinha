@@ -30,7 +30,7 @@ if(!defined('INITIALIZED'))
     <!-- Fallback for older devices: -->
     <link rel="apple-touch-icon-precomposed" href="<?php echo $layout_name; ?>/images/global/general/apple-touch-icon-precomposed.png">
 
-    <link href="<?php echo $layout_name; ?>/basic_d.css?vs=0.02" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/basic_d.css?vs=0.03" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/pageloader.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/iziToast.min.css" rel="stylesheet" type="text/css">
     <?php
