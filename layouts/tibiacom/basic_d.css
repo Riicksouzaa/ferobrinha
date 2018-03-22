@@ -767,12 +767,12 @@ body {
     animation: fadeIn 1s ease-in-out;
 }
 
-img {
+/*img {
     -webkit-animation: fadeIn .5s ease-in-out;
     -moz-animation: fadeIn .5s ease-in-out;
     -o-animation: fadeIn .5s ease-in-out;
     animation: fadeIn .5s ease-in-out;
-}
+}*/
 
 /* "star-HTML-hack" to correct the position of the content area */
 * html .Content {
