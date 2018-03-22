@@ -33,6 +33,8 @@ if (!$logged)
 				</table>
 			</div>';
     } else {
+
+    //@TODO CRIAR SISTEMA QUE VERIFICA RK ON LOGIN
         $passB = '<span>Password:</span>';
         $logB = '<span>Account Name:</span>';
         if(isset($action) && $action != ''){
