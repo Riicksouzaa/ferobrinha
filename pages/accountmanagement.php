@@ -35,6 +35,18 @@ if (!$logged)
     } else {
         $passB = '<span>Password:</span>';
         $logB = '<span>Account Name:</span>';
+        if(isset($action) && $action != ''){
+            $main_content .= "
+<script>
+    iziToast.warning({
+        title: 'Hello:',
+        titleColor:'#5A2800',
+        message: 'You need to login first to access: ".$action."',
+//        theme: 'dark',
+        position:'center'
+    });
+</script>";
+        }
         if (isset($isTryingToLogin)) {
             $main_content .= '
 				<div class="SmallBox" >
@@ -959,7 +971,7 @@ else {
     if ($action == "sellchar") {
         include "accountmanagement/sellcharacters.php";
     }
-    if($action == "buychar"){
+    if ($action == "buychar") {
         include "accountmanagement/buychar.php";
     }
 
@@ -2376,7 +2388,7 @@ else {
                     }
                     if ($getItemId['offer_type'] == "newrk") {
                         //Function to generate NUMBERS
-                        function generateRK($length)
+                        function generateRK ($length)
                         {
                             $vowels = "AEIOU";
                             $consonants = "BDGHJLMNPQRSTVWXYZ0123456789";
@@ -3397,7 +3409,7 @@ else {
                     $fullname = $firstName . ' ' . $lastname;
 
                     //Function to generate NUMBERS
-                    function generateRK($length)
+                    function generateRK ($length)
                     {
                         $vowels = "AEIOUY";
                         $consonants = "BDGHJLMNPQRSTVWXZ0123456789";

@@ -358,8 +358,10 @@ if ($player_id) {
             iziToast.success({
                     title:"Success:",
                     message:response.msg,
-                    position:"topRight",
+                    position:"center",
                     timeout: 2500,
+                    overlay:true,
+                    overlayClose:true,
                     onClosing: function (instance, toast, closedBy) {
                         // console.info(\'closedBy: \' + closedBy);
                         window.location.replace("./?subtopic=accountmanagement");
@@ -424,8 +426,10 @@ if ($player_id) {
             iziToast.success({
                     title:"Success:",
                     message:response.msg,
-                    position:"topRight",
+                    position:"center",
                     timeout: 2500,
+                    overlay:true,
+                    overlayClose:true,
                     onClosing: function (instance, toast, closedBy) {
                         // console.info(\'closedBy: \' + closedBy);
                         window.location.replace("./?subtopic=accountmanagement");

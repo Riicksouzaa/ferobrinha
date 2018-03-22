@@ -50,6 +50,20 @@ if(!defined('INITIALIZED'))
     ?>
     <script src="<?php echo $layout_name; ?>/generic.js"></script>
     <script>
+        iziToast.settings({
+            titleSize:'10pt',
+            titleColor:'#5A2800',
+            messageSize:'10pt',
+            messageColor:'#5A2800',
+            backgroundColor:'#D4C0A1',
+            progressBarColor:'rgba(90,40,0,.8)',
+            // progressBarColor:'url(./layouts/tibiacom/images/global/content/table-headline-border.gif)',
+            closeOnEscape: true,
+            overlay:true,
+            overlayClose: true,
+        });
+    </script>
+    <script>
         var loginStatus=0;
         loginStatus='<?php if($logged){ ?>true<?php } else { ?>false<?php } ?>';
         <?php if ($_REQUEST['subtopic'] == 'accountmanagement' && $_REQUEST['action'] == 'donate'){?>
