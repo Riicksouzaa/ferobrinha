@@ -43,13 +43,14 @@ if(!empty($name))
 												<table class="TableContent" width="100%" >
 												<tr>';
 			$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+            $insell = $SQL->query("SELECT * FROM account_character_sale WHERE id_player = {$player->getID()}")->rowCount();
 			$main_content .= '
 				<tr bgcolor="' . $bgcolor . '">
 					<td width=20%>Name:</td>
-					<td>' . htmlspecialchars($player->getName()) . (($player->isDeleted()) ? ', will be deleted at ' . date("M j Y, H:i:s", $player->getDeletion()) : '') . '</td>
+					<td>' . htmlspecialchars($player->getName()) . (($player->isDeleted()) ? ', will be deleted at ' . date("M j Y, H:i:s", $player->getDeletion()) : '') . '  '.($insell > 0? "<a href='./?subtopic=accountmanagement&action=buychar&id={$player->getID()}'>[Personagem à venda]</a>":"").'</td>
 				<tr>';
 		$player_id = $player->getID();
-		$former_sql = "SELECT * FROM `player_former_names` WHERE `player_id` = '$player_id' ORDER BY `date` DESC LIMIT ".$config['site']['formerNames_amount']."";
+		$former_sql = "SELECT * FROM `player_former_names` WHERE `player_id` = '$player_id' ORDER BY `date` DESC LIMIT ".$config['site']['formerNames_amount'];
 		$get_names_count = $SQL->query($former_sql)->fetchAll();
 		$get_names_count2 = $SQL->query($former_sql)->fetch();
 		if($SQL->query($former_sql)->fetchColumn() > 0 && $get_names_count2['date'] >= time()) {
@@ -249,74 +250,76 @@ if(!empty($name))
 	
 			if($deads > 0)
 				$main_content .= '<table border="0" cellspacing="1" cellpadding="4" width="100%"><tr bgcolor="'.$config['site']['vdarkborder'].'"><td colspan="2" class="white" ><b>Character Deaths</b></td></tr>' . $dead_add_content . '</table><br />';
-				
-			if(!$player->isHidden()) {
-				$main_content .= '
+			if($insell == 0){
+                if(!$player->isHidden()) {
+                    $main_content .= '
 					<table border="0" cellspacing="1" cellpadding="4" width="100%" >
 						<tr bgcolor="#505050">
 							<td colspan="2" class="white" ><b>Account Information</b></td>
 						</tr>';
-				if ($account->getLoyalty() >= 50) {
-					$accountTitle = ''; // none
-					foreach($loyalty_title as $loypoints => $loytitle) {														
-						if($account->getLoyalty() >= $loypoints) {
-							# player rank
-							$accountTitle = $loytitle;
-						} 
-					}
-					
-					$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
-					$main_content .= '
+                    if ($account->getLoyalty() >= 50) {
+                        $accountTitle = ''; // none
+                        foreach($loyalty_title as $loypoints => $loytitle) {
+                            if($account->getLoyalty() >= $loypoints) {
+                                # player rank
+                                $accountTitle = $loytitle;
+                            }
+                        }
+
+                        $bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+                        $main_content .= '
 						<tr bgcolor="'.$bgcolor.'" >
 							<td width="20%">Loyalty Title:</td>
 							<td>'.$accountTitle.' of '.$config['server']['serverName'].'</td>
 						</tr>';
-				}
-					$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
-					$main_content .= '
+                    }
+                    $bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+                    $main_content .= '
 						<tr bgcolor="'.$bgcolor.'" >
 							<td>Created:</td>
 							<td>'.date("j F Y, g:i a", $account->getCreateDate()).'</td>
 						</tr>';
-				if($account->isBanned() > 0) {
-					$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
-					$main_content .= '
+                    if($account->isBanned() > 0) {
+                        $bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+                        $main_content .= '
 						<tr bgcolor="'.$bgcolor.'" >
 							<td style="color:red;">Banished:</td>
 							<td style="color:red;">'.date("j F Y, g:i a", strtotime($account->getBanTime())).'</td>
 						</tr>';
-				}
-				$main_content .= '
+                    }
+                    $main_content .= '
 					</table>
 					<br />';
-			}
-			if(!$player->isHidden()) {
-				$main_content .= '
+                }
+            }
+			if($insell == 0){
+                if(!$player->isHidden()) {
+                    $main_content .= '
 					<table border="0" cellspacing="1" cellpadding="4" width="100%" >
 						<tr bgcolor="#505050">
 							<td colspan="5" class="white" ><b>Characters</b></td>
 						</tr>';
-					$main_content .= '
+                    $main_content .= '
 						<tr bgcolor="' . $bgcolor . '">
 							<td><strong>Name</strong></td>
 							<td><strong>World</strong></td>
 							<td><strong>Status</strong></td>
 							<td>&nbsp;</td>
 						<tr>';
-					$account_players = $account->getPlayersList();
-					$player_number = 0;
-					foreach($account_players as $player_list)
-					{
-						if($name == $player_list->getName() || !$player_list->isHidden())
-						{
-							$player_number++;
-							$bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
-							if(!$player_list->isOnline())
-								$player_list_status = '';
-							else
-								$player_list_status = '<font class="green"><strong>online</strong></font>';
-							
-							$main_content .= '
+                    $account_players = $account->getPlayersList();
+                    $player_number = 0;
+                    foreach($account_players as $player_list)
+                    {
+                        if($name == $player_list->getName() || !$player_list->isHidden())
+                        {
+                            $player_number++;
+                            $bgcolor = (($number_of_rows++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+                            if(!$player_list->isOnline())
+                                $player_list_status = '';
+                            else
+                                $player_list_status = '<font class="green"><strong>online</strong></font>';
+
+                            $main_content .= '
 								<tr bgcolor="' . $bgcolor . '">
 									<td width="35%">'.$player_number.'. '.htmlspecialchars($player_list->getName()).'</td>
 									<td width="35%">'.htmlspecialchars($config['server']['serverName']).'</td>	
@@ -334,11 +337,12 @@ if(!empty($name))
 										</table>
 									</td>
 								</tr>';
-						}
-					}
-					
-					$main_content .= '</table><br />';
-			}
+                        }
+                    }
+
+                    $main_content .= '</table><br />';
+                }
+            }
 	}
 	else
 		$search_error = 'Character <b>'.htmlspecialchars($name).'</b> does not exist.';

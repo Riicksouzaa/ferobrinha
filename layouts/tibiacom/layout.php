@@ -32,6 +32,7 @@ if(!defined('INITIALIZED'))
 
     <link href="<?php echo $layout_name; ?>/basic_d.css?vs=0.01" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/pageloader.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/iziToast.min.css" rel="stylesheet" type="text/css">
     <?php
     if($_REQUEST['subtopic'] == "latestnews" || $_REQUEST['subtopic'] == "newsarchive")
         echo '<link href="'.$layout_name.'/news.css" rel="stylesheet" type="text/css">';
@@ -42,6 +43,7 @@ if(!defined('INITIALIZED'))
     <script src="<?php echo $layout_name; ?>/jquery.mask.js"></script>
     <script src="<?php echo $layout_name; ?>/ajaxcip.js"></script>
     <script src="<?php echo $layout_name; ?>/ajaxmonteiro.js"></script>
+    <script src="<?php echo $layout_name; ?>/iziToast.min.js"></script>
     <?php
     if($_REQUEST['subtopic'] == "createaccount")
         echo '<script src="'.$layout_name.'/create_character.js"></script>';
@@ -52,6 +54,10 @@ if(!defined('INITIALIZED'))
         loginStatus='<?php if($logged){ ?>true<?php } else { ?>false<?php } ?>';
         <?php if ($_REQUEST['subtopic'] == 'accountmanagement' && $_REQUEST['action'] == 'donate'){?>
         var activeSubmenuItem='donate';
+        <?php }elseif($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == 'buychar'){?>
+        var activeSubmenuItem='buychar';
+        <?php }elseif($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == 'sellchar'){?>
+        var activeSubmenuItem='sellchar';
         <?php }else{?>
         var activeSubmenuItem='<?php echo $subtopic; ?>';
         <?php }?>
@@ -216,7 +222,25 @@ if(!defined('INITIALIZED'))
                                         <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                     </div>
                                 </a>
-                                    <a href="?subtopic=worlds">
+                                <a href="?subtopic=buychar">
+                                    <div id="submenu_buychar" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
+                                        <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                        <div id="ActiveSubmenuItemIcon_buychar" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
+                                        <div id="ActiveSubmenuItemLabel_buychar" class="SubmenuitemLabel">Buy Characteres</div>
+                                        <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                    </div>
+                                </a>
+                                <?php if($logged){?>
+                                    <a href="?subtopic=accountmanagement&action=sellchar">
+                                        <div id="submenu_sellchar" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
+                                            <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                            <div id="ActiveSubmenuItemIcon_sellchar" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
+                                            <div id="ActiveSubmenuItemLabel_sellchar" class="SubmenuitemLabel">Sell Characteres</div>
+                                            <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                        </div>
+                                    </a>
+                                <?php }?>
+                                <a href="?subtopic=worlds">
                                         <div id="submenu_worlds" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
                                             <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                             <div id="ActiveSubmenuItemIcon_worlds" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
@@ -508,41 +532,42 @@ if(!defined('INITIALIZED'))
                 <div id="ContentColumn">
                     <div id="Content" class="Content">
                         <div id="ContentHelper">
-                            <script type="text/javascript" src="<?php echo $layout_name; ?>/newsticker.js"></script>
-                            <?php echo $news_content; ?>
-                            <div id="NewsArchive" class="Box">
-                                <div class="Corner-tl" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-tl.gif);"></div>
-                                <div class="Corner-tr" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-tr.gif);"></div>
-                                <div class="Border_1" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/border-1.gif);"></div>
-                                <div class="BorderTitleText" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/title-background-green.gif);"></div>
-                                <?php
-                                $headline = ucfirst($_REQUEST['subtopic']);
-                                if($_REQUEST['subtopic'] == "latestnews")
-                                    $headline = "News";
-                                elseif($_REQUEST['subtopic'] == "accountmanagement")
-                                    $headline = "Account Management";
-                                elseif($_REQUEST['subtopic'] == "createaccount")
-                                    $headline = "Create Account";
-                                elseif($_REQUEST['subtopic'] == "whoisonline")
-                                    $headline = "Who is Online";
-                                elseif($_REQUEST['subtopic'] == "adminpanel")
-                                    $headline = "Admin Panel";
-                                elseif($_REQUEST['subtopic'] == "tankyou")
-                                    $headline = "Thank you";
-                                ?>
-                                <img id="ContentBoxHeadline" class="Title" src="pages/headline.php?txt=<?PHP echo ucwords(str_replace('_', ' ', strtolower($headline))); ?>" alt="Contentbox headline">
-                                <div class="Border_2">
-                                    <div class="Border_3">
-                                        <div class="BoxContent" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/scroll.gif);">
-                                            <?php echo $main_content; ?>
+                            <div id="preload">
+                                <script type="text/javascript" src="<?php echo $layout_name; ?>/newsticker.js"></script>
+                                <?php echo $news_content; ?>
+                                <div id="NewsArchive" class="Box">
+                                    <div class="Corner-tl" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-tl.gif);"></div>
+                                    <div class="Corner-tr" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-tr.gif);"></div>
+                                    <div class="Border_1" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/border-1.gif);"></div>
+                                    <div class="BorderTitleText" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/title-background-green.gif);"></div>
+                                    <?php
+                                    $headline = ucfirst($_REQUEST['subtopic']);
+                                    if($_REQUEST['subtopic'] == "latestnews")
+                                        $headline = "News";
+                                    elseif($_REQUEST['subtopic'] == "accountmanagement")
+                                        $headline = "Account Management";
+                                    elseif($_REQUEST['subtopic'] == "createaccount")
+                                        $headline = "Create Account";
+                                    elseif($_REQUEST['subtopic'] == "whoisonline")
+                                        $headline = "Who is Online";
+                                    elseif($_REQUEST['subtopic'] == "adminpanel")
+                                        $headline = "Admin Panel";
+                                    elseif($_REQUEST['subtopic'] == "tankyou")
+                                        $headline = "Thank you";
+                                    ?>
+                                    <img id="ContentBoxHeadline" class="Title" src="pages/headline.php?txt=<?PHP echo ucwords(str_replace('_', ' ', strtolower($headline))); ?>" alt="Contentbox headline">
+                                    <div class="Border_2">
+                                        <div class="Border_3">
+                                            <div class="BoxContent" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/scroll.gif);">
+                                                <?php echo $main_content; ?>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="Border_1" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/border-1.gif);"></div>
+                                    <div class="CornerWrapper-b"><div class="Corner-bl" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-bl.gif);"></div></div>
+                                    <div class="CornerWrapper-b"><div class="Corner-br" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-br.gif);"></div></div>
                                 </div>
-                                <div class="Border_1" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/border-1.gif);"></div>
-                                <div class="CornerWrapper-b"><div class="Corner-bl" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-bl.gif);"></div></div>
-                                <div class="CornerWrapper-b"><div class="Corner-br" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-br.gif);"></div></div>
                             </div>
-
                             <div id="ThemeboxesColumn">
                                 <div id="DeactivationContainerThemebox" onclick="DisableDeactivationContainer();"></div>
                                 <div id="RightArtwork">

@@ -85,6 +85,7 @@ class Account extends ObjectData
             $this->players = new DatabaseList('Player');
             $this->players->setFilter(new SQL_Filter(new SQL_Field('account_id'), SQL_Filter::EQUAL, $this->getID()));
             $this->players->addOrder(new SQL_Order(new SQL_Field('name')));
+            $this->players->load();
         }
         return $this->players;
     }

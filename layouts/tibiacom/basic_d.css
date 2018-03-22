@@ -2,10 +2,6 @@ body {
     margin: 0;
     padding: 0;
     background-color: #051122;
-    -webkit-animation: fadeIn 1s ease-in-out;
-    -moz-animation: fadeIn 1s ease-in-out;
-    -o-animation: fadeIn 1s ease-in-out;
-    animation: fadeIn 1s ease-in-out;
 }
 
 .OptionContainer input {
@@ -21,6 +17,7 @@ body {
     margin: 0 auto;
     text-align: center;
 }
+
 .error-404 .error-code {
     bottom: 60%;
     color: #4686CC;
@@ -28,18 +25,22 @@ body {
     line-height: 100px;
     font-weight: bold;
 }
+
 .error-404 .error-desc {
     font-size: 12px;
     color: #647788;
 }
+
 .error-404 .m-b-10 {
-    margin-bottom: 10px!important;
+    margin-bottom: 10px !important;
 }
+
 .error-404 .m-b-20 {
-    margin-bottom: 20px!important;
+    margin-bottom: 20px !important;
 }
+
 .error-404 .m-t-20 {
-    margin-top: 20px!important;
+    margin-top: 20px !important;
 }
 
 #DeactivationContainer {
@@ -708,6 +709,69 @@ body {
     top: 0;
     width: 100%;
     z-index: 100;
+}
+
+.outfitImgsell2 {
+    background: no-repeat right bottom;
+    width: 64px;
+    height: 64px;
+    position: relative;
+    top: -15px;
+    left: -11px;
+    margin-left: -64px;
+    margin-top: -64px;
+}
+
+.outfitImgsell {
+    background: no-repeat right bottom;
+    width: 64px;
+    height: 64px;
+    /* position: relative; */
+    /* top: -15px; */
+    /* left: -11px; */
+    margin-left: -27px;
+    margin-top: -21px;
+}
+
+.depot {
+    height: 100%;
+    background: -webkit-linear-gradient(top, #088fad 20%, #00d5ff 100%);
+}
+
+.depot-item {
+    width: 15%;
+    height: 8vw;
+    border: 1px solid #fff;
+    margin: 2px;
+    float: left;
+    text-align: center;
+    padding: .2vw 0vw .2vw 0vw;
+    min-width: .5vw;
+}
+
+.Outfit {
+    background: no-repeat right bottom;
+    width: 64px;
+    height: 64px;
+    position: relative;
+    top: 8px;
+    left: 30px;
+    margin-left: -64px;
+    margin-top: -64px;
+}
+
+#preload {
+    -webkit-animation: fadeIn 1s ease-in-out;
+    -moz-animation: fadeIn 1s ease-in-out;
+    -o-animation: fadeIn 1s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
+}
+
+img {
+    -webkit-animation: fadeIn .5s ease-in-out;
+    -moz-animation: fadeIn .5s ease-in-out;
+    -o-animation: fadeIn .5s ease-in-out;
+    animation: fadeIn .5s ease-in-out;
 }
 
 /* "star-HTML-hack" to correct the position of the content area */

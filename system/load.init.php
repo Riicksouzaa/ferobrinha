@@ -40,6 +40,19 @@ if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
 }
 $outfits = new Outfits(Website::getWebsiteConfig()->getValue('Outfits_path'));
 $mounts = new Mounts(Website::getWebsiteConfig()->getValue('Mounts_path'));
+$items = new New_items(Website::getWebsiteConfig()->getValue('Itens_path'));
+
+/**
+ * @param $id
+ * @return mixed
+ */
+$getItemByItemId = function ($id) use ($items) {
+    return $items->getItemByItemId($id);
+};
+/**
+ * @param $player_id
+ * @return array|bool
+ */
 $getPlayerMountsByPlayerId = function ($player_id) use ($mounts) {
     $player = new Player();
     $player->loadById($player_id);
@@ -68,7 +81,6 @@ $getPlayerMountsByPlayerId = function ($player_id) use ($mounts) {
         return false;
     }
 };
-
 /**
  * @param $player_id
  * @return array|bool
@@ -105,6 +117,80 @@ $getPlayerOutfitsByPlayerId = function ($player_id) use ($outfits) {
     } else {
         return false;
     }
+};
+
+/**
+ * @param string $name
+ * @return string
+ */
+$make_content_header = function ($name){
+  $q = '
+<div class="CaptionContainer">
+    <div class="CaptionInnerContainer">
+        <span class="CaptionEdgeLeftTop" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
+        <span class="CaptionEdgeRightTop" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
+        <span class="CaptionBorderTop" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
+        <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span> 
+        <span class="CaptionEdgeLeftBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
+        <span class="CaptionVerticalLeft" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>   
+        <div class="Text">'.$name.'</div>
+        <span class="CaptionVerticalRight" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>
+        <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
+        <span class="CaptionEdgeLeftBottom"></span>
+        <span class="CaptionEdgeRightBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
+    </div>
+</div>  
+  ';
+  return $q;
+};
+/**
+ * @return string
+ */
+$make_table_header = function (){
+    $q = '
+<table class="Table3" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td>
+                <div class="InnerTableContainer">
+                    <table style="width:100%;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="TableShadowContainerRightTop">
+                                        <div class="TableShadowRightTop" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-rt.gif);"></div>
+                                    </div>
+                                    <div class="TableContentAndRightShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-rm.gif);">
+                                        <div class="TableContentContainer">
+                                            <table class="TableContent" width="100%">
+                                                <tbody>';
+    return $q;
+};
+/**
+ * @return string
+ */
+$make_table_footer = function (){
+    $q = '
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="TableShadowContainer">
+                                        <div class="TableBottomShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-bm.gif);">
+                                            <div class="TableBottomLeftShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-bl.gif);"></div>
+                                            <div class="TableBottomRightShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-br.gif);"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>';
+    return $q;    
 };
 
 // remove magic quotes, to make it compatible with some bad PHP configurations, 'stripslashes' in scripts is not needed anymore!

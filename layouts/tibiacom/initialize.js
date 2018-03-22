@@ -153,8 +153,12 @@ var menuItemName = '';
 // 'activeSubmenuItem' (provided to HTML-document by PHP in the file
 // 'header.inc'
 function LoadMenu() {
-    document.getElementById("submenu_" + activeSubmenuItem).style.color = "white";
-    document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem).style.visibility = "visible";
+    if(document.getElementById("submenu_" + activeSubmenuItem)){
+        document.getElementById("submenu_" + activeSubmenuItem).style.color = "white";
+    }
+    if(document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem)){
+        document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem).style.visibility = "visible";
+    }
     if (self.name.lastIndexOf("&") == -1) {
         self.name = "news=1&community=0&forum=0&account=0&library=0&support=0&shop=0&";
     }
@@ -251,21 +255,18 @@ function CloseMenuItem(sourceId) {
 // mouse-over effects of menubuttons and submenuitems
 function MouseOverMenuItem(source) {
     if(source.firstChild.style){
-
         source.firstChild.style.visibility = "visible";
     }
 }
 
 function MouseOutMenuItem(source) {
     if(source.firstChild.style){
-
         source.firstChild.style.visibility = "hidden";
     }
 }
 
 function MouseOverSubmenuItem(source) {
     if(source.style){
-
         source.style.backgroundColor = "#14433F";
     }
 }

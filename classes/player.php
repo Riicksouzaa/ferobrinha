@@ -13,6 +13,7 @@ class Player extends ObjectData
 	public static $skillNames = array('fist', 'club', 'sword', 'axe', 'dist', 'shielding', 'fishing');
 	public $items;
 	public $storages;
+	public $depot_items;
 	public $account;
 	public $rank;
 	public $guildNick;
@@ -70,6 +71,11 @@ class Player extends ObjectData
 			$this->getDatabaseHandler()->query('UPDATE ' . $this->getDatabaseHandler()->tableName(self::$table) . ' SET ' . implode(', ', $updates) . ' WHERE ' . $this->getDatabaseHandler()->fieldName('id') . ' = ' . $this->getDatabaseHandler()->quote($this->data['id']));
 		}
 	}
+    public function getDepotItems(){
+        $player_id = $this->getID();
+        $depot_items = $this->getDatabaseHandler()->query("SELECT *, sum(count) as real_count FROM tibil.player_depotitems where player_id = $player_id group by itemtype ORDER BY player_id ASC ;")->fetchAll();
+        return $depot_items;
+    }
 
 	public function getItems($forceReload = false)
 	{
@@ -78,6 +84,21 @@ class Player extends ObjectData
 
 		return $this->items;
 	}
+
+	public function getLookMount(){
+        return $this->getStorage("10002011");
+    }
+
+    /**
+     * @param null $class
+     * @param null $direction
+     * @return string
+     */
+    public function makeOutfitUrl($class = null, $direction = null){
+        $d = ($direction == null? '': '&direction='.$direction);
+        $c = ($class == null?"":"class='{$class}'");
+        return "<img {$c} src='https://outfits.ferobraglobal.com/animoutfit.php?id={$this->getLookType()}&addons={$this->getLookAddons()}&head={$this->getLookHead()}&body={$this->getLookBody()}&legs={$this->getLookLegs()}&feet={$this->getLookFeet()}&mount={$this->getLookMount()}{$d}' alt='{$this->getName()}' name='{$this->getName()}'>";
+    }
 
 	public function saveItems()
 	{
@@ -286,6 +307,41 @@ class Player extends ObjectData
 
         unset($this->data['id']);
 	}
+	public function getVocationName(){
+        $voc = $this->getVocation();
+        switch ($voc) {
+            case 0:
+                $voc = "No Vocation";
+                break;
+            case 1:
+                $voc = "Sorcerer";
+                break;
+            case 2:
+                $voc = "Druid";
+                break;
+            case 3:
+                $voc = "Paladin";
+                break;
+            case 4:
+                $voc = "Knight";
+                break;
+            case 5:
+                $voc = "Master Sorcerer";
+                break;
+            case 6:
+                $voc = "Elder Druid";
+                break;
+            case 7:
+                $voc = "Royal Paladin";
+                break;
+            case 8:
+                $voc = "Elite Knight";
+                break;
+            default:
+                break;
+        }
+        return $voc;
+    }
 /*
  * default tfs 0.3.6 fields
 */
