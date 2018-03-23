@@ -16,7 +16,7 @@ if (!defined('INITIALIZED'))
 $step = $_REQUEST['step'];
 if ($logged) {
     if ($account_logged->getSecretStatus() == 1) {
-        $main_content .= "Você está protegido!";
+        $main_content .= "<p style='font-size: 3em; text-align: center'>Você está protegido!</p>";
         $main_content .= '
 <div style="text-align: center">
     <form class="desativa_secret" action="./valida_secret.php" method="post">
