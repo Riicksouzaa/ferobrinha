@@ -10,6 +10,8 @@ $players_deaths->setLimit(50);
 //$players_deaths = $SQL->query("SELECT * FROM `PlayerDeath` WHERE `id` = `player_id` and `players` = `player_deaths` ORDER BY `time` DESC LIMIT 7")->fetch();
 $players_deaths_count = 0;
 
+
+
 foreach($players_deaths as $death)
 {
 	$bgcolor = (($players_deaths_count++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
@@ -18,7 +20,47 @@ foreach($players_deaths as $death)
 		$players_rows .= ' and ' . $death->getMostDamageString();
 	$players_rows .= '</TD></TR>';
 }
-if($players_deaths_count == 0)
-	$main_content .= '<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%><TR BGCOLOR="'.$config['site']['vdarkborder'].'"><TD CLASS=white><B>Last Deaths</B></TD></TR><TR BGCOLOR='.$config['site']['darkborder'].'><TD><TABLE BORDER=0 CELLSPACING=1 CELLPADDING=1><TR><TD>No one died on '.htmlspecialchars($config['server']['serverName']).'.</TD></TR></TABLE></TD></TR></TABLE><BR>';
-else
-	$main_content .= '<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%><TR BGCOLOR="'.$config['site']['vdarkborder'].'"><TD CLASS=white><B>Last Deaths</B></TD></TR></TABLE><TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%>'.$players_rows.'</TABLE>';
+if($players_deaths_count == 0){
+    
+    $main_content.="<div class='TableContainer'>";
+    $main_content.=$make_content_header("Last Deaths");
+    $main_content.=$make_table_header();
+    $main_content.='<TR><TD>No one died on '.htmlspecialchars($config['server']['serverName']).'.</TD></TR>';
+    $main_content.=$make_table_footer();
+    $main_content.="</div>";
+    
+    
+    /*$main_content .= '
+<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%>
+    <TR BGCOLOR="'.$config['site']['vdarkborder'].'">
+        <TD CLASS=white>
+            <B>Last Deaths</B>
+        </TD>
+    </TR>
+    <TR BGCOLOR='.$config['site']['darkborder'].'>
+    <TD>
+        <TABLE BORDER=0 CELLSPACING=1 CELLPADDING=1>
+            <TR>
+                <TD>No one died on '.htmlspecialchars($config['server']['serverName']).'.</TD>
+            </TR>
+        </TABLE>
+    </TD>
+    </TR>
+</TABLE>
+<BR>';*/
+}
+else{
+    $main_content.="<div class='TableContainer'>";
+    $main_content.=$make_content_header("Last Deaths");
+    $main_content.=$make_table_header();
+    $main_content.=$players_rows;
+    $main_content.=$make_table_footer();
+    $main_content.="</div>";
+    /*$main_content .= '
+<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%>
+    <TR BGCOLOR="'.$config['site']['vdarkborder'].'">
+        <TD CLASS=white><B>Last Deaths</B></TD>
+    </TR>
+</TABLE>
+<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%>'.$players_rows.'</TABLE>';*/
+}
