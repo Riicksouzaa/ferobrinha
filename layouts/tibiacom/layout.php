@@ -9,7 +9,10 @@ if(!defined('INITIALIZED'))
     <title>Ferobra - Free Multiplayer Online Role Playing Game</title>
     <meta name="author" content="Ricardo Souza - Codenome">
     <meta http-equiv="content-language" content="pt-br">
-    <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog, online role playing game, online multiplayer game, internet game, online rpg, rpg">
+    <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog,
+     online role playing game, online multiplayer game, internet game, online rpg, rpg">
+    
+    <!--@TODO INICIAR SOLUÇÃO PARA METATAGS-->
 
     <!--  regular browsers -->
     <link rel="shortcut icon" href="<?php echo $layout_name; ?>/images/global/general/favicon.ico" type="image/x-icon">
