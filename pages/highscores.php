@@ -3,8 +3,8 @@
 $list = 5;
 if (isset($_REQUEST['list'])) {
     $list = $_REQUEST['list'];
-} elseif (isset($_POST['list'])) {
-    $list = $_POST['list'];
+} elseif (isset($_REQUEST['list'])) {
+    $list = $_REQUEST['list'];
 }
 
 $page = 0;
@@ -25,8 +25,8 @@ $vocations_equival = '';
 $vocation = 10;
 if (isset($_REQUEST['vocation'])) {
     $vocation = $_REQUEST['vocation'];
-} elseif (isset($_POST['profession'])) {
-    $vocation = $_POST['profession'];
+} elseif (isset($_REQUEST['profession'])) {
+    $vocation = $_REQUEST['profession'];
 }
 
 $lists = [
@@ -336,13 +336,15 @@ $main_content .= '
 if(!isset($_REQUEST["page"])){
     $_REQUEST["page"] = 1;
 }
+
 for ($i = 0; $i < $tp; $i++) {
     if((int)$_REQUEST["page"]-1 != $i){
-        $main_content .= '<a style="margin-left:4px;" href="./?subtopic=highscores&world=' . $config["server"]["serverName"] . '&vocation=' . $vocation . '&page=' . ($i + 1) . '">' . ($i + 1) . '</a>';
+        $main_content .= '<a style="margin-left:4px;" href="./?subtopic=highscores&world=' . $config["server"]["serverName"] . '&profession=' . $vocation . '&list='.$_REQUEST['list'].'&page=' . ($i + 1) . '">' . ($i + 1) . '</a>';
     }else{
         $main_content .= "<b style='margin-left:4px;'>".($i + 1)."</b>";
     }
 }
+
 $main_content .= '
                                                       </div>
                                                       <div style="float:right;"><b>» Results: ' . $tr . '</b></div>
