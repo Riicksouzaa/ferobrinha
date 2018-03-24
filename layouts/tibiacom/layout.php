@@ -17,11 +17,11 @@ if(!defined('INITIALIZED'))
     <meta name="author" content="Ricardo Souza - Codenome">
     <meta http-equiv="content-language" content="pt-br">
     <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog,
-     online role playing game, online multiplayer game, internet game, online rpg, rpg">
+    online role playing game, online multiplayer game, internet game, online rpg, rpg">
     <!-- META TAGS OPENGRAPH-->
+    <meta property="og:title" content="<?=$config['server']['serverName'].(isset($_REQUEST['subtopic'])? " - ".ucfirst($_REQUEST['subtopic']) :'').(isset($_REQUEST['action'])?" - ".ucfirst($_REQUEST['action']):"").(isset($ch)?" - ".ucfirst($ch):"")?>"/>
     <meta property="og:url" content="<?=$config['base_url'].$_SERVER['REQUEST_URI']?>"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="<?=$config['server']['serverName']?> Server."/>
     <meta property="og:description" content="I'm using the best Gesior for tibia ot servers."/>
     <meta property="og:image" content="<?=$config['base_url']."layouts/tibiacom/images/global/header/background-artwork.jpg"?>"/>
     <meta property="og:locale" content="pt_BR"/>
