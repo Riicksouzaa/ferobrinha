@@ -6,13 +6,45 @@ if(!defined('INITIALIZED'))
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Ferobra - Free Multiplayer Online Role Playing Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <?php if($_REQUEST['subtopic'] == "characters"){$ch = (isset($_REQUEST['name']) ? $_REQUEST['name'] : '');}?>
+    <?php if($_REQUEST['subtopic'] == "guilds"){$ch = (isset($_REQUEST['GuildName']) ? $_REQUEST['GuildName'] : '');}?>
+    <?php if($_REQUEST['subtopic'] == "worlds"){$ch = (isset($_REQUEST['world']) ? $_REQUEST['world'] : '');}?>
+    <?php if($_REQUEST['subtopic'] == "highscores"){$ch = (isset($_REQUEST['profession']) ? $highscores_list[$_REQUEST['list']]." -> ".$vocations_list[$_REQUEST['profession']].($_REQUEST['profession']>0?($_REQUEST['profession']<10?"s":""):"") : '');}?>
+    <?php if($_REQUEST['subtopic'] == "houses"){$ch = (isset($_REQUEST['town']) ? $towns_list[$_REQUEST['town']] : (isset($_REQUEST['show']) ? $_REQUEST['show'] : ''));}?>
+    <title><?=$config['server']['serverName'].(isset($_REQUEST['subtopic'])? " -> ".ucfirst($_REQUEST['subtopic']) :'').(isset($_REQUEST['action'])?" -> ".ucfirst($_REQUEST['action']):"").(isset($ch)?" -> ".ucfirst($ch):"")?> -> Free Multiplayer Online Role Playing Game</title>
     <meta name="author" content="Ricardo Souza - Codenome">
     <meta http-equiv="content-language" content="pt-br">
     <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog,
      online role playing game, online multiplayer game, internet game, online rpg, rpg">
+    <!-- META TAGS OPENGRAPH-->
+    <meta property="og:url" content="<?=$config['base_url'].$_SERVER['REQUEST_URI']?>"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="<?=$config['server']['serverName']?> Server."/>
+    <meta property="og:description" content="I'm using the best Gesior for tibia ot servers."/>
+    <meta property="og:image" content="<?=$config['base_url']."layouts/tibiacom/images/global/header/background-artwork.jpg"?>"/>
+    <meta property="og:locale" content="pt_BR"/>
+    <!-- ##FIM META TAGS OPENGRAPH-->
     
-    <!--@TODO INICIAR SOLUÇÃO PARA METATAGS-->
+    <!-- META TAGS FACEBOOK-->
+    <meta property="fb:app_id" content="<?=$config['social']['fbappid']?>"/>
+    <!-- ##FIM META TAGS FACEBOOK-->
+
+    <!-- META TAGS TWITTER-->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="<?=$config['social']['twitter']?>"/>
+    <meta name="twitter:creator" content="<?=$config['social']['twittercreator']?>"/>
+    <!-- ##FIM META TAGS TWITTER-->
+
+    <!--META TAGS BROWSER COLOR-->
+    <!--CHROME-->
+    <meta name="theme-color" content="<?=$config['site']['darkborder']?>">
+    <!--SAFFARI-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="<?=$config['site']['darkborder']?>">
+    <!--Windows-->
+    <meta name="msapplication-navbutton-color" content="<?=$config['site']['darkborder']?>">
+    <!--##FIM META TAGS BROWSER COLOR-->
 
     <!--  regular browsers -->
     <link rel="shortcut icon" href="<?php echo $layout_name; ?>/images/global/general/favicon.ico" type="image/x-icon">
@@ -561,8 +593,13 @@ if(!defined('INITIALIZED'))
                                     $headline = ucfirst($_REQUEST['subtopic']);
                                     if($_REQUEST['subtopic'] == "latestnews")
                                         $headline = "News";
-                                    elseif($_REQUEST['subtopic'] == "accountmanagement")
+                                    elseif($_REQUEST['subtopic'] == "accountmanagement"){
                                         $headline = "Account Management";
+                                        if($_REQUEST['action'] == "buychar")
+                                            $headline = "Buy Char";
+                                        if($_REQUEST['action'] == "sellchar")
+                                            $headline = "Sell Char";
+                                    }
                                     elseif($_REQUEST['subtopic'] == "createaccount")
                                         $headline = "Create Account";
                                     elseif($_REQUEST['subtopic'] == "whoisonline")
