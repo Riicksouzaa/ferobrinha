@@ -2,16 +2,16 @@
 
 $list = 5;
 if (isset($_REQUEST['list'])) {
-    $list = $_REQUEST['list'];
+    $list = (int)$_REQUEST['list'];
 } elseif (isset($_REQUEST['list'])) {
-    $list = $_REQUEST['list'];
+    $list = (int)$_REQUEST['list'];
 }
 
 $page = 0;
 if (isset($_REQUEST['page'])) {
-    $page = min(50, $_REQUEST['page']);
+    $page =  (int)min(50, $_REQUEST['page']);
 } elseif (isset($_POST['page'])) {
-    $page = $_POST['page'];
+    $page = (int)$_POST['page'];
 }
 $vocations = [
     10 => "(all)",
@@ -24,9 +24,9 @@ $vocations = [
 $vocations_equival = '';
 $vocation = 10;
 if (isset($_REQUEST['vocation'])) {
-    $vocation = $_REQUEST['vocation'];
+    $vocation = (int)$_REQUEST['vocation'];
 } elseif (isset($_REQUEST['profession'])) {
-    $vocation = $_REQUEST['profession'];
+    $vocation = (int)$_REQUEST['profession'];
 }
 
 $lists = [
