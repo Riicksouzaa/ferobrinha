@@ -23,7 +23,7 @@ if(!defined('INITIALIZED'))
     <meta property="og:url" content="<?=$config['base_url'].$_SERVER['REQUEST_URI']?>"/>
     <meta property="og:type" content="website"/>
     <meta property="og:description" content="I'm using the best Gesior for tibia ot servers."/>
-    <meta property="og:image" content="<?=$config['base_url']."layouts/tibiacom/images/global/header/background-artwork.jpg"?>"/>
+    <meta property="og:image" content="<?php if($_REQUEST['subtopic'] == "characters" && isset($_REQUEST['name'])){echo $config['base_url']."player_portrait.php?name=".$_REQUEST['name'];}else{echo $config['base_url']."layouts/tibiacom/images/global/header/background-artwork.jpg";}?>"/>
     <meta property="og:locale" content="pt_BR"/>
     <!-- ##FIM META TAGS OPENGRAPH-->
     
