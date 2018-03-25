@@ -203,15 +203,27 @@ function FillMenuArray() {
 function InitializeMenu() {
     for (menuItemName in menu[0]) {
         if (menu[0][menuItemName] == "0") {
-            document.getElementById(menuItemName + "_Submenu").style.visibility = "hidden";
-            document.getElementById(menuItemName + "_Submenu").style.display = "none";
-            document.getElementById(menuItemName + "_Lights").style.visibility = "visible";
-            document.getElementById(menuItemName + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/plus.gif)";
+            if(document.getElementById(menuItemName + "_Submenu")){
+                document.getElementById(menuItemName + "_Submenu").style.visibility = "hidden";
+                document.getElementById(menuItemName + "_Submenu").style.display = "none";
+            }
+            if(document.getElementById(menuItemName + "_Lights")){
+                document.getElementById(menuItemName + "_Lights").style.visibility = "visible";
+            }
+            if(document.getElementById(menuItemName + "_Extend")){
+                document.getElementById(menuItemName + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/plus.gif)";
+            }
         } else {
-            document.getElementById(menuItemName + "_Submenu").style.visibility = "visible";
-            document.getElementById(menuItemName + "_Submenu").style.display = "block";
-            document.getElementById(menuItemName + "_Lights").style.visibility = "hidden";
-            document.getElementById(menuItemName + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/minus.gif)";
+            if(document.getElementById(menuItemName + "_Submenu")){
+                document.getElementById(menuItemName + "_Submenu").style.visibility = "visible";
+                document.getElementById(menuItemName + "_Submenu").style.display = "block";
+            }
+            if(document.getElementById(menuItemName + "_Lights")){
+                document.getElementById(menuItemName + "_Lights").style.visibility = "hidden";
+            }
+            if(document.getElementById(menuItemName + "_Extend")){
+                document.getElementById(menuItemName + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/minus.gif)";
+            }
         }
     }
 }

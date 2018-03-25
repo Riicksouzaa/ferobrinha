@@ -66,6 +66,7 @@ if(!defined('INITIALIZED'))
     <link rel="apple-touch-icon-precomposed" href="<?php echo $layout_name; ?>/images/global/general/apple-touch-icon-precomposed.png">
 
     <link href="<?php echo $layout_name; ?>/basic_d.css?vs=0.03" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="<?php echo $layout_name; ?>/pageloader.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/iziToast.min.css" rel="stylesheet" type="text/css">
     <?php
@@ -86,6 +87,7 @@ if(!defined('INITIALIZED'))
     <script src="<?php echo $layout_name; ?>/generic.js"></script>
     <script>
         iziToast.settings({
+            icon:'material-icons',
             titleSize:'10pt',
             titleColor:'#5A2800',
             messageSize:'10pt',

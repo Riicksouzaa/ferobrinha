@@ -237,7 +237,9 @@ body {
  *  HEADER AREA
  *  -------------------------------
  */
-
+.hidden{
+    display: none;
+}
 #LeftArtwork {
     position: absolute;
     height: 140px;

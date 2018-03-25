@@ -652,56 +652,12 @@ if ($logged) {
     } elseif ($step == 4) {
         $payment_data = $_POST;
         if ($payment_data["Form_OrderServiceStep4"]["TermsOfService"] == 1) {
-            $main_content .= '
-<div class="TableContainer">
-    <div class="CaptionContainer">
-        <div class="CaptionInnerContainer">
-            <span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>        <span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>        <span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>        <span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>        
-            <div class="Text">Summary</div>
-            <span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>        <span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>        <span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>        <span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>      
-        </div>
-    </div>
-    <table class="Table5" cellpadding="0" cellspacing="0">
-        <tbody>
-            <tr>
-                <td>
-                    <div class="InnerTableContainer">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="TableShadowContainerRightTop">
-                                            <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
-                                        </div>
-                                        <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
-                                            <div class="TableContentContainer">
-                                                <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Thank you for your order. 
-                                                            After clicking on "Next" you will be redirected to <b>' . $payment_data["storage_OrderServiceData"]["PaymentMethodName"] . '</b> website in order to carry out the payment.</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="TableShadowContainer">
-                                            <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
-                                                <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
-                                                <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-';
+            $main_content .= '<div class="TableContainer">';
+            $main_content.=$make_content_header("Sumary");
+            $main_content.=$make_table_header();
+            $main_content.='<td>Thank you for your order. After clicking on "'.$payment_data["storage_OrderServiceData"]["PaymentMethodName"].'" you will be redirected to <b>' . $payment_data["storage_OrderServiceData"]["PaymentMethodName"] . '</b> website in order to carry out the payment.</td>';
+            $main_content.=$make_table_footer();
+            $main_content.='</div>';
             if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "pagseguro") {
                 if ($config['pagseguro']['lightbox'] == true) {
                     if ($config['pagseguro']['testing'] == true) {
@@ -815,8 +771,88 @@ if ($logged) {
     </div>
 </div>';
                 }
-            } elseif ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "paypal") {
+            }
+            elseif ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "paypal") {
+                $main_content.='<script src="https://www.paypalobjects.com/api/checkout.js"></script>';
+                $main_content.='<div style="text-align: center; margin-top: 20px">';
+                $main_content.='<div id="paypal-button-container"></div>';
+                $main_content.='
 
+<style>
+    
+    /* Media query for mobile viewport */
+    @media screen and (max-width: 400px) {
+        #paypal-button-container {
+            width: 100%;
+        }
+    }
+    
+    /* Media query for desktop viewport */
+    @media screen and (min-width: 400px) {
+        #paypal-button-container {
+            width: 250px;
+            display: inline-block;
+        }
+    }
+    
+</style>';
+                $main_content.='</div>';
+                $main_content.='
+                <script>
+                
+                var CREATE_PAYMENT_URL  = \'./paypal/paypal_create.php\';
+                var EXECUTE_PAYMENT_URL = \'./paypal/paypal_execute.php\';
+              paypal.Button.render({
+                  env: \''.$config['paypal']['env'].'\', // Or \'sandbox\',
+                  commit: true, // Show a \'Pay Now\' button
+                  style: {
+                        label: \'checkout\',  // checkout | credit | pay | buynow | generic
+                        size:  \'responsive\', // small | medium | large | responsive
+                        shape: \'rect\',   // pill | rect
+                        color: \'black\'   // gold | blue | silver | black
+                    },
+      payment: function(data, actions) {
+        return paypal.request.post(CREATE_PAYMENT_URL).then(function(data) {
+                return data.id;
+            });
+      },
+
+        onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function() {
+                iziToast.show({
+                    title:\'Obaaaa!\',
+                    message:\'Você acabou de comprar uns coins.\',
+                    position:\'center\',
+                    onClosing:function() {
+                       window.location.href = \'./?subtopic=accountmanagement\';
+                    }
+                });
+            });
+        },
+        
+
+      onCancel: function(data, actions) {
+        iziToast.show({
+                    title:\'Que pena!\',
+                    message:\'Você acabou de cancelar essa compra, tente novamente.\',
+                    position:\'center\',
+                    icon: \'material-icons\',
+                    timeout:40000,
+                    iconText:\'mood_bad\'
+                });
+      },
+
+      onError: function(err) {
+                iziToast.error({
+                    title:\'OPPPPSSSSS!\',
+                    message:\'Ocorreu algum erro na hora de passar a venda, favor tentar novamente.\',
+                    position:\'center\'
+                });
+      }
+    }, \'#paypal-button-container\');
+  </script>
+                
+                ';
             } else {
                 header("Location: ./?subtopic=accountmanagement&action=donate");
             }
