@@ -6,9 +6,9 @@
  * Time: 20:34
  */
 
-//COMPOSER AUTOLOAD
-require '../config/config.php';
-require '../vendor/autoload.php';
+require_once "config/config.php";
+require_once "vendor/autoload.php";
+
 $apiContext = '';
 if($config['paypal']['env'] == "production"){
     $apiContext = new \PayPal\Rest\ApiContext( new \PayPal\Auth\OAuthTokenCredential($config['paypal']['clientID'], $config['paypal']['clientSecretID']));

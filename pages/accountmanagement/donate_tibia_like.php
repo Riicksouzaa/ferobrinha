@@ -800,8 +800,7 @@ if ($logged) {
                 $main_content.='
                 <script>
                 
-                var CREATE_PAYMENT_URL  = \'./paypal/paypal_create.php\';
-                var EXECUTE_PAYMENT_URL = \'./paypal/paypal_execute.php\';
+                var CREATE_PAYMENT_URL  = \'./paypal_create.php\';
               paypal.Button.render({
                   env: \''.$config['paypal']['env'].'\', // Or \'sandbox\',
                   commit: true, // Show a \'Pay Now\' button
@@ -812,24 +811,45 @@ if ($logged) {
                         color: \'black\'   // gold | blue | silver | black
                     },
       payment: function(data, actions) {
-        return paypal.request.post(CREATE_PAYMENT_URL).then(function(data) {
+                      
+                      var params = {
+                          product_id:\''.$payment_data['ServiceID'].'\',
+                          accname:\''.$account_logged->getName().'\'
+                      };
+        return paypal.request.post(CREATE_PAYMENT_URL, params).then(function(data) {
                 return data.id;
             });
       },
+      
+      // onAuthorize() is called when the buyer approves the payment
+            onAuthorize: function(data, actions) {
 
-        onAuthorize: function(data, actions) {
-            return actions.payment.execute().then(function() {
-                iziToast.show({
-                    title:\'Obaaaa!\',
-                    message:\'Você acabou de comprar uns coins.\',
-                    position:\'center\',
-                    onClosing:function() {
-                       window.location.href = \'./?subtopic=accountmanagement\';
-                    }
-                });
-            });
-        },
-        
+                // Set up a url on your server to execute the payment
+                var EXECUTE_PAYMENT_URL = \'./paypal_execute.php\';
+
+                // Set up the data you need to pass to your server
+                var data = {
+                    paymentID: data.paymentID,
+                    payerID: data.payerID
+                };
+
+                // Make a call to your server to execute the payment
+                return paypal.request.post(EXECUTE_PAYMENT_URL, data)
+                    .then(function (res) {
+                        iziToast.show({
+                            title:\'Obaaaa!\',
+                            message:\'Você acabou de comprar uns coins.\',
+//                            timeout:500000000000,
+                            position:\'center\',
+                            onClosing:function() {
+//                               window.location.href = \'./?subtopic=accountmanagement\';
+                            }
+                        });
+                        window.alert(\'Payment Complete!\');
+                    });
+            },
+
+            
 
       onCancel: function(data, actions) {
         iziToast.show({

@@ -6,7 +6,7 @@
  * Time: 18:58
  */
 
-require_once "config.php";
+require_once "paypal_config.php";
 
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -32,7 +32,14 @@ $execution->setPayerId($payerId);
 try {
     // Execute payment
     $result = $payment->execute($execution, $apiContext);
-    var_dump($result->getTransactions());
+    echo $result;
+    try{
+        if($result->getState() == "approved"){
+            var_dump("SEGUE AQUI UM MONTE DE COMPANDO DE DATABASE");
+        }
+    }catch (Exception $e){
+        var_dump($e);
+    }
 } catch (PayPal\Exception\PayPalConnectionException $ex) {
     echo $ex->getCode();
     echo $ex->getData();
@@ -40,3 +47,4 @@ try {
 } catch (Exception $ex) {
     die($ex);
 }
+
