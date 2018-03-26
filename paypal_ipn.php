@@ -73,18 +73,18 @@ try {
             header("HTTP/1.1 200 OK");
         }
     } else {
-        $handle = fopen("paypal.log", "w");
+        $handle = fopen("paypal.log", "a");
         $date = new DateTime();
         $now = $date->format('d/m/Y H:i:s');
-        fwrite($handle, $now.":>verify_error;from:".$_SERVER['REMOTE_ADDR']);
+        fwrite($handle, $now.":>verify_error;from:".$_SERVER['REMOTE_ADDR']."\r\n");
         fclose($handle);
         header("Location: " . $config['base_url']);
         exit();
     }
 } catch (Exception $e) {
-    $handle = fopen("paypal.log", "w");
+    $handle = fopen("paypal.log", "a");
     $date = new DateTime();
     $now = $date->format('d/m/Y H:i:s');
-    fwrite($handle, $now.":> ".$e->getMessage().";from:".$_SERVER['REMOTE_ADDR']);
+    fwrite($handle, $now.":> ".$e->getMessage().";from:".$_SERVER['REMOTE_ADDR']."\r\n");
     fclose($handle);
 }
