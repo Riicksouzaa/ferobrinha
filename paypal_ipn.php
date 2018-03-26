@@ -70,14 +70,15 @@ try {
             $acc->setPremiumPoints($acc->getPremiumPoints() + $qnt);
             $acc->save();
             $coins_new = $acc->getPremiumPoints();
-            fwrite($handle, $now." :> status:".$payment_status.";accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price .";saldo_anterior:".$coins_old."novo_saldo:".$coins_new."\r\n");
+            fwrite($handle, $now.":> status:".$payment_status.";accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price .";saldo_anterior:".$coins_old.";novo_saldo:".$coins_new."\r\n");
             fclose($handle);
             // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
             header("HTTP/1.1 200 OK");
         }else{
             $handle = fopen("paypal.log", "a");
-            fwrite($handle, $now." :> status:".$payment_status.";accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price ."\r\n");
+            fwrite($handle, $now.":> status:".$payment_status.";accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price ."\r\n");
             fclose($handle);
+            header("HTTP/1.1 200 OK");
         }
     } else {
         $handle = fopen("paypal.log", "a");

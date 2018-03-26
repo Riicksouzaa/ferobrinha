@@ -27,7 +27,7 @@ $item->setName($config['paypal']['itemName'])
     ->setDescription($qnt." ".$config['paypal']['itemName'])
     ->setQuantity(1)
     ->setPrice($price)
-    ->setSku($accname . '~' . $product_id);
+    ->setSku($accname . '-' . $product_id);
 
 $list = new \PayPal\Api\ItemList();
 $list->setItems([$item]);
