@@ -61,7 +61,7 @@ $issetTransactionOnDatabase = function ($tid) use ($SQL){
  * @param $txn_id
  */
 $updatepaypal = function ($payment_status, $txn_id) use ($SQL){
-    $SQL->query("UPDATE paypal_transactions SET payment_status = $payment_status WHERE txn_id = $txn_id")->fetchAll();
+    $SQL->query("UPDATE paypal_transactions SET payment_status = '$payment_status' WHERE txn_id = $txn_id")->fetchAll();
 };
 /**
  * @param $payment_status
@@ -73,10 +73,8 @@ $updatepaypal = function ($payment_status, $txn_id) use ($SQL){
  * @param $txn_id
  */
 $insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL){
-    $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ($payment_status,$payer_email,$payer_id,$item_number1,$mc_gross,$mc_currency,$txn_id)")->fetchAll();
+    $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status','$payer_email','$payer_id',$item_number1,$mc_gross,'$mc_currency','$txn_id')")->fetchAll();
 };
-
-
 
 /** @var PaypalIPN $ipn */
 $ipn = new PaypalIPN();
