@@ -48,8 +48,8 @@ require_once "classes/account.php";
  * @return bool
  */
 $issetTransactionOnDatabase = function ($tid) use ($SQL){
-    $query = $SQL->query("SELECT * FROM paypal_transactions WHERE txn_id = $tid");
-    $result = $query->rowCount();
+    $query = $SQL->query("SELECT * FROM paypal_transactions WHERE txn_id = '$tid'")->fetchAll();
+    $result = count($query);
     if($result > 0){
         return TRUE;
     }else{
@@ -62,7 +62,7 @@ $issetTransactionOnDatabase = function ($tid) use ($SQL){
  * @param $txn_id
  */
 $updatepaypal = function ($payment_status, $txn_id) use ($SQL){
-    $SQL->query("UPDATE paypal_transactions SET payment_status = '$payment_status' WHERE txn_id = $txn_id")->fetchAll();
+    $SQL->query("UPDATE paypal_transactions SET payment_status = '$payment_status' WHERE txn_id = '$txn_id'")->fetchAll();
 };
 /**
  * @param $payment_status
@@ -76,7 +76,7 @@ $updatepaypal = function ($payment_status, $txn_id) use ($SQL){
 $insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL){
     $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status','$payer_email','$payer_id','$item_number1','$mc_gross','$mc_currency','$txn_id')")->fetchAll();
 };
-
+/** $payment_status = "Completed";$payer_email = "meucomprador@gmail.com";$payer_id = "5SZY8K2LZ8H8L";$item_number1 = "item_number1";$mc_gross = 98.10;$mc_currency = "BRL";$txn_id = "4GC74590A5738524S";if($issetTransactionOnDatabase($txn_id)){$updatepaypal($payment_status,$txn_id);}else{$insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$mc_gross,$mc_currency,$txn_id);}*/
 /** @var PaypalIPN $ipn */
 $ipn = new PaypalIPN();
 $ipn->useSandbox();
@@ -125,14 +125,14 @@ try {
             // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
             header("HTTP/1.1 200 OK");
         } else {
-            $handle = fopen("paypal.log", "a");
-            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . "\r\n");
-            fclose($handle);
             if($issetTransactionOnDatabase($tid)){
                 $updatepaypal($payment_status,$tid);
             }else{
                 $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
             }
+            $handle = fopen("paypal.log", "a");
+            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . "\r\n");
+            fclose($handle);
             header("HTTP/1.1 200 OK");
         }
     } else {
