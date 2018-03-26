@@ -90,7 +90,7 @@ try {
         $payer_id = $_POST['payer_id'];
         $payer_email = $_POST['payer_email'];
         $item_number1 = $_POST['item_number1'];
-        $mc_currency = $_POST['currency'];
+        $mc_currency = $_POST['mc_currency'];
         $tid = $_POST['txn_id'];
         $ex = explode('-', $item_number1);
         $acc_name = $ex[0];
