@@ -16,7 +16,11 @@ $payer = new \PayPal\Api\Payer();
 $payer->setPaymentMethod('paypal');
 
 $product_id = $_REQUEST['product_id'];
-$accname = $_REQUEST['accname'];
+if(isset($_SESSION['account'])){
+    $accname = $_SESSION['account'];
+}else{
+    $accname = $_REQUEST['accname'];
+}
 
 $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
 $qnt = array_values($config['donate']['offers'][$product_id])[0];
