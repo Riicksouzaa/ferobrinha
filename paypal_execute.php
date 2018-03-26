@@ -33,13 +33,6 @@ try {
     // Execute payment
     $result = $payment->execute($execution, $apiContext);
     echo $result;
-    try{
-        if($result->getState() == "approved"){
-            var_dump("SEGUE AQUI UM MONTE DE COMPANDO DE DATABASE");
-        }
-    }catch (Exception $e){
-        var_dump($e);
-    }
 } catch (PayPal\Exception\PayPalConnectionException $ex) {
     echo $ex->getCode();
     echo $ex->getData();
