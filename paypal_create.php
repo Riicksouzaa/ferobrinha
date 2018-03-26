@@ -49,8 +49,10 @@ if($config['paypal']['env'] == "production"){
 $payer = new \PayPal\Api\Payer();
 $payer->setPaymentMethod('paypal');
 
-$product_id = 0;
-//$product_id = $_REQUEST['product_id'];
+$product_id = $_REQUEST['product_id'];
+if(isset($_SESSION['pid'])){
+    $product_id = $_SESSION['pid'];
+}
 $accname = "ai";
 if(isset($_SESSION['account'])){
     $accname = $_SESSION['account'];
