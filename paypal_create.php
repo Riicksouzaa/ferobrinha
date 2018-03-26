@@ -5,10 +5,8 @@
  * Date: 25/03/2018
  * Time: 00:05
  */
-/**
- * Login to client 11.50 made by Muuleek
- */
-require 'config/config.php';
+//require 'config/config.php';
+require_once "paypal_config.php";
 /**
  * comment to show E_NOTICE [undefinied variable etc.], comment if you want make script and see all errors
  */
@@ -39,26 +37,28 @@ if (DEBUG_DATABASE) {
 /**
  * EndDatabase
  */
-/** REQUEST PAYPAL-IPN CLASS */
-
-require_once "paypal_config.php";
 
 $payee = new PayPal\Api\Payee();
-$payee->setEmail($config['paypal']['email']);
+if($config['paypal']['env'] == "production"){
+    $payee->setEmail($config['paypal']['email']);
+}else{
+    $payee->setEmail($config['paypal']['sandboxemail']);
+}
 
 
 $payer = new \PayPal\Api\Payer();
 $payer->setPaymentMethod('paypal');
 
-$product_id = $_REQUEST['product_id'];
+$product_id = 0;
+//$product_id = $_REQUEST['product_id'];
+$accname = "ai";
 if(isset($_SESSION['account'])){
     $accname = $_SESSION['account'];
-}else{
-    $accname = "ai";
 }
 
+
 $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
-$qnt = array_values($config['donate']['offers'][$product_id])[0];
+$qnt = array_values($config['donate']['offers'][intval($product_id)])[0];
 
 $item = new \PayPal\Api\Item();
 $item->setName($config['paypal']['itemName'])
@@ -106,5 +106,5 @@ try {
 } catch (\PayPal\Exception\PayPalConnectionException $ex) {
     // This will print the detailed information on the exception.
     //REALLY HELPFUL FOR DEBUGGING
-    echo $ex->getData();
+    echo $ex->getMessage();
 }
