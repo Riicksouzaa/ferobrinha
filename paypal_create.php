@@ -86,10 +86,12 @@ $amount->setTotal($price)
     ->setCurrency('BRL')
     ->setDetails($details);
 
+$notify_url = $config['paypal']['notify_url'];
 $transaction = new \PayPal\Api\Transaction();
 $transaction->setAmount($amount)
     ->setItemList($list)
-    ->setDescription("Compra de {$qnt} {$config["paypal"]["itemName"]}.");
+    ->setDescription("Compra de {$qnt} {$config["paypal"]["itemName"]}.")
+    ->setNotifyUrl($notify_url);
 
 
 $redirectUrls = new \PayPal\Api\RedirectUrls();
