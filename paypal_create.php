@@ -95,7 +95,7 @@ $transaction->setAmount($amount)
 
 
 $redirectUrls = new \PayPal\Api\RedirectUrls();
-$redirectUrls->setReturnUrl($config['paypal']['redirect_url'])
+$redirectUrls->setReturnUrl($config['base_url'])
     ->setCancelUrl($config['base_url']);
 
 $payment = new \PayPal\Api\Payment();
