@@ -56,6 +56,7 @@ $issetTransactionOnDatabase = function ($tid) use ($SQL){
         return FALSE;
     }
 };
+
 /**
  * @param $payment_status
  * @param $txn_id
@@ -73,7 +74,7 @@ $updatepaypal = function ($payment_status, $txn_id) use ($SQL){
  * @param $txn_id
  */
 $insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL){
-    $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status','$payer_email','$payer_id',$item_number1,$mc_gross,'$mc_currency','$txn_id')")->fetchAll();
+    $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status','$payer_email','$payer_id','$item_number1','$mc_gross','$mc_currency','$txn_id')")->fetchAll();
 };
 
 /** @var PaypalIPN $ipn */
@@ -101,7 +102,7 @@ try {
         $acc = new Account();
         $acc->loadByName($acc_name);
         if ($payment_status == "Completed") {
-            if(!$issetTransactionOnDatabase($tid)){
+            if($issetTransactionOnDatabase($tid)){
                 $updatepaypal($payment_status,$tid);
             }else{
                 $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
@@ -120,7 +121,7 @@ try {
             $handle = fopen("paypal.log", "a");
             fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . "\r\n");
             fclose($handle);
-            if(!$issetTransactionOnDatabase($tid)){
+            if($issetTransactionOnDatabase($tid)){
                 $updatepaypal($payment_status,$tid);
             }else{
                 $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
