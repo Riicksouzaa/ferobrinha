@@ -2,3 +2,4 @@
 .cache/
 cache/*
 vendor/
+paypal.log
