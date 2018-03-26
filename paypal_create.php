@@ -87,7 +87,7 @@ $amount->setTotal($price)
 $transaction = new \PayPal\Api\Transaction();
 $transaction->setAmount($amount)
     ->setItemList($list)
-    ->setDescription("Compra de $qnt coins.");
+    ->setDescription("Compra de {$qnt} {$config["paypal"]["itemName"]}.");
 
 
 $redirectUrls = new \PayPal\Api\RedirectUrls();
