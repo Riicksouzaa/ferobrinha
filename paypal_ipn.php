@@ -41,6 +41,7 @@ if (DEBUG_DATABASE) {
  */
 /** REQUEST PAYPAL-IPN CLASS */
 require('paypal/PaypalIPN.php');
+require_once "classes/account.php";
 
 /** @var PaypalIPN $ipn */
 $ipn = new PaypalIPN();
@@ -57,32 +58,33 @@ try {
             $ex = explode('-', $item_number1);
             $acc_name = $ex[0];
             $product_id = $ex[1];
+            $date = new DateTime();
+            $now = $date->format('d/m/Y H:i:s');
             $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
             $qnt = array_values($config['donate']['offers'][$product_id])[0];
-            $handle = fopen("paypal.log", "w");
-            fwrite($handle, "--------------------------------\n");
-            foreach ($_POST as $key => $str) {
-                fwrite($handle, "$key=> $str\n");
-            }
-            fwrite($handle, $acc_name . "\r\n" . $item_id . "\r\n");
-            fwrite($handle, "\n--------------------------------\n");
-            fclose($handle);
-            require_once "classes/account.php";
             $acc = new Account();
             $acc->loadByName($acc_name);
+            $handle = fopen("paypal.log", "a");
+            fwrite($handle, $now." :> accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price ."\r\n");
+            fclose($handle);
             $acc->setPremiumPoints($acc->getPremiumPoints() + $qnt);
             $acc->save();
             // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
             header("HTTP/1.1 200 OK");
         }
     } else {
+        $handle = fopen("paypal.log", "w");
+        $date = new DateTime();
+        $now = $date->format('d/m/Y H:i:s');
+        fwrite($handle, $now.":>verify_error;from:".$_SERVER['REMOTE_ADDR']);
+        fclose($handle);
         header("Location: " . $config['base_url']);
         exit();
     }
 } catch (Exception $e) {
     $handle = fopen("paypal.log", "w");
-    fwrite($handle, "\n################################\n");
-    fwrite($handle, $e->getMessage());
-    fwrite($handle, "\n################################\n");
+    $date = new DateTime();
+    $now = $date->format('d/m/Y H:i:s');
+    fwrite($handle, $now.":> ".$e->getMessage().";from:".$_SERVER['REMOTE_ADDR']);
     fclose($handle);
 }
