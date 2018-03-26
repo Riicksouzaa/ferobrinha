@@ -101,7 +101,7 @@ try {
         $acc = new Account();
         $acc->loadByName($acc_name);
         if ($payment_status == "Completed") {
-            if($issetTransactionOnDatabase($tid)){
+            if(!$issetTransactionOnDatabase($tid)){
                 $updatepaypal($payment_status,$tid);
             }else{
                 $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
@@ -120,7 +120,7 @@ try {
             $handle = fopen("paypal.log", "a");
             fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . "\r\n");
             fclose($handle);
-            if($issetTransactionOnDatabase($tid)){
+            if(!$issetTransactionOnDatabase($tid)){
                 $updatepaypal($payment_status,$tid);
             }else{
                 $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
