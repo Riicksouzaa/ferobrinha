@@ -53,25 +53,29 @@ try {
     $verified = $ipn->verifyIPN();
     if ($verified) {
         $payment_status = $_POST['payment_status'];
+        $payer_email = $_POST['payer_email'];
+        $item_number1 = $_POST['item_number1'];
+        $ex = explode('-', $item_number1);
+        $acc_name = $ex[0];
+        $product_id = $ex[1];
+        $date = new DateTime();
+        $now = $date->format('d/m/Y H:i:s');
+        $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
+        $qnt = array_values($config['donate']['offers'][$product_id])[0];
+        $acc = new Account();
+        $acc->loadByName($acc_name);
         if ($payment_status == "Completed") {
-            $payer_email = $_POST['payer_email'];
-            $item_number1 = $_POST['item_number1'];
-            $ex = explode('-', $item_number1);
-            $acc_name = $ex[0];
-            $product_id = $ex[1];
-            $date = new DateTime();
-            $now = $date->format('d/m/Y H:i:s');
-            $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
-            $qnt = array_values($config['donate']['offers'][$product_id])[0];
-            $acc = new Account();
-            $acc->loadByName($acc_name);
             $handle = fopen("paypal.log", "a");
-            fwrite($handle, $now." :> accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price ."\r\n");
+            fwrite($handle, $now." :> status:".$payment_status.";accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price ."\r\n");
             fclose($handle);
             $acc->setPremiumPoints($acc->getPremiumPoints() + $qnt);
             $acc->save();
             // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
             header("HTTP/1.1 200 OK");
+        }else{
+            $handle = fopen("paypal.log", "a");
+            fwrite($handle, $now." :> status:".$payment_status.";accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price ."\r\n");
+            fclose($handle);
         }
     } else {
         $handle = fopen("paypal.log", "a");
