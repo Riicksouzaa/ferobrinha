@@ -86,6 +86,13 @@ try {
     /** @var boolean $verified */
     $verified = $ipn->verifyIPN();
     if ($verified) {
+        $handle = fopen('paypal.log', 'a');
+        fwrite($handle, "-------------------------\r\n");
+        foreach ($_POST as $key => $value){
+            fwrite($handle, $key."=>".$value."\r\n");
+        }
+        fwrite($handle, "-------------------------\r\n");
+        fclose($handle);
         $payment_status = $_POST['payment_status'];
         $payer_id = $_POST['payer_id'];
         $payer_email = $_POST['payer_email'];
