@@ -58,11 +58,6 @@ $issetTransactionOnDatabase = function ($tid) use ($SQL){
 };
 /**
  * @param $payment_status
- * @param $payer_email
- * @param $payer_id
- * @param $item_number1
- * @param $mc_gross
- * @param $mc_currency
  * @param $txn_id
  */
 $updatepaypal = function ($payment_status, $txn_id) use ($SQL){
