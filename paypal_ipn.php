@@ -43,6 +43,46 @@ if (DEBUG_DATABASE) {
 require('paypal/PaypalIPN.php');
 require_once "classes/account.php";
 
+/**
+ * @param string $tid
+ * @return bool
+ */
+$issetTransactionOnDatabase = function ($tid) use ($SQL){
+    $query = $SQL->query("SELECT * FROM paypal_transactions WHERE txn_id = $tid");
+    $result = $query->rowCount();
+    if($result > 0){
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+};
+/**
+ * @param $payment_status
+ * @param $payer_email
+ * @param $payer_id
+ * @param $item_number1
+ * @param $mc_gross
+ * @param $mc_currency
+ * @param $txn_id
+ */
+$updatepaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL){
+    $SQL->query("UPDATE paypal_transactions SET payment_status = $payment_status, payer_email = $payer_email, payer_id = $payer_id, item_number1 = $item_number1, mc_gross = $mc_gross, $mc_currency = $mc_currency, txn_id = $txn_id")->fetchAll();
+};
+/**
+ * @param $payment_status
+ * @param $payer_email
+ * @param $payer_id
+ * @param $item_number1
+ * @param $mc_gross
+ * @param $mc_currency
+ * @param $txn_id
+ */
+$insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL){
+    $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ($payment_status,$payer_email,$payer_id,$item_number1,$mc_gross,$mc_currency,$txn_id)")->fetchAll();
+};
+
+
+
 /** @var PaypalIPN $ipn */
 $ipn = new PaypalIPN();
 $ipn->useSandbox();
@@ -53,8 +93,11 @@ try {
     $verified = $ipn->verifyIPN();
     if ($verified) {
         $payment_status = $_POST['payment_status'];
+        $payer_id = $_POST['payer_id'];
         $payer_email = $_POST['payer_email'];
         $item_number1 = $_POST['item_number1'];
+        $mc_currency = $_POST['currency'];
+        $tid = $_POST['txn_id'];
         $ex = explode('-', $item_number1);
         $acc_name = $ex[0];
         $product_id = $ex[1];
@@ -65,26 +108,37 @@ try {
         $acc = new Account();
         $acc->loadByName($acc_name);
         if ($payment_status == "Completed") {
+            if($issetTransactionOnDatabase($tid)){
+                $updatepaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
+            }else{
+                $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
+            }
             $handle = fopen("paypal.log", "a");
             $coins_old = $acc->getPremiumPoints();
             $acc->setPremiumPoints($acc->getPremiumPoints() + $qnt);
             $acc->save();
             $coins_new = $acc->getPremiumPoints();
-            fwrite($handle, $now.":> status:".$payment_status.";accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price .";saldo_anterior:".$coins_old.";novo_saldo:".$coins_new."\r\n");
+            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . ";saldo_anterior:" . $coins_old . ";novo_saldo:" . $coins_new . "tid:" . $tid . "\r\n");
             fclose($handle);
+            
             // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
             header("HTTP/1.1 200 OK");
-        }else{
+        } else {
             $handle = fopen("paypal.log", "a");
-            fwrite($handle, $now.":> status:".$payment_status.";accname:".$acc_name. ";pid:" . $product_id.";qnt:". $qnt.";price:". $price ."\r\n");
+            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . "\r\n");
             fclose($handle);
+            if($issetTransactionOnDatabase($tid)){
+                $updatepaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
+            }else{
+                $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
+            }
             header("HTTP/1.1 200 OK");
         }
     } else {
         $handle = fopen("paypal.log", "a");
         $date = new DateTime();
         $now = $date->format('d/m/Y H:i:s');
-        fwrite($handle, $now.":>verify_error;from:".$_SERVER['REMOTE_ADDR']."\r\n");
+        fwrite($handle, $now . ":>verify_error;from:" . $_SERVER['REMOTE_ADDR'] . "\r\n");
         fclose($handle);
         header("Location: " . $config['base_url']);
         exit();
@@ -93,6 +147,6 @@ try {
     $handle = fopen("paypal.log", "a");
     $date = new DateTime();
     $now = $date->format('d/m/Y H:i:s');
-    fwrite($handle, $now.":> ".$e->getMessage().";from:".$_SERVER['REMOTE_ADDR']."\r\n");
+    fwrite($handle, $now . ":> " . $e->getMessage() . ";from:" . $_SERVER['REMOTE_ADDR'] . "\r\n");
     fclose($handle);
 }
