@@ -65,8 +65,8 @@ $issetTransactionOnDatabase = function ($tid) use ($SQL){
  * @param $mc_currency
  * @param $txn_id
  */
-$updatepaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL){
-    $SQL->query("UPDATE paypal_transactions SET payment_status = $payment_status, payer_email = $payer_email, payer_id = $payer_id, item_number1 = $item_number1, mc_gross = $mc_gross, $mc_currency = $mc_currency, txn_id = $txn_id")->fetchAll();
+$updatepaypal = function ($payment_status, $txn_id) use ($SQL){
+    $SQL->query("UPDATE paypal_transactions SET payment_status = $payment_status WHERE txn_id = $txn_id")->fetchAll();
 };
 /**
  * @param $payment_status
@@ -109,7 +109,7 @@ try {
         $acc->loadByName($acc_name);
         if ($payment_status == "Completed") {
             if($issetTransactionOnDatabase($tid)){
-                $updatepaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
+                $updatepaypal($payment_status,$tid);
             }else{
                 $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
             }
@@ -128,7 +128,7 @@ try {
             fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . "\r\n");
             fclose($handle);
             if($issetTransactionOnDatabase($tid)){
-                $updatepaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
+                $updatepaypal($payment_status,$tid);
             }else{
                 $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
             }
