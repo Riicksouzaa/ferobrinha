@@ -2,9 +2,44 @@
 /**
  * Created by PhpStorm.
  * User: Ricardo
- * Date: 24/03/2018
- * Time: 18:32
+ * Date: 25/03/2018
+ * Time: 00:05
  */
+/**
+ * Login to client 11.50 made by Muuleek
+ */
+require 'config/config.php';
+/**
+ * comment to show E_NOTICE [undefinied variable etc.], comment if you want make script and see all errors
+ */
+error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
+/**
+ * true = show sent queries and SQL queries status/status code/error message
+ */
+define('DEBUG_DATABASE', FALSE);
+define('INITIALIZED', TRUE);
+if (!defined('ONLY_PAGE')) {
+    define('ONLY_PAGE', TRUE);
+}
+/**
+ * check if site is disabled/requires installation
+ */
+include_once('./system/load.loadCheck.php');
+/**
+ * fix user data, load config, enable class auto loader
+ */
+include_once('./system/load.init.php');
+/**
+ * DATABASE
+ */
+include_once('./system/load.database.php');
+if (DEBUG_DATABASE) {
+    Website::getDBHandle()->setPrintQueries(TRUE);
+}
+/**
+ * EndDatabase
+ */
+/** REQUEST PAYPAL-IPN CLASS */
 
 require_once "paypal_config.php";
 
@@ -19,7 +54,7 @@ $product_id = $_REQUEST['product_id'];
 if(isset($_SESSION['account'])){
     $accname = $_SESSION['account'];
 }else{
-    $accname = $_REQUEST['accname'];
+    $accname = "ai";
 }
 
 $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
