@@ -8,6 +8,10 @@
 
 require_once "paypal_config.php";
 
+$payee = new PayPal\Api\Payee();
+$payee->setEmail($config['paypal']['email']);
+
+
 $payer = new \PayPal\Api\Payer();
 $payer->setPaymentMethod('paypal');
 
@@ -18,12 +22,12 @@ $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100)
 $qnt = array_values($config['donate']['offers'][$product_id])[0];
 
 $item = new \PayPal\Api\Item();
-$item->setName("Tibia Coins")
-    ->setCurrency('BRL')
-    ->setDescription($accname . '~' . $product_id)
-    ->setQuantity($qnt)
-    ->setPrice(number_format($price/$qnt,2))
-    ->setSku($product_id);
+$item->setName($config['paypal']['itemName'])
+    ->setCurrency($config['paypal']['currency'])
+    ->setDescription($qnt." ".$config['paypal']['itemName'])
+    ->setQuantity(1)
+    ->setPrice($price)
+    ->setSku($accname . '~' . $product_id);
 
 $list = new \PayPal\Api\ItemList();
 $list->setItems([$item]);
@@ -33,8 +37,8 @@ $shipping_discount = $price - ((number_format($price/$qnt,2))*$qnt);
 $details = new \PayPal\Api\Details();
 $details->setShipping(0)
     ->setTax(0)
-    ->setShippingDiscount($shipping_discount)
-    ->setSubtotal($subtotal);
+    ->setShippingDiscount(0)
+    ->setSubtotal($price);
 
 $amount = new \PayPal\Api\Amount();
 $amount->setTotal($price)
@@ -44,11 +48,11 @@ $amount->setTotal($price)
 $transaction = new \PayPal\Api\Transaction();
 $transaction->setAmount($amount)
     ->setItemList($list)
-    ->setDescription("Compra de alguns coins.");
+    ->setDescription("Compra de $qnt coins.");
 
 
 $redirectUrls = new \PayPal\Api\RedirectUrls();
-$redirectUrls->setReturnUrl($config['base_url'])
+$redirectUrls->setReturnUrl($config['paypal']['redirect_url'])
     ->setCancelUrl($config['base_url']);
 
 $payment = new \PayPal\Api\Payment();
