@@ -47,6 +47,7 @@ require_once "classes/account.php";
 $ipn = new PaypalIPN();
 $ipn->useSandbox();
 $ipn->usePHPCerts();
+date_default_timezone_set("America/Sao_Paulo");
 try {
     /** @var boolean $verified */
     $verified = $ipn->verifyIPN();
