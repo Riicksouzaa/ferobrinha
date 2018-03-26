@@ -76,6 +76,16 @@ $updatepaypal = function ($payment_status, $txn_id) use ($SQL){
 $insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL){
     $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status','$payer_email','$payer_id','$item_number1','$mc_gross','$mc_currency','$txn_id')")->fetchAll();
 };
+
+$log_post = function (){
+    $handle = fopen('paypal.log', 'a');
+    fwrite($handle, "-------------------------\r\n");
+    foreach ($_POST as $key => $value){
+        fwrite($handle, $key."=>".$value."\r\n");
+    }
+    fwrite($handle, "-------------------------\r\n");
+    fclose($handle);
+};
 /** $payment_status = "Completed";$payer_email = "meucomprador@gmail.com";$payer_id = "5SZY8K2LZ8H8L";$item_number1 = "item_number1";$mc_gross = 98.10;$mc_currency = "BRL";$txn_id = "4GC74590A5738524S";if($issetTransactionOnDatabase($txn_id)){$updatepaypal($payment_status,$txn_id);}else{$insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$mc_gross,$mc_currency,$txn_id);}*/
 /** @var PaypalIPN $ipn */
 $ipn = new PaypalIPN();
@@ -86,13 +96,7 @@ try {
     /** @var boolean $verified */
     $verified = $ipn->verifyIPN();
     if ($verified) {
-        $handle = fopen('paypal.log', 'a');
-        fwrite($handle, "-------------------------\r\n");
-        foreach ($_POST as $key => $value){
-            fwrite($handle, $key."=>".$value."\r\n");
-        }
-        fwrite($handle, "-------------------------\r\n");
-        fclose($handle);
+//        $log_post();
         $payment_status = $_POST['payment_status'];
         $payer_id = $_POST['payer_id'];
         $payer_email = $_POST['payer_email'];
