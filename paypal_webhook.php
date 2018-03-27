@@ -12,7 +12,7 @@ try {
     $handle = fopen('paypal.log', "a");
     fwrite($handle, "----------------------\r\n");
     foreach ($_POST as $key=>$value){
-        fwrite($handle, $key."=>".$value);
+        fwrite($handle, $key."=>".$value."\r\n");
     }
     fwrite($handle, "----------------------\r\n");
     fclose($handle);
