@@ -4,9 +4,45 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e789f6f4d77aad85de06973738e009da",
-    "content-hash": "267e5ac77fece9db7a09b10bf02bf86f",
+    "content-hash": "3da62b378492449872351823140049f6",
     "packages": [
+        {
+            "name": "mercadopago/sdk",
+            "version": "v0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mercadopago/sdk-php.git",
+                "reference": "88fd10a084f750c3e48b417a53c26260c11c2bb9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mercadopago/sdk-php/zipball/88fd10a084f750c3e48b417a53c26260c11c2bb9",
+                "reference": "88fd10a084f750c3e48b417a53c26260c11c2bb9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/mercadopago.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Horacio Casatti",
+                    "email": "horacio.casatti@mercadolibre.com"
+                }
+            ],
+            "description": "MercadoPago SDK module for Payments integration.",
+            "keywords": [
+                "mercadopago",
+                "sdk"
+            ],
+            "time": "2015-10-14T13:49:16+00:00"
+        },
         {
             "name": "paypal/rest-api-sdk-php",
             "version": "1.13.0",
@@ -152,7 +188,7 @@
                 "php",
                 "tfa"
             ],
-            "time": "2017-11-06 17:55:56"
+            "time": "2017-11-06T17:55:56+00:00"
         }
     ],
     "packages-dev": [],
