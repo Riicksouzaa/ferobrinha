@@ -801,53 +801,59 @@ if ($logged) {
                 <script>
                 
                 var CREATE_PAYMENT_URL  = \'./paypal_create.php\';
-              paypal.Button.render({
-                  env: \''.$config['paypal']['env'].'\', // Or \'sandbox\',
-                  commit: true, // Show a \'Pay Now\' button
-                  style: {
-                        label: \'checkout\',  // checkout | credit | pay | buynow | generic
-                        size:  \'responsive\', // small | medium | large | responsive
-                        shape: \'rect\',   // pill | rect
-                        color: \'black\'   // gold | blue | silver | black
-                    },
-      payment: function(data, actions) {
+                paypal.Button.render({
+                    env: \''.$config['paypal']['env'].'\', // Or \'sandbox\',
+                    commit: true, // Show a \'Pay Now\' button
+                    style: {
+                          label: \'checkout\',  // checkout | credit | pay | buynow | generic
+                          size:  \'responsive\', // small | medium | large | responsive
+                          shape: \'rect\',   // pill | rect
+                          color: \'black\'   // gold | blue | silver | black
+                          },
+                      payment: function(data, actions) {
+                                      
+                                      var params = {
+                                          product_id:\''.$payment_data['ServiceID'].'\',
+                                          accname:\''.$account_logged->getName().'\'
+                                      };
+                        return paypal.request.post(CREATE_PAYMENT_URL, params).then(function(data) {
+                                return data.id;
+                            });
+                      },
                       
-                      var params = {
-                          product_id:\''.$payment_data['ServiceID'].'\',
-                          accname:\''.$account_logged->getName().'\'
-                      };
-        return paypal.request.post(CREATE_PAYMENT_URL, params).then(function(data) {
-                return data.id;
-            });
-      },
-      
-      // onAuthorize() is called when the buyer approves the payment
-            onAuthorize: function(data, actions) {
-
-                // Set up a url on your server to execute the payment
-                var EXECUTE_PAYMENT_URL = \'./paypal_execute.php\';
-
-                // Set up the data you need to pass to your server
-                var data = {
-                    paymentID: data.paymentID,
-                    payerID: data.payerID
-                };
-
-                // Make a call to your server to execute the payment
-                return paypal.request.post(EXECUTE_PAYMENT_URL, data)
-                    .then(function (res) {
-                        iziToast.show({
-                            title:\'Obaaaa!\',
-                            message:\'Você acabou de comprar uns coins.\',
-//                            timeout:500000000000,
+        onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function(res) {
+                var desc = res.transactions[\'0\'].item_list.items[\'0\'].description;
+                iziToast.show({
+                            title:\'Que legaaal!!!\',
+                            message:\'Você acabou de comprar \'+desc+\'.\',
                             position:\'center\',
                             onClosing:function() {
-//                               window.location.href = \'./?subtopic=accountmanagement\';
+                               window.location.href = \'./?subtopic=accountmanagement\';
                             }
                         });
-                        window.alert(\'Payment Complete!\');
-                    });
-            },
+                window.alert(\'Payment Complete!\');
+            });
+        },
+      
+      // onAuthorize() is called when the buyer approves the payment
+//            onAuthorize: function(data, actions) {
+
+                // Set up a url on your server to execute the payment
+//                var EXECUTE_PAYMENT_URL = \'./paypal_execute.php\';
+
+                // Set up the data you need to pass to your server
+//                var data = {
+//                    paymentID: data.paymentID,
+//                    payerID: data.payerID
+//                };
+
+                // Make a call to your server to execute the payment
+//                return paypal.request.post(EXECUTE_PAYMENT_URL, data)
+//                    .then(function (res) {
+//                        window.alert(\'Payment Complete!\');
+//                    });
+//            },
 
             
 
