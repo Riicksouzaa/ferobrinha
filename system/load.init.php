@@ -144,11 +144,12 @@ $make_content_header = function ($name){
   return $q;
 };
 /**
+ * @param string $class
  * @return string
  */
-$make_table_header = function (){
+$make_table_header = function ($class = 'Table3'){
     $q = '
-<table class="Table3" cellpadding="0" cellspacing="0">
+<table class="'.$class.'" cellpadding="0" cellspacing="0">
     <tbody>
         <tr>
             <td>
@@ -166,6 +167,7 @@ $make_table_header = function (){
                                                 <tbody>';
     return $q;
 };
+/** @var $make_table_header */
 /**
  * @return string
  */
