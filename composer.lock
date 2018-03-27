@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb2c23b70a33f36e9aff3466676d9b2c",
+    "hash": "e789f6f4d77aad85de06973738e009da",
+    "content-hash": "267e5ac77fece9db7a09b10bf02bf86f",
     "packages": [
         {
             "name": "paypal/rest-api-sdk-php",
@@ -151,7 +152,7 @@
                 "php",
                 "tfa"
             ],
-            "time": "2017-11-06T17:55:56+00:00"
+            "time": "2017-11-06 17:55:56"
         }
     ],
     "packages-dev": [],
