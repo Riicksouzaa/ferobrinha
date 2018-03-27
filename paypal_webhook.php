@@ -11,7 +11,7 @@ try {
     $output = \PayPal\Api\WebhookEventType::availableEventTypes($apiContext);
     $handle = fopen('paypal.log', "a");
     fwrite($handle, "----------------------\r\n");
-    foreach ($_POST as $key=>$value){
+    foreach ($_REQUEST as $key=>$value){
         fwrite($handle, $key."=>".$value."\r\n");
     }
     fwrite($handle, "----------------------\r\n");
