@@ -38,12 +38,12 @@ if (DEBUG_DATABASE) {
  * EndDatabase
  */
 
-$payee = new PayPal\Api\Payee();
-if($config['paypal']['env'] == "production"){
-    $payee->setEmail($config['paypal']['email']);
-}else{
-    $payee->setEmail($config['paypal']['sandboxemail']);
-}
+//$payee = new PayPal\Api\Payee();
+//if($config['paypal']['env'] == "production"){
+//    $payee->setEmail($config['paypal']['email']);
+//}else{
+//    $payee->setEmail($config['paypal']['sandboxemail']);
+//}
 
 
 $payer = new \PayPal\Api\Payer();
@@ -53,9 +53,11 @@ $product_id = $_REQUEST['product_id'];
 if(isset($_SESSION['pid'])){
     $product_id = $_SESSION['pid'];
 }
-$accname = "ai";
+//$accname = "ai";
 if(isset($_SESSION['account'])){
     $accname = $_SESSION['account'];
+}else{
+    exit();
 }
 
 
@@ -65,7 +67,7 @@ $qnt = array_values($config['donate']['offers'][intval($product_id)])[0];
 $item = new \PayPal\Api\Item();
 $item->setName($config['paypal']['itemName'])
     ->setCurrency($config['paypal']['currency'])
-    ->setDescription($qnt." ".$config['paypal']['itemName'])
+    ->setDescription("{$qnt} - {$config['paypal']['itemName']}")
     ->setQuantity(1)
     ->setPrice($price)
     ->setSku($accname . '-' . $product_id);
@@ -73,8 +75,8 @@ $item->setName($config['paypal']['itemName'])
 $list = new \PayPal\Api\ItemList();
 $list->setItems([$item]);
 
-$subtotal = (number_format($price/$qnt,2))*$qnt;
-$shipping_discount = $price - ((number_format($price/$qnt,2))*$qnt);
+//$subtotal = (number_format($price/$qnt,2))*$qnt;
+//$shipping_discount = $price - ((number_format($price/$qnt,2))*$qnt);
 $details = new \PayPal\Api\Details();
 $details->setShipping(0)
     ->setTax(0)

@@ -47,12 +47,20 @@ require_once "classes/account.php";
  * @param string $tid
  * @return bool
  */
-$issetTransactionOnDatabase = function ($tid) use ($SQL){
+$issetTransactionOnDatabase = function ($tid) use ($SQL) {
     $query = $SQL->query("SELECT * FROM paypal_transactions WHERE txn_id = '$tid'")->fetchAll();
     $result = count($query);
-    if($result > 0){
+    if ($result > 0) {
         return TRUE;
-    }else{
+    } else {
+        return FALSE;
+    }
+};
+$doubleStatus = function () use ($SQL) {
+    $q = $SQL->query("SELECT value FROM server_config WHERE config = 'double'")->fetchAll();
+    if ($q[0]['value'] == "active") {
+        return TRUE;
+    } else {
         return FALSE;
     }
 };
@@ -61,7 +69,7 @@ $issetTransactionOnDatabase = function ($tid) use ($SQL){
  * @param $payment_status
  * @param $txn_id
  */
-$updatepaypal = function ($payment_status, $txn_id) use ($SQL){
+$updatepaypal = function ($payment_status, $txn_id) use ($SQL) {
     $SQL->query("UPDATE paypal_transactions SET payment_status = '$payment_status' WHERE txn_id = '$txn_id'")->fetchAll();
 };
 /**
@@ -73,15 +81,15 @@ $updatepaypal = function ($payment_status, $txn_id) use ($SQL){
  * @param $mc_currency
  * @param $txn_id
  */
-$insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL){
+$insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL) {
     $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status','$payer_email','$payer_id','$item_number1','$mc_gross','$mc_currency','$txn_id')")->fetchAll();
 };
 
-$log_post = function (){
+$log_post = function () {
     $handle = fopen('paypal.log', 'a');
     fwrite($handle, "-------------------------\r\n");
-    foreach ($_POST as $key => $value){
-        fwrite($handle, $key."=>".$value."\r\n");
+    foreach ($_POST as $key => $value) {
+        fwrite($handle, $key . "=>" . $value . "\r\n");
     }
     fwrite($handle, "-------------------------\r\n");
     fclose($handle);
@@ -113,14 +121,14 @@ try {
         $acc = new Account();
         $acc->loadByName($acc_name);
         if ($payment_status == "Completed") {
-            if($issetTransactionOnDatabase($tid)){
-                $updatepaypal($payment_status,$tid);
-            }else{
-                $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
+            if ($issetTransactionOnDatabase($tid)) {
+                $updatepaypal($payment_status, $tid);
+            } else {
+                $insertpaypal($payment_status, $payer_email, $payer_id, $item_number1, $price, $mc_currency, $tid);
             }
             $handle = fopen("paypal.log", "a");
             $coins_old = $acc->getPremiumPoints();
-            $acc->setPremiumPoints($acc->getPremiumPoints() + $qnt);
+            $acc->setPremiumPoints($acc->getPremiumPoints() + ($doubleStatus ? $qnt * 2 : $qnt));
             $acc->save();
             $coins_new = $acc->getPremiumPoints();
             fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . ";saldo_anterior:" . $coins_old . ";novo_saldo:" . $coins_new . ";tid:" . $tid . "\r\n");
@@ -129,10 +137,10 @@ try {
             // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
             header("HTTP/1.1 200 OK");
         } else {
-            if($issetTransactionOnDatabase($tid)){
-                $updatepaypal($payment_status,$tid);
-            }else{
-                $insertpaypal($payment_status,$payer_email,$payer_id,$item_number1,$price,$mc_currency,$tid);
+            if ($issetTransactionOnDatabase($tid)) {
+                $updatepaypal($payment_status, $tid);
+            } else {
+                $insertpaypal($payment_status, $payer_email, $payer_id, $item_number1, $price, $mc_currency, $tid);
             }
             $handle = fopen("paypal.log", "a");
             fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . "\r\n");

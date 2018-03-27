@@ -7,7 +7,7 @@
  */
 
 if ($logged) {
-
+    
     /**
      * Progress Bar
      *
@@ -65,7 +65,7 @@ if ($logged) {
                         </div>
                         <div class="Steps" style="width:33%">
                             <div class="TubeContainer">';
-
+    
     if ($step < 3) {
         $main_content .= '<img class="Tube" src="' . $layout_name . '/images/global/content/progressbar/progress-bar-tube-blue.gif">';
     } elseif ($step == 3) {
@@ -85,7 +85,7 @@ if ($logged) {
         </div>
         <script type="text/javascript">g_Deactivated = true;</script>
     ';
-
+    
     if ($step == 1) {
         $main_content .= '
     <script src="' . $layout_name . '/changepmctibia.js"></script>
@@ -173,7 +173,7 @@ if ($logged) {
                                                                 <div style="max-height: 500px; overflow-y: auto;">';
         $countOffers = 1;
         foreach ($config['donate']['offers'] as $id => $coins) {
-            foreach ($coins as $reais => $coins){
+            foreach ($coins as $reais => $coins) {
                 $main_content .= '
                                                                     <div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_' . $id . '">
                                                                         <div class="ServiceID_Icon_Container_Background" id="" style="background-image:url(' . $layout_name . '/images/payment/serviceid_icon_normal.png);">
@@ -242,8 +242,8 @@ if ($logged) {
                                                         <tr>
                                                             <td style="text-align: center;" align="center">
                                                                 <div style="max-height: 240px; overflow-y: auto;">';
-
-        $valid_methods = array_diff($config['paymentsMethods'], [false]);
+        
+        $valid_methods = array_diff($config['paymentsMethods'], [FALSE]);
         $payment_id = 1;
         foreach ($valid_methods as $methodName => $status) {
             $main_content .= '
@@ -333,7 +333,7 @@ if ($logged) {
                 ChangePMC(' . $_POST["PMCID"] . ');
             </script>
             ';
-        }else{
+        } else {
             $main_content .= '
             <script type="text/javascript"> 
                 ChangeService(0, 13);
@@ -343,7 +343,7 @@ if ($logged) {
         }
     } elseif ($step == 2) {
         $payment_data = $_POST;
-        $valid_methods = array_diff($config['paymentsMethods'], [false]);
+        $valid_methods = array_diff($config['paymentsMethods'], [FALSE]);
         $valid_methods = array_keys($valid_methods);
         $payment_data['methodName'] = $valid_methods[($_POST['PMCID']) - 1];
         $payment_data['coins'] = array_values($config['donate']['offers'][$payment_data["ServiceID"]])[0];
@@ -648,19 +648,95 @@ if ($logged) {
         } else {
             header("Location: ./?subtopic=accountmanagement&action=donate");
         }
-
+        
     } elseif ($step == 4) {
         $payment_data = $_POST;
         if ($payment_data["Form_OrderServiceStep4"]["TermsOfService"] == 1) {
+            $qnt = array_values($config['donate']['offers'][intval($payment_data['storage_OrderServiceData']['ServiceID'])])[0];
             $main_content .= '<div class="TableContainer">';
-            $main_content.=$make_content_header("Sumary");
-            $main_content.=$make_table_header();
-            $main_content.='<td>Thank you for your order. After clicking on "'.$payment_data["storage_OrderServiceData"]["PaymentMethodName"].'" you will be redirected to <b>' . $payment_data["storage_OrderServiceData"]["PaymentMethodName"] . '</b> website in order to carry out the payment.</td>';
-            $main_content.=$make_table_footer();
-            $main_content.='</div>';
+            $main_content .= $make_content_header("Sumary");
+            $main_content.='
+            
+            <table class="Table5" cellpadding="0" cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="InnerTableContainer">
+                        <table style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
+                                        </div>
+                                        <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+                                            <div class="TableContentContainer">
+                                                <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="LabelV200">Service</td>
+                                                            <td>' . $qnt . ' Tibia Coins</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="LabelV200">Price</td>
+                                                            <td>from ' . $payment_data["storage_OrderServiceData"]["Price"] . '</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="TableShadowContainerRightTop">
+                                            <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
+                                        </div>
+                                        <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+                                            <div class="TableContentContainer">
+                                                <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="LabelV200">Payment Method</td>
+                                                            <td>' . $payment_data["storage_OrderServiceData"]["PaymentMethodName"] . '</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="LabelV200">Country:</td>
+                                                            <td>' . $payment_data["storage_OrderServiceData"]["Country"] . '</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="TableShadowContainer">
+                                            <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+                                                <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+                                                <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+            ';
+            $main_content .= $make_table_header();
+            $main_content .= '<td>Thank you for your order. After clicking on "' . $payment_data["storage_OrderServiceData"]["PaymentMethodName"] . '" you will be redirected to <b>' . $payment_data["storage_OrderServiceData"]["PaymentMethodName"] . '</b> website in order to carry out the payment.</td>';
+            $main_content .= $make_table_footer();
+            $main_content .= '</div>';
             if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "pagseguro") {
-                if ($config['pagseguro']['lightbox'] == true) {
-                    if ($config['pagseguro']['testing'] == true) {
+                if ($config['pagseguro']['lightbox'] == TRUE) {
+                    if ($config['pagseguro']['testing'] == TRUE) {
                         $main_content .= '<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>';
                     } else {
                         $main_content .= '<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>';
@@ -771,12 +847,11 @@ if ($logged) {
     </div>
 </div>';
                 }
-            }
-            elseif ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "paypal") {
-                $main_content.='<script src="https://www.paypalobjects.com/api/checkout.js"></script>';
-                $main_content.='<div style="text-align: center; margin-top: 20px">';
-                $main_content.='<div id="paypal-button-container"></div>';
-                $main_content.='
+            } elseif ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "paypal") {
+                $main_content .= '<script src="https://www.paypalobjects.com/api/checkout.js"></script>';
+                $main_content .= '<div style="text-align: center; margin-top: 20px">';
+                $main_content .= '<div id="paypal-button-container"></div>';
+                $main_content .= '
 
 <style>
     
@@ -796,13 +871,13 @@ if ($logged) {
     }
     
 </style>';
-                $main_content.='</div>';
-                $main_content.='
+                $main_content .= '</div>';
+                $main_content .= '
                 <script>
                 
                 var CREATE_PAYMENT_URL  = \'./paypal_create.php\';
                 paypal.Button.render({
-                    env: \''.$config['paypal']['env'].'\', // Or \'sandbox\',
+                    env: \'' . $config['paypal']['env'] . '\', // Or \'sandbox\',
                     commit: true, // Show a \'Pay Now\' button
                     style: {
                           label: \'checkout\',  // checkout | credit | pay | buynow | generic
@@ -813,8 +888,8 @@ if ($logged) {
                       payment: function(data, actions) {
                                       
                                       var params = {
-                                          product_id:\''.$payment_data['ServiceID'].'\',
-                                          accname:\''.$account_logged->getName().'\'
+                                          product_id:\'' . $payment_data['ServiceID'] . '\',
+                                          accname:\'' . $account_logged->getName() . '\'
                                       };
                         return paypal.request.post(CREATE_PAYMENT_URL, params).then(function(data) {
                                 return data.id;
@@ -832,7 +907,6 @@ if ($logged) {
                                window.location.href = \'./?subtopic=accountmanagement\';
                             }
                         });
-                window.alert(\'Payment Complete!\');
             });
         },
       
@@ -876,9 +950,20 @@ if ($logged) {
                 });
       }
     }, \'#paypal-button-container\');
-  </script>
-                
-                ';
+  </script>';
+                $main_content .= "<div class='SubmitButtonRow'>";
+                $main_content .= '
+            <div class="CenterButton">
+                <form action="./?subtopic=accountmanagement&action=donate" method="post" style="padding:0px;margin:0px;">
+                    <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
+                        <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                            <div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);"></div>
+                            <input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif">
+                        </div>
+                    </div>
+                </form>
+            </div>';
+                $main_content .= "</div>";
             } else {
                 header("Location: ./?subtopic=accountmanagement&action=donate");
             }
