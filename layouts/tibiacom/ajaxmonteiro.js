@@ -1,7 +1,7 @@
 // Ajax.
 
 $(document).ready(function() { // This show and hide category manage button and disable and active them	
-	$('#categoryStatus').live('click',function(e){
+	$('#categoryStatus').on('click',function(e){
 		var thiis = $(this);
 		var serviceID = thiis.next('.ServiceId').val();
 		var manageLink = thiis.parent().next().children();
@@ -57,7 +57,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() { // This show and hide category manage button and disable and active them	
-	$('#paymentStatus').live('click',function(e){
+	$('#paymentStatus').on('click',function(e){
 		var thiis = $(this);
 		var paymentID = thiis.next('.PaymentId').val();
 		
@@ -122,7 +122,7 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 	
-	$('#delMount').live('submit',function(e){ //Delete mounts
+	$('#delMount').on('submit',function(e){ //Delete mounts
 		var offerId = $(this).find('.delMountId').val();
 		var del = confirm('Do you really want delete this mount ?');
 		if(del) {
@@ -172,7 +172,7 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 	
-	$('#delOutfit').live('submit',function(e){ //Delete mounts
+	$('#delOutfit').on('submit',function(e){ //Delete mounts
 		var offerId = $(this).find('.delOutfitId').val();
 		var del = confirm('Do you really want delete this outfit ?');
 		if(del) {
@@ -230,7 +230,7 @@ $(document).ready(function() {
 		
 	});
 	
-	$('#delItem').live('submit',function(e){ //Delete items
+	$('#delItem').on('submit',function(e){ //Delete items
 		var offerId = $(this).find('.delItemId').val();
 		var del = confirm('Do you really want delete this item ?');
 		if(del) {
@@ -254,7 +254,7 @@ $(document).ready(function() {
 
 //Extra Services
 $(document).ready(function() {
-	$('#extraStatus').live('click',function(e){
+	$('#extraStatus').on('click',function(e){
 		
 		var thiis = $(this);
 		var offerId = $(this).parent().parent().find('input[name=offerID]').val();
@@ -289,7 +289,7 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 	
-	$('#extraUpdate').live('click',function(){
+	$('#extraUpdate').on('click',function(){
 		var thiis = $(this);
 		var valOffer = thiis.parent().find('input[name=offerID]').val();
 		var newPrice = thiis.parent().find('input[name=extraValue]').val();
@@ -345,7 +345,7 @@ $(document).ready(function() {
 		event.preventDefault();
 	});
 	
-	$('#delTicker').live('click',function(e){
+	$('#delTicker').on('click',function(e){
 		//var
 		var tickerID = $(this).parent().find('input[name=tickerID]').val();
 		var del = confirm('Do you really want delete this ticker ?');
@@ -401,7 +401,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('#delPoint').live('click',function(e){
+	$('#delPoint').on('click',function(e){
 		//var
 		var pointsID = $(this).parent().find('input[name=delPointId]').val();
 		var del = confirm('Do you really want delete this point package ?');
@@ -430,7 +430,7 @@ function refreshPage() {
 }
 
 $(document).ready(function() {
-	$('#doubleStatus').live("click", function(e) {
+	$('#doubleStatus').on("click", function(e) {
 		$.ajax({
 			url: 'ajax.php',
 			type: 'POST',

@@ -18,6 +18,7 @@ if(!defined('INITIALIZED'))
     <meta http-equiv="content-language" content="pt-br">
     <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog,
     online role playing game, online multiplayer game, internet game, online rpg, rpg">
+    <link rel="canonical" href="<?=$config['base_url'].$_SERVER['REQUEST_URI']?>" />
     <!-- META TAGS OPENGRAPH-->
     <meta property="og:title" content="<?=$config['server']['serverName'].(isset($_REQUEST['subtopic'])? " - ".ucfirst($_REQUEST['subtopic']) :'').(isset($_REQUEST['action'])?" - ".ucfirst($_REQUEST['action']):"").(isset($ch)?" - ".ucfirst($ch):"")?>"/>
     <meta property="og:url" content="<?=$config['base_url'].$_SERVER['REQUEST_URI']?>"/>
@@ -26,7 +27,7 @@ if(!defined('INITIALIZED'))
     <meta property="og:image" content="<?php if($_REQUEST['subtopic'] == "characters" && isset($_REQUEST['name'])){echo $config['base_url']."player_portrait.php?name=".$_REQUEST['name'];}else{echo $config['base_url']."layouts/tibiacom/images/global/header/background-artwork.jpg";}?>"/>
     <meta property="og:locale" content="pt_BR"/>
     <!-- ##FIM META TAGS OPENGRAPH-->
-    
+
     <!-- META TAGS FACEBOOK-->
     <meta property="fb:app_id" content="<?=$config['social']['fbappid']?>"/>
     <!-- ##FIM META TAGS FACEBOOK-->
@@ -73,18 +74,23 @@ if(!defined('INITIALIZED'))
     if($_REQUEST['subtopic'] == "latestnews" || $_REQUEST['subtopic'] == "newsarchive")
         echo '<link href="'.$layout_name.'/news.css" rel="stylesheet" type="text/css">';
     ?>
-    <script src="<?php echo $layout_name; ?>/jquery.js" ></script>
-    <script src="<?php echo $layout_name; ?>/jquery-ui.core.js" ></script>
+    <!--    <script src="--><?php //echo $layout_name; ?><!--/jquery.js" ></script>-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <!--    <script src="--><?php //echo $layout_name; ?><!--/jquery-ui.core.js" ></script>-->
     <script src="<?php echo $layout_name; ?>/jquery-ui.widgets.js" ></script>
     <script src="<?php echo $layout_name; ?>/jquery.mask.js"></script>
     <script src="<?php echo $layout_name; ?>/ajaxcip.js"></script>
-    <script src="<?php echo $layout_name; ?>/ajaxmonteiro.js"></script>
     <script src="<?php echo $layout_name; ?>/iziToast.min.js"></script>
+    <script src="<?php echo $layout_name; ?>/generic.js"></script>
+    <?php
+    if($_REQUEST['subtopic'] == "adminpanel"){?>
+        <script src="<?php echo $layout_name; ?>/ajaxmonteiro.js"></script>
+    <?php }?>
     <?php
     if($_REQUEST['subtopic'] == "createaccount")
         echo '<script src="'.$layout_name.'/create_character.js"></script>';
     ?>
-    <script src="<?php echo $layout_name; ?>/generic.js"></script>
     <script>
         iziToast.settings({
             icon:'material-icons',
@@ -719,7 +725,7 @@ if(!defined('INITIALIZED'))
                                         <div class="Bottom" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif);">
                                         </div>
 
-                                        <!-- Server Info theme box 
+                                        <!-- Server Info theme box
                                         <div id="Serverinfobox" class="Themebox" style="background-image:url(<?php echo $layout_name; ?>/images/global/themeboxes/serverinfo/serverinfobox.gif);">
                                             <a href="?subtopic=serverinfo">
                                                 <img id="ScreenshotContent" class="ThemeboxContent" style="padding: 32px 40px 30px 5px;" src="<?php echo $layout_name; ?>/images/global/themeboxes/serverinfo/serverinfo.gif" alt="Server Info">

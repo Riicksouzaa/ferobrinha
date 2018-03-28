@@ -9,7 +9,7 @@
 $(document).ready(function(){
 //  MyAjaxCipHistory = new AjaxCipHistory();
   
-  $('body').live('mouseover', function(event){
+  $('body').on('mouseover', function(event){
     g_Event = event.originalEvent;
   });
   
@@ -45,14 +45,14 @@ $(document).ready(function(){
   }
   
 //  if (g_UseAjaxAttributes === true) {
-    $('[ajaxcip=true]').live('click.AjaxCip', function(event){
+    $('[ajaxcip=true]').on('click.AjaxCip', function(event){
       var l_Request = new AjaxCipRequest(event.currentTarget);
       l_Request.send();
       event.preventDefault();
     });
     
     //When opening a link with the middle mouse button, than append the ajax history (hash)
-    $('a[ajaxcip=true]').live('mousedown.AjaxCip', function(event){
+    $('a[ajaxcip=true]').on('mousedown.AjaxCip', function(event){
       if (event.which == 2) {
         event.target.href += location.hash;
       }
