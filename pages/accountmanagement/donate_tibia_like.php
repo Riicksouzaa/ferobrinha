@@ -968,8 +968,12 @@ if ($logged) {
                 include "mp_create.php";
                 try {
                     $product_id = $payment_data['ServiceID'];
-                    $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
-                    $mp->sandbox_mode(TRUE);
+                    if($config['mp']['sandboxMode']){
+                        $mp = new MP($config['mp']['SANDBOX_CLIENT_ID'], $config['mp']['SANDBOX_CLIENT_SECRET']);
+                    }else{
+                        $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
+                    }
+//                    $mp->sandbox_mode(TRUE);
                     $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
                     $qnt = array_values($config['donate']['offers'][intval($product_id)])[0];
                     $preference_data = array(
@@ -995,7 +999,7 @@ if ($logged) {
                     $preference = $mp->create_preference($preference_data);
                     $main_content .= "<div style='text-align: center'>";
                     $main_content .= '
-                    <a href="' . $preference["response"]["sandbox_init_point"] . '" name="MP-Checkout" class="blue-rn-m">Pay</a>
+                    <a href="' . ($config['mp']['sandboxMode'] == TRUE?$preference["response"]["sandbox_init_point"]:$preference["response"]["init_point"]) . '" name="MP-Checkout" class="blue-rn-m">Pay</a>
 		            <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
                 ';
                     $main_content .= "</div>";
