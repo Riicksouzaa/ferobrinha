@@ -20,6 +20,7 @@ require_once "vendor/autoload.php";
 
 try {
     $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
+    $mp->sandbox_mode(TRUE);
     $params = ["access_token" => $mp->get_access_token()];
 // Check mandatory parameters
     if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
@@ -45,7 +46,7 @@ try {
             }
         }
         if ($transaction_amount_payments >= $transaction_amount_order) {
-            $handle = fopen('mp.log', "a+");
+            $handle = fopen('mp.log', "a");
             fwrite($handle, "-------------------------\r\n");
             foreach ($_REQUEST as $key=>$value){
                 fwrite($handle, $key."=>".$value."\r\n");
@@ -53,7 +54,7 @@ try {
             fwrite($handle, "-------------------------\r\n");
             fclose($handle);
         } else {
-            $handle = fopen('mp.log', "a+");
+            $handle = fopen('mp.log', "a");
             fwrite($handle, "-------------------------\r\n");
             foreach ($_REQUEST as $key=>$value){
                 fwrite($handle, $key."=>".$value."\r\n");
@@ -64,9 +65,9 @@ try {
     }
     
 } catch (MercadoPagoException $e) {
-    $handle = fopen('mp.log', "a+");
+    $handle = fopen('mp.log', "a");
     fwrite($handle, "-------------------------\r\n");
-    fwrite($handle, $e->getMessage());
+    fwrite($handle, $e->getMessage()."\r\n");
     fwrite($handle, "-------------------------\r\n");
     fclose($handle);
 }

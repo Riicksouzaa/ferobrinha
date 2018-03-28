@@ -975,7 +975,7 @@ if ($logged) {
                     $preference_data = array(
                         "items" => array(
                             array(
-                                "id" => 1,
+//                                "id" => 3,
                                 "title" => $config['sale']['productName'],
                                 "currency_id" => "BRL",
                                 "picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
