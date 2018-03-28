@@ -655,7 +655,7 @@ if ($logged) {
             $qnt = array_values($config['donate']['offers'][intval($payment_data['storage_OrderServiceData']['ServiceID'])])[0];
             $main_content .= '<div class="TableContainer">';
             $main_content .= $make_content_header("Sumary");
-            $main_content.='
+            $main_content .= '
             
             <table class="Table5" cellpadding="0" cellspacing="0">
         <tbody>
@@ -964,6 +964,46 @@ if ($logged) {
                 </form>
             </div>';
                 $main_content .= "</div>";
+            } elseif ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "mercadoPago") {
+                include "mp_create.php";
+                try {
+                    $product_id = $payment_data['ServiceID'];
+                    $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
+                    $mp->sandbox_mode(TRUE);
+                    $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
+                    $qnt = array_values($config['donate']['offers'][intval($product_id)])[0];
+                    $preference_data = array(
+                        "items" => array(
+                            array(
+                                "id" => 1,
+                                "title" => $config['sale']['productName'],
+                                "currency_id" => "BRL",
+                                "picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+                                "description" => $qnt . " " . $config['sale']['productName'],
+                                "category_id" => "Category",
+                                "quantity" => 1,
+                                "unit_price" => $price
+                            )
+                        ),
+                        "auto_return" => "approved",
+                        "notification_url" => $config['base_url'] . "mp_ipn.php",
+                        "external_reference" => $account_logged->getName() . '-' .$product_id,
+                        "expires" => FALSE,
+                        "expiration_date_from" => NULL,
+                        "expiration_date_to" => NULL
+                    );
+                    $preference = $mp->create_preference($preference_data);
+                    $main_content .= "<div style='text-align: center'>";
+                    $main_content .= '
+                    <a href="' . $preference["response"]["sandbox_init_point"] . '" name="MP-Checkout" class="blue-rn-m">Pay</a>
+		            <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
+                ';
+                    $main_content .= "</div>";
+                } catch (MercadoPagoException $e) {
+                    echo $e->getMessage();
+                }
+                
+                
             } else {
                 header("Location: ./?subtopic=accountmanagement&action=donate");
             }
