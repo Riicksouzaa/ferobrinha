@@ -45,12 +45,28 @@ try {
             }
         }
         if ($transaction_amount_payments >= $transaction_amount_order) {
-            echo "release your items";
+            $handle = fopen('mp.log', "a+");
+            fwrite($handle, "-------------------------\r\n");
+            foreach ($_REQUEST as $key=>$value){
+                fwrite($handle, $key."=>".$value."\r\n");
+            }
+            fwrite($handle, "-------------------------\r\n");
+            fclose($handle);
         } else {
-            echo "dont release your items";
+            $handle = fopen('mp.log', "a+");
+            fwrite($handle, "-------------------------\r\n");
+            foreach ($_REQUEST as $key=>$value){
+                fwrite($handle, $key."=>".$value."\r\n");
+            }
+            fwrite($handle, "-------------------------\r\n");
+            fclose($handle);
         }
     }
     
 } catch (MercadoPagoException $e) {
-
+    $handle = fopen('mp.log', "a+");
+    fwrite($handle, "-------------------------\r\n");
+    fwrite($handle, $e->getMessage());
+    fwrite($handle, "-------------------------\r\n");
+    fclose($handle);
 }

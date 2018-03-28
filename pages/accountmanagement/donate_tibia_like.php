@@ -985,12 +985,12 @@ if ($logged) {
                                 "unit_price" => $price
                             )
                         ),
-                        "auto_return" => "approved",
-                        "notification_url" => $config['base_url'] . "mp_ipn.php",
+//                        "auto_return" => "approved",
+//                        "notification_url" => $config['base_url'] . "mp_ipn.php",
                         "external_reference" => $account_logged->getName() . '-' .$product_id,
-                        "expires" => FALSE,
-                        "expiration_date_from" => NULL,
-                        "expiration_date_to" => NULL
+//                        "expires" => FALSE,
+//                        "expiration_date_from" => NULL,
+//                        "expiration_date_to" => NULL
                     );
                     $preference = $mp->create_preference($preference_data);
                     $main_content .= "<div style='text-align: center'>";
