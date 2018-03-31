@@ -355,7 +355,7 @@ for ($i = 0; $i < $tp; $i++) {
         $main_content.='<input type="hidden" value="'.$vocation.'" name="profession">';
         $main_content.='<input type="hidden" value="'.(isset($_REQUEST['list']) ? $_REQUEST['list'] : (isset($_POST['list']) ? $_POST['list'] : 5)).'" name="list">';
         $main_content.='<input type="hidden" value="'.($i+1).'" name="page">';
-        $main_content.='<a href="#" onclick="document.getElementById(\'sendHighscorePage'.$i.'\').submit()" >'.($i+1).'</a>';
+        $main_content.='<a style="cursor:pointer;" onclick="document.getElementById(\'sendHighscorePage'.$i.'\').submit()" >'.($i+1).'</a>';
         $main_content.='</form>';
 //        $main_content .= '<a id="goto-page-' . $i . '" style="margin-left:4px;" href="./?subtopic=highscores&world=' . $config["server"]["serverName"] . '&profession=' . $vocation . '&list=' . (isset($_REQUEST['list']) ? $_REQUEST['list'] : (isset($_POST['list']) ? $_POST['list'] : 5)) . '&page=' . ($i + 1) . '">' . ($i + 1) . '</a>';
     } else {
