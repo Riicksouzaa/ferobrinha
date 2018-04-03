@@ -139,7 +139,7 @@ if ($player_id) {
                     return '<td style="background-color: #d4c0a1; text-align: center;"><img src="./layouts/tibiacom/images/shop/items/' . $pid . '.gif" width="44" higth="44"></td>';
                 } else {
                     $item_id = $player_information->getItems()->getItem($pid)[array_keys($player_information->getItems()->getItem($pid))[0]]->data['itemtype'];
-                    return '<td style="background-color: #d4c0a1; text-align: center;"><img src="./layouts/tibiacom/images/shop/items/' . $item_id . '.gif" width="44" higth="44"></td>';
+                    return '<td style="background-color: #d4c0a1; text-align: center;"><img src="./layouts/tibiacom/images/shop/items/' . $item_id . '.png" width="44" higth="44"></td>';
                 }
             };
             $main_content .= $verifica_item_id(2);
@@ -243,7 +243,7 @@ if ($player_id) {
                 $main_content .= "<div class='depot'>";
                 foreach ($depotitems as $dep) {
                     $itemm = $getItemByItemId((int)$dep['itemtype']);
-                    $main_content .= "<div class='depot-item'><img src='./layouts/tibiacom/images/shop/items/{$dep["itemtype"]}.gif'><br/>Name:" . (isset($itemm['article']) ? $itemm['article'] : '') . " " . $itemm['name'] . "<br/>Qnt:{$dep["real_count"]}</div>";
+                    $main_content .= "<div class='depot-item'><img src='./layouts/tibiacom/images/shop/items/{$dep["itemtype"]}.png'><br/>Name:" . (isset($itemm['article']) ? $itemm['article'] : '') . " " . $itemm['name'] . "<br/>Qnt:{$dep["real_count"]}</div>";
                 }
                 $main_content .= "</div>";
             } else {
@@ -294,7 +294,7 @@ if ($player_id) {
                 $main_content .= "<div class='depot'>";
                 foreach ($items as $item) {
                     $itemm = $getItemByItemId($item['itemtype']);
-                    $main_content .= "<div class='depot-item'><img src='./layouts/tibiacom/images/shop/items/{$item["itemtype"]}.gif'><br/>Name:" . (isset($itemm['article']) ? $itemm['article'] : '') . " " . $itemm['name'] . "<br/>Qnt:{$item["real_count"]}</div>";
+                    $main_content .= "<div class='depot-item'><img src='./layouts/tibiacom/images/shop/items/{$item["itemtype"]}.png'><br/>Name:" . (isset($itemm['article']) ? $itemm['article'] : '') . " " . $itemm['name'] . "<br/>Qnt:{$item["real_count"]}</div>";
                 }
                 $main_content .= "</div>";
             } else {

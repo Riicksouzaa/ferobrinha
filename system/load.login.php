@@ -14,5 +14,8 @@ if(isset($_REQUEST['account_login']) && isset($_REQUEST['password_login']))
     //Visitor::login(); // this set account and password from code above as login and password to next login attempt
     //Visitor::loadAccount(); // this is required to force reload account and get status of user
     $isTryingToLogin = true;
+    if($_SERVER['HTTP_REFERER'] != "https://localhost/global-website/production/ferobra-website/?subtopic=accountmanagement"){
+        header("Location: ".$_SERVER['HTTP_REFERER']);
+    }
 }
 Visitor::login();
