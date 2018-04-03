@@ -33,8 +33,8 @@ if (!$logged)
 				</table>
 			</div>';
     } else {
-        
-        
+        //test on produc
+        var_dump($isTryingToLogin);
         $passB = '<span>Password:</span>';
         $logB = '<span>Account Name:</span>';
         if (isset($action) && $action != '') {
