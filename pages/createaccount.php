@@ -408,8 +408,9 @@ if (!$logged) {
                     $main_content .= '<h2>Your account has been created.</h2>';
                     error_log('Error sending e-mail: ' . $mail->ErrorInfo, 1);
                 }
-            } else header("Location: ?subtopic=latestnews");
-
+            } else {
+                $main_content .= '<h2>Your account has been created. Now you can <a href="./?subtopic=accountmanagement">login</a></h2>';
+            }
         }
 
     } else {
