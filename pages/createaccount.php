@@ -4,13 +4,13 @@ if (!defined('INITIALIZED'))
 require 'config/namesblocked.php';
 if (!$logged) {
     $voc = array(); // Rookgard Active !
-
+    
     if (isset($_POST['step']) && $_POST['step'] == 'docreate') {
         $erro = array();
-
+        
         # Nome da conta
         $accountname = isset($_POST['accountname']) ? $_POST['accountname'] : '';
-
+        
         if ($accountname == '')
             $erro['acc'] = 'Please enter an account name!';
         elseif (strlen($accountname) < 3)
@@ -19,7 +19,7 @@ if (!$logged) {
             $erro['acc'] = 'This account name is too long!';
         else {
             $accountname = strtoupper($accountname);
-
+            
             if (!ctype_alnum($accountname))
                 $erro['acc'] = 'This account name has an invalid format. Your account name may only consist of numbers 0-9 and letters A-Z!';
             elseif (!preg_match('/[A-Z0-9]/', $accountname))
@@ -30,9 +30,9 @@ if (!$logged) {
                     $erro['acc'] = 'This account name is already used. Please select another one!';
             }
         }
-
+        
         $email = isset($_POST['email']) ? $_POST['email'] : '';
-
+        
         if ($email == '')
             $erro['email'] = 'Please enter your email address!';
         elseif (strlen($email) > 49)
@@ -44,10 +44,10 @@ if (!$logged) {
             if ($accMailCheck->isLoaded())
                 $erro['email'] = 'This email address is already used. Please enter another email address!';
         }
-
+        
         $password1 = isset($_POST['password1']) ? $_POST['password1'] : '';
         $password2 = isset($_POST['password2']) ? $_POST['password2'] : '';
-
+        
         if (empty($password2))
             $erro['pass'] = 'Please enter the password again!';
         elseif ($password1 != $password2)
@@ -63,34 +63,34 @@ if (!$logged) {
              * @param $string
              * @return bool
              */
-            function encontrouNumeros($string)
+            function encontrouNumeros ($string)
             {
-                return strpbrk($string, '0123456789') !== false;
+                return strpbrk($string, '0123456789') !== FALSE;
             }
-
+            
             if (!ctype_alnum($password1) || !encontrouNumeros($password1)) {
                 $err[] = 'The password must contain at least one number!';
             }
-            if(is_numeric($password1)){
+            if (is_numeric($password1)) {
                 $err[] = 'The password must contain at least one letter A-Z or a-z!!';
             }
 
 //            if (ctype_alnum($password1))
 //                $err[] = 'The password contains invalid letters!';
-
-
+            
+            
             if (count($err) != 0) {
                 $erro['pass'] = '';
                 for ($i = 0; $i < count($err); $i++)
                     $erro['pass'] .= ($i == 0 ? '' : '<br/>') . $err[$i];
             }
         }
-
+        
         if (!isset($_POST['agreeagreements']) || empty($_POST['agreeagreements']))
             $erro['rules'] = 'You have to agree to the ' . $config['server']['serverName'] . ' Rules in order to create an account!';
-
+        
         if (count($erro) != 0) {
-
+            
             $main_content = '
                 <div class="SmallBox">
                 <div class="MessageContainer">
@@ -111,7 +111,7 @@ if (!$logged) {
                 </div>
                 </div>
                 <br/>';
-
+            
             $main_content .= '
 			<script src="' . $layout_name . '/create_character.js"></script>
 			<div style="position:relative;top:0px;left:0px;" >
@@ -316,7 +316,7 @@ if (!$logged) {
 									</div>
 								</td>
 							</tr>';
-
+            
             $main_content .= '
 						</table>
 					</div>
@@ -339,19 +339,21 @@ if (!$logged) {
 			</center>
 		</form>		
 	</div>';
-
+        
         } else {
             $reg_account = new Account();
             $reg_account->setName(strtoupper($_POST['accountname']));
             $reg_account->setPassword($_POST['password1']);
             $reg_account->setEMail($_POST['email']);
             $reg_account->setCreateDate(time());
-            $reg_account->setCreateIP(Visitor::getIP());
-            $reg_account->setFlag(Website::getCountryCode(long2ip(Visitor::getIP())));
+            if (Visitor::getIP() != FALSE) {
+                $reg_account->setCreateIP(Visitor::getIP());
+                $reg_account->setFlag(Website::getCountryCode(long2ip(Visitor::getIP())));
+            }
             $reg_account->save();
 //            var_dump($reg_account);
             
-
+            
             if ($config['site']['send_emails']) {
                 $reg_name = $reg_account->getName();
                 $reg_email = $reg_account->getEMail();
@@ -381,15 +383,15 @@ if (!$logged) {
                         else
                             $mail->SMTPSecure = "tls";
                     }
-
+                    
                     $mail->FromName = $config['site']['mail_senderName'];
-                    $mail->IsHTML(true);
+                    $mail->IsHTML(TRUE);
                     $mail->From = $config['site']['mail_address'];
                     $mail->AddAddress($reg_email);
                     $mail->Subject = $config['server']['serverName'] . " - Registration";
                     $mail->Body = $mailBody;
                 }
-
+                
                 if ($mail->Send()) {
                     //$main_content .= 'Your account has been created. Check your e-mail. See you in ' . htmlspecialchars($config['server']['serverName']) . '!<BR><BR>';
                     $main_content .= '<TABLE WIDTH=100% BORDER=0 CELLSPACING=1 CELLPADDING=4>
@@ -405,7 +407,7 @@ if (!$logged) {
                     </small>
                     </TD></TR></TABLE>
                     </TD></TR></TABLE>';
-
+                    
                 } else {
                     $main_content .= '<h2>Your account has been created.</h2>';
                     error_log('Error sending e-mail: ' . $mail->ErrorInfo, 1);
@@ -414,9 +416,9 @@ if (!$logged) {
                 $main_content .= '<h2>Your account has been created. Now you can <a href="./?subtopic=accountmanagement">login</a></h2>';
             }
         }
-
+        
     } else {
-
+        
         $main_content .= '
 			<script src="' . $layout_name . '/create_character.js"></script>
 			<div style="position:relative;top:0px;left:0px;" >
@@ -603,7 +605,7 @@ if (!$logged) {
 									</div>
 								</td>
 							</tr>';
-
+        
         $main_content .= '
 						</table>
 					</div>
@@ -626,8 +628,8 @@ if (!$logged) {
 			</center>
 		</form>		
             </div>';
-
+        
     }
-
-
+    
+    
 } else header("Location: ./?subtopic=accountmanagement");
