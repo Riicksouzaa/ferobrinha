@@ -107,6 +107,15 @@ class Visitor
             self::$loginPassword = $_SESSION['password'];
         if (isset($_SESSION['SecretCode']))
             self::$loginSecretCode = $_SESSION['SecretCode'];
+        if (Website::getWebsiteConfig()->getValue('base_url') == "https://ferobraglobal.com/") {
+            if ($_SERVER['HTTP_REFERER'] != "https://ferobraglobal.com/?subtopic=accountmanagement") {
+                header("Location: " . $_SERVER['HTTP_REFERER']);
+            }
+        } else {
+            if ($_SERVER['HTTP_REFERER'] != "https://localhost/global-website/production/ferobra-website/?subtopic=accountmanagement") {
+                header("Location: " . $_SERVER['HTTP_REFERER']);
+            }
+        }
     }
 
     public static function logout()
