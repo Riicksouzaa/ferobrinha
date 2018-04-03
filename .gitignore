@@ -3,4 +3,6 @@
 cache/*
 vendor/
 paypal.log
+mp.log
 composer.lock
+create_user_mp.sh
