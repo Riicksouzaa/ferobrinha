@@ -14,6 +14,11 @@ use Thepixeldeveloper\Sitemap\Drivers\XmlWriterDriver;
 
 
 //header("Content-Type: text/xml; encoding=UTF-8");
+if($config['base_url'] != "https://ferobraglobal.com/"){
+    $savefile = $_SERVER['DOCUMENT_ROOT']."/global-website/production/ferobra-website/";
+}else{
+    $savefile = $_SERVER['DOCUMENT_ROOT']."/";
+}
 
 /** SET SITEMAP URL */
 $indexloc = $config['base_url'].'sitemaps/sitemap-index.xml';
@@ -36,7 +41,7 @@ $driver = new XmlWriterDriver();
 $sitemapurlset->accept($driver);
 
 /** SAVE XML TO A FILE */
-$fp = fopen($_SERVER['DOCUMENT_ROOT']."/global-website/production/ferobra-website/"."sitemaps/sitemap.xml","wb");
+$fp = fopen($savefile."sitemaps/sitemap.xml","wb");
 fwrite($fp,$driver->output());
 fclose($fp);
 
@@ -57,7 +62,7 @@ $urlset->add($url);
 $xml = new XmlWriterDriver();
 $urlset->accept($xml);
 
-$fp = fopen($_SERVER['DOCUMENT_ROOT']."/global-website/production/ferobra-website/"."sitemaps/sitemap-index.xml","wb");
+$fp = fopen($savefile."sitemaps/sitemap-index.xml","wb");
 fwrite($fp,$xml->output());
 fclose($fp);
 
@@ -80,7 +85,7 @@ foreach ($players as $player){
 $xml = new XmlWriterDriver();
 $urlset->accept($xml);
 
-$fp = fopen($_SERVER['DOCUMENT_ROOT']."/global-website/production/ferobra-website/"."sitemaps/players-sitemap.xml","wb");
+$fp = fopen($savefile."sitemaps/players-sitemap.xml","wb");
 fwrite($fp,$xml->output());
 fclose($fp);
 
