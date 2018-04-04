@@ -351,10 +351,6 @@ if (!$logged) {
                 $reg_account->setFlag(Website::getCountryCode(long2ip(Visitor::getIP())));
             }
             $reg_account->save();
-//            $_SESSION['account'] = $_POST['accountname'];
-//            $_SESSION['password'] = $_POST['password1'];
-//            Visitor::login();
-//            header("Location: ./?subtopic=accountmanagement");
             
             if ($config['site']['send_emails']) {
                 $reg_name = $reg_account->getName();
@@ -409,14 +405,30 @@ if (!$logged) {
                     </small>
                     </TD></TR></TABLE>
                     </TD></TR></TABLE>';
+                    $_SESSION['account'] = $_POST['accountname'];
+                    $_SESSION['password'] = $_POST['password1'];
+                    Visitor::login();
+                    header("Location: ./?subtopic=accountmanagement");
                     
                 } else {
+                    $_SESSION['account'] = $_POST['accountname'];
+                    $_SESSION['password'] = $_POST['password1'];
+                    Visitor::login();
+                    header("Location: ./?subtopic=accountmanagement");
                     $main_content .= '<h2>Your account has been created.</h2>';
                     error_log('Error sending e-mail: ' . $mail->ErrorInfo, 1);
                 }
             } else {
+                $_SESSION['account'] = $_POST['accountname'];
+                $_SESSION['password'] = $_POST['password1'];
+                Visitor::login();
+                header("Location: ./?subtopic=accountmanagement");
                 $main_content .= '<h2>Your account has been created. Now you can <a href="./?subtopic=accountmanagement">login</a></h2>';
             }
+            $_SESSION['account'] = $_POST['accountname'];
+            $_SESSION['password'] = $_POST['password1'];
+            Visitor::login();
+            header("Location: ./?subtopic=accountmanagement");
         }
         
     } else {
