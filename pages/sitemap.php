@@ -15,9 +15,9 @@ use Thepixeldeveloper\Sitemap\Drivers\XmlWriterDriver;
 
 //header("Content-Type: text/xml; encoding=UTF-8");
 if($config['base_url'] != "https://ferobraglobal.com/"){
-    $savefile = $_SERVER['DOCUMENT_ROOT']."/global-website/production/ferobra-website/";
+    $savefile = "C:/xampp/htdocs/global-website/production/ferobra-website/";
 }else{
-    $savefile = $_SERVER['DOCUMENT_ROOT']."/";
+    $savefile = "/var/www/html/premium-gesior/";
 }
 
 /** SET SITEMAP URL */
@@ -88,6 +88,7 @@ $urlset->accept($xml);
 $fp = fopen($savefile."sitemaps/players-sitemap.xml","wb");
 fwrite($fp,$xml->output());
 fclose($fp);
-
-echo "sitemaps atualizados.";
+$date = new DateTime();
+$t = $date->format('[d/m/Y H:i:s]');
+echo $t." - Sitemaps atualizados.\r\n";
 die();
