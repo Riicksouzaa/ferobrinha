@@ -13,6 +13,7 @@
   "license": "GPL-3.0+",
   "require": {
     "robthree/twofactorauth": "^1.6",
-    "paypal/rest-api-sdk-php": "*"
+    "paypal/rest-api-sdk-php": "*",
+    "thepixeldeveloper/sitemap": "^5.1"
   }
 }
