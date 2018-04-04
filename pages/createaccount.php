@@ -351,10 +351,10 @@ if (!$logged) {
                 $reg_account->setFlag(Website::getCountryCode(long2ip(Visitor::getIP())));
             }
             $reg_account->save();
-            $_SESSION['account'] = $_POST['accountname'];
-            $_SESSION['password'] = $_POST['password1'];
-            Visitor::login();
-            header("Location: ./?subtopic=accountmanagement");
+//            $_SESSION['account'] = $_POST['accountname'];
+//            $_SESSION['password'] = $_POST['password1'];
+//            Visitor::login();
+//            header("Location: ./?subtopic=accountmanagement");
             
             if ($config['site']['send_emails']) {
                 $reg_name = $reg_account->getName();

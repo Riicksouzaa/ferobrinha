@@ -68,8 +68,8 @@ class Account extends ObjectData
                     $keys[] = $this->getDatabaseHandler()->fieldName($key);
                     $values[] = $this->getDatabaseHandler()->quote($this->data[$key]);
                 }
-            $this->getDatabaseHandler()->query('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')');
-//            print_r($this->getDatabaseHandler()->query('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')'));
+//            $this->getDatabaseHandler()->query('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')');
+            print_r($this->getDatabaseHandler()->query('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')'));
             $this->setID($this->getDatabaseHandler()->lastInsertId());
         } else {
             $updates = array();
