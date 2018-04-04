@@ -22,7 +22,7 @@ if($config['base_url'] != "https://ferobraglobal.com/"){
 
 /** SET SITEMAP URL */
 $indexloc = $config['base_url'].'sitemaps/sitemap-index.xml';
-$playersloc = $config['base_url'].('sitemapx/players-sitemap.xml');
+$playersloc = $config['base_url'].('sitemaps/players-sitemap.xml');
 //$communityloc = $config['base_url'].('community-sitemap.xml');
 
 /** INSERT SITEMAP URL TO SITEMAP OBJECT */
