@@ -15,6 +15,7 @@ require_once "custom_scripts/gd-text/TextWrapping.php";
 require_once "custom_scripts/gd-text/VerticalAlignment.php";
 require_once "custom_scripts/gd-text/Struct/Point.php";
 require_once "custom_scripts/gd-text/Struct/Rectangle.php";
+
 use GDText\Box;
 use GDText\Color;
 
@@ -22,55 +23,56 @@ require 'config/config.php';
 // comment to show E_NOTICE [undefinied variable etc.], comment if you want make script and see all errors
 error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
 // true = show sent queries and SQL queries status/status code/error message
-define('DEBUG_DATABASE', false);
-define('INITIALIZED', true);
+define('DEBUG_DATABASE', FALSE);
+define('INITIALIZED', TRUE);
 if (!defined('ONLY_PAGE'))
-    define('ONLY_PAGE', true);
+    define('ONLY_PAGE', TRUE);
 // check if site is disabled/requires installation
 include_once('./system/load.loadCheck.php');
 // fix user data, load config, enable class auto loader
 include_once('./system/load.init.php');
 // DATABASE
 include_once('./system/load.database.php');
-function setTransparency($new_image,$image_source)
+function setTransparency ($new_image, $image_source)
 {
     
     $transparencyIndex = imagecolortransparent($image_source);
     $transparencyColor = array('red' => 255, 'green' => 255, 'blue' => 255);
     
     if ($transparencyIndex >= 0) {
-        $transparencyColor    = imagecolorsforindex($image_source, $transparencyIndex);
+        $transparencyColor = imagecolorsforindex($image_source, $transparencyIndex);
     }
-    
-    $transparencyIndex    = imagecolorallocate($new_image, $transparencyColor['red'], $transparencyColor['green'], $transparencyColor['blue']);
+    $transparencyIndex = imagecolorallocate($new_image, $transparencyColor['red'], $transparencyColor['green'], $transparencyColor['blue']);
     imagefill($new_image, 0, 0, $transparencyIndex);
     imagecolortransparent($new_image, $transparencyIndex);
     
 }
-function playerPortraitCreate($base,$player){
+
+function playerPortraitCreate ($base, $player)
+{
     // Obtendo o tamanho original
     list($width_orig, $height_orig) = getimagesize($base);
     list($width_orig2, $height_orig2) = getimagesize($player);
     
     // Calculando a proporção
-    $ratio_orig = $width_orig/$height_orig;
-    $ratio_orig2 = $width_orig2/$height_orig2;
+    $ratio_orig = $width_orig / $height_orig;
+    $ratio_orig2 = $width_orig2 / $height_orig2;
     /// Largura e altura máximos (máximo, pois como é proporcional, o resultado varia)
     // No caso da pergunta, basta usar $_GET['width'] e $_GET['height'], ou só
     // $_GET['width'] e adaptar a fórmula de proporção abaixo.
     $width = 1200;
     $height = 1200;
-    $width2 = 800;
-    $height2 = 800;
-    if ($width/$height > $ratio_orig) {
-        $width = $height*$ratio_orig;
+    $width2 = 500;
+    $height2 = 500;
+    if ($width / $height > $ratio_orig) {
+        $width = $height * $ratio_orig;
     } else {
-        $height = $width/$ratio_orig;
+        $height = $width / $ratio_orig;
     }
-    if ($width2/$height2 > $ratio_orig2) {
-        $width2 = $height2*$ratio_orig2;
+    if ($width2 / $height2 > $ratio_orig2) {
+        $width2 = $height2 * $ratio_orig2;
     } else {
-        $height2 = $width2/$ratio_orig2;
+        $height2 = $width2 / $ratio_orig2;
     }
     // O resize propriamente dito. Na verdade, estamos gerando uma nova imagem.
     $image_p = imagecreatetruecolor($width, $height);
@@ -79,26 +81,29 @@ function playerPortraitCreate($base,$player){
     
     $image_player = imagecreatetruecolor($width2, $height2);
     $marcadagua = imagecreatefromgif($player);
-    setTransparency($image_player,$marcadagua);
-    imagecopyresampled($image_player, $marcadagua, 0, 0, 0, 0, $width2, $height2,$width_orig2,$height_orig2);
-    
+    setTransparency($image_player, $marcadagua);
+    imagecopyresampled($image_player, $marcadagua, 0, 0, 0, 0, $width2, $height2, $width_orig2, $height_orig2);
+    imagealphablending( $image_player, false );
+    imagesavealpha( $image_player, true );
     
     //pega o tamanho da imagem principal
-    $dwidth  = imagesx($image_p);
+    $dwidth = imagesx($image_p);
     $dheight = imagesy($image_p);
     
     //pega o tamanho da imagem que vai ser centralizada
-    $mwidth  = imagesx($image_player);
+    $mwidth = imagesx($image_player);
     $mheight = imagesy($image_player);
     //Calcula a x e y posição pra colocar a imagem no centro da outra
     //A função round arredonda os valores
-    $xPos = round(($dwidth  - $mwidth)  / 2)-187;
-    $yPos = round(($dheight - $mheight) / 2)-80;
+    $xPos = round(($dwidth - $mwidth) / 2) - 100;
+    $yPos = round(($dheight - $mheight) / 2) - 100;
     
     imagecopymerge($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100);
+//    imagecopyresampled($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100,100);
     return $image_p;
 }
-if(isset($_REQUEST['name'])){
+
+if (isset($_REQUEST['name'])) {
     $name = $_REQUEST['name'];
     $p = new Player();
     $p->loadByName($name);
@@ -129,5 +134,5 @@ if(isset($_REQUEST['name'])){
 //    $box->draw("Level: {$p->getLevel()}"); // Text to draw
     
     header('Content-Type: image/jpeg');
-    imagejpeg($im, null, 100);
+    imagejpeg($im, NULL, 100);
 }
