@@ -751,7 +751,7 @@ if(!defined('INITIALIZED'))
                             </div>
 
                             <div id="Footer">
-                                <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
+                                <!--<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>-->
                                 Copyright by <a href="https://www.cipsoft.com" target="_new"><b>CipSoft GmbH</b></a>. All rights reserveds<br>
                                 <b>Edited by.: <a href="https://codenome.com">Codenome</a></b><br>
                                 <a href=?subtopic=forum><b>Game Forum</b></a> | <a href=<?php echo $config['social']['facebook']; ?>><b>Facebook</b></a> | <a href=?subtopic=team><b>Support Game</b></a><br>
