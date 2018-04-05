@@ -80,13 +80,10 @@ function playerPortraitCreate ($base, $player)
     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
     
     $image_player = imagecreatetruecolor($width2, $height2);
-    imagealphablending($image_player, false);
-    imagesavealpha($image_player,true);
-    $transparent = imagecolorallocatealpha($image_player, 255, 255, 255, 127);
-    imagefilledrectangle($image_player, 0, 0, $width2, $height2, $transparent);
     $marcadagua = imagecreatefromgif($player);
-    imagecopyresampled($image_player, $marcadagua, 0, 0, 0, 0, $width2, $height2, $width_orig2, $height_orig2);
-    setTransparency($image_player, $image_player);
+    setTransparency($image_player, $marcadagua);
+    imagecopyresized($image_player, $marcadagua, 0, 0, 0, 0, $width2, $height2, $width_orig2, $height_orig2);
+//    imagedestroy($marcadagua);
     
     //pega o tamanho da imagem principal
     $dwidth = imagesx($image_p);
@@ -100,6 +97,7 @@ function playerPortraitCreate ($base, $player)
     $xPos = round(($dwidth - $mwidth) / 2) - 100;
     $yPos = round(($dheight - $mheight) / 2) - 100;
     imagecopymerge($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100);
+//    imagedestroy($image_player);
 //    imagecopyresampled($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100,100);
     return $image_p;
 }
@@ -109,9 +107,9 @@ if (isset($_REQUEST['name'])) {
     $p = new Player();
     $p->loadByName($name);
     
-    $url2 = 'images/personal.png';
-    $url = "https://outfits.ferobraglobal.com/animoutfit.php?id={$p->getLookType()}&addons={$p->getLookAddons()}&head={$p->getLookHead()}&body={$p->getLookBody()}&legs={$p->getLookLegs()}&feet={$p->getLookFeet()}&mount={$p->getLookMount()}";
-    $player_portrait = playerPortraitCreate($url2, $url);
+    $url1 = 'images/personal.png';
+    $url2 = "https://outfits.ferobraglobal.com/animoutfit.php?id={$p->getLookType()}&addons={$p->getLookAddons()}&head={$p->getLookHead()}&body={$p->getLookBody()}&legs={$p->getLookLegs()}&feet={$p->getLookFeet()}&mount={$p->getLookMount()}";
+    $player_portrait = playerPortraitCreate($url1, $url2);
     $im = $player_portrait;
     
     $w = imagesx($im);
@@ -134,6 +132,7 @@ if (isset($_REQUEST['name'])) {
 //    $box->setBox(0, 400, $w, $h);
 //    $box->draw("Level: {$p->getLevel()}"); // Text to draw
     
-    header('Content-Type: image/jpeg');
-    imagejpeg($im, NULL, 100);
+    header('Content-Type: image/png');
+    imagepng($im, NULL, 9, PNG_ALL_FILTERS);
+    imagedestroy($im);
 }
