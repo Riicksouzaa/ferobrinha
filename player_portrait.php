@@ -81,12 +81,10 @@ function playerPortraitCreate ($base, $player)
     
     $image_player = imagecreatetruecolor($width2, $height2);
     setTransparency($image_player, $image_player);
+    imagesavealpha($image_player, true);
     $marcadagua = imagecreatefromgif($player);
-    setTransparency($marcadagua, $marcadagua);
-//    imagealphablending($image_player, TRUE);
-//    imagesavealpha($image_player, TRUE);
+    imagealphablending($marcadagua, true);
     imagecopyresampled($image_player, $marcadagua, 0, 0, 0, 0, $width2, $height2, $width_orig2, $height_orig2);
-    setTransparency($image_player, $image_player);
     
     //pega o tamanho da imagem principal
     $dwidth = imagesx($image_p);
