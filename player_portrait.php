@@ -129,5 +129,5 @@ if(isset($_REQUEST['name'])){
 //    $box->draw("Level: {$p->getLevel()}"); // Text to draw
     
     header('Content-Type: image/jpeg');
-    imagepng($im, null, 9, PNG_ALL_FILTERS);
+    imagejpeg($im, null, 100);
 }
