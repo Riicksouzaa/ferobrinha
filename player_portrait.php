@@ -80,11 +80,12 @@ function playerPortraitCreate ($base, $player)
     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
     
     $image_player = imagecreatetruecolor($width2, $height2);
+    setTransparency($image_player, $image_player);
     $marcadagua = imagecreatefromgif($player);
-    setTransparency($image_player, $marcadagua);
+    setTransparency($marcadagua, $marcadagua);
+//    imagealphablending($image_player, TRUE);
+//    imagesavealpha($image_player, TRUE);
     imagecopyresampled($image_player, $marcadagua, 0, 0, 0, 0, $width2, $height2, $width_orig2, $height_orig2);
-    imagealphablending( $image_player, false );
-    imagesavealpha( $image_player, true );
     
     //pega o tamanho da imagem principal
     $dwidth = imagesx($image_p);
@@ -97,7 +98,6 @@ function playerPortraitCreate ($base, $player)
     //A função round arredonda os valores
     $xPos = round(($dwidth - $mwidth) / 2) - 100;
     $yPos = round(($dheight - $mheight) / 2) - 100;
-    
     imagecopymerge($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100);
 //    imagecopyresampled($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100,100);
     return $image_p;
