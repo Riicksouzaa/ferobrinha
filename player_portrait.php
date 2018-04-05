@@ -62,8 +62,8 @@ function playerPortraitCreate ($base, $player)
     // $_GET['width'] e adaptar a fórmula de proporção abaixo.
     $width = 1200;
     $height = 1200;
-    $width2 = 500;
-    $height2 = 500;
+    $width2 = 600;
+    $height2 = 600;
     if ($width / $height > $ratio_orig) {
         $width = $height * $ratio_orig;
     } else {
@@ -97,8 +97,7 @@ function playerPortraitCreate ($base, $player)
     //A função round arredonda os valores
     $xPos = round(($dwidth - $mwidth) / 2) - 100;
     $yPos = round(($dheight - $mheight) / 2) - 100;
-    imagecopymerge($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100);
-//    imagecopyresampled($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100,100);
+    imagecopymerge($image_p, $marcadagua, $xPos, $yPos, 0, 0, 64, 64, 100);
     return $image_p;
 }
 
@@ -111,6 +110,8 @@ if (isset($_REQUEST['name'])) {
     $url = "https://outfits.ferobraglobal.com/animoutfit.php?id={$p->getLookType()}&addons={$p->getLookAddons()}&head={$p->getLookHead()}&body={$p->getLookBody()}&legs={$p->getLookLegs()}&feet={$p->getLookFeet()}&mount={$p->getLookMount()}";
     $player_portrait = playerPortraitCreate($url2, $url);
     $im = $player_portrait;
+    header('Content-Type: image/png');
+    imagepng($im, NULL, 9, PNG_ALL_FILTERS);
     
     $w = imagesx($im);
     $h = imagesy($im);
@@ -132,6 +133,5 @@ if (isset($_REQUEST['name'])) {
 //    $box->setBox(0, 400, $w, $h);
 //    $box->draw("Level: {$p->getLevel()}"); // Text to draw
     
-    header('Content-Type: image/jpeg');
-    imagejpeg($im, NULL, 100);
+
 }
