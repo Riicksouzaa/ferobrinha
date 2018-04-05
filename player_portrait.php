@@ -86,6 +86,7 @@ function playerPortraitCreate ($base, $player)
 //    imagealphablending($image_player, TRUE);
 //    imagesavealpha($image_player, TRUE);
     imagecopyresampled($image_player, $marcadagua, 0, 0, 0, 0, $width2, $height2, $width_orig2, $height_orig2);
+    setTransparency($image_player, $image_player);
     
     //pega o tamanho da imagem principal
     $dwidth = imagesx($image_p);
