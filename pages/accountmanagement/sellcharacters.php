@@ -2,12 +2,12 @@
 /**
  *
  * @package        uam.skeleton
- * @subpackage  controllers
- * @author        Codenome Developpers - Main Developer: Ricardo <http://codenome.com>
- * @copyright    Copyright (c) 2018, Codenome. (http://myara.net/)
+ * @subpackage     controllers
+ * @author         Codenome Developpers - Main Developer: Ricardo <http://codenome.com>
+ * @copyright      Copyright (c) 2018, Codenome. (http://myara.net/)
  * @license        GPL v3
- * @link        http://uam.codenome.com
- * @since        Version 0.0.1
+ * @link           http://uam.codenome.com
+ * @since          Version 0.0.1
  * @filesource
  */
 
@@ -41,13 +41,13 @@ function valida_multiplas_reqs ()
     if ($_SESSION['now'] < $_SESSION['valida']) {
         if ($_SESSION['tries'] < $maxtries) {
             $_SESSION['tries'] = $_SESSION['tries'] + 1;
-            return true;
+            return TRUE;
         } else {
-            return false;
+            return FALSE;
         }
     } else {
         unset($_SESSION['valida'], $_SESSION['tries']);
-        return false;
+        return FALSE;
     }
 }
 
@@ -67,88 +67,109 @@ function flushSession ()
 flushSession();
 
 /**
- * @param $player_id int
+ * @param $rk
+ * @return bool
+ */
+$verifica_rk = function ($rk) use ($SQL, $account_logged) {
+    $acc_rk = $account_logged->getKey();
+    if ($acc_rk == strtoupper($rk)) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+};
+
+/**
+ * @param $player_id  int
  * @param $price_type int
- * @param $price int
+ * @param $price      int
+ * @param $rk         String
  * @return string
  */
-$add_sell_character = function ($player_id, $price_type, $price) use ($account_logged, $config, $SQL) {
+$add_sell_character = function ($player_id, $price_type, $price, $rk) use ($verifica_rk, $account_logged, $config, $SQL) {
     $reqs = valida_multiplas_reqs();
-    if ($reqs) {
-        $va = $SQL->query("SELECT player_sell_bank FROM accounts WHERE id = {$account_logged->getID()}")->fetchAll();
-        $va = $va[0]['player_sell_bank'];
-        if ($va != null) {
-            if ($va != $player_id) {
-                $player_id = (int)$player_id;
-                $price_type = (int)$price_type;
-                $price = (int)$price;
-                $player = new Player();
-                $player->loadById($player_id);
-                $account = new Account();
-                $account->loadById($player->getAccountID());
-                $date = new DateTime();
-                $now = $date->format('Y-m-d H:i:s');
-                $valid = date_add($date, date_interval_create_from_date_string('5 days'))->format('Y-m-d H:i:s');
-                $price_coin = 0;
-                $price_gold = 0;
-                $price_type = ($price_type == 0 ? 0 : 1);
-                if ($price_type == 0) {
-                    $price_coin = $price;
-                    $price_max = Website::getWebsiteConfig()->getValue('max_price_coin');
-                } else {
-                    $price_gold = $price;
-                    $price_max = Website::getWebsiteConfig()->getValue('max_price_gold');
-                }
-                if ($price > 0 && $price <= $price_max) {
-                    $valida = $SQL->query("SELECT id_player FROM account_character_sale where id_player = {$player_id}")->rowCount();
-                    if ($account_logged->getID()) {
-                        if ($valida == 0) {
-                            $query = $SQL->prepare("SELECT * FROM players WHERE id = :p_id AND level >= " . Website::getWebsiteConfig()->getValue("min_lvl_to_sell"));
-                            $query->execute(['p_id' => $player_id]);
-                            $valida = $query->rowCount();
-                            if ($valida > 0) {
-                                if ($player->getAccountID() == $account_logged->getID()) {
-                                    $query = $SQL->prepare("INSERT INTO `account_character_sale` 
+    $vrk = $verifica_rk($rk);
+    if ($vrk) {
+        if ($reqs) {
+            $va = $SQL->query("SELECT player_sell_bank FROM accounts WHERE id = {$account_logged->getID()}")->fetchAll();
+            $va = $va[0]['player_sell_bank'];
+            if ($va != NULL && $va != '' && $va != '0' && $va != 0) {
+                if ($va != $player_id) {
+                    $player_id = (int)$player_id;
+                    $price_type = (int)$price_type;
+                    $price = (int)$price;
+                    $player = new Player();
+                    $player->loadById($player_id);
+                    $account = new Account();
+                    $account->loadById($player->getAccountID());
+                    $date = new DateTime();
+                    $now = $date->format('Y-m-d H:i:s');
+                    $valid = date_add($date, date_interval_create_from_date_string('5 days'))->format('Y-m-d H:i:s');
+                    $price_coin = 0;
+                    $price_gold = 0;
+                    $price_type = ($price_type == 0 ? 0 : 1);
+                    if ($price_type == 0) {
+                        $price_coin = $price;
+                        $price_max = Website::getWebsiteConfig()->getValue('max_price_coin');
+                    } else {
+                        $price_gold = $price;
+                        $price_max = Website::getWebsiteConfig()->getValue('max_price_gold');
+                    }
+                    if ($price > 0 && $price <= $price_max) {
+                        $valida = $SQL->query("SELECT id_player FROM account_character_sale where id_player = {$player_id}")->rowCount();
+                        if ($account_logged->getID()) {
+                            if ($valida == 0) {
+                                $query = $SQL->prepare("SELECT * FROM players WHERE id = :p_id AND level >= " . Website::getWebsiteConfig()->getValue("min_lvl_to_sell"));
+                                $query->execute(['p_id' => $player_id]);
+                                $valida = $query->rowCount();
+                                if ($valida > 0) {
+                                    if ($player->getAccountID() == $account_logged->getID()) {
+                                        $query = $SQL->prepare("INSERT INTO `account_character_sale`
                                    (`id_account`,`id_player`,`status`, `price_type`,`price_coins`,`price_gold`, `dta_insert`,`dta_valid`)
                                    VALUES (:account_id, :player_id, 0, :price_type, :price_coin, :price_gold, :now, :valid);");
-                                    $query->execute(['account_id' => $player->getAccountID(), 'player_id' => $player_id, 'price_type' => $price_type, 'price_coin' => $price_coin, 'price_gold' => $price_gold, 'now' => $now, 'valid' => $valid]);
-
-                                    $query = $SQL->prepare("UPDATE `players` SET `account_id` = :account_id WHERE `id` = :player_id;");
-                                    $query->execute(['account_id' => $config['sell']['account_seller_id'], 'player_id' => $player_id]);
-                                    $query = $SQL->prepare("INSERT INTO account_character_sale_history 
-                                   (id_old_account, id_new_account, id_player, dta_sale) 
-                                   VALUES (:account_id, NULL , :player_id, NULL);");
-                                    $query->execute(['account_id' => $player->getAccountID(), 'player_id' => $player_id]);
-
-                                    $data = getStatus(false, 'Player inserido com sucesso.');
-                                    return json_encode($data);
+                                        $query->execute(['account_id' => $player->getAccountID(), 'player_id' => $player_id, 'price_type' => $price_type, 'price_coin' => $price_coin, 'price_gold' => $price_gold, 'now' => $now, 'valid' => $valid]);
+                                        
+                                        $query = $SQL->prepare("UPDATE `players` SET `account_id` = :account_id WHERE `id` = :player_id;");
+                                        $query->execute(['account_id' => $config['sell']['account_seller_id'], 'player_id' => $player_id]);
+                                        $query = $SQL->prepare("INSERT INTO account_character_sale_history
+                                   (id_old_account, id_new_account, id_player,dta_insert, dta_sale)
+                                   VALUES (:account_id, NULL , :player_id, :now, NULL);");
+                                        $query->execute(['account_id' => $player->getAccountID(), 'player_id' => $player_id, 'now' => $now]);
+                                        
+                                        $data = getStatus(FALSE, 'Player inserido com sucesso.');
+                                        return json_encode($data);
+                                    } else {
+                                        $data = getStatus(TRUE, 'O player que você tentou vender não pertence à essa account.');
+                                        return json_encode($data);
+                                    }
                                 } else {
-                                    $data = getStatus(true, 'O player que você tentou vender não pertence à essa account.');
+                                    $data = getStatus(TRUE, 'Este player está abaixo do Level necessário para venda.');
                                     return json_encode($data);
                                 }
                             } else {
-                                $data = getStatus(true, 'Este player está abaixo do Level necessário para venda.');
+                                $data = getStatus(TRUE, 'Esse player já se encontra em venda.');
                                 return json_encode($data);
                             }
-                        } else {
-                            $data = getStatus(true, 'Esse player já se encontra em venda.');
-                            return json_encode($data);
                         }
+                    } else {
+                        $data = getStatus(TRUE, "Preço deve estar entre 1 e " . number_format($price_max, 0, ',', '.'));
+                        return json_encode($data);
                     }
                 } else {
-                    $data = getStatus(true, "Preço deve estar entre 1 e " . number_format($price_max, 0, ',', '.'));
+                    $data = getStatus(TRUE, "Você não pode vender seu char que está recebendo o dinheiro de suas compras.");
                     return json_encode($data);
                 }
             } else {
-                $data = getStatus(true, "Você não pode vender seu char que está recebendo o dinheiro de suas compras.");
+                $data = getStatus(TRUE, "Você não pode vender sem antes selecionar um player para receber o valor das suas vendas realizadas em coins.");
                 return json_encode($data);
             }
+            
         } else {
-            $data = getStatus(true, "Você não tem nenhum player cadastrado para receber suas vendas.");
+            $data = getStatus(TRUE, "Número máximo de requisições por minuto atingido.");
             return json_encode($data);
         }
     } else {
-        $data = getStatus(true, "Número máximo de requisições por minuto atingido.");
+        $data = getStatus(TRUE, "A RK(recovery key) digitada não é compatível com a RK da conta logada.");
         return json_encode($data);
     }
 };
@@ -157,27 +178,34 @@ $add_sell_character = function ($player_id, $price_type, $price) use ($account_l
  * @param $player_id
  * @return bool
  */
-$remove_sell_characters = function ($player_id) use ($config, $SQL, $account_logged) {
+$remove_sell_characters = function ($player_id, $rk) use ($config, $SQL, $account_logged, $verifica_rk) {
     $req = valida_multiplas_reqs();
-    if ($req) {
-        $player_id = (int)$player_id;
-        $valida = $SQL->prepare("SELECT `id_account` FROM `account_character_sale` WHERE id_player = :id_player AND id_account = :id_account");
-        $valida->execute(['id_player' => $player_id, 'id_account' => $account_logged->getID()]);
+    $vrk = $verifica_rk($rk);
+    if ($vrk) {
+        if ($req) {
+            $player_id = (int)$player_id;
+            $valida = $SQL->prepare("SELECT `id_account` FROM `account_character_sale` WHERE id_player = :id_player AND id_account = :id_account");
+            $valida->execute(['id_player' => $player_id, 'id_account' => $account_logged->getID()]);
 //    var_dump($valida->rowCount(), $valida->fetchAll());
-        if ($valida->rowCount() > 0) {
-            $account_id = $valida->fetchAll()[0]['id_account'];
-            $query = $SQL->prepare("UPDATE players SET account_id = :account_id WHERE id = :player_id");
-            $query->execute(['account_id' => $account_id, 'player_id' => $player_id]);
-            $query = $SQL->prepare("DELETE FROM `account_character_sale` WHERE `id_player` = :player_id");
-            $query->execute(['player_id' => $player_id]);
-            $data = getStatus(false, 'Player removido da venda com sucesso');
-            return json_encode($data);
+            if ($valida->rowCount() > 0) {
+                $account_id = $valida->fetchAll()[0]['id_account'];
+                $query = $SQL->prepare("UPDATE players SET account_id = :account_id WHERE id = :player_id");
+                $query->execute(['account_id' => $account_id, 'player_id' => $player_id]);
+                $query = $SQL->prepare("DELETE FROM `account_character_sale` WHERE `id_player` = :player_id");
+                $query->execute(['player_id' => $player_id]);
+                $data = getStatus(FALSE, 'Player removido da venda com sucesso');
+                return json_encode($data);
+            } else {
+                $data = getStatus(TRUE, 'Falha ao remover este player ou ele não se encontra em venda ou não pertence à sua account.');
+                return json_encode($data);
+            }
+            
         } else {
-            $data = getStatus(true, 'Falha ao remover este player ou ele não se encontra em venda ou não pertence à sua account.');
+            $data = getStatus(TRUE, "Número máximo de requisições por minuto atingido.");
             return json_encode($data);
         }
     } else {
-        $data = getStatus(true, "Número máximo de requisições por minuto atingido.");
+        $data = getStatus(TRUE, "A RK(recovery key) digitada não é compatível com a RK da conta logada.");
         return json_encode($data);
     }
 };
@@ -189,7 +217,7 @@ $remove_sell_characters = function ($player_id) use ($config, $SQL, $account_log
  */
 $extorna_venda_by_id_venda = function ($id) use ($SQL) {
     $q = $SQL->query("SELECT * FROM account_character_sale_history WHERE id = $id")->fetchAll();
-    if ($q[0]['dta_sale'] != null && $q[0]['extornada'] != 1) {
+    if ($q[0]['dta_sale'] != NULL && $q[0]['extornada'] != 1) {
         $id_old = $q[0]['id_old_account'];
         $id_pla = $q[0]['id_player'];
         $id_new = $q[0]['id_new_account'];
@@ -198,31 +226,31 @@ $extorna_venda_by_id_venda = function ($id) use ($SQL) {
         $pbankid = $q[0]['char_id'];
         $bank_char_id = $SQL->query("SELECT player_sell_bank from accounts WHERE id = $id_old")->fetchAll();
         $bank_char_id = (int)$bank_char_id[0]['player_sell_bank'];
-
+        $percent = Website::getWebsiteConfig()->getValue('percent_sellchar_sale') / 100;
         $SQL->query("UPDATE account_character_sale_history SET extornada = 1 WHERE id = $id")->fetchAll();
         if ($price_type == 0) {
             $SQL->query("UPDATE accounts SET coins = (coins+$price) WHERE id = $id_new")->fetchAll();
-            $SQL->query("UPDATE accounts SET coins = (coins-$price) WHERE id = $id_old")->fetchAll();
+            $SQL->query("UPDATE accounts SET coins = (coins-($price-($price*$percent))) WHERE id = $id_old")->fetchAll();
         } else {
             $SQL->query("UPDATE players SET balance = (balance+$price) WHERE id = $pbankid")->fetchAll();
             $p = new Player();
             $p->loadById($bank_char_id);
-            $p->setBalance($p->getBalance()-$price);
+            $p->setBalance($p->getBalance() - $price);
             $p->save();
         }
         $SQL->query("UPDATE players SET account_id = $id_old WHERE id = $id_pla")->fetchAll();
-    }else{
+    } else {
         echo "erro";
     }
 };
 
 /**
- * @param $player_id
- * @param $account_id
+ * @param      $player_id
+ * @param      $account_id
  * @param null $char_id
  * @return string
  */
-$buy_character_in_sale = function ($player_id, $account_id, $char_id = null) use ($config, $SQL, $account_logged) {
+$buy_character_in_sale = function ($player_id, $account_id, $char_id = NULL) use ($config, $SQL, $account_logged) {
     $req = valida_multiplas_reqs();
     if ($req) {
         if ($account_id == $account_logged->getID()) {
@@ -235,12 +263,12 @@ $buy_character_in_sale = function ($player_id, $account_id, $char_id = null) use
                     $v = $SQL->prepare("SELECT * FROM account_character_sale WHERE id_player = :id_player");
                     $v->execute(['id_player' => $player_id]);
                     $p = $v->fetchAll();
-                    if ($char_id != null) {
+                    if ($char_id != NULL) {
                         $s = new Player();
                         $s->loadById($char_id);
                         //trava o codigo caso o player não seja da conta do maluco logado
                         if ($account_logged->getID() != $s->getAccountID()) {
-                            $data = getStatus(true, 'Você não tem permissão pra isso.');
+                            $data = getStatus(TRUE, 'Você não tem permissão pra isso.');
                             return json_encode($data);
                         }
                         $balance = $s->getBalance();
@@ -252,66 +280,67 @@ $buy_character_in_sale = function ($player_id, $account_id, $char_id = null) use
                     $old_id = $old_id[0]['id_account'];
                     $dta = new DateTime();
                     $dta = $dta->format('Y-m-d H:i:s');
+                    $percent = Website::getWebsiteConfig()->getValue('percent_sellchar_sale') / 100;
                     if ($p[0]['price_type'] == 0) {
                         $saldo = $account_logged->getPremiumPoints();
                         if ($price <= $saldo) {
-                            $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price, dta_sale) VALUES (:old_id, :player_id, :account_id,:price_type,:price, :dta)");
+                            $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price, dta_insert,dta_sale) VALUES (:old_id, :player_id, :account_id,:price_type,:price,now(), :dta)");
                             $query->execute(['old_id' => $old_id, 'player_id' => $player_id, 'account_id' => $account_id, 'price_type' => $p[0]['price_type'], 'price' => $price, 'dta' => $dta]);
                             $query = $SQL->prepare("DELETE FROM account_character_sale WHERE id_player = :id");
                             $query->execute(['id' => $player_id]);
                             $query = $SQL->prepare("UPDATE accounts SET coins = (coins-:price) WHERE id = :account_id");
                             $query->execute(['price' => $price, 'account_id' => $account_id]);
-                            $query = $SQL->prepare("UPDATE accounts SET coins = (coins+:price) WHERE id = :account_id");
+                            $query = $SQL->prepare("UPDATE accounts SET coins = (coins+(:price-(:price*($percent)))) WHERE id = :account_id");
                             $query->execute(['price' => $price, 'account_id' => $old_id]);
                             $query = $SQL->prepare("UPDATE players SET account_id = :acc_id WHERE id = :pl_id");
                             $query->execute(['acc_id' => $account_logged->getID(), 'pl_id' => $player_id]);
-                            $data = getStatus(false, 'Você comprou este personagem com sucesso.');
+                            $data = getStatus(FALSE, 'Você comprou este personagem com sucesso.');
                             return json_encode($data);
                         } else {
-                            $data = getStatus(true, 'Você não tem saldo suficiente para essa compra.');
+                            $data = getStatus(TRUE, 'Você não tem saldo suficiente para essa compra.');
                             return json_encode($data);
                         }
                     } else {
-                        if($char_id > 0){
+                        if ($char_id > 0) {
                             $saldo = $balance;
                             if ($price <= $saldo) {
                                 $bank_char_id = $SQL->query("SELECT player_sell_bank from accounts WHERE id = $old_id")->fetchAll();
                                 $bank_char_id = $bank_char_id[0]['player_sell_bank'];
-                                $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price,char_id, dta_sale) VALUES (:old_id, :player_id, :account_id,:price_type,:price,:char_id, :dta)");
-                                $query->execute(['old_id' => $old_id, 'player_id' => $player_id, 'account_id' => $account_id, 'price_type' => $p[0]['price_type'], 'price' => $price,'char_id'=>$char_id, 'dta' => $dta]);
+                                $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price,char_id,dta_insert, dta_sale) VALUES (:old_id, :player_id, :account_id,:price_type,:price,:char_id, now(),:dta)");
+                                $query->execute(['old_id' => $old_id, 'player_id' => $player_id, 'account_id' => $account_id, 'price_type' => $p[0]['price_type'], 'price' => $price, 'char_id' => $char_id, 'dta' => $dta]);
                                 $query = $SQL->prepare("DELETE FROM account_character_sale WHERE id_player = :id");
                                 $query->execute(['id' => $player_id]);
                                 $query = $SQL->prepare("UPDATE players SET balance = (balance-:price) WHERE id = :p_id");
                                 $query->execute(['price' => $price, 'p_id' => $char_id]);
-                                $query = $SQL->prepare("UPDATE players SET balance = (balance+:price) WHERE id = :p_id");
+                                $query = $SQL->prepare("UPDATE players SET balance = (balance+(:price-(:price*($percent)))) WHERE id = :p_id");
                                 $query->execute(['price' => $price, 'p_id' => $bank_char_id]);
                                 $query = $SQL->prepare("UPDATE players SET account_id = :acc_id WHERE id = :pl_id");
                                 $query->execute(['acc_id' => $account_logged->getID(), 'pl_id' => $player_id]);
-                                $data = getStatus(false, 'Você comprou este personagem com sucesso.');
+                                $data = getStatus(FALSE, 'Você comprou este personagem com sucesso.');
                                 return json_encode($data);
                             } else {
-                                $data = getStatus(true, 'Você não tem saldo suficiente para essa compra.');
+                                $data = getStatus(TRUE, 'Você não tem saldo suficiente para essa compra.');
                                 return json_encode($data);
                             }
-                        }else{
-                            $data = getStatus(true, 'Para essa operação você precisa selecionar um personagem cujo qual será utilizado o saldo do balance para a compra.');
+                        } else {
+                            $data = getStatus(TRUE, 'Para essa operação você precisa selecionar um personagem cujo qual será utilizado o saldo do balance para a compra.');
                             return json_encode($data);
                         }
                     }
                 } else {
-                    $data = getStatus(true, 'Você não pode comprar seu próprio personagem.');
+                    $data = getStatus(TRUE, 'Você não pode comprar seu próprio personagem.');
                     return json_encode($data);
                 }
             } else {
-                $data = getStatus(true, "Você não tem permissão pra isso.");
+                $data = getStatus(TRUE, "Você não tem permissão pra isso.");
                 return json_encode($data);
             }
         } else {
-            $data = getStatus(true, "Você não tem permissão pra isso.");
+            $data = getStatus(TRUE, "Você não tem permissão pra isso.");
             return json_encode($data);
         }
     } else {
-        $data = getStatus(true, "Número máximo de requisições por minuto atingido.");
+        $data = getStatus(TRUE, "Número máximo de requisições por minuto atingido.");
         return json_encode($data);
     }
 };
@@ -323,18 +352,18 @@ $select_player_bank = function ($id) use ($config, $SQL, $account_logged) {
             if (count($val) > 0) {
                 $q = $SQL->prepare("UPDATE accounts SET player_sell_bank = $id WHERE id = {$account_logged->getID()}");
                 $q->execute();
-                $data = getStatus(false, 'Você atualizou o player com sucesso. Caso venda algum character via Gold os golds serão entregues à ele.');
+                $data = getStatus(FALSE, 'Você atualizou o player com sucesso. Caso venda algum character via Gold os golds serão entregues à ele.');
                 return json_encode($data);
             } else {
-                $data = getStatus(true, 'Esse player não pertence à você');
+                $data = getStatus(TRUE, 'Esse player não pertence à você');
                 return json_encode($data);
             }
         } else {
-            $data = getStatus(true, 'Selecione um player!');
+            $data = getStatus(TRUE, 'Selecione um player!');
             return json_encode($data);
         }
     } else {
-        $data = getStatus(true, "Número máximo de requisições por minuto atingido.");
+        $data = getStatus(TRUE, "Número máximo de requisições por minuto atingido.");
         return json_encode($data);
     }
 };
@@ -342,24 +371,26 @@ $select_player_bank = function ($id) use ($config, $SQL, $account_logged) {
 $type = $_POST['type'];
 if ($_POST['type']) {
     if ($type == 1) {
+        $rk = $_REQUEST['rk'];
         $player_sell_id = (int)$_POST['id'];
         $sell_type = (int)$_POST['price_type'];
         $price = (int)$_POST['price'];
-        echo $add_sell_character($player_sell_id, $sell_type, $price);
+        echo $add_sell_character($player_sell_id, $sell_type, $price, $rk);
         die();
     }
     if ($type == 2) {
+        $rk = $_REQUEST['rk'];
         $remove_id = $_POST['remove_id'];
-        echo $remove_sell_characters($remove_id);
+        echo $remove_sell_characters($remove_id, $rk);
         die();
     }
     if ($type == 3) {
         $player_id = (int)$_POST['id'];
-        if(isset($_POST['char_id'])){
+        if (isset($_POST['char_id'])) {
             $char_id = (int)$_POST['char_id'];
-            echo $buy_character_in_sale($player_id,$account_logged->getID(),$char_id);
+            echo $buy_character_in_sale($player_id, $account_logged->getID(), $char_id);
             die();
-        }else{
+        } else {
             echo $buy_character_in_sale($player_id, $account_logged->getID());
             die();
         }
@@ -374,7 +405,8 @@ if ($_POST['type']) {
 <p>Welcome to our character selling system, look carefully at the information below so you can make a safe and trouble-free sale of your character.</p>
 <p><b>Who can sell, and how?</b></p>
 <p>Anyone who has a character above the <b>level " . Website::getWebsiteConfig()->getValue('min_lvl_to_sell') . "</b>, that is not banned you can put it on sale. The process is simple, you will choose the character you want to sell, then put the value (in premium points) that you will ask for it.</p>
-<p><b>Attention!</b></p>
+<p style='text-align: center'><b>Attention!</b></p>
+<p style='text-align: center'>Será cobrado uma porcentagem de (" . Website::getWebsiteConfig()->getValue('percent_sellchar_sale') . "%) para cada venda realizada.</p>
 <p>Antes de fazer uma venda você precisa escolher um player para receber o gold das vendas - Esse player não poderá ser vendido.</p>";
     $q = $SQL->query("SELECT id FROM players WHERE account_id = {$account_logged->getID()}")->fetchAll();
     $selected = $SQL->query("SELECT player_sell_bank FROM accounts WHERE id = {$account_logged->getID()}")->fetchAll();
@@ -382,7 +414,7 @@ if ($_POST['type']) {
     $main_content .= "<form id='select_player_bank' method='post' action='./?subtopic=accountmanagement&action=sellchar'>
     <input type='hidden' value='4' name='type'>
     <select name='id'>
-    <option value='0' " . ($selected == null ? "selected" : "") . ">-->SELECT PLAYER<--</option>";
+    <option value='0' " . ($selected == NULL ? "selected" : "") . ">-->SELECT PLAYER<--</option>";
     foreach ($q as $play) {
         $pl = new Player();
         $pl->loadById($play['id']);
@@ -451,7 +483,7 @@ $('#select_player_bank').submit(function() {
                         <td align="center"><strong>Offer Value<br></strong></td>
                         <td width="15%" align="center"><strong>Sell</strong></td>
                     </tr>';
-
+    
     $p = $account_logged->getPlayersList()->data;
     $i = 0;
     if (count($p) > 0) {
@@ -463,7 +495,7 @@ $('#select_player_bank').submit(function() {
             $main_content .= '<tr class="char_' . $pl->getID() . '" style="background-color:' . $bgcolor . ';">';
             $main_content .= "<td>" . $pl->makeOutfitUrl('outfitImgsell') . "</td>";
             $main_content .= "<td><a href='./?subtopic=characters&name=" . urlencode($pl->getName()) . "' <b>" . $pl->getName() . "</b></a><br/><small>" . $pl->getVocationName() . "<br/>lvl: " . $pl->getLevel() . "</small></td>";
-            $main_content .= "<td>(EM FASE DE TESTES)</td>";
+            $main_content .= "<td><input type='text' name='rk' style='text-transform: uppercase' required></td>";
             $main_content .= "
 <td>
 <select name='price_type' required>
@@ -531,9 +563,9 @@ q.submit(function() {
     }
     $main_content .= $make_table_footer();
     $main_content .= '</div>';
-
+    
     $main_content .= '<p>Once put up for sale, you can only withdraw after of <span style="color: #5b0600">(1 hours)</span></p>';
-
+    
     $main_content .= '<div class="TableContainer">';
     $main_content .= $make_content_header("Characters for sale");
     $main_content .= $make_table_header();
@@ -559,7 +591,7 @@ q.submit(function() {
             $main_content .= "<td><a href='./?subtopic=characters&name=" . urlencode($pl->getName()) . "' <b>" . $pl->getName() . "</b></a> <br/> <small>{$pl->getVocationName()}<br/>lvl: {$pl->getLevel()}</small></td>";
             $main_content .= "<td>" . ($seller['price_type'] == 0 ? number_format($seller['price_coins'], 0, ',', '.') . " Coins" : number_format($seller['price_gold'], 0, ',', '.') . " Gold") . "</td>";
             $main_content .= "<td>{$seller['dta_valid']}</td>";
-            $main_content .= "<td>(EM FASE DE TESTES)</td>";
+            $main_content .= "<td><input type='text' style='text-transform: uppercase' name='rk' required></td>";
             $main_content .= "<input type='hidden' value='2' name='type'>";
             $main_content .= "<input type='hidden' value='{$pl->getID()}' name='remove_id'>";
             $main_content .= "<td align='center'><input type='submit' value='remover'></td>";
@@ -616,7 +648,7 @@ q.submit(function() {
                         <td colspan="6">Você não possui personagens à venda.</td>
                     </tr>';
     }
-
+    
     $main_content .= $make_table_footer();
     $main_content .= '</div>';
 }
