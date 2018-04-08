@@ -51,19 +51,6 @@ function valida_multiplas_reqs ()
     }
 }
 
-function flushSession ()
-{
-    $date = new DateTime();
-    $now = $date->format('Y-m-d H:i:s');
-    $valid = date_add($date, date_interval_create_from_date_string('1 minutes'))->format('Y-m-d H:i:s');
-    if (isset($_SESSION['valida']) && isset($_SESSION['now']) && $_SESSION['tries']) {
-        $_SESSION['now'] = $now;
-        if ($_SESSION['now'] >= $_SESSION['valida']) {
-            unset($_SESSION['now'], $_SESSION['valida'], $_SESSION['tries']);
-        }
-    }
-}
-
 flushSession();
 
 /**
