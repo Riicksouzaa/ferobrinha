@@ -47,6 +47,9 @@ include_once('./system/load.compat.php');
 include_once('./system/load.page.php');
 // LOAD PAGE END
 // LAYOUT
+
+
+/** Função responsável por limpar algumas sessions */
 function flushSession ()
 {
     $date = new DateTime();
@@ -62,6 +65,33 @@ function flushSession ()
         //do nothing
     } else {
         unset($_SESSION['dnt_bank'], $_SESSION['dnt_bank_tries']);
+    }
+}
+/** Função utilizada para validar multiplas requisições. */
+function valida_multiplas_reqs ()
+{
+    $date = new DateTime();
+    $now = $date->format('Y-m-d H:i:s');
+    $valid = date_add($date, date_interval_create_from_date_string('1 minutes'))->format('Y-m-d H:i:s');
+    $maxtries = Website::getWebsiteConfig()->getValue('max_req_tries');
+    flushSession();
+    $_SESSION['now'] = $now;
+    if (!isset($_SESSION['valida'])) {
+        $_SESSION['valida'] = $valid;
+    }
+    if (!isset($_SESSION['tries'])) {
+        $_SESSION['tries'] = 0;
+    }
+    if ($_SESSION['now'] < $_SESSION['valida']) {
+        if ($_SESSION['tries'] < $maxtries) {
+            $_SESSION['tries'] = $_SESSION['tries'] + 1;
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    } else {
+        unset($_SESSION['valida'], $_SESSION['tries']);
+        return FALSE;
     }
 }
 

@@ -24,35 +24,6 @@ function getStatus ($status, $msg)
     return $data;
 }
 
-function valida_multiplas_reqs ()
-{
-    $date = new DateTime();
-    $now = $date->format('Y-m-d H:i:s');
-    $valid = date_add($date, date_interval_create_from_date_string('1 minutes'))->format('Y-m-d H:i:s');
-    $maxtries = Website::getWebsiteConfig()->getValue('max_req_tries');
-    flushSession();
-    $_SESSION['now'] = $now;
-    if (!isset($_SESSION['valida'])) {
-        $_SESSION['valida'] = $valid;
-    }
-    if (!isset($_SESSION['tries'])) {
-        $_SESSION['tries'] = 0;
-    }
-    if ($_SESSION['now'] < $_SESSION['valida']) {
-        if ($_SESSION['tries'] < $maxtries) {
-            $_SESSION['tries'] = $_SESSION['tries'] + 1;
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    } else {
-        unset($_SESSION['valida'], $_SESSION['tries']);
-        return FALSE;
-    }
-}
-
-flushSession();
-
 /**
  * @param $rk
  * @return bool

@@ -822,10 +822,10 @@ if($action == "create") {
 		$account_players = $account_logged->getPlayers();
 		foreach($account_players as $player)
 		{
-			$player_rank = $player->getRank();
-			if(empty($player_rank))
-				if($player->getLevel() >= $config['site']['guild_need_level'])
-					if(!$config['site']['guild_need_pacc'] || $account_logged->isPremium())
+            $player_rank = $player->getRank();
+            if(empty($player_rank))
+            if($player->getLevel() >= $config['site']['guild_need_level'])
+            if(!$config['site']['guild_need_pacc'] || $account_logged->isPremium() || $config['server']['freePremium'] == "yes")
 						$array_of_player_nig[] = $player->getName();
 		}
 	}
