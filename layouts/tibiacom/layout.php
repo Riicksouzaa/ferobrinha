@@ -71,17 +71,19 @@ if(!defined('INITIALIZED'))
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="<?php echo $layout_name; ?>/pageloader.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/iziToast.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/ouibounce.css" rel="stylesheet" type="text/css">
     <?php
     if($_REQUEST['subtopic'] == "latestnews" || $_REQUEST['subtopic'] == "newsarchive")
         echo '<link href="'.$layout_name.'/news.css" rel="stylesheet" type="text/css">';
     ?>
-    <script src="<?php echo $layout_name; ?>/jquery.js" ></script>
+    <script src="<?php echo $layout_name; ?>/jquery.js"></script>
     <script src="<?php echo $layout_name; ?>/jquery-ui.core.js" ></script>
     <script src="<?php echo $layout_name; ?>/jquery-ui.widgets.js" ></script>
     <script src="<?php echo $layout_name; ?>/jquery.mask.js"></script>
     <script src="<?php echo $layout_name; ?>/ajaxcip.js"></script>
     <script src="<?php echo $layout_name; ?>/ajaxmonteiro.js"></script>
     <script src="<?php echo $layout_name; ?>/iziToast.min.js"></script>
+    <script src="<?php echo $layout_name; ?>/ouibounce.min.js"></script>
     <?php
     if($_REQUEST['subtopic'] == "createaccount")
         echo '<script src="'.$layout_name.'/create_character.js"></script>';
@@ -158,11 +160,57 @@ if(!defined('INITIALIZED'))
               background-repeat: no-repeat;
               "
       onunload="SaveMenu();"
-      onload="SetFormFocus()"
+      onload="SetFormFocus();"
       data-twttr-rendered="true">
 <div class="se-pre-con"></div>
-<div id="DeactivationContainer" onclick="DisableDeactivationContainer();"></div>
+<script>
+    var modal = document.getElementById('ouibounce-modal');
+    var bounce = ouibounce($("#ouibounce-modal")[0],
+        {
+            cookieName:"bounceFireKoeKarai",
+            callback:function (){
+                $("#ouibounce-modal").show();
+                bounce.disable({cookieExpire:1,sitewide:true});
+                console.log("test")
+            }
+        });
+    
+    $('body').on('click', function() {
+        $('#ouibounce-modal').hide();
+    });
+    $('#ouibounce-modal .modal-footer').on('click', function() {
+        $('#ouibounce-modal').hide();
+    });
+    $('#ouibounce-modal .modal').on('click', function(e) {
+        e.stopPropagation();
+    });
+</script>
+<!-- Ouibounce Modal -->
+<div id="ouibounce-modal">
+    <div class="underlay"></div>
+    <div class="modal">
+        <div class="modal-title">
+            <h3>Perae Karai...</h3>
+        </div>
 
+        <div class="modal-body">
+            <p>Valeu ai por esperar!</p>
+            <br>
+            <p>Eai meu bom... Beleza? Então, ta afim de usar esse website em seus projetos? Ele é bem maneiro e com alguns recursos únicos, um deles é o Pagseguro com lightbox, onde os usuários não precisam sair do site pra finalizar suas doações ao server.</p>
+            <br>
+            <p>Caso tenha interesse você pode me mandar um e-mail para: <a href="mailto:souzaariick@gmail.com">souzaariick@gmail.com</a>.</p>
+
+            <form>
+                <p class="form-notice">*Estou aguardando seu contato!</p>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <p>no thanks</p>
+        </div>
+    </div>
+</div>
+<div id="DeactivationContainer" onclick="DisableDeactivationContainer();"></div>
 <div id="MainHelper1">
     <div id="MainHelper2">
         <div id="Bodycontainer">
@@ -172,8 +220,8 @@ if(!defined('INITIALIZED'))
                         <a href="./?subtopic=latestnews">
                             <img id="TibiaLogoArtworkTop"
                                  src="<?php echo $layout_name; ?>/images/global/header/tibia-logo-artwork-top.png"
-                                 alt="logoartwork"
-                                 name="Ferobra Global"
+                                 alt="<?php echo $config['server']['serverName']?>"
+                                 name="<?php echo $config['server']['serverName']?>"
                             >
                         </a>
                     </div>
@@ -581,7 +629,6 @@ if(!defined('INITIALIZED'))
                     </div>
                     <script>InitializePage();</script>
                 </div>
-
                 <div id="ContentColumn">
                     <div id="Content" class="Content">
                         <div id="ContentHelper">
