@@ -167,11 +167,11 @@ if(!defined('INITIALIZED'))
     var modal = document.getElementById('ouibounce-modal');
     var bounce = ouibounce($("#ouibounce-modal")[0],
         {
-            cookieName:"bounceFireKoeKarai",
+            cookieName:"bounceFire",
+            cookieExpire:1,
+            sitewide:true,
             callback:function (){
                 $("#ouibounce-modal").show();
-                bounce.disable({cookieExpire:1,sitewide:true});
-                console.log("test")
             }
         });
     
