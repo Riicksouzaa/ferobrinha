@@ -2653,7 +2653,7 @@ label {
 #HelperDivContainer #HelperDivHeadline {
     position: relative;
     white-space: normal;
-    text-align: justify;
+    text-align: center;
     margin-top: 0;
     margin-bottom: 15px;
 }
@@ -2663,7 +2663,7 @@ label {
 }
 
 #HelperDivContainer #HelperDivText {
-    text-align: justify;
+    text-align: center;
 }
 
 #HelperDivContainer #HelperDivText ul {
@@ -3237,7 +3237,7 @@ label {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    top: 22px;
+    top: 17px;
     z-index: 99;
 }
 

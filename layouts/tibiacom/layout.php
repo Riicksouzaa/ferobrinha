@@ -67,28 +67,33 @@ if(!defined('INITIALIZED'))
     <!-- Fallback for older devices: -->
     <link rel="apple-touch-icon-precomposed" href="<?php echo $layout_name; ?>/images/global/general/apple-touch-icon-precomposed.png">
 
-    <link href="<?php echo $layout_name; ?>/basic_d.css?vs=0.03" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="<?php echo $layout_name; ?>/pageloader.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/iziToast.min.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/ouibounce.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/basic_d.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/pageloader.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/iziModal.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/iziToast.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/ouibounce.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
     <?php
     if($_REQUEST['subtopic'] == "latestnews" || $_REQUEST['subtopic'] == "newsarchive")
         echo '<link href="'.$layout_name.'/news.css" rel="stylesheet" type="text/css">';
     ?>
-    <script src="<?php echo $layout_name; ?>/jquery.js"></script>
-    <script src="<?php echo $layout_name; ?>/jquery-ui.core.js" ></script>
-    <script src="<?php echo $layout_name; ?>/jquery-ui.widgets.js" ></script>
-    <script src="<?php echo $layout_name; ?>/jquery.mask.js"></script>
-    <script src="<?php echo $layout_name; ?>/ajaxcip.js"></script>
-    <script src="<?php echo $layout_name; ?>/ajaxmonteiro.js"></script>
-    <script src="<?php echo $layout_name; ?>/iziToast.min.js"></script>
-    <script src="<?php echo $layout_name; ?>/ouibounce.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="<?php echo $layout_name; ?>/jquery-ui.core.js<?php echo $css_version;?>" ></script>
+    <script src="<?php echo $layout_name; ?>/jquery-ui.widgets.js<?php echo $css_version;?>" ></script>
+    <script src="<?php echo $layout_name; ?>/jquery.mask.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/ajaxcip.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/ajaxmonteiro.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/iziModal.min.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/iziToast.min.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/ouibounce.min.js<?php echo $css_version;?>"></script>
     <?php
     if($_REQUEST['subtopic'] == "createaccount")
-        echo '<script src="'.$layout_name.'/create_character.js"></script>';
+        echo '<script src="'.$layout_name.'/create_character.js<?php echo $css_version;?>"></script>';
     ?>
-    <script src="<?php echo $layout_name; ?>/generic.js"></script>
+    <script src="<?php echo $layout_name; ?>/generic.js<?php echo $css_version;?>"></script>
     <script>
         iziToast.settings({
             icon:'material-icons',
@@ -130,8 +135,8 @@ if(!defined('INITIALIZED'))
             g_FlashClientInPopUp = false;
         }
     </script>
-    <script src="<?php echo $layout_name; ?>/initialize.js"></script>
-    <script src="<?php echo $layout_name; ?>/swfobject.js" ></script>
+    <script src="<?php echo $layout_name; ?>/initialize.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/swfobject.js<?php echo $css_version;?>" ></script>
     <?php if($_REQUEST['subtopic'] == "accountmanagement") { ?>
         <script type="text/javascript">
             function openGameWindow(a_URL)
@@ -150,7 +155,7 @@ if(!defined('INITIALIZED'))
             }
         </script>
     <?php } ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js<?php echo $css_version;?>"></script>
 </head>
 
 <body onbeforeunload="SaveMenu();"
@@ -163,6 +168,7 @@ if(!defined('INITIALIZED'))
       onload="SetFormFocus();"
       data-twttr-rendered="true">
 <div class="se-pre-con"></div>
+<?php if($_REQUEST['subtopic'] != "accountmanagement" && $_REQUEST['action'] != "donate"){?>
 <script>
     var modal = document.getElementById('ouibounce-modal');
     var bounce = ouibounce($("#ouibounce-modal")[0],
@@ -198,7 +204,7 @@ if(!defined('INITIALIZED'))
             <br>
             <p>Eai meu bom... Beleza? Então, ta afim de usar esse website em seus projetos? Ele é bem maneiro e com alguns recursos únicos, um deles é o Pagseguro com lightbox, onde os usuários não precisam sair do site pra finalizar suas doações ao server.</p>
             <br>
-            <p>Caso tenha interesse você pode me mandar um e-mail para: <a href="mailto:souzaariick@gmail.com">souzaariick@gmail.com</a>.</p>
+            <p>Caso tenha interesse você pode mandar um e-mail para: <a href="mailto:souzaariick@gmail.com">souzaariick@gmail.com</a>.</p>
 
             <form>
                 <p class="form-notice">*Estou aguardando seu contato!</p>
@@ -210,6 +216,7 @@ if(!defined('INITIALIZED'))
         </div>
     </div>
 </div>
+<?php }?>
 <div id="DeactivationContainer" onclick="DisableDeactivationContainer();"></div>
 <div id="MainHelper1">
     <div id="MainHelper2">
@@ -766,7 +773,7 @@ if(!defined('INITIALIZED'))
                                             </div>
                                         </div>
                                         <div class="Bottom" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif);">
-                                        </div>
+                                    </div>
 
                                         <!-- Server Info theme box 
                                         <div id="Serverinfobox" class="Themebox" style="background-image:url(<?php echo $layout_name; ?>/images/global/themeboxes/serverinfo/serverinfobox.gif);">

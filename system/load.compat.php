@@ -45,6 +45,8 @@ if (!ONLY_PAGE) {
 }
 /** @var string $layout_name ./layouts/ */
 $layout_name = './layouts/' . Website::getWebsiteConfig()->getValue('layout');
+/** @var string $css_version */
+$css_version = Website::getWebsiteConfig()->getValue('cssVersion');
 
 $title = ucwords($subtopic) . ' - ' . Website::getServerConfig()->getValue('serverName');
 

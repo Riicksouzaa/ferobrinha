@@ -734,14 +734,15 @@ if ($logged) {
             $main_content .= '<td>Thank you for your order. After clicking on "' . $payment_data["storage_OrderServiceData"]["PaymentMethodName"] . '" you will be redirected to <b>' . $payment_data["storage_OrderServiceData"]["PaymentMethodName"] . '</b> website in order to carry out the payment.</td>';
             $main_content .= $make_table_footer();
             $main_content .= '</div>';
-            if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "pagseguro") {
-                if ($config['pagseguro']['lightbox'] == TRUE) {
-                    if ($config['pagseguro']['testing'] == TRUE) {
-                        $main_content .= '<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>';
-                    } else {
-                        $main_content .= '<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>';
-                    }
-                    $main_content .= '
+            if (isset($payment_data["storage_OrderServiceData"]["PaymentMethodName"])) {
+                if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "pagseguro") {
+                    if ($config['pagseguro']['lightbox'] == TRUE) {
+                        if ($config['pagseguro']['testing'] == TRUE) {
+                            $main_content .= '<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>';
+                        } else {
+                            $main_content .= '<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>';
+                        }
+                        $main_content .= '
         <script>
         function enviaPagseguro() {
           $.post("pagsegurolightbox.php", {pid:"' . $payment_data['ServiceID'] . '",accname:"' . $account_logged->getName() . '"}, function(data) {
@@ -750,7 +751,7 @@ if ($logged) {
                     code: data
               }, {
                     success : function(transactionCode) {
-                        location.href="./?subtopic=tankyou&tcode="+transactionCode;                        
+                        location.href="./?subtopic=tankyou&tcode="+transactionCode;
               },
                     abort : function() {
                         //alert("abort");
@@ -773,7 +774,7 @@ if ($logged) {
                 </div>
             </div>
             <div class="RightButton">
-                <form action="./?subtopic=accountmanagement" method="post" style="padding:0px;margin:0px;">            
+                <form action="./?subtopic=accountmanagement" method="post" style="padding:0px;margin:0px;">
                     <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
                         <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
                             <div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);"></div>
@@ -783,20 +784,20 @@ if ($logged) {
                 </form>
             </div>
         </div>
-        <form id="comprar" 
-        action="https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html" 
-        method="POST" 
+        <form id="comprar"
+        action="https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html"
+        method="POST"
         onsubmit="PagSeguroLightbox(this); return false;">
-            <input type="hidden" name="code" id="code" value=""/>         
-        </form>            
+            <input type="hidden" name="code" id="code" value=""/>
+        </form>
         ';
-                } else {
-                    $main_content .= '
+                    } else {
+                        $main_content .= '
 <div class="SubmitButtonRow">
     <div class="LeftButton">
         <form target="pagseguro" method="post" action="dntpagseguro.php">
             <input type="hidden" name="accname" value="' . $account_logged->getName() . '">
-            <input type="hidden" name="pid" value="' . $payment_data['ServiceID'] . '">	
+            <input type="hidden" name="pid" value="' . $payment_data['ServiceID'] . '">
             <!--
             <input type="hidden" name="store_id" value="">
             <input type="hidden" name="return" value="">
@@ -846,12 +847,13 @@ if ($logged) {
         </form>
     </div>
 </div>';
+                    }
                 }
-            } elseif ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "paypal") {
-                $main_content .= '<script src="https://www.paypalobjects.com/api/checkout.js"></script>';
-                $main_content .= '<div style="text-align: center; margin-top: 20px">';
-                $main_content .= '<div id="paypal-button-container"></div>';
-                $main_content .= '
+                if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "paypal") {
+                    $main_content .= '<script src="https://www.paypalobjects.com/api/checkout.js"></script>';
+                    $main_content .= '<div style="text-align: center; margin-top: 20px">';
+                    $main_content .= '<div id="paypal-button-container"></div>';
+                    $main_content .= '
 
 <style>
     
@@ -871,8 +873,8 @@ if ($logged) {
     }
     
 </style>';
-                $main_content .= '</div>';
-                $main_content .= '
+                    $main_content .= '</div>';
+                    $main_content .= '
                 <script>
                 
                 var CREATE_PAYMENT_URL  = \'./paypal_create.php\';
@@ -929,7 +931,7 @@ if ($logged) {
 //                    });
 //            },
 
-            
+      
 
       onCancel: function(data, actions) {
         iziToast.show({
@@ -951,8 +953,8 @@ if ($logged) {
       }
     }, \'#paypal-button-container\');
   </script>';
-                $main_content .= "<div class='SubmitButtonRow'>";
-                $main_content .= '
+                    $main_content .= "<div class='SubmitButtonRow'>";
+                    $main_content .= '
             <div class="CenterButton">
                 <form action="./?subtopic=accountmanagement&action=donate" method="post" style="padding:0px;margin:0px;">
                     <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
@@ -963,42 +965,43 @@ if ($logged) {
                     </div>
                 </form>
             </div>';
-                $main_content .= "</div>";
-            } elseif ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "transfer") {
-    
-                if (!isset($_SESSION['dnt_bank'])) {
-                    $date = new DateTime();
-                    $now = time();
-                    $product_id = $payment_data["storage_OrderServiceData"]["ServiceID"];
-                    $price = array_keys($config['donate']['offers'][intval($product_id)])[0];
-                    $coinCount = array_values($config['donate']['offers'][intval($product_id)])[0];
-                    $insert = $SQL->prepare("INSERT INTO z_shop_donates (date, reference, account_name, method, price, points, status) VALUES (:date, :reference, :account_name, :method, :price, :points, :status)");
-                    $insert->execute(['date' => $now, 'reference' => $account_logged->getName() . '-' . $config['banktransfer']['bank'], 'account_name' => $account_logged->getName(), 'method' => $payment_data["storage_OrderServiceData"]["PaymentMethodName"], 'price' => ($price / 100), 'points' => $coinCount, 'status' => 'Pending']);
-                    
-    
-                    $_SESSION['dnt_bank'] = TRUE;
-                    $_SESSION['dnt_bank_tries'] = 0;
-                } else {
-                    $_SESSION['dnt_bank_tries'] = $_SESSION['dnt_bank_tries'] + 1;
+                    $main_content .= "</div>";
                 }
-    
-                $main_content .= '<br/>';
-                $main_content .= '<div class="TableContainer">';
-                $main_content .= $make_content_header("Sumary");
-                $main_content .= $make_table_header();
-                $main_content .= "<tr><td>";
-                $main_content .= "<div style='text-align: center'><b>Sua solicitação foi processada.</b></div><br/>";
-                $main_content .= "<div style='text-align: center'><b>FAÇA O DEPÓSITO UTILIZANDO AS SEGUINTES CREDENCIAIS</b></div><br/>";
-                $main_content .= "<div style='text-align: center'><b>" . $config['banktransfer']['bank'] . "</b></div>";
-                $main_content .= "<div style='text-align: center'><b>Favorecido:</b> " . $config['banktransfer']['name'] . "</div>";
-                $main_content .= "<div style='text-align: center'><b>Agencia:</b> " . $config['banktransfer']['agency'] . "</div>";
-                $main_content .= "<div style='text-align: center'><b>" . $config['banktransfer']['acctype'] . ":</b> " . $config['banktransfer']['account'] . "</div>";
-                $main_content .= "<div style='text-align: center'>(" . $config['banktransfer']['acctype'] . ")</div>";
-                $main_content .= "<div style='text-align: center'>(enviar comprovante no email: " . $config['banktransfer']['email'] . ")</div>";
-                $main_content .= "</td></tr>";
-                $main_content .= $make_table_footer();
-                $main_content .= "</div>";
-                $main_content .= '
+                if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "transfer") {
+                    
+                    if (!isset($_SESSION['dnt_bank'])) {
+                        $date = new DateTime();
+                        $now = time();
+                        $product_id = $payment_data["storage_OrderServiceData"]["ServiceID"];
+                        $price = array_keys($config['donate']['offers'][intval($product_id)])[0];
+                        $coinCount = array_values($config['donate']['offers'][intval($product_id)])[0];
+                        $insert = $SQL->prepare("INSERT INTO z_shop_donates (date, reference, account_name, method, price, points, status) VALUES (:date, :reference, :account_name, :method, :price, :points, :status)");
+                        $insert->execute(['date' => $now, 'reference' => $account_logged->getName() . '-' . $config['banktransfer']['bank'], 'account_name' => $account_logged->getName(), 'method' => $payment_data["storage_OrderServiceData"]["PaymentMethodName"], 'price' => ($price / 100), 'points' => $coinCount, 'status' => 'Pending']);
+                        
+                        
+                        $_SESSION['dnt_bank'] = TRUE;
+                        $_SESSION['dnt_bank_tries'] = 0;
+                    } else {
+                        $_SESSION['dnt_bank_tries'] = $_SESSION['dnt_bank_tries'] + 1;
+                    }
+                    
+                    $main_content .= '<br/>';
+                    $main_content .= '<div class="TableContainer">';
+                    $main_content .= $make_content_header("Sumary");
+                    $main_content .= $make_table_header();
+                    $main_content .= "<tr><td>";
+                    $main_content .= "<div style='text-align: center'><b>Sua solicitação foi processada.</b></div><br/>";
+                    $main_content .= "<div style='text-align: center'><b>FAÇA O DEPÓSITO UTILIZANDO AS SEGUINTES CREDENCIAIS</b></div><br/>";
+                    $main_content .= "<div style='text-align: center'><b>" . $config['banktransfer']['bank'] . "</b></div>";
+                    $main_content .= "<div style='text-align: center'><b>Favorecido:</b> " . $config['banktransfer']['name'] . "</div>";
+                    $main_content .= "<div style='text-align: center'><b>Agencia:</b> " . $config['banktransfer']['agency'] . "</div>";
+                    $main_content .= "<div style='text-align: center'><b>" . $config['banktransfer']['acctype'] . ":</b> " . $config['banktransfer']['account'] . "</div>";
+                    $main_content .= "<div style='text-align: center'>(" . $config['banktransfer']['acctype'] . ")</div>";
+                    $main_content .= "<div style='text-align: center'>(enviar comprovante no email: " . $config['banktransfer']['email'] . ")</div>";
+                    $main_content .= "</td></tr>";
+                    $main_content .= $make_table_footer();
+                    $main_content .= "</div>";
+                    $main_content .= '
                 
         <div class="SubmitButtonRow">
             <div class="CenterButton">
@@ -1014,8 +1017,70 @@ if ($logged) {
         </div>
                 
                 ';
-                
-                
+                }
+                if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "picpay") {
+                    $main_content .= "<br/>";
+                    $main_content.= "
+<div id='modal-picpay' class='iziModal'></div>
+<script>
+    $('#modal-picpay').iziModal({
+        top: 50,
+        headerColor: '#21c25e',
+        background: 'green',
+        title: 'Fazer doação com PicPay',
+        subtitle: 'Faça sua doação com picpay de acordo com o plano solicitado.',
+        icon: 'icon-settings_system_daydream',
+        overlayClose: true,
+        iframe : true,
+        iframeURL: 'https://app.picpay.com/user/Ricardo.codenome',
+        iframeHeight:500,
+        fullscreen: true,
+        openFullscreen: false,
+        borderBottom: false,
+        group: 'grupo1',
+        onFullscreen: function(modal){
+            console.log(modal.isFullscreen);
+        }
+    });
+
+    $(document).on('click', '#picpay', function (event) {
+        event.preventDefault();
+        $('#modal-picpay').iziModal('open', event);
+    });
+</script>";
+                    $main_content .= "<p style='font-size: 1.2em; text-align: center'>Ao clicar no botão abaixo será aberto um modal para você escanear nosso qrcode com o aplicativo PICPAY no seu smartphone.<br/> <b>Verifique antes o valor que você deverá doar</b> pois doações com valor diferente do solicitado poderão ser <b>recusadas</b>.<br/> Fique atento!</p>";
+                    $main_content .= '
+                    
+        <div class="SubmitButtonRow">
+            <div class="CenterButton">
+                    <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
+                        <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                            <div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);"></div>
+                            <input id="picpay" class="ButtonText" type="image" name="" alt="" src="' . $layout_name . '/images/global/buttons/_sbutton_buynow.gif">
+                        </div>
+                    </div>
+            </div>
+        </div>
+                    
+                    ';
+                    $main_content .= '
+                    
+        <div class="SubmitButtonRow">
+            <div class="CenterButton">
+                <form action="./?subtopic=accountmanagement" method="post" style="padding:0px;margin:0px;">
+                    <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
+                        <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                            <div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);"></div>
+                            <input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+                    
+                    ';
+                    
+                }
             } else {
                 header("Location: ./?subtopic=accountmanagement&action=donate");
             }
