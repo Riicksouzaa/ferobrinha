@@ -243,7 +243,7 @@ $main_content .= '
 													</div>
 													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
 														<div class="TableContentContainer" >
-															<table class="TableContent" width="100%">';
+															<table class="TableContent categoryStatus" width="100%">';
 
 $get_Categories = $SQL->query("SELECT * FROM `z_shop_category` ORDER BY `name` ASC");
 $cat_number = 0;

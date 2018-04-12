@@ -1,8 +1,9 @@
 // Ajax.
 
 $(document).ready(function() { // This show and hide category manage button and disable and active them	
-	$('#categoryStatus').on('click',function(e){
+	$('.categoryStatus').on('click','#categoryStatus',function(e){
 		var thiis = $(this);
+		console.log(thiis);
 		var serviceID = thiis.next('.ServiceId').val();
 		var manageLink = thiis.parent().next().children();
 		
