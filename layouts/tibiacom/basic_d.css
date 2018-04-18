@@ -278,7 +278,7 @@ body {
     right: 24px;
     width: 132px;
     background-repeat: no-repeat;
-    z-index: 90;
+    z-index: 5;
 }
 
 #RightArtwork #Monster {

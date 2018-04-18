@@ -69,6 +69,7 @@ if(!defined('INITIALIZED'))
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="<?php echo $layout_name; ?>/basic_d.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/top_rank.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/pageloader.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/iziModal.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/iziToast.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
@@ -718,6 +719,7 @@ if(!defined('INITIALIZED'))
                                     <div id="PlayersOnline" onclick="window.location = '?subtopic=worlds';"><?php echo $players_online; ?></div>
                                 </div>
                                 <div id="Themeboxes">
+                                    <?php include_once "widget_rank.php"?>
                                     <?php
                                     $skills = $SQL->query('SELECT * FROM players WHERE deleted = 0 AND group_id = 1 AND account_id != 1 ORDER BY level DESC LIMIT 5');
                                     ?>

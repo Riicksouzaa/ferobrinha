@@ -14,6 +14,7 @@
   "require": {
     "robthree/twofactorauth": "^1.6",
     "paypal/rest-api-sdk-php": "*",
-    "thepixeldeveloper/sitemap": "^5.1"
+    "thepixeldeveloper/sitemap": "^5.1",
+    "blockchain/blockchain": "^1.4"
   }
 }
