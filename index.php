@@ -54,7 +54,8 @@ function flushSession ()
 {
     $date = new DateTime();
     $now = $date->format('Y-m-d H:i:s');
-    $valid = date_add($date, date_interval_create_from_date_string('1 minutes'))->format('Y-m-d H:i:s');
+    $timeout_time = Website::getWebsiteConfig()->getValue('timeout_time');
+    $valid = date_add($date, date_interval_create_from_date_string($timeout_time . ' minutes'))->format('Y-m-d H:i:s');
     if (isset($_SESSION['valida']) && isset($_SESSION['now']) && $_SESSION['tries']) {
         $_SESSION['now'] = $now;
         if ($_SESSION['now'] >= $_SESSION['valida']) {
@@ -67,12 +68,14 @@ function flushSession ()
         unset($_SESSION['dnt_bank'], $_SESSION['dnt_bank_tries']);
     }
 }
+
 /** Função utilizada para validar multiplas requisições. */
 function valida_multiplas_reqs ()
 {
+    $timeout_time = Website::getWebsiteConfig()->getValue('timeout_time');
     $date = new DateTime();
     $now = $date->format('Y-m-d H:i:s');
-    $valid = date_add($date, date_interval_create_from_date_string('1 minutes'))->format('Y-m-d H:i:s');
+    $valid = date_add($date, date_interval_create_from_date_string($timeout_time . ' minutes'))->format('Y-m-d H:i:s');
     $maxtries = Website::getWebsiteConfig()->getValue('max_req_tries');
     flushSession();
     $_SESSION['now'] = $now;
