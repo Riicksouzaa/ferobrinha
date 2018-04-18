@@ -181,7 +181,7 @@
 }
 
 .rank_copyright {
-    z-index: 10;
+    z-index: 160;
     width: 100%;
     font-size: .5em;
     position: absolute;
@@ -194,7 +194,7 @@
 }
 
 .rank_pbot_copyright {
-    z-index: 10;
+    z-index: 160;
     width: 100%;
     font-size: .5em;
     position: absolute;
