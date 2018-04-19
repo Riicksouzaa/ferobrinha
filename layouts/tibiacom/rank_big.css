@@ -1,4 +1,4 @@
-#ChaosTopLvl {
+#TopLvl {
     color: #d3e7f2;
     position: relative;
     width: 178%;
@@ -13,7 +13,7 @@
     margin: 0 auto;
 }
 
-#ChaosTopLvl::after {
+#TopLvl::after {
     /* content: ""; */
     z-index: 5;
     background: url(./images/themeboxes/bk_pilares.png) no-repeat center;
@@ -26,7 +26,7 @@
     top: -11px;
 }
 
-#ChaosTopLvl::before {
+#TopLvl::before {
     /* content: ""; */
     z-index: 5;
     background: url(./images/themeboxes/bk_pilares.png) no-repeat center;
@@ -65,7 +65,7 @@
     white-space: nowrap;
 }
 
-.ChaosTopLvl_title {
+.TopLvl_title {
     z-index: 80;
     position: relative;
     top: -68px;

@@ -763,7 +763,7 @@ if(!defined('INITIALIZED'))
                                         <div id="FacebookBlock" >
                                             <a id="FacebookPageLink" target="_blank" href="<?php echo $config['social']['facebook']; ?>" >
 <!--                                                <img src="--><?php //echo $layout_name; ?><!--\images\global\themeboxes\networks\tibia-facebook-page-logo.png" /></a>-->
-                                                <img style="width: 50px; height: 50px;" src="https://graph.facebook.com/v2.11/170244057054045/picture?access_token=EAAYedHMyp40BAF2NPttp0IuhZBMIl8HcZCfGfvhVZCaFKvBzpUPJDOFBlgIv4jz5ZAZBUOU2xWHQmuX8bunQYWfbX5I1uerb6zkXFzWYhBABIrJKLJ739yXJiEv1yK0eqEEZATb4H35aNNLOb4QmrBt4r8wdLew1AZD" /></a>
+                                                <img style="width: 50px; height: 50px;" src="https://graph.facebook.com/v2.12/170244057054045/picture?access_token=1722335358003085|FmW_ZQkkZT-V2Y2oBQXCoQherxY" /></a>
                                             <div id="FacebookLikeButton" >
                                                 <div class="fb-like" data-href="<?php echo $config['social']['facebook']; ?>" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
                                             </div>
@@ -846,11 +846,12 @@ if(!defined('INITIALIZED'))
             });
         }
     </script>
+<div id="fb-root"></div>
     <script>(function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&appId=329021967165778&version=v2.3";
+            js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&autoLogAppEvents=1&version=v2.12&appId=1722335358003085';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>

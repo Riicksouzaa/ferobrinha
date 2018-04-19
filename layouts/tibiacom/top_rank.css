@@ -1,4 +1,4 @@
-#ChaosTopLvl {
+#TopLvl {
     color: #d3e7f2;
     position: relative;
     width: 100%;
@@ -13,7 +13,7 @@
     margin: 0 auto;
 }
 
-#ChaosTopLvl::after {
+#TopLvl::after {
     content: "";
     z-index: 5;
     background: url(./images/themeboxes/bk_pilares.png) no-repeat center;
@@ -26,7 +26,7 @@
     top: -11px;
 }
 
-#ChaosTopLvl::before {
+#TopLvl::before {
     content: "";
     z-index: 5;
     background: url(./images/themeboxes/bk_pilares.png) no-repeat center;
@@ -65,7 +65,7 @@
     white-space: nowrap;
 }
 
-.ChaosTopLvl_title {
+.TopLvl_title {
     z-index: 10;
     position: relative;
     top: -37px;
@@ -172,12 +172,15 @@
 }
 
 .rankinglevel #firstlevel {
-    z-index: 5;
-    background: transparent url(./images/themeboxes/sparkle.gif) no-repeat;
+    z-index: 100;
+    background: transparent url(./images/themeboxes/t1.webp) no-repeat;
+    background-size: 100%;
     position: absolute;
-    width: 32px;
-    top: 22px;
-    left: -3px;
+    width: 84px;
+    height: 84px;
+    transform: rotate(-10deg);
+    top: -31px;
+    left: -43px;
 }
 
 .rank_copyright {

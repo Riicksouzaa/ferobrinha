@@ -1,9 +1,9 @@
 <?php if (Website::getWebsiteConfig()->getValue('top_lvl_enabled')) { ?>
     <!-- TOP LEVEL -->
-    <div id="ChaosTopLvl">
+    <div id="TopLvl">
         <p class="rank_pbot_copyright"><a href="http://pbotwars.com.br/">design by pbot</a></p>
         <p class="rank_copyright"><a href="https://codenome.com/">codenome</a></p>
-        <h3 class="ChaosTopLvl_title">Top <?php $qtd = Website::getWebsiteConfig()->getValue('top_lvl_qtd');
+        <h3 class="TopLvl_title">Top <?php $qtd = Website::getWebsiteConfig()->getValue('top_lvl_qtd');
             $qtd = ($qtd < 1 ? 1 : $qtd > 5 ? 5 : $qtd);
             echo $qtd; ?> Experience</h3>
         <?php

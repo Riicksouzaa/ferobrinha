@@ -45,7 +45,6 @@ function setTransparency ($new_image, $image_source)
     $transparencyIndex = imagecolorallocate($new_image, $transparencyColor['red'], $transparencyColor['green'], $transparencyColor['blue']);
     imagefill($new_image, 0, 0, $transparencyIndex);
     imagecolortransparent($new_image, $transparencyIndex);
-    
 }
 
 function playerPortraitCreate ($base, $player)
@@ -60,10 +59,10 @@ function playerPortraitCreate ($base, $player)
     /// Largura e altura máximos (máximo, pois como é proporcional, o resultado varia)
     // No caso da pergunta, basta usar $_GET['width'] e $_GET['height'], ou só
     // $_GET['width'] e adaptar a fórmula de proporção abaixo.
-    $width = 1200;
-    $height = 1200;
-    $width2 = 500;
-    $height2 = 500;
+    $width = 500;
+    $height = 500;
+    $width2 = 100;
+    $height2 = 100;
     if ($width / $height > $ratio_orig) {
         $width = $height * $ratio_orig;
     } else {
@@ -75,8 +74,17 @@ function playerPortraitCreate ($base, $player)
         $height2 = $width2 / $ratio_orig2;
     }
     // O resize propriamente dito. Na verdade, estamos gerando uma nova imagem.
+    $extension = explode(".", $base);
+    $extension = $extension[count($extension) - 1];
     $image_p = imagecreatetruecolor($width, $height);
-    $image = imagecreatefrompng($base);
+    $image = NULL;
+    if ($extension == "jpg" || $extension == "jpeg") {
+        $image = imagecreatefromjpeg($base);
+    } elseif ($extension == "gif") {
+        $image = imagecreatefromgif($base);
+    } elseif ($extension == "png") {
+        $image = imagecreatefrompng($base);
+    }
     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
     
     $image_player = imagecreatetruecolor($width2, $height2);
@@ -94,8 +102,8 @@ function playerPortraitCreate ($base, $player)
     $mheight = imagesy($image_player);
     //Calcula a x e y posição pra colocar a imagem no centro da outra
     //A função round arredonda os valores
-    $xPos = round(($dwidth - $mwidth) / 2) - 100;
-    $yPos = round(($dheight - $mheight) / 2) - 100;
+    $xPos = round(($dwidth - $mwidth) / 2 - 40);
+    $yPos = round(($dheight - $mheight) / 2 - 40);
     imagecopymerge($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100);
 //    imagedestroy($image_player);
 //    imagecopyresampled($image_p, $image_player, $xPos, $yPos, 0, 0, $mwidth, $mheight, 100,100);
@@ -107,7 +115,7 @@ if (isset($_REQUEST['name'])) {
     $p = new Player();
     $p->loadByName($name);
     
-    $url1 = 'images/personal.png';
+    $url1 = 'images/bg.png';
     $url2 = "https://outfits.ferobraglobal.com/animoutfit.php?id={$p->getLookType()}&addons={$p->getLookAddons()}&head={$p->getLookHead()}&body={$p->getLookBody()}&legs={$p->getLookLegs()}&feet={$p->getLookFeet()}&mount={$p->getLookMount()}";
     $player_portrait = playerPortraitCreate($url1, $url2);
     $im = $player_portrait;
@@ -122,11 +130,11 @@ if (isset($_REQUEST['name'])) {
     $box->setStrokeSize(1); // Stroke size in pixels
     
     $box->setTextAlign('center', 'center');
-    $box->setFontSize(140);
-    $box->setBox(0, -500, $w, $h);
+    $box->setFontSize(30);
+    $box->setBox(0, -60, $w, $h);
     $box->draw(ucfirst($p->getName())); // Text to draw
-    $box->setFontSize(90);
-    $box->setBox(0, 400, $w, $h);
+    $box->setFontSize(30);
+    $box->setBox(0, 40, $w, $h);
     $box->draw(ucfirst($p->getVocationName())); // Text to draw
     $box->setFontFace('images/Roboto-Regular.ttf');
 //    $box->setBox(0, 400, $w, $h);
