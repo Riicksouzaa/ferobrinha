@@ -131,7 +131,11 @@ if (isset($_REQUEST['name'])) {
     
     $box->setTextAlign('center', 'center');
     $box->setFontSize(30);
-    $box->setBox(0, -60, $w, $h);
+    if($p->getLookMount() != 0){
+        $box->setBox(0, -90, $w, $h);
+    }else{
+        $box->setBox(0, -60, $w, $h);
+    }
     $box->draw(ucfirst($p->getName())); // Text to draw
     $box->setFontSize(30);
     $box->setBox(0, 40, $w, $h);
