@@ -1019,7 +1019,6 @@ if ($logged) {
                 ';
                 }
                 if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "mercadoPago") {
-//                    include "mp_create.php";
                     try {
                         $product_id = $payment_data['ServiceID'];
                         if ($config['mp']['sandboxMode']) {
@@ -1027,37 +1026,60 @@ if ($logged) {
                         } else {
                             $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
                         }
-                        $mp->sandbox_mode($config['mp']['sandboxMode']);
+//                        $mp->sandbox_mode($config['mp']['sandboxMode']);
                         $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
                         $qnt = array_values($config['donate']['offers'][intval($product_id)])[0];
+                        $purl = $config['base_url'].'layouts/tibiacom/images/payment/serviceid_'.($product_id >= 5 ? '5' : $product_id).'.png';
                         $preference_data = array(
                             "items" => array(
                                 array(
-//                                "id" => 3,
+                                    "id" => $product_id,
                                     "title" => $config['sale']['productName'],
                                     "currency_id" => "BRL",
-//                                    "picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+                                    "picture_url" => $purl,
                                     "description" => $qnt . " " . $config['sale']['productName'],
-//                                    "category_id" => "Category",
+                                    "category_id" => "Coins",
                                     "quantity" => 1,
                                     "unit_price" => $price
                                 )
                             ),
-//                        "auto_return" => "approved",
-//                        "notification_url" => $config['base_url'] . "mp_ipn.php",
-//                            "external_reference" => $account_logged->getName() . '-' . $product_id,
-//                        "expires" => FALSE,
-//                        "expiration_date_from" => NULL,
-//                        "expiration_date_to" => NULL
+//                            "back_urls" => array(
+//                                "success" => "https://www.success.com",
+//                                "failure" => "http://www.failure.com",
+//                                "pending" => "http://www.pending.com"
+//                            ),
+//                            "auto_return" => "approved",
+                            "notification_url" => $config['base_url'] . "mp_ipn.php",
+                            "external_reference" => $account_logged->getName() . '-' . $product_id,
+//                            "expires" => FALSE,
+//                            "expiration_date_from" => NULL,
+//                            "expiration_date_to" => NULL
                         );
                         $preference = $mp->create_preference($preference_data);
                         $main_content .= "<div style='text-align: center'>";
                         $main_content .= '
-                    <a href="' . ($config['mp']['sandboxMode'] == TRUE ? $preference["response"]["sandbox_init_point"] : $preference["response"]["init_point"]) . '" name="MP-Checkout" class="blue-rn-m">Pay</a>
+                    <script type="text/javascript">
+                    function execute_my_onreturn (json) {
+                        if (json.collection_status==\'approved\'){
+                            alert (\'Pago acreditado\');
+                        } else if(json.collection_status==\'pending\'){
+                            alert (\'El usuario no completó el pago\');
+                        } else if(json.collection_status==\'in_process\'){
+                            alert (\'El pago está siendo revisado\');
+                        } else if(json.collection_status==\'rejected\'){
+                            alert (\'El pago fué rechazado, el usuario puede intentar nuevamente el pago\');
+                        } else if(json.collection_status==null){
+                            alert (\'El usuario no completó el proceso de pago, no se ha generado ningún pago\');
+                        }
+                    }
+                    </script>
+                    
+                    <a href="' . ($config['mp']['sandboxMode'] == TRUE ? $preference["response"]["sandbox_init_point"] : $preference["response"]["init_point"]) . '" name="MP-Checkout" class="lightblue-Rn-L-Ar-Br" mp-mode="redirect" onreturn="execute_my_onreturn">Pagar</a>
 		            <!--<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>-->
-		           
 		            <!--<script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>-->
-		            <script type="text/javascript" src=" https://secure.mlstatic.com/mptools/render.js"></script>
+		            <!--<script type="text/javascript" src=" https://secure.mlstatic.com/mptools/render.js"></script>-->
+		            <!-- Pega este código antes de cerrar la etiqueta </body> -->
+                    <script type="text/javascript" src="' . $layout_name . '/mp.js"></script>
                 ';
                         $main_content .= "</div>";
                     } catch (MercadoPagoException $e) {
