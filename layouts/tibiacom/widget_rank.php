@@ -9,7 +9,7 @@
         <?php
         $a = 1;
         //    $queryOnline = $SQL->query('SELECT * , p.level FROM player_storage a INNER JOIN  players p ON  a.player_id = p.id WHERE a.key = 48506 AND a.value >= 0 ORDER BY a.value DESC, p.level DESC LIMIT 5');
-        $queryOnline = $SQL->query('SELECT * from players p order by p.level DESC LIMIT ' . $qtd);
+        $queryOnline = $SQL->query('SELECT * from players p where p.group_id not in (5,6,7) and p.account_id != 1 order by p.level DESC, p.experience DESC LIMIT ' . $qtd);
         foreach ($queryOnline as $results) {
             $player = new Player();
             $player->loadById($results['id']);
@@ -35,13 +35,13 @@
                         src="https://outfits.ferobraglobal.com/animoutfit.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . '"/>' ?>
                 <?php if ($a == 1) { ?>
                     <div><span class="firstlevel"><span id="firstlevel"></span></span></div>
-                    <div class="rankinglevel"><span class="firstlevel"><span id="firstlevel"></span></span></div>
+                    <div class="rankinglevel"><span class="firstlevel"><span id="<?php $m = ($player->getLookMount() == 0? "firstlevel_nomount": "firstlevel_mount"); echo $m;?>"></span></span></div>
                 <?php } elseif ($a == 2) { ?>
-                    <div><span class="secondlevel"></span></div>
-                    <div class="rankinglevel"><span class="secondlevel"></span></div>
+                    <div><span class="secondlevel"><span id="seccondlevel"></span></span></div>
+                    <div class="rankinglevel"><span class="secondlevel"><span id="<?php $m = ($player->getLookMount() == 0? "seccondlevel_nomount": "seccondlevel_mount"); echo $m;?>"></span></span></div>
                 <?php } elseif ($a == 3) { ?>
-                    <div><span class="thirdlevel"></span></div>
-                    <div class="rankinglevel"><span class="thirdlevel"></span></div>
+                    <div><span class="thirdlevel"><span id="thirdlevel"></span></span></div>
+                    <div class="rankinglevel"><span class="thirdlevel"><span id="<?php $m = ($player->getLookMount() == 0? "thirdlevel_nomount": "thirdlevel_mount"); echo $m;?>"></span></span></div>
                     <!--                <hr style="margin: 5px 0px 0 -29px;"/>-->
                 <?php }
                 $a++;

@@ -242,7 +242,7 @@ $buy_character_in_sale = function ($player_id, $account_id, $char_id = NULL) use
                     if ($p[0]['price_type'] == 0) {
                         $saldo = $account_logged->getPremiumPoints();
                         if ($price <= $saldo) {
-                            $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price, dta_insert,dta_sale) VALUES (:old_id, :player_id, :account_id,:price_type,:price,now(), :dta)");
+                            $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price, dta_insert,dta_sale) VALUES (:old_id, :player_id, :account_id, :price_type, :price, $dta, :dta)");
                             $query->execute(['old_id' => $old_id, 'player_id' => $player_id, 'account_id' => $account_id, 'price_type' => $p[0]['price_type'], 'price' => $price, 'dta' => $dta]);
                             $query = $SQL->prepare("DELETE FROM account_character_sale WHERE id_player = :id");
                             $query->execute(['id' => $player_id]);
@@ -262,20 +262,27 @@ $buy_character_in_sale = function ($player_id, $account_id, $char_id = NULL) use
                         if ($char_id > 0) {
                             $saldo = $balance;
                             if ($price <= $saldo) {
-                                $bank_char_id = $SQL->query("SELECT player_sell_bank from accounts WHERE id = $old_id")->fetchAll();
-                                $bank_char_id = $bank_char_id[0]['player_sell_bank'];
-                                $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price,char_id,dta_insert, dta_sale) VALUES (:old_id, :player_id, :account_id,:price_type,:price,:char_id, now(),:dta)");
-                                $query->execute(['old_id' => $old_id, 'player_id' => $player_id, 'account_id' => $account_id, 'price_type' => $p[0]['price_type'], 'price' => $price, 'char_id' => $char_id, 'dta' => $dta]);
-                                $query = $SQL->prepare("DELETE FROM account_character_sale WHERE id_player = :id");
-                                $query->execute(['id' => $player_id]);
-                                $query = $SQL->prepare("UPDATE players SET balance = (balance-:price) WHERE id = :p_id");
-                                $query->execute(['price' => $price, 'p_id' => $char_id]);
-                                $query = $SQL->prepare("UPDATE players SET balance = (balance+(:price-(:price*($percent)))) WHERE id = :p_id");
-                                $query->execute(['price' => $price, 'p_id' => $bank_char_id]);
-                                $query = $SQL->prepare("UPDATE players SET account_id = :acc_id WHERE id = :pl_id");
-                                $query->execute(['acc_id' => $account_logged->getID(), 'pl_id' => $player_id]);
-                                $data = getStatus(FALSE, 'Você comprou este personagem com sucesso.');
-                                return json_encode($data);
+                                $verifica_logado = $SQL->prepare("SELECT * FROM players_online WHERE player_id = :pid");
+                                $verifica_logado->execute(['pid' => $char_id]);
+                                if($verifica_logado->rowCount() == 0){
+                                    $bank_char_id = $SQL->query("SELECT player_sell_bank from accounts WHERE id = $old_id")->fetchAll();
+                                    $bank_char_id = $bank_char_id[0]['player_sell_bank'];
+                                    $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price,char_id,dta_insert, dta_sale) VALUES (:old_id, :player_id, :account_id, :price_type, :price, :char_id, $dta, :dta)");
+                                    $query->execute(['old_id' => $old_id, 'player_id' => $player_id, 'account_id' => $account_id, 'price_type' => $p[0]['price_type'], 'price' => $price, 'char_id' => $char_id, 'dta' => $dta]);
+                                    $query = $SQL->prepare("DELETE FROM account_character_sale WHERE id_player = :id");
+                                    $query->execute(['id' => $player_id]);
+                                    $query = $SQL->prepare("UPDATE players SET balance = (balance-:price) WHERE id = :p_id");
+                                    $query->execute(['price' => $price, 'p_id' => $char_id]);
+                                    $query = $SQL->prepare("UPDATE players SET balance = (balance+(:price-(:price*($percent)))) WHERE id = :p_id");
+                                    $query->execute(['price' => $price, 'p_id' => $bank_char_id]);
+                                    $query = $SQL->prepare("UPDATE players SET account_id = :acc_id WHERE id = :pl_id");
+                                    $query->execute(['acc_id' => $account_logged->getID(), 'pl_id' => $player_id]);
+                                    $data = getStatus(FALSE, 'Você comprou este personagem com sucesso.');
+                                    return json_encode($data);
+                                }else{
+                                    $data = getStatus(TRUE, 'Seu personagem não pode estar logado ao realizar essa compra. Por favor faça logout e tente novamente.');
+                                    return json_encode($data);
+                                }
                             } else {
                                 $data = getStatus(TRUE, 'Você não tem saldo suficiente para essa compra.');
                                 return json_encode($data);

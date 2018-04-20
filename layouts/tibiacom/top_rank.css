@@ -171,16 +171,76 @@
     z-index: 1
 }
 
-.rankinglevel #firstlevel {
+.rankinglevel #firstlevel_nomount {
     z-index: 100;
-    background: transparent url(./images/themeboxes/t1.webp) no-repeat;
-    background-size: 100%;
+    background: transparent url(./images/themeboxes/t_yellow.png) no-repeat;
+    background-size: 111%;
     position: absolute;
     width: 84px;
-    height: 84px;
-    transform: rotate(-10deg);
+    height: 96px;
+    transform: rotate(-24deg);
     top: -31px;
-    left: -43px;
+    left: -52px;
+}
+
+.rankinglevel #seccondlevel_nomount {
+    z-index: 100;
+    background: transparent url(./images/themeboxes/t_red.png) no-repeat;
+    background-size: 111%;
+    position: absolute;
+    width: 84px;
+    height: 96px;
+    transform: rotate(-24deg);
+    top: -31px;
+    left: -52px;
+}
+
+.rankinglevel #thirdlevel_nomount {
+    z-index: 100;
+    background: transparent url(./images/themeboxes/t_blue.png) no-repeat;
+    background-size: 111%;
+    position: absolute;
+    width: 84px;
+    height: 96px;
+    transform: rotate(-24deg);
+    top: -31px;
+    left: -52px;
+}
+
+.rankinglevel #firstlevel_mount {
+    z-index: 100;
+    background: transparent url(./images/themeboxes/t_yellow.png) no-repeat;
+    background-size: 100%;
+    position: absolute;
+    width: 105px;
+    height: 105px;
+    transform: rotate(-19deg);
+    top: -49px;
+    left: -65px;
+}
+
+.rankinglevel #seccondlevel_mount {
+    z-index: 100;
+    background: transparent url(./images/themeboxes/t_red.png) no-repeat;
+    background-size: 100%;
+    position: absolute;
+    width: 105px;
+    height: 105px;
+    transform: rotate(-19deg);
+    top: -49px;
+    left: -65px;
+}
+
+.rankinglevel #thirdlevel_mount {
+    z-index: 100;
+    background: transparent url(./images/themeboxes/t_blue.png) no-repeat;
+    background-size: 100%;
+    position: absolute;
+    width: 105px;
+    height: 105px;
+    transform: rotate(-19deg);
+    top: -49px;
+    left: -65px;
 }
 
 .rank_copyright {
