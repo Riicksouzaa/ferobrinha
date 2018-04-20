@@ -1018,9 +1018,56 @@ if ($logged) {
                 
                 ';
                 }
+                if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "mercadoPago") {
+//                    include "mp_create.php";
+                    try {
+                        $product_id = $payment_data['ServiceID'];
+                        if ($config['mp']['sandboxMode']) {
+                            $mp = new MP($config['mp']['SANDBOX_CLIENT_ID'], $config['mp']['SANDBOX_CLIENT_SECRET']);
+                        } else {
+                            $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
+                        }
+                        $mp->sandbox_mode($config['mp']['sandboxMode']);
+                        $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
+                        $qnt = array_values($config['donate']['offers'][intval($product_id)])[0];
+                        $preference_data = array(
+                            "items" => array(
+                                array(
+//                                "id" => 3,
+                                    "title" => $config['sale']['productName'],
+                                    "currency_id" => "BRL",
+//                                    "picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+                                    "description" => $qnt . " " . $config['sale']['productName'],
+//                                    "category_id" => "Category",
+                                    "quantity" => 1,
+                                    "unit_price" => $price
+                                )
+                            ),
+//                        "auto_return" => "approved",
+//                        "notification_url" => $config['base_url'] . "mp_ipn.php",
+//                            "external_reference" => $account_logged->getName() . '-' . $product_id,
+//                        "expires" => FALSE,
+//                        "expiration_date_from" => NULL,
+//                        "expiration_date_to" => NULL
+                        );
+                        $preference = $mp->create_preference($preference_data);
+                        $main_content .= "<div style='text-align: center'>";
+                        $main_content .= '
+                    <a href="' . ($config['mp']['sandboxMode'] == TRUE ? $preference["response"]["sandbox_init_point"] : $preference["response"]["init_point"]) . '" name="MP-Checkout" class="blue-rn-m">Pay</a>
+		            <!--<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>-->
+		           
+		            <!--<script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>-->
+		            <script type="text/javascript" src=" https://secure.mlstatic.com/mptools/render.js"></script>
+                ';
+                        $main_content .= "</div>";
+                    } catch (MercadoPagoException $e) {
+                        echo $e->getMessage();
+                    }
+                    
+                }
                 if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == "picpay") {
                     $main_content .= "<br/>";
-                    $main_content.= "
+                    $main_content .= "
 <div id='modal-picpay' class='iziModal'></div>
 <script>
     $('#modal-picpay').iziModal({

@@ -19,8 +19,12 @@ require_once "vendor/autoload.php";
 // Chile: https://www.mercadopago.com/mlc/herramientas/aplicaciones
 
 try {
-    $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
-    $mp->sandbox_mode(TRUE);
+    if ($config['mp']['sandboxMode']) {
+        $mp = new MP($config['mp']['SANDBOX_CLIENT_ID'], $config['mp']['SANDBOX_CLIENT_SECRET']);
+    } else {
+        $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
+    }
+    $mp->sandbox_mode($config['mp']['sandboxMode']);
     $params = ["access_token" => $mp->get_access_token()];
 // Check mandatory parameters
     if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
