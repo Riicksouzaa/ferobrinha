@@ -1,25 +1,20 @@
 /* MercadoPago Checkout Render */
-
 /* @version 0.5.1 */
 function $MPC() {
     $MPC.__doRender()
 }
-
 function $MPCSSOBJ(e) {
     this.dependency = e,
         this.attributes = {}
 }
-
 function $MPCSSATTR(e, t) {
     this.name = e,
         this.value = t
 }
-
 function $MPVG(e, t) {
     this.groupType = e,
         this.elements = t
 }
-
 "undefined" != typeof $MPCDEV || ($MPCDEV = {}),
     $MPC.version = "0.5.1",
     $MPC.sessionId = String(Math.ceil(1e7 * Math.random())) + String((new Date).getTime()),
@@ -32,7 +27,7 @@ function $MPVG(e, t) {
         resizeDuration: 400
     },
     $MPC.__temp = {},
-    $MPC.__doRender = function () {
+    $MPC.__doRender = function() {
         var e = (new Date).getTime();
         null == window.mp_checkout_triggers && (window.mp_checkout_triggers = []);
         var t = [].concat(Array.fromCollection(document.getElementsByName("MP-payButton")), Array.fromCollection(document.getElementsByName("MP-Checkout")));
@@ -65,7 +60,7 @@ function $MPVG(e, t) {
         })
     }
     ,
-    $MPC.__doVisual = function (e, t) {
+    $MPC.__doVisual = function(e, t) {
         var i = !1;
         null == window.mp_stylesLoaded && (window.mp_stylesLoaded = []),
             null == e ? e = window.mp_checkout_triggers : (null == e.length && (e = [e]),
@@ -104,30 +99,28 @@ function $MPVG(e, t) {
             }
     }
     ,
-    $MPC.__processBase = function (e) {
+    $MPC.__processBase = function(e) {
         if (null != e.styleDefinition.base) {
             var t = $MPC.__processCSS(e, "base");
             e.className += "" == e.className ? t : " " + t
         }
     }
     ,
-    $MPC.__processStyle = function (e) {
+    $MPC.__processStyle = function(e) {
         if (null != e.styleDefinition.style) {
             var t = $MPC.__processCSS(e, "style");
             e.className += "" == e.className ? t : " " + t
         }
     }
     ,
-    $MPC.__processExtra = function (e) {
+    $MPC.__processExtra = function(e) {
         if (null != e.extraElement) {
             try {
                 delete e.parentNode.removeChild(e.extraElement)
-            } catch (t) {
-            }
+            } catch (t) {}
             try {
                 delete e.extraElement
-            } catch (t) {
-            }
+            } catch (t) {}
         }
         if (null != e.styleDefinition.extra) {
             null == e.extraContainer && (e.extraContainer = document.createElement("div"),
@@ -142,7 +135,7 @@ function $MPVG(e, t) {
         }
     }
     ,
-    $MPC.__processCSS = function (e, t) {
+    $MPC.__processCSS = function(e, t) {
         var i = [];
         for (var n in e.styleDefinition[t])
             i.push(e.styleDefinition[t][n]);
@@ -172,7 +165,7 @@ function $MPVG(e, t) {
         return o
     }
     ,
-    $MPC.__doBehavior = function (e) {
+    $MPC.__doBehavior = function(e) {
         if (null != e) {
             if (null == $MPC.__integrations && ($MPC.__integrations = {
                 link: [],
@@ -191,7 +184,7 @@ function $MPVG(e, t) {
                         t = !0)) : (e.integrationType = "FORM",
                         $MPC.__integrations.form.push(e),
                     null != e.form && e.form.action.trim().indexOf(e.form.action.trim() + "#") < 0 && (/^(javascript:)/.test(e.form.action.trim()) ? e.data.js = e.form.action : e.data.url = e.form.action,
-                        e.form.onsubmit = function () {
+                        e.form.onsubmit = function() {
                             return !1
                         }
                         ,
@@ -219,13 +212,13 @@ function $MPVG(e, t) {
                 e.onerror = "FORM" == e.integrationType ? e.getAttribute("onerror") || e.form.getAttribute("onerror") : e.getAttribute("onerror"),
                 e.onerror && "function" == typeof window[e.onerror] && (e.onerror = window[e.onerror]),
                     e.onreturn = "FORM" == e.integrationType ? e.getAttribute("onreturn") || e.getAttribute("callback") || e.form.getAttribute("onreturn") || e.form.getAttribute("callback") : e.getAttribute("onreturn") || e.getAttribute("callback"),
-                    e.openMPCheckout = function (e) {
+                    e.openMPCheckout = function(e) {
                         e && (this.data.url = e),
                             $MPC.openCheckout(this)
                     }
                     ,
                 "FORM" == e.integrationType && (e.form.mpButton = e,
-                        e.form.openMPCheckout = function (e) {
+                        e.form.openMPCheckout = function(e) {
                             this.mpButton.openMPCheckout(e)
                         }
                 ),
@@ -239,7 +232,7 @@ function $MPVG(e, t) {
         }
     }
     ,
-    $MPC.fire = function (event) {
+    $MPC.fire = function(event) {
         if (null == event)
             return !1;
         var trigger = event.srcElement || event.target;
@@ -253,7 +246,7 @@ function $MPVG(e, t) {
         }
     }
     ,
-    $MPC.openCheckout = function (e) {
+    $MPC.openCheckout = function(e) {
         var t = e ? e.data || e : null;
         if (null != t && null != t.url && "" != t.url.trim()) {
             e.data = t;
@@ -282,26 +275,26 @@ function $MPVG(e, t) {
             height: 550
         }
     },
-    $MPC.openCheckout.size.get = function (e) {
+    $MPC.openCheckout.size.get = function(e) {
         return null == e || null == $MPC.openCheckout.size[e] ? $MPC.openCheckout.size.dflt : $MPC.openCheckout.size[e]
     }
     ,
-    $MPC.openCheckout.dflt = function (e) {
+    $MPC.openCheckout.dflt = function(e) {
         $MPC.openCheckout.modal(e)
     }
     ,
-    $MPC.openCheckout.blank = function (e) {
+    $MPC.openCheckout.blank = function(e) {
         "FORM" == e.integrationType ? ($MPC.checkout = window.open("", e.data.target || "MercadoPago"),
             e.form.setAttribute("target", e.data.target || "MercadoPago"),
             e.form.submit()) : $MPC.checkout = window.open(e.data.url, e.data.target || "MercadoPago")
     }
     ,
-    $MPC.openCheckout.redirect = function (e) {
+    $MPC.openCheckout.redirect = function(e) {
         "FORM" == e.integrationType ? (e.form.setAttribute("target", "_self"),
             e.form.submit()) : document.location.href = e.data.url
     }
     ,
-    $MPC.openCheckout.popup = function (e) {
+    $MPC.openCheckout.popup = function(e) {
         var t = $MPC.openCheckout.size.get(e.data.modeData)
             , i = (screen.width - t.width) / 2
             , n = (screen.height - t.height) / 2 - 50;
@@ -311,7 +304,7 @@ function $MPVG(e, t) {
             $MPC.checkout.focus()
     }
     ,
-    $MPC.openCheckout.modal = function (e) {
+    $MPC.openCheckout.modal = function(e) {
         var t = $MPC.openCheckout.size.get(e.data.modeData);
         $MPC.__openingStart = (new Date).getTime(),
             $MPC.__actions.open({
@@ -321,7 +314,7 @@ function $MPVG(e, t) {
             }, e)
     }
     ,
-    $MPC.__msgReceiver = function (e) {
+    $MPC.__msgReceiver = function(e) {
         if (null == e && (e = window.event),
         null != e) {
             var regex = new RegExp($MPC.conf.messageOrigin)
@@ -339,7 +332,7 @@ function $MPVG(e, t) {
         }
     }
     ,
-    $MPC.__getTrigger = function (e) {
+    $MPC.__getTrigger = function(e) {
         if ($MPC.Modal.__built && $MPC.Modal.__dialog.__container.contentWindow === e)
             return $MPC.Modal.__caller;
         for (var t = 0; t < $MPC.__integrations.iframe.length; t++)
@@ -348,13 +341,13 @@ function $MPVG(e, t) {
     }
     ,
     $MPC.__actions = {},
-    $MPC.__actions.finalize = function (e, t, i) {
+    $MPC.__actions.finalize = function(e, t, i) {
         $MPC.__actions.close(t),
         null != e && $MPC.__actions.complete(e, t, i)
     }
     ,
-    $MPC.__actions.complete = function (e, t) {
-        console.log(t)
+    $MPC.__actions.complete = function(e, t) {
+        console.log(e,t.onreturn)
         var i = "function" == typeof t.onreturn ? t.onreturn : "function" == typeof window[t.onreturn] ? window[t.onreturn] : null;
         if (i)
             try {
@@ -373,7 +366,7 @@ function $MPVG(e, t) {
             })
     }
     ,
-    $MPC.__actions.resize = function (e, t, i) {
+    $MPC.__actions.resize = function(e, t, i) {
         if (t && ($MPC.__temp.resizedElement = "IFRAME" == t.integrationType ? t : $MPC.Modal,
             "IFRAME" == t.integrationType ? $MPC.__temp.resizedElement.__size = {} : null == $MPC.__temp.resizedElement.__size && ($MPC.__temp.resizedElement.__size = {}),
             e)) {
@@ -423,14 +416,13 @@ function $MPVG(e, t) {
         }
     }
     ,
-    $MPC.__actions.resize.setWidth = function (e) {
+    $MPC.__actions.resize.setWidth = function(e) {
         if (null != $MPC.__temp.resizedElement.__size.transition) {
             if ($MPC.__temp.resizedElement.__size.transition.current.width == $MPC.__temp.resizedElement.__size.transition.end.width)
                 return void ($MPC.__temp.resizedElement.__size.transition.heightFinished === !0 ? $MPC.__temp.resizedElement.__size.transition = null : $MPC.__temp.resizedElement.__size.transition.widthFinished = !0);
             var t = null == e || e <= $MPC.__temp.resizedElement.__size.transition.timeStart ? (new Date).getTime() : e
                 , i = (t - $MPC.__temp.resizedElement.__size.transition.timeStart) / $MPC.conf.resizeDuration
-                ,
-                n = $MPC.__temp.resizedElement.__size.transition.end.width - $MPC.__temp.resizedElement.__size.transition.start.width
+                , n = $MPC.__temp.resizedElement.__size.transition.end.width - $MPC.__temp.resizedElement.__size.transition.start.width
                 , o = 0 > n ? -1 : 1
                 , a = n * i;
             e = $MPC.__temp.resizedElement.__size.transition.current.width + a,
@@ -445,14 +437,13 @@ function $MPVG(e, t) {
         null != $MPC.__temp.resizedElement.__size.transition && requestAnimationFrame($MPC.__actions.resize.setWidth)
     }
     ,
-    $MPC.__actions.resize.setHeight = function (e) {
+    $MPC.__actions.resize.setHeight = function(e) {
         if (null != $MPC.__temp.resizedElement.__size.transition) {
             if ($MPC.__temp.resizedElement.__size.transition.current.height == $MPC.__temp.resizedElement.__size.transition.end.height)
                 return void ($MPC.__temp.resizedElement.__size.transition.widthFinished === !0 ? $MPC.__temp.resizedElement.__size.transition = null : $MPC.__temp.resizedElement.__size.transition.heightFinished = !0);
             var t = null == e || e <= $MPC.__temp.resizedElement.__size.transition.timeStart ? (new Date).getTime() : e
                 , i = (t - $MPC.__temp.resizedElement.__size.transition.timeStart) / $MPC.conf.resizeDuration
-                ,
-                n = $MPC.__temp.resizedElement.__size.transition.end.height - $MPC.__temp.resizedElement.__size.transition.start.height
+                , n = $MPC.__temp.resizedElement.__size.transition.end.height - $MPC.__temp.resizedElement.__size.transition.start.height
                 , o = 0 > n ? -1 : 1
                 , a = n * i;
             e = $MPC.__temp.resizedElement.__size.transition.current.height + a,
@@ -467,11 +458,11 @@ function $MPVG(e, t) {
         null != $MPC.__temp.resizedElement.__size.transition && requestAnimationFrame($MPC.__actions.resize.setHeight)
     }
     ,
-    $MPC.__actions.resize.checkSize = function () {
+    $MPC.__actions.resize.checkSize = function() {
         $MPC.Modal.__opened && $MPC.Modal.__size.requested.height > $MPC.Modal.__size.height && $MPC.__actions.resize($MPC.Modal.__size.requested)
     }
     ,
-    $MPC.__actions.center = function () {
+    $MPC.__actions.center = function() {
         if ($MPC.Modal.__opened || $MPC.Modal.__isLoading) {
             var e = 6 == $MPC.__getIEVersion()
                 , t = window.center({
@@ -485,12 +476,12 @@ function $MPVG(e, t) {
         }
     }
     ,
-    $MPC.__actions.requestClose = function () {
+    $MPC.__actions.requestClose = function() {
         !$MPC.Modal.__opened || $MPC.Modal.__isLoading || $MPC.Modal.__closeRequested || null != $MPC.Modal.__dialog.__container.contentWindow.postMessage && ($MPC.Modal.__dialog.__container.contentWindow.postMessage({
             action: "requestClose"
         }, "*"),
             $MPC.Modal.__closeRequested = !0,
-            $MPC.Modal.__closeTimeout = setTimeout(function () {
+            $MPC.Modal.__closeTimeout = setTimeout(function() {
                 $MPC.__actions.close(),
                     $MPC.__track("WARNING", "TIMEOUT_CLOSE", {
                         trigger_url: $MPC.Modal.__caller.data.url
@@ -498,7 +489,7 @@ function $MPVG(e, t) {
             }, 2e3))
     }
     ,
-    $MPC.__actions.close = function () {
+    $MPC.__actions.close = function() {
         $MPC.Modal.__opened || $MPC.Modal.__isLoading ? (null != $MPC.Modal.__dimmer && $MPC.Modal.__dimmer.hide(),
         null != $MPC.Modal.__dialog && ($MPC.Modal.__dialog.hide(),
             $MPC.Modal.__assets.closeButton.hide(),
@@ -511,7 +502,7 @@ function $MPVG(e, t) {
             $MPC.checkout = null)
     }
     ,
-    $MPC.__actions.ready = function (e, t) {
+    $MPC.__actions.ready = function(e, t) {
         try {
             t === !0 && $MPC.__actions.resize($MPC.Modal.__size.opening, e, t),
                 $MPC.Modal.__assets.loading.hide(),
@@ -551,7 +542,7 @@ function $MPVG(e, t) {
         }
     },
     $MPC.Modal.__assets = {
-        loading: function () {
+        loading: function() {
             var e = document.createElement("div");
             e.style.textAlign = "center",
                 e.size = {
@@ -583,31 +574,31 @@ function $MPVG(e, t) {
                 e.cancel.style.textDecoration = "underline",
                 e.cancel.style.cursor = "pointer",
                 e.cancel.style.visibility = "hidden",
-                e.cancel.show = function () {
+                e.cancel.show = function() {
                     this.style.visibility = ""
                 }
                 ,
-                e.cancel.hide = function () {
+                e.cancel.hide = function() {
                     this.style.visibility = "hidden"
                 }
                 ,
-                e.show = function () {
+                e.show = function() {
                     this.init(),
                         this.style.display = "",
                         this.cancelTimer = setTimeout("$MPC.Modal.__assets.loading.cancel.show()", 5e3)
                 }
                 ,
-                e.hide = function () {
+                e.hide = function() {
                     $MPC.Modal.__isLoading = !1,
                         this.style.display = "none",
                         this.cancel.hide(),
                         clearTimeout(this.cancelTimer)
                 }
                 ,
-                e.init = function () {
+                e.init = function() {
                     this.initialized || (this.welcome.appendChild(document.createTextNode($MPC._txt.get("starting"))),
                         this.cancel.appendChild(document.createTextNode($MPC._txt.get("cancel"))),
-                        $MPC.__event.add(this.cancel, "click", function () {
+                        $MPC.__event.add(this.cancel, "click", function() {
                             $MPC.__openingStart && ($MPC.__openingEnd = (new Date).getTime(),
                                 $MPC.__track("TIMER", "CANCEL_LOADING", {
                                     elapsed: $MPC.__openingEnd - $MPC.__openingStart,
@@ -626,14 +617,14 @@ function $MPVG(e, t) {
                 ,
                 e
         }(),
-        closeButton: function () {
+        closeButton: function() {
             var e = document.createElement("div");
-            return e.show = function () {
+            return e.show = function() {
                 this.init(),
                     this.style.display = ""
             }
                 ,
-                e.hide = function () {
+                e.hide = function() {
                     this.style.display = "none"
                 }
                 ,
@@ -649,7 +640,7 @@ function $MPVG(e, t) {
                 e.style.cursor = "pointer",
                 e.style.zIndex = "250",
                 e.innerHTML = "",
-                e.mouseOver = function (e) {
+                e.mouseOver = function(e) {
                     if (null == e && (e = event),
                     null != e) {
                         var t = e.srcElement || e.target;
@@ -657,7 +648,7 @@ function $MPVG(e, t) {
                     }
                 }
                 ,
-                e.mouseOut = function (e) {
+                e.mouseOut = function(e) {
                     if (null == e && (e = event),
                     null != e) {
                         var t = e.srcElement || e.target;
@@ -665,7 +656,7 @@ function $MPVG(e, t) {
                     }
                 }
                 ,
-                e.init = function () {
+                e.init = function() {
                     this.initialized || (!$MPC.conf.messagingEnabled || $MPC.__getIEVersion() >= 0 && $MPC.conf.quirksMode ? $MPC.__event.add(this, "click", $MPC.__actions.close) : $MPC.__event.add(this, "click", $MPC.__actions.requestClose),
                         $MPC.__event.add(this, "mouseover", this.mouseOver),
                         $MPC.__event.add(this, "mouseout", this.mouseOut),
@@ -676,7 +667,7 @@ function $MPVG(e, t) {
                 e
         }()
     },
-    $MPC.Modal.__build = function () {
+    $MPC.Modal.__build = function() {
         return null == $MPC.Modal.__dimmer && ($MPC.Modal.__dimmer = $MPC.__components.dimmer()),
         null == $MPC.Modal.__dialog && ($MPC.Modal.__dialog = $MPC.__components.dialog()),
             $MPC.Modal.__built = !0,
@@ -684,30 +675,30 @@ function $MPVG(e, t) {
     }
     ,
     $MPC.__components = {
-        iframe: function (e) {
+        iframe: function(e) {
             var t = document.createElement("iframe");
             return t.id = "MP-Checkout-IFrame",
                 t.setAttribute("name", e || "MP-Checkout-IFrame"),
                 t.frameBorder = "0",
-                t.show = function () {
+                t.show = function() {
                     this.style.display = ""
                 }
                 ,
-                t.hide = function () {
+                t.hide = function() {
                     this.style.display = "none"
                 }
                 ,
                 t
         },
-        dialog: function () {
+        dialog: function() {
             var e = document.createElement("div");
             return e.id = "MP-Checkout-dialog",
                 e.setAttribute("name", "MP-Checkout-dialog"),
-                e.show = function () {
+                e.show = function() {
                     this.style.display = "block"
                 }
                 ,
-                e.hide = function () {
+                e.hide = function() {
                     this.style.display = "none"
                 }
                 ,
@@ -734,13 +725,13 @@ function $MPVG(e, t) {
             !$MPC.conf.messagingEnabled || $MPC.__getIEVersion() >= 0 && $MPC.conf.quirksMode || e.appendChild($MPC.Modal.__assets.loading),
                 e
         },
-        dimmer: function () {
+        dimmer: function() {
             var e = document.createElement("div");
-            return e.show = function () {
+            return e.show = function() {
                 this.style.display = "block"
             }
                 ,
-                e.hide = function () {
+                e.hide = function() {
                     this.style.display = "none"
                 }
                 ,
@@ -752,11 +743,11 @@ function $MPVG(e, t) {
                     e.style.position = "absolute",
                     e.style.left = window.center(window.size(), !0).x + "px",
                     e.style.top = window.center(window.size(), !0).y + "px",
-                    $MPC.__event.add(window, "scroll", function () {
+                    $MPC.__event.add(window, "scroll", function() {
                         e.style.left = window.center(window.size(), !0).x + "px",
                             e.style.top = window.center(window.size(), !0).y + "px"
                     }),
-                    $MPC.__event.add(window, "resize", function () {
+                    $MPC.__event.add(window, "resize", function() {
                         e.style.width = window.size().width + "px",
                             e.style.height = window.size().height + 12 + "px",
                             e.style.left = window.center(window.size(), !0).x + "px",
@@ -772,14 +763,13 @@ function $MPVG(e, t) {
                 e
         }
     },
-    $MPC.__actions.open = function (e, t) {
+    $MPC.__actions.open = function(e, t) {
         if ($MPC.Modal.__caller = null,
         null != e && (null == e.trigger && (e.trigger = t),
         null != e.trigger || null != e.url)) {
             t.data.size || (t.data.size = $MPC.openCheckout.size.dflt);
             var i = null == e.width || isNaN(parseInt(e.width, 10)) ? $MPC.openCheckout.size.dflt.width : parseInt(e.width, 10)
-                ,
-                n = null == e.height || isNaN(parseInt(e.height, 10)) ? $MPC.openCheckout.size.dflt.height : parseInt(e.height, 10)
+                , n = null == e.height || isNaN(parseInt(e.height, 10)) ? $MPC.openCheckout.size.dflt.height : parseInt(e.height, 10)
                 , o = e.url;
             null != e.trigger && null != e.trigger.data && null != e.trigger.data.url && (o = e.trigger.data.url),
                 $MPC.Modal.__caller = e.trigger,
@@ -802,7 +792,7 @@ function $MPVG(e, t) {
         }
     }
     ,
-    $MPC.__actions.loading = function (e, t) {
+    $MPC.__actions.loading = function(e, t) {
         $MPC.Modal.__isLoading || ($MPC.__actions.close(t),
             $MPC.Modal.__size.opening = e,
             $MPC.Modal.__build(),
@@ -819,13 +809,13 @@ function $MPVG(e, t) {
             $MPC.__actions.center())
     }
     ,
-    window.requestAnimationFrame = function () {
-        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (e) {
+    window.requestAnimationFrame = function() {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(e) {
             window.setTimeout(e, 1e3 / 60)
         }
     }(),
     $MPC.__event = {
-        add: function (e, t, i) {
+        add: function(e, t, i) {
             if (e.addEventListener)
                 e.addEventListener(t, i, !1);
             else {
@@ -835,7 +825,7 @@ function $MPVG(e, t) {
             }
             return !0
         },
-        remove: function (e, t, i) {
+        remove: function(e, t, i) {
             if (e.removeEventListener)
                 e.removeEventListener(t, i, !1);
             else {
@@ -846,7 +836,7 @@ function $MPVG(e, t) {
             return !0
         }
     },
-    $MPC.isVisible = function (e) {
+    $MPC.isVisible = function(e) {
         if (e == document)
             return !0;
         if (!e)
@@ -876,11 +866,11 @@ function $MPVG(e, t) {
         return $MPC.isVisible(e.parentNode)
     }
     ,
-    String.prototype.trim = function () {
+    String.prototype.trim = function() {
         return this.replace(/^\s+|\s+$/, "")
     }
     ,
-    Array.prototype.indexOf = function (e) {
+    Array.prototype.indexOf = function(e) {
         for (var t = -1, i = 0; i < this.length; i++)
             if (this[i] == e) {
                 t = i;
@@ -889,7 +879,7 @@ function $MPVG(e, t) {
         return t
     }
     ,
-    Array.fromCollection = function (e) {
+    Array.fromCollection = function(e) {
         if ("undefined" == typeof e.length)
             return null;
         for (var t = [], i = 0; i < e.length; i++)
@@ -897,7 +887,7 @@ function $MPVG(e, t) {
         return t
     }
     ,
-    window.size = function () {
+    window.size = function() {
         var e = 0
             , t = 0;
         return window.innerWidth ? (e = window.innerWidth,
@@ -910,7 +900,7 @@ function $MPVG(e, t) {
             }
     }
     ,
-    window.center = function (e, t) {
+    window.center = function(e, t) {
         t = t === !0,
         (null == e || null == e.width || null == e.height) && (e = {
             width: 0,
@@ -932,7 +922,7 @@ function $MPVG(e, t) {
             }
     }
     ,
-    $MPC.__getIEVersion = function () {
+    $MPC.__getIEVersion = function() {
         if (null == $MPC.IEVersion) {
             var e = -1;
             if ("Microsoft Internet Explorer" == navigator.appName) {
@@ -945,7 +935,7 @@ function $MPVG(e, t) {
         return $MPC.IEVersion
     }
     ,
-    $MPC.__getLocale = function () {
+    $MPC.__getLocale = function() {
         if (null == $MPC.locale) {
             var e = null;
             if (navigator) {
@@ -962,7 +952,7 @@ function $MPVG(e, t) {
     }
     ,
     $MPCSSOBJ.prototype.type = "$MPCSSOBJ",
-    $MPCSSOBJ.prototype.getCSS = function (e, t) {
+    $MPCSSOBJ.prototype.getCSS = function(e, t) {
         null == e && (e = "normal");
         var i = "";
         if (null != this.attributes[e])
@@ -986,7 +976,7 @@ function $MPVG(e, t) {
         return i
     }
     ,
-    $MPCSSOBJ.prototype.add = function () {
+    $MPCSSOBJ.prototype.add = function() {
         var e = null
             , t = null
             , i = null;
@@ -997,12 +987,12 @@ function $MPVG(e, t) {
             i = arguments[2]),
         null == t && (t = "normal"),
         null == this.attributes[t] && (this.attributes[t] = []),
-            this.attributes[t].push(new $MPCSSATTR(e, i)),
+            this.attributes[t].push(new $MPCSSATTR(e,i)),
             this)
     }
     ,
     $MPCSSATTR.prototype.type = "$MPCSSATTR",
-    $MPC.__addCSS = function (e, t, i) {
+    $MPC.__addCSS = function(e, t, i) {
         if (null != document.styleSheets) {
             if (null == $MPC.__styleSheets && ($MPC.__styleSheets = {}),
             null == $MPC.__styleSheets[e]) {
@@ -1015,20 +1005,20 @@ function $MPVG(e, t) {
         }
     }
     ,
-    $MPVG.prototype.getData = function (e) {
+    $MPVG.prototype.getData = function(e) {
         if (null == this.elements || this.elements.length <= 0)
             return "";
-        var t = new RegExp("-(" + this.elements.join("|") + ")-", "g")
+        var t = new RegExp("-(" + this.elements.join("|") + ")-","g")
             , i = t.exec("-" + e.toLowerCase() + "-");
         return null != i && i.length > 0 ? i[1] : ""
     }
     ,
     $MPC.vGroups = {
-        color: new $MPVG("base", ["blue", "orange", "red", "green", "lightblue", "grey"]),
-        size: new $MPVG("style", ["l", "m", "s"]),
-        font: new $MPVG("style", ["ar", "ge", "tr"]),
-        shape: new $MPVG("style", ["sq", "rn", "ov"]),
-        logo: new $MPVG("extra", ["arall", "aron", "brall", "bron", "mxall", "mxon", "veall", "veon", "coall", "coon", "clall", "clon"])
+        color: new $MPVG("base",["blue", "orange", "red", "green", "lightblue", "grey"]),
+        size: new $MPVG("style",["l", "m", "s"]),
+        font: new $MPVG("style",["ar", "ge", "tr"]),
+        shape: new $MPVG("style",["sq", "rn", "ov"]),
+        logo: new $MPVG("extra",["arall", "aron", "brall", "bron", "mxall", "mxon", "veall", "veon", "coall", "coon", "clall", "clon"])
     },
     $MPC.styles = {
         base: {},
@@ -1081,13 +1071,12 @@ function $MPVG(e, t) {
             starting: "Inicializando o pagamento com MercadoPago"
         }
     },
-    $MPC._txt.get = function (e, t) {
+    $MPC._txt.get = function(e, t) {
         return t = null == t ? $MPC.__getLocale().lang : t,
             null != this[t] && null != this[t][e] ? this[t][e] : null != this.dflt[e] ? this.dflt[e] : ""
     }
     ,
-    $MPC.__track = function () {
-    }
+    $MPC.__track = function() {}
     ,
     $MPC(),
     $MPBR = $MPC,

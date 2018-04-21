@@ -1043,6 +1043,10 @@ if ($logged) {
                                     "unit_price" => $price
                                 )
                             ),
+//                            "payer" => [
+//                                "name" => "EOQ",
+//                                "email" => "test_user_81785223@testuser.com"
+//                            ],
 //                            "back_urls" => array(
 //                                "success" => "https://www.success.com",
 //                                "failure" => "http://www.failure.com",
@@ -1074,12 +1078,12 @@ if ($logged) {
                     }
                     </script>
                     
-                    <a href="' . ($config['mp']['sandboxMode'] == TRUE ? $preference["response"]["sandbox_init_point"] : $preference["response"]["init_point"]) . '" name="MP-Checkout" class="lightblue-Rn-L-Ar-Br" mp-mode="redirect" onreturn="execute_my_onreturn">Pagar</a>
+                    <a href="' . ($config['mp']['sandboxMode'] == TRUE ? $preference["response"]["sandbox_init_point"] : $preference["response"]["init_point"]) . '" name="MP-Checkout" class="lightblue-Rn-L-Ar-Br" mp-mode="modal" onreturn="execute_my_onreturn();">Pagar</a>
 		            <!--<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>-->
 		            <!--<script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>-->
-		            <!--<script type="text/javascript" src=" https://secure.mlstatic.com/mptools/render.js"></script>-->
+		            <script type="text/javascript" src=" https://secure.mlstatic.com/mptools/render.js"></script>
 		            <!-- Pega este código antes de cerrar la etiqueta </body> -->
-                    <script type="text/javascript" src="' . $layout_name . '/mp.js"></script>
+                    <!--<script type="text/javascript" src="' . $layout_name . '/mp.js"></script>-->
                 ';
                         $main_content .= "</div>";
                     } catch (MercadoPagoException $e) {
