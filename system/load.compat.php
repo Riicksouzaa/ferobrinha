@@ -45,6 +45,26 @@ if (!ONLY_PAGE) {
 }
 /** @var string $layout_name ./layouts/ */
 $layout_name = './layouts/' . Website::getWebsiteConfig()->getValue('layout');
+/**
+ * @param string $position Center || Left || Right
+ * @return string
+ */
+$make_button = function ($position) use ($layout_name){
+    $q = "<div class='SubmitButtonRow'>";
+    $q .= '
+            <div class="'.$position.'Button">
+                <form action="./?subtopic=accountmanagement&action=donate" method="post" style="padding:0px;margin:0px;">
+                    <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
+                        <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                            <div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);"></div>
+                            <input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif">
+                        </div>
+                    </div>
+                </form>
+            </div>';
+    $q .= "</div>";
+    return $q;
+};
 /** @var string $css_version */
 $css_version = Website::getWebsiteConfig()->getValue('cssVersion');
 
