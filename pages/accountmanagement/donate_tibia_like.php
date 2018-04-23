@@ -755,7 +755,7 @@ if ($logged) {
             if (isset($payment_data["storage_OrderServiceData"]["PaymentMethodName"])) {
                 foreach ($config['paymentsMethods'] as $key => $value) {
                     if ($payment_data["storage_OrderServiceData"]["PaymentMethodName"] == $key) {
-                        include_once "payment_methods/" . $key . ".php";
+                        include_once "payment_methods/" . strtolower($key) . ".php";
                     }
                 }
                 $main_content .= $make_button("Center");
