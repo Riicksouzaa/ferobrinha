@@ -77,7 +77,7 @@ if(!defined('INITIALIZED'))
     <link href="<?php echo $layout_name; ?>/ouibounce.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
     <?php
     if($_REQUEST['subtopic'] == "latestnews" || $_REQUEST['subtopic'] == "newsarchive")
-        echo '<link href="'.$layout_name.'/news.css" rel="stylesheet" type="text/css">';
+        echo '<link href="'.$layout_name.'/news.css'.$css_version.'" rel="stylesheet" type="text/css">';
     ?>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -93,7 +93,7 @@ if(!defined('INITIALIZED'))
     <script src="<?php echo $layout_name; ?>/ouibounce.min.js<?php echo $css_version;?>"></script>
     <?php
     if($_REQUEST['subtopic'] == "createaccount")
-        echo '<script src="'.$layout_name.'/create_character.js<?php echo $css_version;?>"></script>';
+        echo '<script src="'.$layout_name.'/create_character.js'.$css_version.'"></script>';
     ?>
     <script src="<?php echo $layout_name; ?>/generic.js<?php echo $css_version;?>"></script>
     <script>
