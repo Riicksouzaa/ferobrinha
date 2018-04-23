@@ -44,6 +44,14 @@ var g_Prices = {
     }
 };
 
+function CheckService() {
+    for (var id = 1; id < 80; id++) {
+        if ($('#ServiceID_' + id) !== undefined) {
+            $('#ServiceID_' + id).removeAttr('checked');
+        }
+    }
+}
+
 // change the selected service
 function ChangeService(a_ServiceID, a_ServiceCategoryID) {
     // console.log('### ChangeService() ### a_ServiceID #' + a_ServiceID + '# a_ServiceCategoryID #' + a_ServiceCategoryID + '#');
@@ -51,6 +59,7 @@ function ChangeService(a_ServiceID, a_ServiceCategoryID) {
     $('#CC_ServiceID').val(a_ServiceID);
     $('#CC_ServiceID').attr('name', 'InitialServiceID');
     // activate the radio button itself and set the price
+    CheckService();
     $('#ServiceID_' + a_ServiceID).attr('checked', 'checked');
     $('.ServiceID_Icon_Container').css('background-color', '');
     // handle payment methods
