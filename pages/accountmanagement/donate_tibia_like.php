@@ -88,7 +88,7 @@ if ($logged) {
     
     if ($step == 1) {
         $main_content .= '
-    <script src="' . $layout_name . '/changepmctibia.js"></script>
+    <script src="' . $layout_name . '/changepmctibia.js'.$css_version.'"></script>
     <form method="POST">
     <div class="TableContainer">
     <div class="CaptionContainer">

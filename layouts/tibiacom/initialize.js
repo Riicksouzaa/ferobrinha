@@ -411,7 +411,7 @@ function RedirectPOST(a_Target, a_ParameterArray) {
     }).append('<input type="submit" />').appendTo($("body"));
 
     $.each(a_ParameterArray, function (key, value) {
-        console.log(key + ": " + value);
+        //console.log(key + ": " + value);
         $('#RedirectForm').append($('<input />').attr("type", "hidden").attr({
             "name": key
         }).val(value));

@@ -642,7 +642,7 @@ if(!defined('INITIALIZED'))
                     <div id="Content" class="Content">
                         <div id="ContentHelper">
                             <div id="preload">
-                                <script type="text/javascript" src="<?php echo $layout_name; ?>/newsticker.js"></script>
+                                <script type="text/javascript" src="<?php echo $layout_name; ?>/newsticker.js<?php echo $css_version ?>"></script>
                                 <?php echo $news_content; ?>
                                 <div id="NewsArchive" class="Box">
                                     <div class="Corner-tl" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-tl.gif);"></div>
@@ -667,7 +667,7 @@ if(!defined('INITIALIZED'))
                                     elseif($_REQUEST['subtopic'] == "adminpanel")
                                         $headline = "Admin Panel";
                                     elseif($_REQUEST['subtopic'] == "tankyou")
-                                        $headline = "Thank you";
+                                        $headline = "Thank You";
                                     ?>
                                     <img id="ContentBoxHeadline" class="Title" src="pages/headline.php?txt=<?PHP echo ucwords(str_replace('_', ' ', strtolower($headline))); ?>" alt="Contentbox headline">
                                     <div class="Border_2">

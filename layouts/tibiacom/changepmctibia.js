@@ -1,11 +1,51 @@
 // define data structures
-var g_Services = [133,134,135,136,137];
-var g_PaymentMethodCategories = [11,21,22,31,32,33];
-var g_Prices = {"133":{"11":"36.00 BRL","21":"36.00 BRL","22":"36.00 BRL","31":"36.00 BRL","32":"36.00 BRL","33":"38.00 BRL"},"134":{"11":"100.00 BRL","21":"100.00 BRL","22":"100.00 BRL","31":"100.00 BRL","32":"100.00 BRL","33":"106.00 BRL"},"135":{"11":"201.00 BRL","21":"201.00 BRL","22":"201.00 BRL","31":"201.00 BRL","32":"201.00 BRL","33":"213.00 BRL"},"136":{"11":"402.00 BRL","21":"402.00 BRL","22":"402.00 BRL","31":"402.00 BRL","32":"402.00 BRL","33":"426.00 BRL"},"137":{"11":"603.00 BRL","21":"603.00 BRL","22":"603.00 BRL","31":"603.00 BRL","32":"603.00 BRL","33":"638.00 BRL"}};
+var g_Services = [1, 2, 3, 4, 5.6, 7, 8];
+var g_PaymentMethodCategories = [13];
+var g_Prices = {
+    "133": {
+        "11": "36.00 BRL",
+        "21": "36.00 BRL",
+        "22": "36.00 BRL",
+        "31": "36.00 BRL",
+        "32": "36.00 BRL",
+        "33": "38.00 BRL"
+    },
+    "134": {
+        "11": "100.00 BRL",
+        "21": "100.00 BRL",
+        "22": "100.00 BRL",
+        "31": "100.00 BRL",
+        "32": "100.00 BRL",
+        "33": "106.00 BRL"
+    },
+    "135": {
+        "11": "201.00 BRL",
+        "21": "201.00 BRL",
+        "22": "201.00 BRL",
+        "31": "201.00 BRL",
+        "32": "201.00 BRL",
+        "33": "213.00 BRL"
+    },
+    "136": {
+        "11": "402.00 BRL",
+        "21": "402.00 BRL",
+        "22": "402.00 BRL",
+        "31": "402.00 BRL",
+        "32": "402.00 BRL",
+        "33": "426.00 BRL"
+    },
+    "137": {
+        "11": "603.00 BRL",
+        "21": "603.00 BRL",
+        "22": "603.00 BRL",
+        "31": "603.00 BRL",
+        "32": "603.00 BRL",
+        "33": "638.00 BRL"
+    }
+};
 
 // change the selected service
-function ChangeService(a_ServiceID, a_ServiceCategoryID)
-{
+function ChangeService(a_ServiceID, a_ServiceCategoryID) {
     // console.log('### ChangeService() ### a_ServiceID #' + a_ServiceID + '# a_ServiceCategoryID #' + a_ServiceCategoryID + '#');
     // set the ServiceID for the change country form
     $('#CC_ServiceID').val(a_ServiceID);
@@ -34,14 +74,22 @@ function ChangeService(a_ServiceID, a_ServiceCategoryID)
     return;
 }
 
+function CheckPMC() {
+    for (var id = 1; id < 80; id++) {
+        if ($('#PMCID_' + id) !== undefined) {
+            $('#PMCID_' + id).removeAttr('checked');
+        }
+    }
+}
+
 // change the selected payment method category
-function ChangePMC(a_PaymentMethodID)
-{
+function ChangePMC(a_PaymentMethodID) {
     // console.log('### ChangePMC() ### a_PaymentMethodID #' + a_PaymentMethodID + '#');
     // set the PMCID for the change country form
     $('#CC_PMCID').val(a_PaymentMethodID);
     $('#CC_PMCID').attr('name', 'InitialPMCID');
     // activate the radio button
+    CheckPMC();
     $('#PMCID_' + a_PaymentMethodID).attr('checked', 'checked');
     $('.PMCID_Icon_Container').css('background-color', '');
     // handle services
@@ -70,25 +118,21 @@ function ChangePMC(a_PaymentMethodID)
 }
 
 // mouse over effect for payment methods
-function MouseOverPMCID(a_PMCID)
-{
+function MouseOverPMCID(a_PMCID) {
     $('#PMCID_Icon_Over_' + a_PMCID).css('background-image', 'url(' + JS_DIR_IMAGES + 'payment/pmcid_icon_over.png)');
 }
 
 // mouse out effect for payment methods
-function MouseOutPMCID(a_PMCID)
-{
+function MouseOutPMCID(a_PMCID) {
     $('#PMCID_Icon_Over_' + a_PMCID).css('background-image', '');
 }
 
 // mouse over effect for products
-function MouseOverServiceID(a_ServiceID, a_ServiceCategoryID)
-{
+function MouseOverServiceID(a_ServiceID, a_ServiceCategoryID) {
     $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', 'url(' + JS_DIR_IMAGES + 'payment/serviceid_icon_over.png)');
 }
 
 // mouse out effect for products
-function MouseOutServiceID(a_ServiceID, a_ServiceCategoryID)
-{
+function MouseOutServiceID(a_ServiceID, a_ServiceCategoryID) {
     $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 }

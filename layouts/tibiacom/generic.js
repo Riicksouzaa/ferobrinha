@@ -283,7 +283,7 @@ function ActivateHelperDiv(a_Object, a_Title, a_Text, a_HelperDivPositionID)
         }
         $('.HelperDivArrow').css('top', (l_TopBefore - l_Top));
     } else {
-        console.log('# FIT#');
+        //console.log('# FIT#');
         $('.HelperDivArrow').css('top', -1);
     }
     // set position and display the tool tip
@@ -296,7 +296,7 @@ function ActivateHelperDiv(a_Object, a_Title, a_Text, a_HelperDivPositionID)
 function CollapseTable(a_ID)
 {
     $('#' + a_ID).slideToggle('slow');
-    console.log($('#Indicator_' + a_ID).attr('class'));
+    //console.log($('#Indicator_' + a_ID).attr('class'));
     if ($('#Indicator_' + a_ID).attr('class') == 'CircleSymbolPlus') {
         $('#Indicator_' + a_ID).css('background-image', 'url(' + JS_DIR_IMAGES + 'global/content/circle-symbol-minus.gif)');
         $('#Indicator_' + a_ID).attr('class', 'CircleSymbolMinus');

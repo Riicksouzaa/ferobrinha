@@ -1,7 +1,7 @@
   // change the selected service
   function ChangeService(a_ServiceID, a_ServiceCategoryID)
   {
-     console.log('# ChangeService(' + a_ServiceID + ' ' + a_ServiceCategoryID + ') #');
+     //console.log('# ChangeService(' + a_ServiceID + ' ' + a_ServiceCategoryID + ') #');
     // set the ServiceID for the change country form
     $('#CC_ServiceID').val(a_ServiceID);
     $('#CC_ServiceID').attr('name', 'InitialServiceID');
@@ -38,7 +38,7 @@
   // change the selected payment method category
   function ChangePMC(a_PaymentMethodID)
   {
-    console.log('# ChangePMC(' + a_PaymentMethodID + ') #');
+    //console.log('# ChangePMC(' + a_PaymentMethodID + ') #');
     // set the PMCID for the change country form
     $('#CC_PMCID').val(a_PaymentMethodID);
     $('#CC_PMCID').attr('name', 'InitialPMCID');
