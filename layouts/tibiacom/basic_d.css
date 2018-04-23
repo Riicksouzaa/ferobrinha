@@ -3540,3 +3540,19 @@ table.fixed td {
 #GuildInformation .MessageContainer .Message {
     word-wrap: break-word;
 }
+
+#supportButton{
+    opacity: 0.8;
+}
+
+#buycharButton{
+    opacity: 0.8;
+}
+
+#supportButton:hover{
+    opacity: 1;
+}
+
+#buycharButton:hover{
+    opacity: 1;
+}

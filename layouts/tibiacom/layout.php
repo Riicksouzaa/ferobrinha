@@ -724,6 +724,12 @@ if(!defined('INITIALIZED'))
                                     <?php
                                     $skills = $SQL->query('SELECT * FROM players WHERE deleted = 0 AND group_id = 1 AND account_id != 1 ORDER BY level DESC LIMIT 5');
                                     ?>
+                                    <a href="?subtopic=ticket">
+                                        <div id="supportButton" class="Themebox" style="height: 70px; margin-bottom: 0px; background-image:url(./layouts/tibiacom/images/themeboxes/support.png);"></div>
+                                    </a>
+                                    <a href="?subtopic=buychar">
+                                        <div id="buycharButton" class="Themebox" style="height: 70px; margin-bottom: 0px; background-image:url(./layouts/tibiacom/images/themeboxes/buychar.png);"></div>
+                                    </a>
                                     <!-- premium theme box -->
                                     <style>
                                         .ribbon-double {
@@ -775,10 +781,9 @@ if(!defined('INITIALIZED'))
                                                 <div class="fb-like" data-href="<?php echo $config['social']['facebook']; ?>" data-width="250" data-layout="standard" data-action="recommend" data-show-faces="false" ></div>
                                             </div>
                                         </div>
-                                        <div class="Bottom" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif);">
+                                        <div class="Bottom" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif);"></div>
                                     </div>
-
-                                        <!-- Server Info theme box 
+                                    <!-- Server Info theme box
                                         <div id="Serverinfobox" class="Themebox" style="background-image:url(<?php echo $layout_name; ?>/images/global/themeboxes/serverinfo/serverinfobox.gif);">
                                             <a href="?subtopic=serverinfo">
                                                 <img id="ScreenshotContent" class="ThemeboxContent" style="padding: 32px 40px 30px 5px;" src="<?php echo $layout_name; ?>/images/global/themeboxes/serverinfo/serverinfo.gif" alt="Server Info">
@@ -786,24 +791,57 @@ if(!defined('INITIALIZED'))
                                             <div class="Bottom" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif);"></div>
                                         </div>-->
 
-                                        <!-- current poll theme box -->
-                                        <?php
-                                        $date = time();
-                                        $getPolls = $SQL->query("SELECT * FROM `z_polls` LIMIT 1")->fetchAll();
-                                        foreach($getPolls as $poll) {
-                                            if($poll['end'] >= time()) {
-                                                ?>
-                                                <div id="CurrentPollBox" class="Themebox" style="background-image:url(<?php echo $layout_name; ?>/images/global/themeboxes/current-poll/currentpollbox.gif);">
-                                                    <div id="CurrentPollText"><?php echo $poll['question']; ?></div>
-                                                    <div class="ThemeboxButton">
-                                                        <form action="?subtopic=polls&id=<?php echo $poll['id']; ?>" method="post" style="padding:0px;margin:0px;"><div class="BigButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/buttons/sbutton.gif)"><div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url(<?php echo $layout_name; ?>/images/global/buttons/sbutton_over.gif);"></div><input class="ButtonText" type="image" name="Vote Now" alt="Vote Now" src="<?php echo $layout_name; ?>/images/global/buttons/_sbutton_votenow.gif"></div></div></form>      </div>
-                                                    <div class="Bottom" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif);"></div>
-                                                </div>
-                                                <?php
-                                            }
+                                    <!-- current poll theme box -->
+                                    <?php
+                                    $date = time();
+                                    $getPolls = $SQL->query("SELECT * FROM `z_polls` LIMIT 1")->fetchAll();
+                                    foreach($getPolls as $poll) {
+                                        if($poll['end'] >= time()) {
+                                            ?>
+                                            <div id="CurrentPollBox" class="Themebox" style="background-image:url(<?php echo $layout_name; ?>/images/global/themeboxes/current-poll/currentpollbox.gif);">
+                                                <div id="CurrentPollText"><?php echo $poll['question']; ?></div>
+                                                <div class="ThemeboxButton">
+                                                    <form action="?subtopic=polls&id=<?php echo $poll['id']; ?>" method="post" style="padding:0px;margin:0px;"><div class="BigButton" style="background-image:url(<?php echo $layout_name; ?>/images/global/buttons/sbutton.gif)"><div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url(<?php echo $layout_name; ?>/images/global/buttons/sbutton_over.gif);"></div><input class="ButtonText" type="image" name="Vote Now" alt="Vote Now" src="<?php echo $layout_name; ?>/images/global/buttons/_sbutton_votenow.gif"></div></div></form>      </div>
+                                                <div class="Bottom" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif);"></div>
+                                            </div>
+                                            <?php
                                         }
-                                        ?>
+                                    }
+                                    ?>
+                                    <?php if($config['site']['castlewar']){ ?>
+                                    <div id="CastleWarBox" class="Themebox" style="background-image:url(<?PHP echo "$layout_name"; ?>/images/themeboxes/chaoscastlhenews.png); margin-bottom:20px; height:110px;">
+                                        <div style="padding-top:48px;">
+                                            <div align="center" style="text-align:center;">
+                                                <?php foreach($SQL->query('SELECT * FROM `global_storage` WHERE `key` = 48503')->fetchAll() as $storage)
+                                                {
+                                                    if ($storage['value'] != -1) {
+                                                        $guildId = $storage['value'];
+                                                        break;
+                                                    }
+                                                }
+                
+                                                $guild = new Guild();
+                                                $guild->loadById($guildId);
+                                                if (!$guild)
+                                                    $name = "";
+                                                else
+                                                    $name = $guild->getName();
+                                                ?>
+                                                <a class="topfont" style="font-size: .8em; position: absolute; top: 86px; left: 76px;">
+                                                    <?php if ($guildId != 0) { echo '<img style="position: absolute; top: -42px; left: -76px; border-radius: 7px;" src="/guild_image.php?id=' . $guildId . '" width="64" height="64" border="0"/>'; } else { echo 'Nenhuma guild.'; }?>
+                                                </a>
+                                                <p>
+                                                    <a href="?subtopic=castlewar" style="background: transparent url(layouts/tibiarl/images/menu/fire.gif);font-size:14px;text-shadow: 0.1em 0.1em #333" class="topfont">
+                                                        <font color="white" style="font-size: 0.7em; position: relative; left: 32px; top: 4px;">Guild Dominante<br></font>
+                                                        <span style="font-size:12px;font-weight:bold">
+                                                        <font color="#fc3" style="position: absolute; top: 80px; left: 85px;"><?php echo $name; ?></font>
+                                                        </span>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </div>
 

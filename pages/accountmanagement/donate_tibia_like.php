@@ -147,12 +147,12 @@ if ($logged) {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'Tibia Coins\', \'Tibia Coins are Tibia currency to purchase exclusive products in the Store . <br /><br />You cannot only buy Premium Time there but also treat your character to one or more of the following products: Character Name Change, Character Sex Change, (Express) Character World Transfer, outfits, addons and mounts . <br /><br />The Store can be entered ingame by clicking on the little coin icon in your character inventory. <br /><br />\', \'ProductCategoryHelperDiv_13\');" onmouseout="$(\'#HelperDivContainer\').hide();">
+                                        <span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \''.$config['sale']['productName'].'\', \''.$config['sale']['productName'].' are Tibia currency to purchase exclusive products in the Store . <br /><br />You cannot only buy Premium Time there but also treat your character to one or more of the following products: Character Name Change, Character Sex Change, (Express) Character World Transfer, outfits, addons and mounts . <br /><br />The Store can be entered ingame by clicking on the little coin icon in your character inventory. <br /><br />\', \'ProductCategoryHelperDiv_13\');" onmouseout="$(\'#HelperDivContainer\').hide();">
                                             <div class="InnerTableTab ActiveInnerTableTab">
                                                 <div id="ProductCategoryHelperDiv_13" class="ProductCategoryHelperDiv"></div>
                                                 <a>
                                                     <img src="' . $layout_name . '/images/payment/products_tab_active.png">
-                                                    <div class="InnerTableTabLabel">Tibia Coins</div>
+                                                    <div class="InnerTableTabLabel">'.$config['sale']['productName'].'</div>
                                                 </a>
                                             </div>
                                         </span>
@@ -174,9 +174,13 @@ if ($logged) {
         $countOffers = 1;
         foreach ($config['donate']['offers'] as $id => $coins) {
             foreach ($coins as $reais => $coins) {
+                $main_content .= '                                  <div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_' . $id . '">
+                                                                        <div class="ServiceID_Icon_Container_Background" id="" style="background-image:url(' . $layout_name . '/images/payment/serviceid_icon_normal.png);">';
+                $realcoin = ($reais/$coins);
+                if($realcoin != 10){
+                    $main_content .= '                                        <img src="./layouts/tibiacom/images/payment/ribbon-'.((10-$realcoin)*10).'percent-off.png" style=" position: absolute; left: 0px; top: 0px;"/>';
+                }
                 $main_content .= '
-                                                                    <div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_' . $id . '">
-                                                                        <div class="ServiceID_Icon_Container_Background" id="" style="background-image:url(' . $layout_name . '/images/payment/serviceid_icon_normal.png);">
                                                                             <div class="ServiceID_Icon" id="ServiceID_Icon_' . $id . '" style="" onclick="ChangeService(' . $id . ', 13);" onmouseover="MouseOverServiceID(' . $id . ', 13);" onmouseout="MouseOutServiceID(' . $id . ', 13);">
                                                                                 <div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_' . $id . '" style="display: none;">
                                                                                     <span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'Service Info:\', \'<p>The product is not available for the selected payment method!</p>\', \'\');" onmouseout="$(\'#HelperDivContainer\').hide();">
@@ -189,10 +193,10 @@ if ($logged) {
                                                                                 <label for="ServiceID_' . $id . '">
                                                                                     <div class="ServiceIDLabelContainer">
                                                                                         <div class="ServiceIDLabel">
-                                                                                        <input type="radio" id="ServiceID_' . $id . '" name="ServiceID" value="' . $id . '" style="display: none;">' . $coins . ' Coins  </div>
+                                                                                        <input type="radio" id="ServiceID_' . $id . '" name="ServiceID" value="' . $id . '" style="display: none;">' . $coins . ' '.$config['sale']['subProductName'].'  </div>
                                                                                     </div>
                                                                                     <div class="ServiceIDPriceContainer">
-                                                                                        <span class="ServiceIDPrice" id="PD_' . $id . '">R$ ' . ($reais / 100) . '.00</span>                                                                                        
+                                                                                        <span class="ServiceIDPrice" id="PD_' . $id . '">R$ ' . number_format($reais / 100,2,",",".") . '</span>
                                                                                     </div>
                                                                                 </label>
                                                                             </div>
@@ -283,7 +287,7 @@ if ($logged) {
         $main_content .= '
                                                                 </div>
                                                                 <small>
-                                                                    <div style="clear: both; margin-right: 5px; text-align: left;">** If you use this payment method, you will have to wait 6 months before you can trade the purchased Tibia Coins in the Market or gift them to other characters using the Store. Of course, you can use these Tibia Coins without delay to purchase products for your own account.</div>
+                                                                    <div style="clear: both; margin-right: 5px; text-align: left;">** If you use this payment method, you will have to wait 6 months before you can trade the purchased '.$config['sale']['productName'].' in the Market or gift them to other characters using the Store. Of course, you can use these '.$config['sale']['productName'].' without delay to purchase products for your own account.</div>
                                                                 </small>
                                                             </td>
                                                         </tr>
@@ -512,7 +516,7 @@ if ($logged) {
                                                     <tbody>
                                                         <tr>
                                                             <td class="LabelV200">Service</td>
-                                                            <td>' . $payment_data["storage_OrderServiceData"]["coins"] . ' Tibia Coins</td>
+                                                            <td>' . $payment_data["storage_OrderServiceData"]["coins"] . ' '.$config['sale']['productName'].'</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="LabelV200">Price</td>
@@ -689,7 +693,7 @@ if ($logged) {
                                                     <tbody>
                                                         <tr>
                                                             <td class="LabelV200">Service</td>
-                                                            <td>' . $qnt . ' Tibia Coins</td>
+                                                            <td>' . $qnt . ' '.$config['sale']['productName'].'</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="LabelV200">Price</td>
