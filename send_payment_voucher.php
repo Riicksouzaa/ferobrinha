@@ -20,7 +20,6 @@ if ($config['site']['send_emails']) {
     $account->loadByName(strtolower($name));
     
     $payeer_name = (($account->getRLName() == '' || $account->getRLName() == NULL) ? $account->getName() : $account->getRLName());
-    $coinCount = ($doubleStatus ? ($coinCount * 2) : $coinCount);
     $newMailBody = "
 <div marginwidth='0' marginheight='0' style='margin:0;padding:0;height:100%;width:100%;background-color:#f7f7f7'>
     <center>
@@ -53,7 +52,7 @@ if ($config['site']['send_emails']) {
 														<img style='float: left; vertical-align: middle' src='https://ferobraglobal.com/layouts/tibiacom/images/global/content/headline-bracer-left.gif'/>
 														<img style='float: right; vertical-align: middle' src='https://ferobraglobal.com/layouts/tibiacom/images/global/content/headline-bracer-right.gif'/>
 														<div style='text-align: center; color:#fff'>
-															Recibo da sua compra de " . $coinCount . " " . $config['sale']['productName'] . "<br/> no website " . $config['server']['serverName'] . "
+															Recibo da sua compra de " . ($doubleStatus? '2x '.$coinCount : $coinCount) . " " . $config['sale']['productName'] . "<br/> no website " . $config['server']['serverName'] . "
 														</div>
 													</td>
                                                 </tr>
@@ -68,6 +67,7 @@ if ($config['site']['send_emails']) {
                                                 <tr>
                                                     <td valign='top' style='font-family:Helvetica,Arial,sans-serif;line-height:160%;padding-bottom:32px;text-align:center'>
                                                         <h2 class='m_163543659143129539greeting' style='display:block;font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:normal;margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;text-align:center;color:#404040;font-size:20px'>Olá, <strong class='m_163543659143129539highlight' style='color:#6d2177;font-weight:600'>{$payeer_name}</strong>!</h2>
+                                                        <h3 class='m_163543659143129539greeting' style='display:block;font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:normal;margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;text-align:center;color:#404040;font-size:20px'>Segue abaixo os dados para conferencia da sua compra.</h3>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -81,7 +81,8 @@ if ($config['site']['send_emails']) {
 															Pedido n: {$transaction_code}<br/>
 															Account: {$name} <br/><br/>
 															
-															{$coinCount} {$config['sale']['productName']}<br/><br/>
+															" . ($doubleStatus ? 'Double Active:' : '') . "
+															" . ($doubleStatus ? '(' . $coinCount . '+' . $coinCount . ') Total: ' . ($coinCount * 2) : $coinCount) . " {$config['sale']['productName']}<br/><br/>
 															
 															Subtotal: R$ " . number_format(($price / 100), '2', ',', '.') . " BRL<br/>
 															Impostos/Taxas: R$ 0,00 BRL<br/>
@@ -162,7 +163,7 @@ if ($config['site']['send_emails']) {
         
         /** Content */
         $mail->isHTML(TRUE);                                  // Set email format to HTML
-        $mail->Subject = 'Sua compra de ' . $coinCount . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
+        $mail->Subject = 'Sua compra de ' . ($doubleStatus? '2x '.$coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
         $mail->Body = $newMailBody;
 //                        $mail->AltBody = $mailBody;
         $mail->send();
