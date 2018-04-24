@@ -65,6 +65,16 @@ $doubleStatus = function () use ($SQL) {
     }
 };
 
+$transactionCompleted = function ($tid) use ($SQL) {
+    $query = $SQL->query("SELECT * FROM paypal_transactions WHERE txn_id = '$tid' and payment_status = 'Completed'")->fetchAll();
+    $result = count($query);
+    if ($result > 0) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+};
+
 /**
  * @param $payment_status
  * @param $txn_id
@@ -104,7 +114,6 @@ try {
     /** @var boolean $verified */
     $verified = $ipn->verifyIPN();
     if ($verified) {
-//        $log_post();
         $payment_status = $_POST['payment_status'];
         $payer_id = $_POST['payer_id'];
         $payer_email = $_POST['payer_email'];
@@ -120,37 +129,39 @@ try {
         $coinCount = array_values($config['donate']['offers'][$product_id])[0];
         $acc = new Account();
         $acc->loadByName($acc_name);
-        if ($payment_status == "Completed") {
-            if ($issetTransactionOnDatabase($tid)) {
-                $updatepaypal($payment_status, $tid);
+        if (!$transactionCompleted($tid)) {
+            if ($payment_status == "Completed") {
+                if ($issetTransactionOnDatabase($tid)) {
+                    $updatepaypal($payment_status, $tid);
+                } else {
+                    $insertpaypal($payment_status, $payer_email, $payer_id, $item_number1, $price, $mc_currency, $tid);
+                }
+                $handle = fopen("paypal.log", "a");
+                $coins_old = $acc->getPremiumPoints();
+                $acc->setPremiumPoints($acc->getPremiumPoints() + ($doubleStatus ? $coinCount * 2 : $coinCount));
+                $acc->save();
+                $coins_new = $acc->getPremiumPoints();
+                fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $coinCount . ";price:" . $price . ";saldo_anterior:" . $coins_old . ";novo_saldo:" . $coins_new . ";tid:" . $tid . "\r\n");
+                fclose($handle);
+                
+                $date_now = date('Y-m-d H:i:s');
+                $transaction_code = $_POST['txn_id'];
+                $pay_method = "Paypal";
+                $name = $acc->getName();
+                include_once "send_payment_voucher.php";
+                // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
+                header("HTTP/1.1 200 OK");
             } else {
-                $insertpaypal($payment_status, $payer_email, $payer_id, $item_number1, $price, $mc_currency, $tid);
+                if ($issetTransactionOnDatabase($tid)) {
+                    $updatepaypal($payment_status, $tid);
+                } else {
+                    $insertpaypal($payment_status, $payer_email, $payer_id, $item_number1, $price, $mc_currency, $tid);
+                }
+                $handle = fopen("paypal.log", "a");
+                fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $coinCount . ";price:" . $price . "\r\n");
+                fclose($handle);
+                header("HTTP/1.1 200 OK");
             }
-            $handle = fopen("paypal.log", "a");
-            $coins_old = $acc->getPremiumPoints();
-            $acc->setPremiumPoints($acc->getPremiumPoints() + ($doubleStatus ? $coinCount * 2 : $coinCount));
-            $acc->save();
-            $coins_new = $acc->getPremiumPoints();
-            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $coinCount . ";price:" . $price . ";saldo_anterior:" . $coins_old . ";novo_saldo:" . $coins_new . ";tid:" . $tid . "\r\n");
-            fclose($handle);
-    
-            $date_now = date('Y-m-d H:i:s');
-            $transaction_code = $_POST['txn_id'];
-            $pay_method = "Paypal";
-            $name = $acc->getName();
-            include_once "send_payment_voucher.php";
-            // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
-            header("HTTP/1.1 200 OK");
-        } else {
-            if ($issetTransactionOnDatabase($tid)) {
-                $updatepaypal($payment_status, $tid);
-            } else {
-                $insertpaypal($payment_status, $payer_email, $payer_id, $item_number1, $price, $mc_currency, $tid);
-            }
-            $handle = fopen("paypal.log", "a");
-            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $coinCount . ";price:" . $price . "\r\n");
-            fclose($handle);
-            header("HTTP/1.1 200 OK");
         }
     } else {
         $handle = fopen("paypal.log", "a");
