@@ -40,15 +40,7 @@ if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
 }
 $outfits = new Outfits(Website::getWebsiteConfig()->getValue('Outfits_path'));
 $mounts = new Mounts(Website::getWebsiteConfig()->getValue('Mounts_path'));
-$items = new New_items(Website::getWebsiteConfig()->getValue('Itens_path'));
 
-/**
- * @param $id
- * @return mixed
- */
-$getItemByItemId = function ($id) use ($items) {
-    return $items->getItemByItemId($id);
-};
 /**
  * @param $player_id
  * @return array|bool

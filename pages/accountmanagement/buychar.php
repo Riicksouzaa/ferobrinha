@@ -6,6 +6,14 @@
  * Time: 22:33
  */
 
+$items = new New_items(Website::getWebsiteConfig()->getValue('Itens_path'));
+/**
+ * @param $id
+ * @return mixed
+ */
+$getItemByItemId = function ($id) use ($items) {
+    return $items->getItemByItemId($id);
+};
 
 $player_id = $_REQUEST['id'];
 if ($player_id) {
