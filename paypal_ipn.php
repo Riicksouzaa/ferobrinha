@@ -137,6 +137,7 @@ try {
             $date_now = date('Y-m-d H:i:s');
             $transaction_code = $_POST['txn_id'];
             $pay_method = "Paypal";
+            $name = $acc->getName();
             include_once "send_payment_voucher.php";
             // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
             header("HTTP/1.1 200 OK");

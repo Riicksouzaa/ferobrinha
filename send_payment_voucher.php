@@ -40,7 +40,7 @@ if ($config['site']['send_emails']) {
 														<img style='float: left; vertical-align: middle' src='https://ferobraglobal.com/layouts/tibiacom/images/global/content/headline-bracer-left.gif'/>
 														<img style='float: right; vertical-align: middle' src='https://ferobraglobal.com/layouts/tibiacom/images/global/content/headline-bracer-right.gif'/>
 														<div style='text-align: center; color:#fff'>
-															Recibo da sua compra de " . ($doubleStatus? '2x '.$coinCount : $coinCount) . " " . $config['sale']['productName'] . "<br/> no website " . $config['server']['serverName'] . "
+															Recibo da sua compra de " . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . " " . $config['sale']['productName'] . "<br/> no website " . $config['server']['serverName'] . "
 														</div>
 													</td>
                                                 </tr>
@@ -73,11 +73,11 @@ if ($config['site']['send_emails']) {
 															" . ($doubleStatus ? 'Double Active:' : '') . "
 															" . ($doubleStatus ? '(' . $coinCount . '+' . $coinCount . ') Total: ' . ($coinCount * 2) : $coinCount) . " {$config['sale']['productName']}<br/><br/>
 															
-															Subtotal: R$ " . number_format(($price / 100), '2', ',', '.') . " BRL<br/>
+															Subtotal: R$ " . number_format($price, '2', ',', '.') . " BRL<br/>
 															Impostos/Taxas: R$ 0,00 BRL<br/>
 															Envio e manuseio: R$ 0,00 BRL<br/>
 															Taxa de envio: R$ 0,00 BRL<br/>
-															Total: R$ " . number_format(($price / 100), '2', ',', '.') . " BRL
+															Total: R$ " . number_format($price, '2', ',', '.') . " BRL
 														</p>
 													</td>
                                                 </tr>
@@ -152,7 +152,7 @@ if ($config['site']['send_emails']) {
         
         /** Content */
         $mail->isHTML(TRUE);                                  // Set email format to HTML
-        $mail->Subject = 'Sua compra de ' . ($doubleStatus? '2x '.$coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
+        $mail->Subject = 'Sua compra de ' . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
         $mail->Body = $newMailBody;
 //                        $mail->AltBody = $mailBody;
         $mail->send();
