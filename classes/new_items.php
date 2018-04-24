@@ -36,6 +36,7 @@ class New_items extends ObjectData
      */
     public function __construct ($file)
     {
+        $attr = [];
         $this->loadFromFile($file);
     }
 
@@ -52,7 +53,6 @@ class New_items extends ObjectData
             $id = [];
             foreach ($items as $key => $item) {
                 $ittem = $item['@attributes'];
-                $attr = array();
                 $attr = $item['attribute'];
 //                $attr = [$item['attribute']];
                 if (count($attr) == 1) {
