@@ -51,7 +51,7 @@ if (isset($_POST)) {
             ]
         ],
         "reference" => $account_name . "-" . $product_id,
-        "redirectURL" => $config['pagseguro']['urlNotification'],
+        //"redirectURL" => $config['pagseguro']['urlNotification'],
         "receiver" => [
             "email" => $email
         ]
