@@ -117,7 +117,7 @@ try {
         $date = new DateTime();
         $now = $date->format('d/m/Y H:i:s');
         $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
-        $qnt = array_values($config['donate']['offers'][$product_id])[0];
+        $coinCount = array_values($config['donate']['offers'][$product_id])[0];
         $acc = new Account();
         $acc->loadByName($acc_name);
         if ($payment_status == "Completed") {
@@ -128,10 +128,10 @@ try {
             }
             $handle = fopen("paypal.log", "a");
             $coins_old = $acc->getPremiumPoints();
-            $acc->setPremiumPoints($acc->getPremiumPoints() + ($doubleStatus ? $qnt * 2 : $qnt));
+            $acc->setPremiumPoints($acc->getPremiumPoints() + ($doubleStatus ? $coinCount * 2 : $coinCount));
             $acc->save();
             $coins_new = $acc->getPremiumPoints();
-            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . ";saldo_anterior:" . $coins_old . ";novo_saldo:" . $coins_new . ";tid:" . $tid . "\r\n");
+            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $coinCount . ";price:" . $price . ";saldo_anterior:" . $coins_old . ";novo_saldo:" . $coins_new . ";tid:" . $tid . "\r\n");
             fclose($handle);
     
             $date_now = date('Y-m-d H:i:s');
@@ -147,7 +147,7 @@ try {
                 $insertpaypal($payment_status, $payer_email, $payer_id, $item_number1, $price, $mc_currency, $tid);
             }
             $handle = fopen("paypal.log", "a");
-            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . "\r\n");
+            fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $coinCount . ";price:" . $price . "\r\n");
             fclose($handle);
             header("HTTP/1.1 200 OK");
         }

@@ -65,7 +65,7 @@ if ($config['site']['send_emails']) {
 															Recibo de compra<br/>
 															==============================<br/>
 															Nome do cliente: {$payeer_name} <br/>
-															Método de Pagamento: {$pay_method}
+															Método de Pagamento: {$pay_method}<br/>
 															Data do pedido: {$date_now} <br/>
 															Pedido n: {$transaction_code}<br/>
 															Account: {$name} <br/><br/>
