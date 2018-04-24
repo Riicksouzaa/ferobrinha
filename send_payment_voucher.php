@@ -6,15 +6,6 @@
  * Time: 18:58
  */
 
-$doubleStatus = function () use ($SQL) {
-    $q = $SQL->query("SELECT value FROM server_config WHERE config = 'double'")->fetchAll();
-    if ($q[0]['value'] == "active") {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
-};
-
 if ($config['site']['send_emails']) {
     $account = new Account();
     $account->loadByName(strtolower($name));
