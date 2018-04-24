@@ -14,7 +14,7 @@ define('INITIALIZED', TRUE);
 if (!defined('ONLY_PAGE'))
     define('ONLY_PAGE', FALSE);
 
-define(AJAXREQUEST, FALSE);
+define('AJAXREQUEST', FALSE);
 header("cache-control: must_revalidate, public, max-age=3600");
 header("X-Content-Type-Options: nosniff");
 header("X-FRAME-OPTIONS: SAMEORIGIN");

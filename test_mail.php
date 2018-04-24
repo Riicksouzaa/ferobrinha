@@ -21,8 +21,8 @@ $mail = new PHPMailer(TRUE);
 
 try {
     /** Server settings */
-    $mail->SMTPDebug = 0;                                 // Enable verbose debug output
-    //$mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->SMTPDebug = 3;                                 // Enable verbose debug output
+    $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = $config['site']['smtp_host'];           // Specify main and backup SMTP servers
     $mail->SMTPAuth = $config['site']['smtp_auth'];       // Enable SMTP authentication
     $mail->Username = $config['site']['smtp_user'];       // SMTP username
