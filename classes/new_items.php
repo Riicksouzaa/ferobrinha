@@ -8,39 +8,18 @@
 
 class New_items extends ObjectData
 {
-
+    
     private $item;
-
-    /**
-     * @return mixed
-     */
-    private function getItem ()
-    {
-        return $this->item;
-    }
-
-    public function getItemByItemId($id){
-        return $this->getItem()[$id];
-    }
-
-    /**
-     * @param mixed $item
-     */
-    private function setItem ($item)
-    {
-        $this->item = $item;
-    }
+    
     /**
      * New_items constructor.
      * @param $file
      */
     public function __construct ($file)
     {
-        $attr = [];
         $this->loadFromFile($file);
     }
-
-
+    
     /**
      * @param $file
      */
@@ -53,8 +32,8 @@ class New_items extends ObjectData
             $id = [];
             foreach ($items as $key => $item) {
                 $ittem = $item['@attributes'];
+                /** @var array $attr */
                 $attr = $item['attribute'];
-//                $attr = [$item['attribute']];
                 if (count($attr) == 1) {
                     $attr[0] = $item['attribute']['@attributes'];
                     unset($attr['@attributes']);
@@ -66,7 +45,7 @@ class New_items extends ObjectData
                 }
                 $ittem['attr'] = $attr;
                 $id[$ittem['id']] = $ittem;
-                if ($ittem['id'] == null && isset($ittem['fromid'])) {
+                if ($ittem['id'] == NULL && isset($ittem['fromid'])) {
                     for ($ittem['fromid']; $ittem['fromid'] < $ittem['toid']; $ittem['fromid']++) {
                         $ittem['id'] = $ittem['fromid'];
                         $id[$ittem['fromid']] = $ittem;
@@ -79,6 +58,27 @@ class New_items extends ObjectData
             $this->setItem($id);
         }
     }
-
-
+    
+    /**
+     * @param mixed $item
+     */
+    private function setItem ($item)
+    {
+        $this->item = $item;
+    }
+    
+    public function getItemByItemId ($id)
+    {
+        return $this->getItem()[$id];
+    }
+    
+    /**
+     * @return mixed
+     */
+    private function getItem ()
+    {
+        return $this->item;
+    }
+    
+    
 }
