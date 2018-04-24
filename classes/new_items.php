@@ -33,9 +33,7 @@ class New_items extends ObjectData
             foreach ($items as $key => $item) {
                 $ittem = $item['@attributes'];
                 $attr = $item['attribute'];
-//                var_dump(is_array($attr));
                 if (is_array($attr)) {
-                    var_dump($attr);
                     if (count($attr) == 1) {
                         $attr[0] = $item['attribute']['@attributes'];
                         unset($attr['@attributes']);
