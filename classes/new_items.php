@@ -48,11 +48,11 @@ class New_items extends ObjectData
         if (Website::fileExists($file)) {
             $xml = simplexml_load_file($file);
             $json = json_encode($xml);
-            $items = [];
             $items = json_decode($json, TRUE)['item'];
             $id = [];
             foreach ($items as $key => $item) {
                 $ittem = $item['@attributes'];
+                $attr = array();
                 $attr = $item['attribute'];
 //                $attr = [$item['attribute']];
                 if (count($attr) == 1) {
