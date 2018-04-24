@@ -112,21 +112,37 @@ class Mounts
         return $this->mountsbycliid;
     }
     
+    /**
+     * @param $player_id
+     * @return array|bool
+     */
     public function getAllMountsByPlayerId ($player_id)
     {
         $player = new Player();
         $player->loadById($player_id);
-        
+    
         $p = [];
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $var = (10000000 + 2001);
             $var = $var + $i;
-            if ($player->getStorage($var) != NULL) {
-                $p[] = $player->getStorage($var);
+            if ($player->getStorage($var) != null) {
+                $p[$i]['key'] = $var;
+                $p[$i]['storage'] = $player->getStorage($var);
             }
         }
         if ($p != NULL) {
-            var_dump($p);
+            foreach ($p as $storages) {
+                $teste = $this->getMountsByKey($storages['key']);
+                foreach ($teste as $mount) {
+                    if (((1 << (($mount['id'] - 1) % 31)) & $storages['storage'])) {
+                        $top = $this->getMountsById($mount['id']);
+                        $kappa[] = $top;
+                    }
+                }
+            }
+            return $kappa;
+        } else {
+            return false;
         }
     }
     

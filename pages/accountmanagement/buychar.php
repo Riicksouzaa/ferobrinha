@@ -254,7 +254,7 @@ if ($player_id) {
                                                             <font size="1">
                                                             ';
             $main_content .= "<div>";
-            $outfits = $getPlayerOutfitsByPlayerId($player_id);
+            $outfits = $outfits->getPlayerOutfitsByPlayerId($player_id);
             if ($outfits != false) {
                 foreach ($outfits as $value) {
                     $main_content .= "<img src='https://outfits.ferobraglobal.com/animoutfit.php?id={$value['looktype']}&addons={$value['addon']}&head={$player_information->getLookHead()}&body={$player_information->getLookBody()}&legs={$player_information->getLookLegs()}&feet={$player_information->getLookFeet()}&mount=0'>";
@@ -275,7 +275,7 @@ if ($player_id) {
 
             $main_content .= "<div><font size='1'>";
 
-            $mounts = $getPlayerMountsByPlayerId($player_id);
+            $mounts = $mounts->getAllMountsByPlayerId($player_id);
             if ($mounts != false) {
                 foreach ($mounts as $value) {
                     $main_content .= "<img src='https://outfits.ferobraglobal.com/animoutfit.php?id={$value['clientid']}'>";
@@ -373,7 +373,7 @@ if ($player_id) {
             if ($items != null) {
                 $main_content .= "<div class='depot'>";
                 foreach ($items as $item) {
-                    $itemm = $getItemByItemId($item['itemtype']);
+                    $itemm = $getItemByItemId((int)$item['itemtype']);
                     $main_content .= "<div class='depot-item'><img src='./layouts/tibiacom/images/shop/items/{$item["itemtype"]}.png'><br/>Name:" . (isset($itemm['article']) ? $itemm['article'] : '') . " " . $itemm['name'] . "<br/>Qnt:{$item["real_count"]}</div>";
                 }
                 $main_content .= "</div>";
