@@ -9,36 +9,16 @@
 class Outfits
 {
     private $outfits;
-
-    /**
-     * @return mixed
-     */
-    private function getOutfits ()
-    {
-        return $this->outfits;
-    }
-
-    /**
-     * @param mixed $outfits
-     * @return Outfits
-     */
-    private function setOutfits ($outfits)
-    {
-        $this->outfits = $outfits;
-        return $this;
-    }
-
+    
     /**
      * outfits constructor.
      * @param $path
      */
-    public function __construct ($path)
+    public function __construct ()
     {
-        if ($path) {
-            $this->loadFromFile($path);
-        }
+        $this->loadFromFile(Website::getWebsiteConfig()->getValue('Outfits_path'));
     }
-
+    
     public function loadFromFile ($file)
     {
         if (Website::fileExists($file)) {
@@ -55,7 +35,59 @@ class Outfits
             new Error_Critic('#O-1', "<b>ERROR: #O-1:</b> Class::Outfits - Outfit File not exists in {$file}.");
         }
     }
-
+    
+    /**
+     * @param mixed $outfits
+     * @return Outfits
+     */
+    private function setOutfits ($outfits)
+    {
+        $this->outfits = $outfits;
+        return $this;
+    }
+    
+    public function getPlayerOutfitsByPlayerId ($player_id)
+    {
+        $player = new Player();
+        $player->loadById($player_id);
+        $p = [];
+        for ($i = 1; $i <= 500; $i++) {
+            $var = (10000000 + 1000);
+            $var = $var + $i;
+            if ($player->getStorage($var) != NULL) {
+                $p[] = $player->getStorage($var);
+            }
+        }
+        if ($p != NULL) {
+            $t = [];
+            foreach ($p as $key => $value) {
+                $q = $this->getOutfitByLooktype(0, $value >> 16);
+                if ($q != NULL) {
+                    $q['addon'] = $value - $q['storage'];
+                    $t[] = $q;
+                }
+            }
+            foreach ($p as $key => $value) {
+                $q = $this->getOutfitByLooktype(1, $value >> 16);
+                if ($q != NULL) {
+                    $q['addon'] = $value - $q['storage'];
+                    $t[] = $q;
+                }
+            }
+            return $t;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    public function getOutfitByLooktype ($type, $looktype)
+    {
+        $type = (int)$type;
+        $looktype = (int)$looktype;
+        $outfits = $this->getOutfitsByType($type);
+        return $outfits[$looktype];
+    }
+    
     /**
      * @param $type
      * @return mixed
@@ -67,45 +99,12 @@ class Outfits
         $outfits = $this->getOutfits();
         return $outfits[$type];
     }
-
-    public function getOutfitByLooktype ($type, $looktype)
+    
+    /**
+     * @return mixed
+     */
+    private function getOutfits ()
     {
-        $type = (int)$type;
-        $looktype = (int)$looktype;
-        $outfits = $this->getOutfitsByType($type);
-        return $outfits[$looktype];
-    }
-
-    public function getPlayerOutfitsByPlayerId($player_id){
-        $player = new Player();
-        $player->loadById($player_id);
-        $p = [];
-        for ($i = 1; $i <= 500; $i++) {
-            $var = (10000000 + 1000);
-            $var = $var + $i;
-            if ($player->getStorage($var) != null) {
-                $p[] = $player->getStorage($var);
-            }
-        }
-        if ($p != null) {
-            $t = [];
-            foreach ($p as $key => $value) {
-                $q = $this->getOutfitByLooktype(0, $value >> 16);
-                if ($q != null) {
-                    $q['addon'] = $value - $q['storage'];
-                    $t[] = $q;
-                }
-            }
-            foreach ($p as $key => $value) {
-                $q = $this->getOutfitByLooktype(1, $value >> 16);
-                if ($q != null) {
-                    $q['addon'] = $value - $q['storage'];
-                    $t[] = $q;
-                }
-            }
-            return $t;
-        } else {
-            return false;
-        }
+        return $this->outfits;
     }
 }

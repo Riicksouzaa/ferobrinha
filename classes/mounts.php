@@ -11,21 +11,19 @@ class Mounts
     private $mountsbyid;
     private $mountsbycliid;
     private $key;
-
+    
     /**
      * Mounts constructor.
      * @param $path
      */
-    public function __construct ($path)
+    public function __construct ()
     {
-        if ($path) {
-            $this->loadFromFile($path);
-        }
+        $this->loadFromFile(Website::getWebsiteConfig()->getValue('Mounts_path'));
     }
-
+    
     private function loadFromFile ($file)
     {
-
+        
         if (Website::fileExists($file)) {
             $xml = simplexml_load_file($file, "SimpleXMLElement", LIBXML_NOCDATA);
             $json = json_encode($xml);
@@ -53,7 +51,23 @@ class Mounts
             new Error_Critic('#M-1', "<b>ERROR: #M-1:</b> Class::Mounts - Mount File not exists in {$file}.");
         }
     }
-
+    
+    /**
+     * @param mixed $mounts
+     */
+    private function setMountsById ($mounts)
+    {
+        $this->mountsbyid = $mounts;
+    }
+    
+    /**
+     * @param mixed $mountsbycliid
+     */
+    private function setMountsbycliid ($mountsbycliid)
+    {
+        $this->mountsbycliid = $mountsbycliid;
+    }
+    
     /**
      * @return mixed
      */
@@ -63,15 +77,7 @@ class Mounts
         $mounts = $this->key;
         return $mounts[$key];
     }
-
-    /**
-     * @param mixed $mounts
-     */
-    private function setMountsById ($mounts)
-    {
-        $this->mountsbyid = $mounts;
-    }
-
+    
     /**
      * @param $id
      * @return mixed
@@ -82,7 +88,7 @@ class Mounts
         $mounts = $this->getMounts();
         return $mounts[$id];
     }
-
+    
     /**
      * @return mixed
      */
@@ -90,14 +96,14 @@ class Mounts
     {
         return $this->mountsbyid;
     }
-
+    
     public function getMountsByClientId ($client_id)
     {
         $id = (int)$client_id;
         $mounts = $this->getMountsbycliid();
         return $mounts[$id];
     }
-
+    
     /**
      * @return mixed
      */
@@ -105,31 +111,24 @@ class Mounts
     {
         return $this->mountsbycliid;
     }
-
-    /**
-     * @param mixed $mountsbycliid
-     */
-    private function setMountsbycliid ($mountsbycliid)
+    
+    public function getAllMountsByPlayerId ($player_id)
     {
-        $this->mountsbycliid = $mountsbycliid;
-    }
-
-    public function getAllMountsByPlayerId($player_id){
         $player = new Player();
         $player->loadById($player_id);
-
+        
         $p = [];
-        for ($i = 1; $i <= 10; $i++){
+        for ($i = 1; $i <= 10; $i++) {
             $var = (10000000 + 2001);
             $var = $var + $i;
-            if ($player->getStorage($var) != null) {
+            if ($player->getStorage($var) != NULL) {
                 $p[] = $player->getStorage($var);
             }
         }
-        if($p != NULL){
+        if ($p != NULL) {
             var_dump($p);
         }
     }
-
-
+    
+    
 }

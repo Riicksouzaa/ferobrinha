@@ -73,7 +73,7 @@ class Player extends ObjectData
 	}
     public function getDepotItems(){
         $player_id = $this->getID();
-        $depot_items = $this->getDatabaseHandler()->query("SELECT *, sum(count) as real_count FROM player_depotitems where player_id = $player_id group by itemtype ORDER BY player_id ASC ;")->fetchAll();
+        $depot_items = $this->getDatabaseHandler()->query("SELECT *, sum(count) as real_count FROM player_depotitems where player_id = $player_id group by itemtype ORDER BY player_id ASC")->fetchAll();
         return $depot_items;
     }
 

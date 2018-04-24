@@ -13,11 +13,10 @@ class New_items extends ObjectData
     
     /**
      * New_items constructor.
-     * @param $file
      */
-    public function __construct ($file)
+    public function __construct ()
     {
-        $this->loadFromFile($file);
+        $this->loadFromFile(Website::getWebsiteConfig()->getValue('Itens_path'));
     }
     
     /**
