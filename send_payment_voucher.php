@@ -7,10 +7,7 @@
  */
 
 if ($config['site']['send_emails']) {
-    $account = new Account();
-    $account->loadByName(strtolower($name));
-    
-    $payeer_name = (($account->getRLName() == '' || $account->getRLName() == NULL) ? $account->getName() : $account->getRLName());
+    $payeer_name = (($acc->getRLName() == '' || $acc->getRLName() == NULL) ? $acc->getName() : $acc->getRLName());
     $newMailBody = "
 <div marginwidth='0' marginheight='0' style='margin:0;padding:0;height:100%;width:100%;background-color:#f7f7f7'>
     <center>
@@ -68,6 +65,7 @@ if ($config['site']['send_emails']) {
 															Recibo de compra<br/>
 															==============================<br/>
 															Nome do cliente: {$payeer_name} <br/>
+															Método de Pagamento: {$pay_method}
 															Data do pedido: {$date_now} <br/>
 															Pedido n: {$transaction_code}<br/>
 															Account: {$name} <br/><br/>
@@ -150,7 +148,7 @@ if ($config['site']['send_emails']) {
         
         /** Recipients */
         $mail->setFrom($config['site']['smtp_user'], "Contato - " . $config['server']['serverName']);
-        $mail->addAddress($account->getEMail(), $account->getRLName());     // Add a recipient
+        $mail->addAddress($acc->getEMail(), $acc->getRLName());     // Add a recipient
         
         /** Content */
         $mail->isHTML(TRUE);                                  // Set email format to HTML

@@ -133,7 +133,11 @@ try {
             $coins_new = $acc->getPremiumPoints();
             fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $qnt . ";price:" . $price . ";saldo_anterior:" . $coins_old . ";novo_saldo:" . $coins_new . ";tid:" . $tid . "\r\n");
             fclose($handle);
-            
+    
+            $date_now = date('Y-m-d H:i:s');
+            $transaction_code = $_POST['txn_id'];
+            $pay_method = "Paypal";
+            include_once "send_payment_voucher.php";
             // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
             header("HTTP/1.1 200 OK");
         } else {
