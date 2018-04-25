@@ -15,7 +15,7 @@ if(!defined('INITIALIZED'))
     <?php if($_REQUEST['subtopic'] == "worlds"){$ch = (isset($_REQUEST['world']) ? $_REQUEST['world'] : null);}?>
     <?php if($_REQUEST['subtopic'] == "highscores"){$ch = (isset($_REQUEST['profession']) ? $highscores_list[$_REQUEST['list']]." -> ".$vocations_list[$_REQUEST['profession']].($_REQUEST['profession']>0?($_REQUEST['profession']<10?"s":null):null) : "Experience Points -> ALL");}?>
     <?php if($_REQUEST['subtopic'] == "houses"){$ch = (isset($_REQUEST['town']) ? $towns_list[$_REQUEST['town']] : (isset($_REQUEST['show']) ? $_REQUEST['show'] : null));}?>
-    <title><?=$config['server']['serverName'].(isset($_REQUEST['subtopic'])? " -> ".ucfirst($_REQUEST['subtopic']) :'').(isset($_REQUEST['action'])?" -> ".ucfirst($_REQUEST['action']):"").(isset($ch)?" -> ".ucfirst($ch):"")?> -> Free Multiplayer Online Role Playing Game</title>
+    <title><?=$config['server']['serverName'].(isset($_REQUEST['subtopic'])? " - ".ucfirst($_REQUEST['subtopic']) :'').(isset($_REQUEST['action'])?" - ".ucfirst($_REQUEST['action']):"").(isset($ch)?" - ".ucfirst($ch):"")?> - Free Multiplayer Online Role Playing Game</title>
     <meta name="author" content="Ricardo Souza - Codenome">
     <meta http-equiv="content-language" content="pt-br">
     <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog,

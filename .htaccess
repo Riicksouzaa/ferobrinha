@@ -3,7 +3,7 @@ ErrorDocument 404 https://ferobraglobal.com/?subtopic=erro
 #ErrorDocument 500 https://ferobraglobal.com/?subtopic=erro
 
 # Security to css and js files
-<FilesMatch "\.(html|htm|js|css|png|jpeg|jpg|pdf)$">
+<FilesMatch "\.(html|htm|js|css|png|jpeg|jpg|gif|pdf)$">
     FileETag None
     <ifModule mod_headers.c>
 #        Header unset ETag
