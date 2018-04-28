@@ -231,7 +231,7 @@ class Guild extends ObjectData
 			$player->removeGuildInvitations();
 		}
 		else
-			new Error_Critic('', 'There is no rank in guild <b>' . htmlspecialchars($guild->getName()) . '</b>, cannot add player <b>' . htmlspecialchars($player->getName()) . '</b> to guild.');
+			new Error_Critic('', 'There is no rank in guild <b>' . htmlspecialchars($this->getName()) . '</b>, cannot add player <b>' . htmlspecialchars($player->getName()) . '</b> to guild.');
 	}
 	public function find($name){$this->loadByName($name);}
 }
