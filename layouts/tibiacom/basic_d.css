@@ -278,7 +278,7 @@ body {
     right: 24px;
     width: 132px;
     background-repeat: no-repeat;
-    z-index: 5;
+    /*z-index: 5;*/
 }
 
 #RightArtwork #Monster {
@@ -311,6 +311,7 @@ body {
     color: #cfa600;
     border-bottom: 1px solid #010101;
     cursor: pointer;
+    z-index: 50;
 }
 
 /** -------------------------------
