@@ -642,6 +642,81 @@ if(!defined('INITIALIZED'))
                     <div id="Content" class="Content">
                         <div id="ContentHelper">
                             <div id="preload">
+                                <?php
+    
+                                if ( ! session_id() ) @ session_start();
+    
+                                $last = null;
+                                if (!isset($_SESSION)) {
+                                    $_SESSION = [];
+                                }
+    
+                                if (isset($_SESSION['server_status_last_check'])) {
+                                    $last = $_SESSION['server_status_last_check'];
+                                }
+                                if ($last == null || time() > $last + 30) {
+                                    $_SESSION['server_status_last_check'] = time();
+                                    $_SESSION['server_status'] = $config['status']['serverStatus_online'];
+                                }
+    
+    
+                                if($_SESSION['server_status'] == 1){
+                                    $qtd_players_online = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
+                                    if($qtd_players_online["total"] == "1"){
+                                        $players_online = $qtd_players_online["total"].' Player Online';
+                                    }else{
+                                        $players_online = $qtd_players_online["total"].' Players Online';
+                                    }
+                                }
+                                else{
+                                    $players_online = 'Server Offline';
+                                }
+                                ?>
+                                <div id="" class="Box">
+                                    <div class="Corner-tl" style="background-image:url(layouts/tibiacom/images/global/content/corner-tl.gif);"></div>
+                                    <div class="Corner-tr" style="background-image:url(layouts/tibiacom/images/global/content/corner-tr.gif);"></div>
+                                    <div class="Border_1" style="background-image:url(layouts/tibiacom/images/global/content/border-1.gif);"></div>
+                                    <div class="BorderTitleText" style="background-image:url(layouts/tibiacom/images/global/content/newsheadline_background.gif); height: 28px;">
+                                        <div class="InfoBar">
+                                            <!--
+                                            <a class="InfoBarBlock" href="https://www.twitch.tv/directory/game/Tibia" target="_blank">
+                                                <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-twitch.png">
+                                                <span class="InfoBarNumbers"><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
+                                                    <span class="InfoBarSmallElement">89</span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
+                                                    <span class="InfoBarSmallElement">2220</span>
+                                                </span>
+                                            </a>
+                                            <a class="InfoBarBlock" href="https://gaming.youtube.com/game/UCccW6i67_MlXxwqBMh0emYA" target="_blank">
+                                                <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-youtube.png">
+                                                <span class="InfoBarNumbers">
+                                                    <img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
+                                                    <span class="InfoBarSmallElement">17</span>
+                                                    <img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
+                                                    <span class="InfoBarSmallElement">661</span>
+                                                </span>
+                                            </a>
+                                            <a href="http://forum.tibia.com/forum/?action=announcement&amp;announcementid=87&amp;boardid=89516">
+                                                <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-download.png">
+                                                <span class="InfoBarNumbers">
+                                                    <span class="InfoBarSmallElement">Fankit</span>
+                                                </span>
+                                            </a>-->
+                                            <a style="float:right;" href="<?php echo $config['base_url']?>?subtopic=worlds">
+                                                <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
+                                                <span class="InfoBarNumbers">
+                                                    <span class="InfoBarSmallElement"><?php echo $players_online; ?></span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="Border_1" style="background-image:url(layouts/tibiacom/images/global/content/border-1.gif);"></div>
+                                    <div class="CornerWrapper-b">
+                                        <div class="Corner-bl" style="background-image:url(layouts/tibiacom/images/global/content/corner-bl.gif);"></div>
+                                    </div>
+                                    <div class="CornerWrapper-b">
+                                        <div class="Corner-br" style="background-image:url(layouts/tibiacom/images/global/content/corner-br.gif);"></div>
+                                    </div>
+                                </div>
                                 <script type="text/javascript" src="<?php echo $layout_name; ?>/newsticker.js<?php echo $css_version ?>"></script>
                                 <?php echo $news_content; ?>
                                 <div id="NewsArchive" class="Box">
@@ -686,38 +761,8 @@ if(!defined('INITIALIZED'))
                                 <div id="DeactivationContainerThemebox" onclick="DisableDeactivationContainer();"></div>
                                 <div id="RightArtwork">
                                     <img id="Monster" src="<?php echo $layout_name; ?>/images/global/header/monsters/dragonlord.gif" alt="Monster of the Week">
-                                    <img id="PedestalAndOnline" src="<?php echo $layout_name; ?>/images/global/header/pedestal-and-online.gif" alt="Monster Pedestal and Players Online Box">
-                                    <?php
-
-                                    if ( ! session_id() ) @ session_start();
-
-                                    $last = null;
-                                    if (!isset($_SESSION)) {
-                                        $_SESSION = [];
-                                    }
-
-                                    if (isset($_SESSION['server_status_last_check'])) {
-                                        $last = $_SESSION['server_status_last_check'];
-                                    }
-                                    if ($last == null || time() > $last + 30) {
-                                        $_SESSION['server_status_last_check'] = time();
-                                        $_SESSION['server_status'] = $config['status']['serverStatus_online'];
-                                    }
-
-
-                                    if($_SESSION['server_status'] == 1){
-                                        $qtd_players_online = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
-                                        if($qtd_players_online["total"] == "1"){
-                                            $players_online = $qtd_players_online["total"].'<br>Player Online';
-                                        }else{
-                                            $players_online = $qtd_players_online["total"].'<br>Players Online';
-                                        }
-                                    }
-                                    else{
-                                        $players_online = 'Server<br>Offline';
-                                    }
-                                    ?>
-                                    <div id="PlayersOnline" onclick="window.location = '?subtopic=worlds';"><?php echo $players_online; ?></div>
+                                    <img id="Pedestal" src="<?php echo $layout_name; ?>/images/global/header/pedestal.png" alt="Monster Pedestal">
+                                    <!--<div id="PlayersOnline" onclick="window.location = '?subtopic=worlds';"><?php echo $players_online; ?></div>-->
                                 </div>
                                 <div id="Themeboxes">
                                     <?php include_once "widget_rank.php"?>

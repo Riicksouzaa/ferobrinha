@@ -278,16 +278,15 @@ body {
     right: 24px;
     width: 132px;
     background-repeat: no-repeat;
-    /*z-index: 5;*/
 }
 
 #RightArtwork #Monster {
     position: absolute;
     height: 80px;
     width: 80px;
-    top: -137px;
-    left: 7px;
-    z-index: 15;
+    top: -97px;
+    left: 15px;
+    z-index: 106;
     cursor: pointer;
 }
 
@@ -297,6 +296,14 @@ body {
     top: -105px;
     width: 153px;
     height: 107px;
+}
+#Pedestal {
+    position: absolute;
+    left: -4px;
+    top: -66px;
+    width: 153px;
+    height: 69px;
+    z-index: 105;
 }
 
 #RightArtwork #PlayersOnline {
@@ -3557,3 +3564,43 @@ table.fixed td {
 #buycharButton:hover{
     opacity: 1;
 }
+
+/* -------- */
+/* Info Bar */
+/* -------- */
+
+.InfoBar {
+    position: relative;
+    height: 28px;
+    top: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 10px;
+    color: white;
+    font-family: Verdana, Arial, Times New Roman, sans-serif;
+    z-index: 151;
+}
+.InfoBarBlock {
+    margin-right: 15px;
+}
+.InfoBarBigLogo {
+    margin-bottom: 0px;
+}
+.InfoBarSmallElement {
+    margin-left: 5px;
+}
+.InfoBarNumbers {
+    top: -4px;
+    position: relative;
+}
+.InfoBar a {
+    font-family: Verdana, Arial, Times New Roman, sans-serif;
+    font-size: 7pt;
+    font-weight: normal;
+    color: white;
+}
+.InfoBar a:link    { color: white; font-weight: normal; text-decoration: none; }
+.InfoBar a:visited { color: white; font-weight: normal; text-decoration: none; }
+.InfoBar a:focus   { color: white; font-weight: normal; text-decoration: none; }
+.InfoBar a:active  { color: white; font-weight: normal; text-decoration: underline; }
+.InfoBar a:hover   { color: white; font-weight: normal; text-decoration: underline; }
