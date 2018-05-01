@@ -658,26 +658,29 @@ if(!defined('INITIALIZED'))
                                     $_SESSION['server_status_last_check'] = time();
                                     $_SESSION['server_status'] = $config['status']['serverStatus_online'];
                                 }
-    
+                                
+                                $infobar = Website::getWebsiteConfig()->getValue('info_bar_active');
     
                                 if($_SESSION['server_status'] == 1){
                                     $qtd_players_online = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
                                     if($qtd_players_online["total"] == "1"){
-                                        $players_online = $qtd_players_online["total"].' Player Online';
+                                        $players_online = ($infobar ? $qtd_players_online["total"].' Player Online' : $qtd_players_online["total"].'<br/>Player Online');
                                     }else{
-                                        $players_online = $qtd_players_online["total"].' Players Online';
+                                        $players_online = ($infobar ? $qtd_players_online["total"].' Players Online' : $qtd_players_online["total"].'<br/>Players Online');
                                     }
                                 }
                                 else{
-                                    $players_online = 'Server Offline';
+                                    $players_online = ($infobar ? 'Server Offline' : 'Server<br/>Offline');
                                 }
                                 ?>
+                                <?php if(Website::getWebsiteConfig()->getValue('info_bar_active')){?>
                                 <div id="" class="Box">
                                     <div class="Corner-tl" style="background-image:url(layouts/tibiacom/images/global/content/corner-tl.gif);"></div>
                                     <div class="Corner-tr" style="background-image:url(layouts/tibiacom/images/global/content/corner-tr.gif);"></div>
                                     <div class="Border_1" style="background-image:url(layouts/tibiacom/images/global/content/border-1.gif);"></div>
                                     <div class="BorderTitleText" style="background-image:url(layouts/tibiacom/images/global/content/newsheadline_background.gif); height: 28px;">
                                         <div class="InfoBar">
+                                            <?php if(Website::getWebsiteConfig()->getValue('info_bar_twitch')){?>
                                             <a class="InfoBarBlock" href="https://www.twitch.tv/directory/game/Tibia" target="_blank">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-twitch.png">
                                                 <span class="InfoBarNumbers"><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
@@ -685,6 +688,8 @@ if(!defined('INITIALIZED'))
                                                     <span class="InfoBarSmallElement"><?= $twitch_c?></span>
                                                 </span>
                                             </a>
+                                            <?php }?>
+                                            <?php if(Website::getWebsiteConfig()->getValue('info_bar_youtube')){?>
                                             <a class="InfoBarBlock" href="https://gaming.youtube.com/game/UCccW6i67_MlXxwqBMh0emYA" target="_blank">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-youtube.png">
                                                 <span class="InfoBarNumbers">
@@ -694,18 +699,23 @@ if(!defined('INITIALIZED'))
                                                     <span class="InfoBarSmallElement">661</span>
                                                 </span>
                                             </a>
+                                            <?php }?>
+                                            <?php if(Website::getWebsiteConfig()->getValue('info_bar_forum')){?>
                                             <a href="http://forum.tibia.com/forum/?action=announcement&amp;announcementid=87&amp;boardid=89516">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-download.png">
                                                 <span class="InfoBarNumbers">
                                                     <span class="InfoBarSmallElement">Fankit</span>
                                                 </span>
                                             </a>
+                                            <?php }?>
+                                            <?php if(Website::getWebsiteConfig()->getValue('info_bar_online')){?>
                                             <a style="float: right" href="<?php echo $config['base_url']?>?subtopic=worlds">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
                                                 <span class="InfoBarNumbers">
                                                     <span class="InfoBarSmallElement"><?php echo $players_online; ?></span>
                                                 </span>
                                             </a>
+                                            <?php }?>
                                         </div>
                                     </div>
                                     <div class="Border_1" style="background-image:url(layouts/tibiacom/images/global/content/border-1.gif);"></div>
@@ -716,6 +726,7 @@ if(!defined('INITIALIZED'))
                                         <div class="Corner-br" style="background-image:url(layouts/tibiacom/images/global/content/corner-br.gif);"></div>
                                     </div>
                                 </div>
+                                <?php }?>
                                 <script type="text/javascript" src="<?php echo $layout_name; ?>/newsticker.js<?php echo $css_version ?>"></script>
                                 <?php echo $news_content; ?>
                                 <div id="NewsArchive" class="Box">
@@ -758,11 +769,19 @@ if(!defined('INITIALIZED'))
                             </div>
                             <div id="ThemeboxesColumn">
                                 <div id="DeactivationContainerThemebox" onclick="DisableDeactivationContainer();"></div>
+                                <?php if(Website::getWebsiteConfig()->getValue('info_bar_active')){?>
                                 <div id="RightArtwork">
                                     <img id="Monster" src="<?php echo $layout_name; ?>/images/global/header/monsters/dragonlord.gif" alt="Monster of the Week">
                                     <img id="Pedestal" src="<?php echo $layout_name; ?>/images/global/header/pedestal.png" alt="Monster Pedestal">
                                     <!--<div id="PlayersOnline" onclick="window.location = '?subtopic=worlds';"><?php echo $players_online; ?></div>-->
                                 </div>
+                                <?php } else {?>
+                                    <div id="RightArtwork">
+                                        <img id="MonsterAndOnline" src="<?php echo $layout_name; ?>/images/global/header/monsters/dragonlord.gif" alt="Monster of the Week">
+                                        <img id="PedestalAndOnline" style="" src="<?php echo $layout_name; ?>/images/global/header/pedestal-and-online.gif" alt="Monster Pedestal and Online">
+                                        <div id="PlayersOnline" onclick="window.location = '?subtopic=worlds';"><?php echo $players_online; ?></div>
+                                    </div>
+                                <?php }?>
                                 <div id="Themeboxes">
                                     <?php include_once "widget_rank.php"?>
                                     <?php

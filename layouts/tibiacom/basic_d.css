@@ -290,6 +290,16 @@ body {
     cursor: pointer;
 }
 
+#RightArtwork #MonsterAndOnline {
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    top: -136px;
+    left: 9px;
+    z-index: 106;
+    cursor: pointer;
+}
+
 #PedestalAndOnline {
     position: absolute;
     left: -10px;
