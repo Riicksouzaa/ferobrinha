@@ -3603,4 +3603,5 @@ table.fixed td {
 .InfoBar a:visited { color: white; font-weight: normal; text-decoration: none; }
 .InfoBar a:focus   { color: white; font-weight: normal; text-decoration: none; }
 .InfoBar a:active  { color: white; font-weight: normal; text-decoration: underline; }
-.InfoBar a:hover   { color: white; font-weight: normal; text-decoration: underline; }
+.InfoBar a:hover   { color: white; font-weight: normal; text-decoration: none; }
+.InfoBar a:hover span{ color: white; font-weight: normal; text-decoration: underline; }

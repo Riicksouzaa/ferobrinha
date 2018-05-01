@@ -678,7 +678,6 @@ if(!defined('INITIALIZED'))
                                     <div class="Border_1" style="background-image:url(layouts/tibiacom/images/global/content/border-1.gif);"></div>
                                     <div class="BorderTitleText" style="background-image:url(layouts/tibiacom/images/global/content/newsheadline_background.gif); height: 28px;">
                                         <div class="InfoBar">
-                                            <!--
                                             <a class="InfoBarBlock" href="https://www.twitch.tv/directory/game/Tibia" target="_blank">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-twitch.png">
                                                 <span class="InfoBarNumbers"><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
@@ -700,13 +699,15 @@ if(!defined('INITIALIZED'))
                                                 <span class="InfoBarNumbers">
                                                     <span class="InfoBarSmallElement">Fankit</span>
                                                 </span>
-                                            </a>-->
-                                            <a style="float:right;" href="<?php echo $config['base_url']?>?subtopic=worlds">
-                                                <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
-                                                <span class="InfoBarNumbers">
-                                                    <span class="InfoBarSmallElement"><?php echo $players_online; ?></span>
-                                                </span>
                                             </a>
+                                            <div style="float:right;">
+                                                <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
+                                                <a href="<?php echo $config['base_url']?>?subtopic=worlds">
+                                                    <span class="InfoBarNumbers">
+                                                        <span class="InfoBarSmallElement"><?php echo $players_online; ?></span>
+                                                    </span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="Border_1" style="background-image:url(layouts/tibiacom/images/global/content/border-1.gif);"></div>
