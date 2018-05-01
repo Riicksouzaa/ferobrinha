@@ -3604,4 +3604,4 @@ table.fixed td {
 .InfoBar a:focus   { color: white; font-weight: normal; text-decoration: none; }
 .InfoBar a:active  { color: white; font-weight: normal; text-decoration: underline; }
 .InfoBar a:hover   { color: white; font-weight: normal; text-decoration: none; }
-.InfoBar a:hover span{ color: white; font-weight: normal; text-decoration: underline; }
+.InfoBar a:hover span span{ color: white; font-weight: normal; text-decoration: underline; }

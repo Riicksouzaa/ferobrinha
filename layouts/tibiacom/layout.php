@@ -700,14 +700,12 @@ if(!defined('INITIALIZED'))
                                                     <span class="InfoBarSmallElement">Fankit</span>
                                                 </span>
                                             </a>
-                                            <div style="float:right;">
+                                            <a style="float: right" href="<?php echo $config['base_url']?>?subtopic=worlds">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
-                                                <a href="<?php echo $config['base_url']?>?subtopic=worlds">
-                                                    <span class="InfoBarNumbers">
-                                                        <span class="InfoBarSmallElement"><?php echo $players_online; ?></span>
-                                                    </span>
-                                                </a>
-                                            </div>
+                                                <span class="InfoBarNumbers">
+                                                    <span class="InfoBarSmallElement"><?php echo $players_online; ?></span>
+                                                </span>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="Border_1" style="background-image:url(layouts/tibiacom/images/global/content/border-1.gif);"></div>
