@@ -681,8 +681,8 @@ if(!defined('INITIALIZED'))
                                             <a class="InfoBarBlock" href="https://www.twitch.tv/directory/game/Tibia" target="_blank">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-twitch.png">
                                                 <span class="InfoBarNumbers"><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
-                                                    <span class="InfoBarSmallElement">89</span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
-                                                    <span class="InfoBarSmallElement">2220</span>
+                                                    <span class="InfoBarSmallElement"><?= $twitch_a?></span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
+                                                    <span class="InfoBarSmallElement"><?= $twitch_c?></span>
                                                 </span>
                                             </a>
                                             <a class="InfoBarBlock" href="https://gaming.youtube.com/game/UCccW6i67_MlXxwqBMh0emYA" target="_blank">
