@@ -1,6 +1,82 @@
-$(document).ready(function(){
+$(document).ready(function() {
+    // change submit event for forms using the reCaptcha
+    // display the trigger the invisible Google reCaptcha instead of submitting the form
+    $('#CreateAccountAndCharacterForm, #CreateCharacterForm').submit(function( event ) {
+        $("#CreateAccountAndCharacterForm, #CreateCharacterForm").unbind("submit");
+        grecaptcha.execute();
+        event.preventDefault();
+    });
+
+    // ???
     $("tr[id^='applicationtext-']").hide();
+
+    // initialize anniversary count down
+    var g_Now = Math.floor(new Date().getTime() / 1000);
+    if (g_Now < 1483779600 && g_Now > 1482138000) {
+        // do not display after 10:00:00 07.01.2017 (CET) (1483779600)
+        // do not display before 10:00:00 19.12.2016 (CET) (1482138000)
+        var g_AnniversaryDate = new Date(2017, 00, 07, 10, 00, 00); // careful! January hat the number "0"
+        InitializeFancyAnniversaryCountDown(g_AnniversaryDate);
+    }
 });
+
+//define a call back function for the Google reCaptcha verification
+//when the reCaptcha was successfully the form will get submitted immediatelly
+function ReCaptchaCallback(a_Response)
+{
+    if (a_Response.length > 0) {
+        if ($('#CreateAccountAndCharacterForm').html() != null) {
+            $('#CreateAccountAndCharacterForm input[name=g-recaptcha-response]').val(a_Response);
+            document.forms.CreateAccountAndCharacter.submit();
+        } else {
+            $('#CreateCharacterForm input[name=g-recaptcha-response]').val(a_Response);
+            document.forms.CreateCharacterForm.submit();
+        }
+    }
+}
+
+
+// Set the correct selected method to invite new players to Tibia.
+//
+// @param a_Selection active selection
+function UpdateTellAFriendInviteOptions(a_Selection)
+{
+    if (a_Selection == 0) {
+        // share by link
+        $('#TAF_Link').slideDown('slow');
+        $('#TAF_Email').slideUp('slow');
+        $('#TAF_Facebook').slideUp('slow');
+        $('#TAF_Option_Link').addClass('TAF_ActiveSelection');
+        $('#TAF_Option_Email').removeClass('TAF_ActiveSelection');
+        $('#TAF_Option_Facebook').removeClass('TAF_ActiveSelection');
+        $('#TAF_Option_Link .TAF_Option_GoldBorder').css('visibility', 'visible');
+        $('#TAF_Option_Email .TAF_Option_GoldBorder').css('visibility', 'hidden');
+        $('#TAF_Option_Facebook .TAF_Option_GoldBorder').css('visibility', 'hidden');
+    } else if (a_Selection == 1) {
+        // share by email
+        $('#TAF_Link').slideUp('#TAF_Link');
+        $('#TAF_Email').slideDown('#TAF_Link');
+        $('#TAF_Facebook').slideUp('#TAF_Link');
+        $('#TAF_Option_Link').removeClass('TAF_ActiveSelection');
+        $('#TAF_Option_Email').addClass('TAF_ActiveSelection');
+        $('#TAF_Option_Facebook').removeClass('TAF_ActiveSelection');
+        $('#TAF_Option_Link .TAF_Option_GoldBorder').css('visibility', 'hidden');
+        $('#TAF_Option_Email .TAF_Option_GoldBorder').css('visibility', 'visible');
+        $('#TAF_Option_Facebook .TAF_Option_GoldBorder').css('visibility', 'hidden');
+    } else {
+        // share by facebook
+        $('#TAF_Link').slideUp('#TAF_Link');
+        $('#TAF_Email').slideUp('#TAF_Link');
+        $('#TAF_Facebook').slideDown('#TAF_Link');
+        $('#TAF_Option_Link').removeClass('TAF_ActiveSelection');
+        $('#TAF_Option_Email').removeClass('TAF_ActiveSelection');
+        $('#TAF_Option_Facebook').addClass('TAF_ActiveSelection');
+        $('#TAF_Option_Link .TAF_Option_GoldBorder').css('visibility', 'hidden');
+        $('#TAF_Option_Email .TAF_Option_GoldBorder').css('visibility', 'hidden');
+        $('#TAF_Option_Facebook .TAF_Option_GoldBorder').css('visibility', 'visible');
+    }
+}
+
 
 //
 //
@@ -139,6 +215,7 @@ function AddEventHandler(Element, EventHandlerName, Function)
     }
 }
 
+
 var g_ActiveCharacter = 0;
 
 function FocusCharacter(a_CharacterNumber, a_CharacterName, a_NumberOfCharacters)
@@ -152,17 +229,15 @@ function FocusCharacter(a_CharacterNumber, a_CharacterName, a_NumberOfCharacters
     // reset other row lines
     for (var i = 1; i <= a_NumberOfCharacters; i++) {
         if (i != a_CharacterNumber && document.getElementById('CharacterRow_' + i) != null) {
-            document.getElementById('PlayButtonOf_' + i).style.display = 'none';
-            document.getElementById('CharacterNumberOf_' + i).style.display = 'inline';
             document.getElementById('CharacterRow_' + i).style.fontWeight = 'normal';
+            document.getElementById('CharacterRow_' + i).style.cursor = 'pointer';
             document.getElementById('CharacterOptionsOf_' + i).style.display = 'none';
             document.getElementById('CharacterNameOf_' + i).style.fontSize = '10pt';
         }
     }
     // set the new selected line
-    document.getElementById('PlayButtonOf_' + a_CharacterNumber).style.display = 'block';
-    document.getElementById('CharacterNumberOf_' + a_CharacterNumber).style.display = 'none';
     document.getElementById('CharacterRow_' + a_CharacterNumber).style.fontWeight = 'bold';
+    document.getElementById('CharacterRow_' + a_CharacterNumber).style.cursor = 'auto';
     document.getElementById('CharacterOptionsOf_' + a_CharacterNumber).style.display = 'block';
     document.getElementById('CharacterNameOf_' + a_CharacterNumber).style.fontSize = '13pt';
     document.getElementsByName('selectedcharacter')[0].value = document.getElementById('CharacterNameOf_' + a_CharacterNumber).innerHTML;
@@ -252,7 +327,7 @@ function BuildHelperDivLink(a_DivID, a_IndicatorDivContent, a_Title, a_Text, a_S
     return l_Qutput;
 }
 
-// displays a helper div at the current mouse position
+// displays a helper div at the current mause position
 function ActivateHelperDiv(a_Object, a_Title, a_Text, a_HelperDivPositionID)
 {
     // initialize variables
@@ -269,11 +344,11 @@ function ActivateHelperDiv(a_Object, a_Title, a_Text, a_HelperDivPositionID)
         l_Left = $('#' + a_HelperDivPositionID).offset().left;
         l_Top = $('#' + a_HelperDivPositionID).offset().top;
     } else {
-        l_Left = (a_Object.offset().left + a_Object.width());
+        l_Left = (a_Object.offset().left + a_Object.parent().width());
         l_Top = a_Object.offset().top;
     }
     // get new tool tip height
-    var l_ToolTipHeight = $('#HelperDivContainer').outerHeight();
+    var l_ToolTipHeight = $('#HelperDivContainer').outerHeight(true);
     // check if the tool tip fits in the browser window
     if ((l_Top - l_ScrollTop + l_ToolTipHeight) > l_WindowHeight) {
         var l_TopBefore = l_Top;
@@ -283,7 +358,7 @@ function ActivateHelperDiv(a_Object, a_Title, a_Text, a_HelperDivPositionID)
         }
         $('.HelperDivArrow').css('top', (l_TopBefore - l_Top));
     } else {
-        //console.log('# FIT#');
+        // console.log('# FIT#');
         $('.HelperDivArrow').css('top', -1);
     }
     // set position and display the tool tip
@@ -296,7 +371,7 @@ function ActivateHelperDiv(a_Object, a_Title, a_Text, a_HelperDivPositionID)
 function CollapseTable(a_ID)
 {
     $('#' + a_ID).slideToggle('slow');
-    //console.log($('#Indicator_' + a_ID).attr('class'));
+    console.log($('#Indicator_' + a_ID).attr('class'));
     if ($('#Indicator_' + a_ID).attr('class') == 'CircleSymbolPlus') {
         $('#Indicator_' + a_ID).css('background-image', 'url(' + JS_DIR_IMAGES + 'global/content/circle-symbol-minus.gif)');
         $('#Indicator_' + a_ID).attr('class', 'CircleSymbolMinus');
@@ -316,4 +391,97 @@ function ToggleApplicationText(a_ID) {
         $('#applicationcircle-' + a_ID).css('background-image', 'url(' + JS_DIR_IMAGES + 'global/content/circle-symbol-plus.gif)');
         $('#applicationcircle-' + a_ID).attr('class', 'CircleSymbolPlus');
     }
+}
+
+function SetMinimumLayout() {
+    $("#ArtworkHelper1").hide();
+    $("#MenuColumn").hide();
+    $("#ThemeboxesColumn").hide();
+    $("#ContentColumn").css("margin", "0px");
+    $("#MainHelper2").css("margin-left", "0px");
+    $("#MainHelper2").css("padding-top", "0px");
+    $("#MainHelper2").css("height", "0px");
+    $("#DeactivationContainer").css("height", "auto");
+    $("#MainHelper1").css("min-width", "auto");
+    $("#Bodycontainer").css("min-width", "auto");
+    $("#Bodycontainer").css("max-width", "auto");
+    $("#Bodycontainer").css("height", "0px");
+    $("#Footer").hide();
+    $("#webshop").css("width", "560px");
+    $("#webshop").css("margin", "17px");
+    $("body").css("background-color", "#fff2db");
+}
+
+/* ---------------------- */
+/* anniversary count down */
+/* ---------------------- */
+
+//preload images
+var g_ImageObject = new Object();
+g_ImageObject[0] = new Image();
+g_ImageObject[1] = new Image();
+g_ImageObject[2] = new Image();
+g_ImageObject[3] = new Image();
+g_ImageObject[4] = new Image();
+g_ImageObject[5] = new Image();
+g_ImageObject[6] = new Image();
+g_ImageObject[7] = new Image();
+g_ImageObject[8] = new Image();
+g_ImageObject[9] = new Image();
+g_ImageObject[0].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-0.png';
+g_ImageObject[1].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-1.png';
+g_ImageObject[2].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-2.png';
+g_ImageObject[3].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-3.png';
+g_ImageObject[4].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-4.png';
+g_ImageObject[5].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-5.png';
+g_ImageObject[6].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-6.png';
+g_ImageObject[7].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-7.png';
+g_ImageObject[8].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-8.png';
+g_ImageObject[9].src = JS_DIR_IMAGES + 'global/themeboxes/anniversary/number-9.png';
+
+// calculate remaining time for the anniversary countdown
+function getTimeRemaining(a_EndTime) {
+    var l_TimeStamp = Date.parse(a_EndTime) - Date.parse(new Date());
+    var l_Days = Math.floor(l_TimeStamp / (1000 * 60 * 60 * 24));
+    var l_Hours = Math.floor((l_TimeStamp / (1000 * 60 * 60)) % 24);
+    var l_Minutes = Math.floor((l_TimeStamp / 1000 / 60) % 60);
+    var l_Seconds = Math.floor((l_TimeStamp / 1000) % 60);
+    return {
+        'total': l_TimeStamp,
+        'days': l_Days,
+        'hours': l_Hours,
+        'minutes': l_Minutes,
+        'seconds': l_Seconds
+    };
+}
+
+//initialize the clock for the anniversary countdown
+function InitializeFancyAnniversaryCountDown(a_EndTime)
+{
+    var l_DaysFirst = $('.FancyAnniversaryCountDown .DaysFirst');
+    var l_DaysLast = $('.FancyAnniversaryCountDown .DaysLast');
+    var l_HoursFirst = $('.FancyAnniversaryCountDown .HoursFirst');
+    var l_HoursLast = $('.FancyAnniversaryCountDown .HoursLast');
+    var l_MinutesFirst = $('.FancyAnniversaryCountDown .MinutesFirst');
+    var l_MinutesLast = $('.FancyAnniversaryCountDown .MinutesLast');
+    var l_SecondsFirst = $('.FancyAnniversaryCountDown .SecondsFirst');
+    var l_SecondsLast = $('.FancyAnniversaryCountDown .SecondsLast');
+
+    function UpdateFancyClock() {
+        var l_TimeRemaining = getTimeRemaining(a_EndTime);
+        l_DaysFirst.css('background-image', 'url(' + g_ImageObject[('0' + l_TimeRemaining.days).slice(-2, -1)].src + ')');
+        l_DaysLast.css('background-image', 'url(' + g_ImageObject[('0' + l_TimeRemaining.days).slice(-1)].src + ')');
+        l_HoursFirst.css('background-image', 'url(' + g_ImageObject[('0' + l_TimeRemaining.hours).slice(-2, -1)].src + ')');
+        l_HoursLast.css('background-image', 'url(' + g_ImageObject[('0' + l_TimeRemaining.hours).slice(-1)].src + ')');
+        l_MinutesFirst.css('background-image', 'url(' + g_ImageObject[('0' + l_TimeRemaining.minutes).slice(-2, -1)].src + ')');
+        l_MinutesLast.css('background-image', 'url(' + g_ImageObject[('0' + l_TimeRemaining.minutes).slice(-1)].src + ')');
+        l_SecondsFirst.css('background-image', 'url(' + g_ImageObject[('0' + l_TimeRemaining.seconds).slice(-2, -1)].src + ')');
+        l_SecondsLast.css('background-image', 'url(' + g_ImageObject[('0' + l_TimeRemaining.seconds).slice(-1)].src + ')');
+        if (l_TimeRemaining.total <= 0) {
+            clearInterval(l_IntervalTime);
+        }
+    }
+
+    UpdateFancyClock();
+    var l_IntervalTime = setInterval(UpdateFancyClock, 1000);
 }

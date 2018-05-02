@@ -237,9 +237,10 @@ body {
  *  HEADER AREA
  *  -------------------------------
  */
-.hidden{
+.hidden {
     display: none;
 }
+
 #LeftArtwork {
     position: absolute;
     height: 140px;
@@ -307,6 +308,7 @@ body {
     width: 153px;
     height: 107px;
 }
+
 #Pedestal {
     position: absolute;
     left: -4px;
@@ -3559,19 +3561,19 @@ table.fixed td {
     word-wrap: break-word;
 }
 
-#supportButton{
+#supportButton {
     opacity: 0.8;
 }
 
-#buycharButton{
+#buycharButton {
     opacity: 0.8;
 }
 
-#supportButton:hover{
+#supportButton:hover {
     opacity: 1;
 }
 
-#buycharButton:hover{
+#buycharButton:hover {
     opacity: 1;
 }
 
@@ -3590,28 +3592,68 @@ table.fixed td {
     font-family: Verdana, Arial, Times New Roman, sans-serif;
     z-index: 151;
 }
+
 .InfoBarBlock {
     margin-right: 15px;
 }
+
 .InfoBarBigLogo {
     margin-bottom: 0px;
 }
+
 .InfoBarSmallElement {
     margin-left: 5px;
 }
+
 .InfoBarNumbers {
     top: -4px;
     position: relative;
 }
+
 .InfoBar a {
     font-family: Verdana, Arial, Times New Roman, sans-serif;
     font-size: 7pt;
     font-weight: normal;
     color: white;
 }
-.InfoBar a:link    { color: white; font-weight: normal; text-decoration: none; }
-.InfoBar a:visited { color: white; font-weight: normal; text-decoration: none; }
-.InfoBar a:focus   { color: white; font-weight: normal; text-decoration: none; }
-.InfoBar a:active  { color: white; font-weight: normal; text-decoration: underline; }
-.InfoBar a:hover   { color: white; font-weight: normal; text-decoration: none; }
-.InfoBar a:hover span span{ color: white; font-weight: normal; text-decoration: underline; }
+
+.InfoBar a:link {
+    color: white;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.InfoBar a:visited {
+    color: white;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.InfoBar a:focus {
+    color: white;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.InfoBar a:active {
+    color: white;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+.InfoBar a:hover {
+    color: white;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.InfoBar a:hover span span {
+    color: white;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+.bank_link {
+    margin-top: 25px;
+    text-align: center;
+}

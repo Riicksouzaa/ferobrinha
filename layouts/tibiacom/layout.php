@@ -95,7 +95,6 @@ if(!defined('INITIALIZED'))
     if($_REQUEST['subtopic'] == "createaccount")
         echo '<script src="'.$layout_name.'/create_character.js'.$css_version.'"></script>';
     ?>
-    <script src="<?php echo $layout_name; ?>/generic.js<?php echo $css_version;?>"></script>
     <script>
         iziToast.settings({
             icon:'material-icons',
@@ -137,6 +136,7 @@ if(!defined('INITIALIZED'))
             g_FlashClientInPopUp = false;
         }
     </script>
+    <script src="<?php echo $layout_name; ?>/generic.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/initialize.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/swfobject.js<?php echo $css_version;?>" ></script>
     <?php if($_REQUEST['subtopic'] == "accountmanagement") { ?>
@@ -674,7 +674,7 @@ if(!defined('INITIALIZED'))
                                 }
                                 ?>
                                 <?php if(Website::getWebsiteConfig()->getValue('info_bar_active')){?>
-                                <div id="" class="Box">
+                                <div id="PlayersOnline" class="Box">
                                     <div class="Corner-tl" style="background-image:url(layouts/tibiacom/images/global/content/corner-tl.gif);"></div>
                                     <div class="Corner-tr" style="background-image:url(layouts/tibiacom/images/global/content/corner-tr.gif);"></div>
                                     <div class="Border_1" style="background-image:url(layouts/tibiacom/images/global/content/border-1.gif);"></div>
