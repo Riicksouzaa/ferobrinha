@@ -72,6 +72,7 @@ $main_content .= '
     <div class="CenterButton">
         <form id="picpayform" action="./?subtopic=accountmanagement&action=process_picpay_payment" method="post">
             <input type="hidden" value="picpay" name="pic"/>
+            <input type="hidden" name="pid" value="' . $payment_data["storage_OrderServiceData"]["ServiceID"] . '">
             <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
                 <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
                     <div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);"></div>
