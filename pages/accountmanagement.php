@@ -4460,7 +4460,7 @@ else {
 											<tr bgcolor="' . $config['site']['darkborder'] . '">
 												<td>' . date("M d Y, H:i:s", $payments['date']) . '</td>
 												<td>' . $payments['method'] . '</td>
-												<td>R$ ' . $payments['price'] . '</td>
+												<td>R$ ' . number_format($payments['price'],'2', ',', '.') . '</td>
 												<td>' . $payments['status'] . '</td>
 												<td>' . (($payments['status'] == "confirm") ? '[<a style="white-space: nowrap" href="?subtopic=accountmanagement&action=confirmdonate&orderID=' . $payments['id'] . '" >Confirm</a>]<br/>' : '') . '</td>';
                     $main_content .= '
@@ -5568,6 +5568,13 @@ else {
 //    if ($action == "donate_old") {
 //        include 'accountmanagement/donate.php';
 //    }
+        /** Process payment */
+        if($action == 'process_transfer_payment'){
+            include 'accountmanagement/payment_methods/transfer.php';
+        }
+        if($action == 'process_picpay_payment'){
+            include 'accountmanagement/payment_methods/picpay.php';
+        }
         
         /** new donate by ricardo souza*/
         if ($action == "donate") {
@@ -5578,5 +5585,4 @@ else {
             include 'accountmanagement/showtickets.php';
         }
     }
-    
 }
