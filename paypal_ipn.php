@@ -92,7 +92,8 @@ $updatepaypal = function ($payment_status, $txn_id) use ($SQL) {
  * @param $txn_id
  */
 $insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL) {
-    $SQL->query("INSERT INTO paypal_transactions (payment_status, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status','$payer_email','$payer_id','$item_number1','$mc_gross','$mc_currency','$txn_id')")->fetchAll();
+    $date_now = date('Y-m-d H:i:s');
+    $SQL->query("INSERT INTO paypal_transactions (payment_status, date, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status', '$date' , '$payer_email','$payer_id','$item_number1','$mc_gross','$mc_currency','$txn_id')")->fetchAll();
 };
 
 $log_post = function () {
