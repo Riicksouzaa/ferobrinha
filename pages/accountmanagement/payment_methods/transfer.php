@@ -14,6 +14,9 @@ if ($_POST['bank']) {
         $coinCount = array_values($config['donate']['offers'][intval($product_id)])[0];
         $insert = $SQL->prepare("INSERT INTO z_shop_donates (date, reference, account_name, method, price, points, status) VALUES (:date, :reference, :account_name, :method, :price, :points, :status)");
         $insert->execute(['date' => $now, 'reference' => $account_logged->getName() . '-' . $_POST['bank'], 'account_name' => $account_logged->getName(), 'method' => $_POST['method'], 'price' => ($price / 100), 'points' => $coinCount, 'status' => 'Pending']);
+        
+        var_dump($insert->errorInfo());
+        
         $_SESSION['dnt_bank'] = TRUE;
         $_SESSION['dnt_bank_tries'] = 0;
         $data = [
@@ -62,7 +65,7 @@ $("#' . $contas['bank'] . 'form").submit(function() {
                     message: "Loading",
                     position:"topRight",
                     zindex: 99999,
-                    timeout: 2500,
+                    timeout: 2500
                 })
             },
             success: function(response) {
