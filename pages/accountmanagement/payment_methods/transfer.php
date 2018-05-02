@@ -15,7 +15,7 @@ if ($_POST['bank']) {
         $insert = $SQL->prepare("INSERT INTO z_shop_donates (date, reference, account_name, method, price, points, status) VALUES (:date, :reference, :account_name, :method, :price, :points, :status)");
         $insert->execute(['date' => $now, 'reference' => $account_logged->getName() . '-' . $_POST['bank'], 'account_name' => $account_logged->getName(), 'method' => $_POST['method'], 'price' => ($price / 100), 'points' => $coinCount, 'status' => 'Pending']);
         
-        print_r($insert->errorInfo());
+        echo $insert->errorInfo();
         
         $_SESSION['dnt_bank'] = TRUE;
         $_SESSION['dnt_bank_tries'] = 0;
