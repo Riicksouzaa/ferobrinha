@@ -61,7 +61,8 @@ $("#' . $contas['bank'] . 'form").submit(function() {
                     title:"Now:",
                     message: "Loading",
                     position:"topRight",
-                    zindex: 99999
+                    zindex: 99999,
+                    timeout: 2500,
                 })
             },
             success: function(response) {
