@@ -20,7 +20,6 @@ if ($_POST['bank']) {
         $data = [
             'status' => 'success',
             'msg' => 'Pagamento processado com sucesso, estamos aguardando o e-mail de confirmação do depósito.',
-            'q' => $insert->errorInfo()
         ];
         echo json_encode($data);
         die();
