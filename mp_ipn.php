@@ -32,6 +32,9 @@ try {
     if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
         $handle = fopen('mp.log', "a");
         fwrite($handle, "-------------------------\r\n");
+        foreach ($_REQUEST as $key => $value) {
+            fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
+        }
         fwrite($handle, "[" . $now . "] ERRO 400 \r\n");
         fwrite($handle, "-------------------------\r\n");
         fclose($handle);
@@ -49,9 +52,8 @@ try {
 //If the payment's transaction amount is equal (or bigger) than the merchant order's amount you can release your items
     if ($merchant_order_info["status"] == 200) {
         $handle = fopen('mp.log', "a");
-        fwrite($handle, "-------------------------\r\n");        
-        fwrite($handle, print_r($merchant_order_info['response']));        
-        fwrite($handle, "[" . $now . "] Approved \r\n");
+        fwrite($handle, "-------------------------\r\n");
+        var_dump($merchant_order_info['response']);
         fwrite($handle, "-------------------------\r\n");
         fclose($handle);
         $transaction_amount_payments = 0;
