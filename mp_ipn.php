@@ -29,6 +29,13 @@ try {
 
 // Check mandatory parameters
     if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
+        $handle = fopen('mp.log', 'a');
+        fwrite($handle, "------------------------\r\n");
+        foreach ($_REQUEST as $key => $value){
+            fwrite($handle, "[".$now."] {$key} => {$value} \r\n");
+        }
+        fwrite($handle, "[".$now."] ERROR 400 \r\n");
+        fwrite($handle, "------------------------\r\n");
         http_response_code(400);
         return;
     }
@@ -53,8 +60,19 @@ try {
         die();
     }
     if ($merchant_order_info["status"] == 200) {
-        var_dump($merchant_order_info);
+        $handle = fopen('mp.log', 'a');
+        fwrite($handle, "------------------------\r\n");
+        foreach ($_REQUEST as $key => $value){
+            fwrite($handle, "[".$now."] Status 200 {$key} => {$value} \r\n");
+        }
+        fwrite($handle, "------------------------\r\n");
     }
 } catch (MercadoPagoException $e) {
-    var_dump($e);
+    $handle = fopen('mp.log', 'a');
+    fwrite($handle, "------------------------\r\n");
+    foreach ($_REQUEST as $key => $value){
+        fwrite($handle, "[".$now."] {$key} => {$value} \r\n");
+    }
+    fwrite($handle, "[".$now."] ERROR: {$e->getMessage()} \r\n");
+    fwrite($handle, "------------------------\r\n");
 }
