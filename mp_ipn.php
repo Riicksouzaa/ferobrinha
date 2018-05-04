@@ -18,80 +18,43 @@ date_default_timezone_set("America/Sao_Paulo");
 // Venezuela: https://www.mercadopago.com/mlv/herramientas/aplicaciones
 // Colombia: https://www.mercadopago.com/mco/herramientas/aplicaciones
 // Chile: https://www.mercadopago.com/mlc/herramientas/aplicaciones
-
-$now = date('d/m/Y H:i:s');
 try {
+    $now = date('d/m/Y H:i:s');
     if ($config['mp']['sandboxMode']) {
         $mp = new MP($config['mp']['SANDBOX_CLIENT_ID'], $config['mp']['SANDBOX_CLIENT_SECRET']);
     } else {
         $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
     }
     $mp->sandbox_mode($config['mp']['sandboxMode']);
-    $params = ["access_token" => $mp->get_access_token()];
+
 // Check mandatory parameters
     if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
-        $handle = fopen('mp.log', "a");
-        fwrite($handle, "-------------------------\r\n");
-        foreach ($_REQUEST as $key => $value) {
-            fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
-        }
-        fwrite($handle, "[" . $now . "] ERRO 400 \r\n");
-        fwrite($handle, "-------------------------\r\n");
-        fclose($handle);
         http_response_code(400);
         return;
     }
-    // Get the payment reported by the IPN. Glossary of attributes response in https://developers.mercadopago.com
-    if ($_GET["topic"] == 'payment') {
-        $payment_info = $mp->get("/v1/payments/" . $_GET["id"], $params, FALSE);
-        $merchant_order_info = $mp->get("/merchant_orders/" . $payment_info["response"]["order"]["id"], $params, FALSE);
-// Get the merchant_order reported by the IPN. Glossary of attributes response in https://developers.mercadopago.com
-    } else if ($_GET["topic"] == 'merchant_order') {
-        $merchant_order_info = $mp->get("/merchant_orders/" . $_GET["id"], $params, FALSE);
-    }
-//If the payment's transaction amount is equal (or bigger) than the merchant order's amount you can release your items
-    if ($merchant_order_info["status"] == 200) {
-        $handle = fopen('mp.log', "a");
-        fwrite($handle, "-------------------------\r\n");
-        var_dump($merchant_order_info['response']);
-        fwrite($handle, "-------------------------\r\n");
-        fclose($handle);
-        $transaction_amount_payments = 0;
-        $transaction_amount_order = $merchant_order_info["response"]["total_amount"];
-        $payments = $merchant_order_info["response"]["payments"];
-        foreach ($payments as $payment) {
-            if ($payment['status'] == 'approved') {
-                $transaction_amount_payments += $payment['transaction_amount'];
-            }
-        }
-        if ($transaction_amount_payments >= $transaction_amount_order) {
-            $handle = fopen('mp.log', "a");
-            fwrite($handle, "-------------------------\r\n");
-            foreach ($_REQUEST as $key => $value) {
-                fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
-            }
-            fwrite($handle, "[" . $now . "] Approved \r\n");
-            fwrite($handle, "-------------------------\r\n");
-            fclose($handle);
-        } else {
-            $handle = fopen('mp.log', "a");
-            fwrite($handle, "-------------------------\r\n");
-            foreach ($_REQUEST as $key => $value) {
-                fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
-            }
-            fwrite($handle, "[" . $now . "] Reproved \r\n");
-            fwrite($handle, "-------------------------\r\n");
-            fclose($handle);
-        }
+    
+    $topic = $_GET["topic"];
+    $merchant_order_info = NULL;
+    
+    switch ($topic) {
+        case 'payment':
+            $payment_info = $mp->get("/v1/payments/" . $_GET["id"]);
+            $merchant_order_info = $mp->get("/merchant_orders/" . $payment_info["response"]["order"]["id"]);
+            break;
+        case 'merchant_order':
+            $merchant_order_info = $mp->get("/merchant_orders/" . $_GET["id"]);
+            break;
+        default:
+            $merchant_order_info = NULL;
     }
     
-} catch (MercadoPagoException $e) {
-    $handle = fopen('mp.log', "a");
-    fwrite($handle, "-------------------------\r\n");
-    foreach ($_REQUEST as $key => $value) {
-        fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
+    if ($merchant_order_info == NULL) {
+        echo "Error obtaining the merchant_order";
+        die();
     }
-    fwrite($handle, "[" . $now . "] " . $e->getMessage() . "\r\n");
-    fwrite($handle, "-------------------------\r\n");
-    fclose($handle);
+    if ($merchant_order_info["status"] == 200) {
+        var_dump($merchant_order_info);
+    }
+} catch (MercadoPagoException $e) {
+    var_dump($e);
 }

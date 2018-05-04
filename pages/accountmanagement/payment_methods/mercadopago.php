@@ -13,10 +13,10 @@ try {
     } else {
         $mp = new MP($config['mp']['CLIENT_ID'], $config['mp']['CLIENT_SECRET']);
     }
-//                        $mp->sandbox_mode($config['mp']['sandboxMode']);
+    $mp->sandbox_mode($config['mp']['sandboxMode']);
     $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
     $qnt = array_values($config['donate']['offers'][intval($product_id)])[0];
-    $purl = $config['base_url'].'layouts/tibiacom/images/payment/serviceid_'.($product_id >= 5 ? '5' : $product_id).'.png';
+    $purl = $config['base_url'] . 'layouts/tibiacom/images/payment/serviceid_' . ($product_id >= 5 ? '5' : $product_id) . '.png';
     $preference_data = [
         "items" => [
             [
@@ -52,7 +52,7 @@ try {
                     }
                     </script>
                     
-                    <a href="' . ($config['mp']['sandboxMode'] == TRUE ? $preference["response"]["sandbox_init_point"] : $preference["response"]["init_point"]) . '" name="MP-Checkout" class="lightblue-Rn-L-Ar-Br" mp-mode="modal" onreturn="execute_my_onreturn();">Pagar</a>
+                    <a href="' . ($config['mp']['sandboxMode'] == TRUE ? $preference["response"]["sandbox_init_point"] : $preference["response"]["init_point"]) . '" name="MP-Checkout" class="lightblue-Rn-L-Ar-Br" mp-mode="modal" onreturn="execute_my_onreturn">Pagar</a>
 		            <!--<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>-->
 		            <!--<script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>-->
 		            <script type="text/javascript" src=" https://secure.mlstatic.com/mptools/render.js"></script>
