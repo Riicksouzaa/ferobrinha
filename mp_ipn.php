@@ -9,6 +9,7 @@
 // Include Mercadopago library
 require_once "config/config.php";
 require_once "vendor/autoload.php";
+date_default_timezone_set("America/Sao_Paulo");
 
 // Create an instance with your MercadoPago credentials (CLIENT_ID and CLIENT_SECRET):
 // Argentina: https://www.mercadopago.com/mla/herramientas/aplicaciones
@@ -29,6 +30,11 @@ try {
     $params = ["access_token" => $mp->get_access_token()];
 // Check mandatory parameters
     if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
+        $handle = fopen('mp.log', "a");
+        fwrite($handle, "-------------------------\r\n");
+        fwrite($handle, "[" . $now . "] ERRO 400 \r\n");
+        fwrite($handle, "-------------------------\r\n");
+        fclose($handle);
         http_response_code(400);
         return;
     }
@@ -53,16 +59,16 @@ try {
         if ($transaction_amount_payments >= $transaction_amount_order) {
             $handle = fopen('mp.log', "a");
             fwrite($handle, "-------------------------\r\n");
-            foreach ($_REQUEST as $key=>$value){
-                fwrite($handle, "[".$now."] ".$key."=>".$value."\r\n");
+            foreach ($_REQUEST as $key => $value) {
+                fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
             }
             fwrite($handle, "-------------------------\r\n");
             fclose($handle);
         } else {
             $handle = fopen('mp.log', "a");
             fwrite($handle, "-------------------------\r\n");
-            foreach ($_REQUEST as $key=>$value){
-                fwrite($handle, "[".$now."] ".$key."=>".$value."\r\n");
+            foreach ($_REQUEST as $key => $value) {
+                fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
             }
             fwrite($handle, "-------------------------\r\n");
             fclose($handle);
@@ -72,7 +78,7 @@ try {
 } catch (MercadoPagoException $e) {
     $handle = fopen('mp.log', "a");
     fwrite($handle, "-------------------------\r\n");
-    fwrite($handle, "[".$now."] ".$e->getMessage()."\r\n");
+    fwrite($handle, "[" . $now . "] " . $e->getMessage() . "\r\n");
     fwrite($handle, "-------------------------\r\n");
     fclose($handle);
 }
