@@ -78,6 +78,9 @@ try {
 } catch (MercadoPagoException $e) {
     $handle = fopen('mp.log', "a");
     fwrite($handle, "-------------------------\r\n");
+    foreach ($_REQUEST as $key => $value) {
+        fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
+    }
     fwrite($handle, "[" . $now . "] " . $e->getMessage() . "\r\n");
     fwrite($handle, "-------------------------\r\n");
     fclose($handle);
