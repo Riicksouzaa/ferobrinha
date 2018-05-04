@@ -62,6 +62,7 @@ try {
             foreach ($_REQUEST as $key => $value) {
                 fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
             }
+            fwrite($handle, "[" . $now . "] Approved \r\n");
             fwrite($handle, "-------------------------\r\n");
             fclose($handle);
         } else {
@@ -70,6 +71,7 @@ try {
             foreach ($_REQUEST as $key => $value) {
                 fwrite($handle, "[" . $now . "] " . $key . "=>" . $value . "\r\n");
             }
+            fwrite($handle, "[" . $now . "] Reproved \r\n");
             fwrite($handle, "-------------------------\r\n");
             fclose($handle);
         }
