@@ -18,6 +18,7 @@ require_once "vendor/autoload.php";
 // Colombia: https://www.mercadopago.com/mco/herramientas/aplicaciones
 // Chile: https://www.mercadopago.com/mlc/herramientas/aplicaciones
 
+$now = date('d/m/Y H:i:s');
 try {
     if ($config['mp']['sandboxMode']) {
         $mp = new MP($config['mp']['SANDBOX_CLIENT_ID'], $config['mp']['SANDBOX_CLIENT_SECRET']);
@@ -53,7 +54,7 @@ try {
             $handle = fopen('mp.log', "a");
             fwrite($handle, "-------------------------\r\n");
             foreach ($_REQUEST as $key=>$value){
-                fwrite($handle, $key."=>".$value."\r\n");
+                fwrite($handle, "[".$now."] ".$key."=>".$value."\r\n");
             }
             fwrite($handle, "-------------------------\r\n");
             fclose($handle);
@@ -61,7 +62,7 @@ try {
             $handle = fopen('mp.log', "a");
             fwrite($handle, "-------------------------\r\n");
             foreach ($_REQUEST as $key=>$value){
-                fwrite($handle, $key."=>".$value."\r\n");
+                fwrite($handle, "[".$now."] ".$key."=>".$value."\r\n");
             }
             fwrite($handle, "-------------------------\r\n");
             fclose($handle);
@@ -71,7 +72,7 @@ try {
 } catch (MercadoPagoException $e) {
     $handle = fopen('mp.log', "a");
     fwrite($handle, "-------------------------\r\n");
-    fwrite($handle, $e->getMessage()."\r\n");
+    fwrite($handle, "[".$now."] ".$e->getMessage()."\r\n");
     fwrite($handle, "-------------------------\r\n");
     fclose($handle);
 }

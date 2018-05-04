@@ -17,9 +17,9 @@ try {
     $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
     $qnt = array_values($config['donate']['offers'][intval($product_id)])[0];
     $purl = $config['base_url'].'layouts/tibiacom/images/payment/serviceid_'.($product_id >= 5 ? '5' : $product_id).'.png';
-    $preference_data = array(
-        "items" => array(
-            array(
+    $preference_data = [
+        "items" => [
+            [
                 "id" => $product_id,
                 "title" => $config['sale']['productName'],
                 "currency_id" => "BRL",
@@ -28,24 +28,11 @@ try {
                 "category_id" => "Coins",
                 "quantity" => 1,
                 "unit_price" => $price
-            )
-        ),
-//                            "payer" => [
-//                                "name" => "EOQ",
-//                                "email" => "test_user_81785223@testuser.com"
-//                            ],
-//                            "back_urls" => array(
-//                                "success" => "https://www.success.com",
-//                                "failure" => "http://www.failure.com",
-//                                "pending" => "http://www.pending.com"
-//                            ),
-//                            "auto_return" => "approved",
+            ]
+        ],
         "notification_url" => $config['base_url'] . "mp_ipn.php",
         "external_reference" => $account_logged->getName() . '-' . $product_id,
-//                            "expires" => FALSE,
-//                            "expiration_date_from" => NULL,
-//                            "expiration_date_to" => NULL
-    );
+    ];
     $preference = $mp->create_preference($preference_data);
     $main_content .= "<div style='text-align: center'>";
     $main_content .= '
@@ -69,8 +56,6 @@ try {
 		            <!--<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>-->
 		            <!--<script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>-->
 		            <script type="text/javascript" src=" https://secure.mlstatic.com/mptools/render.js"></script>
-		            <!-- Pega este código antes de cerrar la etiqueta </body> -->
-                    <!--<script type="text/javascript" src="' . $layout_name . '/mp.js"></script>-->
                 ';
     $main_content .= "</div>";
 } catch (MercadoPagoException $e) {
