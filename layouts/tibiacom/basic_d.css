@@ -51,6 +51,7 @@ body {
     min-height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, .75);
+    -webkit-background-size: cover;
     background-size: cover;
     background-attachment: fixed;
     filter: alpha(opacity=75);
@@ -784,8 +785,6 @@ body {
 
 #preload {
     -webkit-animation: fadeIn 1s ease-in-out;
-    -moz-animation: fadeIn 1s ease-in-out;
-    -o-animation: fadeIn 1s ease-in-out;
     animation: fadeIn 1s ease-in-out;
 }
 
@@ -2903,6 +2902,7 @@ label {
 /* For IE8 - See #6727 */
 .ui-slider.ui-state-disabled .ui-slider-handle,
 .ui-slider.ui-state-disabled .ui-slider-range {
+    -webkit-filter: inherit;
     filter: inherit;
 }
 
@@ -3533,8 +3533,6 @@ label {
     right: -40px;
     background: red;
     border: 1px solid gray;
-    -moz-border-radius: 60px;
-    -webkit-border-radius: 60px;
     border-radius: 60px;
     color: #f2af4e;
     background-color: #223533;

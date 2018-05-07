@@ -16,6 +16,7 @@
     "paypal/rest-api-sdk-php": "*",
     "thepixeldeveloper/sitemap": "^5.1",
     "mercadopago/sdk": "0.5.2",
-    "blockchain/blockchain": "^1.4"
+    "blockchain/blockchain": "^1.4",
+    "mercadopago/dx-php": "dev-master"
   }
 }
