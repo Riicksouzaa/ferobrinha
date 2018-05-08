@@ -229,4 +229,6 @@ if (!$descontinuado) {
 			</tr>
 		</table>
 	</div>';
+}else{
+    $main_content .= 'SISTEMA TOTALMENTE DESCONTINUADO';
 }
