@@ -681,7 +681,7 @@ if(!defined('INITIALIZED'))
                                     <div class="BorderTitleText" style="background-image:url(layouts/tibiacom/images/global/content/newsheadline_background.gif); height: 28px;">
                                         <div class="InfoBar">
                                             <?php if(Website::getWebsiteConfig()->getValue('info_bar_cast')){?>
-                                                <a class="InfoBarBlock" href="./" target="_blank">
+                                                <a class="InfoBarBlock" href="./">
                                                     <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-cast.png">
                                                     <span class="InfoBarNumbers"><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
                                                     <span class="InfoBarSmallElement">0</span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
