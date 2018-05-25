@@ -1,0 +1,26 @@
+/* Backgrounds will cover all the section
+* --------------------------------------- */
+.section{
+	background-size: cover;
+}
+.slide{
+	background-size: cover;
+}
+/* Defining each section background and styles
+* --------------------------------------- */
+#section0{
+	background-image: url(images/backgrounds/wolves.jpg);
+}
+/*Adding background for the slides
+* --------------------------------------- */
+#slide1{
+	background-image: url(images/backgrounds/background-artwork4.jpg);
+}
+#slide2{
+	background-image: url(images/backgrounds/Background_Artwork_9.4.jpg);
+}
+/* Bottom menu
+* --------------------------------------- */
+#infoMenu li a {
+	color: #fff;
+}
