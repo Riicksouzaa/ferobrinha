@@ -3,14 +3,14 @@ if (!defined('INITIALIZED'))
     exit;
 
 if ($_SESSION['landpage'] != TRUE && !isset($_SESSION['landpage'])) {
-    
+    $_SESSION['landpage'] = TRUE;
     ?>
     <!DOCTYPE html>
     <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title></title>
+        <title><?=$config['server']['serverName']?> - Website</title>
         <meta name="author" content="Ricardo Souza" />
         <meta name="description" content="This is the best Gesior made with :love: by.: Codenome developers." />
         <meta name="keywords"  content="fullpage,jquery,alvaro,trigo,plugin,fullscren,screen,full,iphone5,apple" />
