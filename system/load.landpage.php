@@ -1,3 +1,34 @@
+<?php
+
+if (!session_id()) @ session_start();
+
+$last = NULL;
+if (!isset($_SESSION)) {
+    $_SESSION = [];
+}
+
+if (isset($_SESSION['server_status_last_check'])) {
+    $last = $_SESSION['server_status_last_check'];
+}
+if ($last == NULL || time() > $last + 30) {
+    $_SESSION['server_status_last_check'] = time();
+    $_SESSION['server_status'] = $config['status']['serverStatus_online'];
+}
+
+$infobar = Website::getWebsiteConfig()->getValue('info_bar_active');
+
+if ($_SESSION['server_status'] == 1) {
+    $qtd_players_online = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
+    if ($qtd_players_online["total"] == "1") {
+        $players_online = ($infobar ? $qtd_players_online["total"] . ' Player Online' : $qtd_players_online["total"] . '<br/>Player Online');
+    } else {
+        $players_online = ($infobar ? $qtd_players_online["total"] . ' Players Online' : $qtd_players_online["total"] . '<br/>Players Online');
+    }
+} else {
+    $players_online = ($infobar ? 'Server Offline' : 'Server<br/>Offline');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +46,15 @@
 <div class="bgwhitetransp">
     <nav class="bg-black-transp" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="#" class="brand-logo center"><img width="150px"
-                                                                           src="./images/logos/tibia-logo-artwork-top.gif"/></a>
             <ul class="left hide-on-med-and-down">
-                <li>Status: Online (1/1000)</li>
+                <li><a href="./?subtopic=worlds"><?= $players_online ?></a></li>
+            </ul>
+            <ul class="center">
+                <li>
+                    <a id="logo-container" href="#" class="brand-logo center">
+                        <img width="150px" src="./images/logos/tibia-logo-artwork-top.gif"/>
+                    </a>
+                </li>
             </ul>
             <ul class="right">
                 <li><a class="" href="./">Ir para o site</a></li>
@@ -51,27 +87,33 @@
             <br/>
             <div class="section">
                 <div class="row container">
-                    <form class="col s12 push-m3 m6 offset-l3 l6">
+                    <form class="col s12 push-m3 m6 offset-l3 l6" action="./?subtopic=createaccount" method="post">
                         <h5 class="center white-text">Criar account</h5>
-                        <div class="row" style="margin: 0 !important;">
+                        <div class="row" style="margin-top: -15px !important;">
                             <div class="input-field s12">
-                                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                                <label for="first_name">Account Name</label>
+                                <input id="accountname" name="accountname" type="text" class="validate white-text">
+                                <label for="accountname">Account Name</label>
                             </div>
                         </div>
-                        <div class="row" style="margin: 0 !important;">
+                        <div class="row" style="margin-top: -15px !important;">
                             <div class="input-field s12">
-                                <input id="email" type="email" class="validate">
+                                <input id="email" name="email" type="email" class="validate white-text">
                                 <label for="email">Email</label>
                             </div>
                         </div>
-                        <div class="row" style="margin: 0 !important;">
+                        <div class="row" style="margin-top: -15px !important;">
                             <div class="input-field s12">
-                                <input id="password" type="password" class="validate">
-                                <label for="password">Password</label>
+                                <input id="password1" name="password1" type="password" class="validate white-text">
+                                <label for="password1">Password</label>
                             </div>
                         </div>
-                        <div class="row" style="margin: 0 !important;">
+                        <div class="row" style="margin-top: -15px !important;">
+                            <div class="input-field s12">
+                                <input id="password2" name="password2" type="password" class="validate white-text">
+                                <label for="password2">Repita o password</label>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: -15px !important;">
                             <div class="input-field s12">
                                 <input disabled value="<?= $config['server']['serverName']; ?>" id="disabled"
                                        type="text"
@@ -79,6 +121,13 @@
                                 <label for="disabled">World</label>
                             </div>
                         </div>
+                        <p style="margin-top: -15px !important;">
+                            <label>
+                                <input type="checkbox" id="agreeagreements" name="agreeagreements" value="true" class="filled-in" checked="checked" />
+                                <span>Concordo com as <a href="./?subtopic=tibiarules">regras</a></span>
+                            </label>
+                        </p>
+                        <input type="hidden" value="docreate" id="docreate" name="step"/>
                         <div class="row center">
                             <div class="input-field s12">
                                 <input value="Cadastrar" type="submit" class="validate btn-primary"/>
@@ -156,51 +205,23 @@
 <div class="bg-black-transp">
     <div style="padding: 50px">
         <div class="center">
-            <a href="http://materializecss.com/getting-started.html" id="download-button"
+            <a href="./?subtopic=downloadclient" id="download-button"
                class="btn-primary">Fazer Download</a>
         </div>
     </div>
 </div>
 
 
-<footer class="page-footer orange">
-    <!--
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">Company Bio</h5>
-                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's
-                    our full time job. Any amount would help support and continue development on this project and is
-                    greatly appreciated.</p>
-
-
-            </div>
-            <div class="col l3 s12">
-                <h5 class="white-text">Settings</h5>
-                <ul>
-                    <li><a class="white-text" href="#!">Link 1</a></li>
-                    <li><a class="white-text" href="#!">Link 2</a></li>
-                    <li><a class="white-text" href="#!">Link 3</a></li>
-                    <li><a class="white-text" href="#!">Link 4</a></li>
-                </ul>
-            </div>
-            <div class="col l3 s12">
-                <h5 class="white-text">Connect</h5>
-                <ul>
-                    <li><a class="white-text" href="#!">Link 1</a></li>
-                    <li><a class="white-text" href="#!">Link 2</a></li>
-                    <li><a class="white-text" href="#!">Link 3</a></li>
-                    <li><a class="white-text" href="#!">Link 4</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    -->
+<footer class="page-footer light-blue">
     <div class="footer-copyright right-align">
         <div class="container">
-            Made by <a class="navbar-brand white-text" href="http://codenome.com/"><font
-                        face="Anurati"><span></span><span>COD<span class="light-blue-text">E</span></span><span>NOM<span
-                                class="light-blue-text">E</span></span><span></span></font></a>
+            Made by.:
+            <a class="navbar-brand white-text" href="http://codenome.com/">
+                <font face="Anurati">
+                    <span>COD <span class="orange-text">E</span></span>
+                    <span>NOM<span class="orange-text">E</span></span>
+                </font>
+            </a>
         </div>
     </div>
 </footer>

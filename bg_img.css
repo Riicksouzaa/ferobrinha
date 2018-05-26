@@ -13,11 +13,11 @@ body {
 
 .bg {
     width: 100%;
-    height: 100%;
+    height: 120%;
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url(images/backgrounds/lights.gif);
+    background: url(images/backgrounds/lights.gif) fixed;
     opacity: 0.2;
     z-index: -1;
 }
@@ -48,6 +48,7 @@ body {
 }
 
 .btn-primary {
+    cursor: pointer;
     border: 3px solid rgba(192, 252, 253, .7);
     border-radius: 0;
     padding: 13px 35px 12px;

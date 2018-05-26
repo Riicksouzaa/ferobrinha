@@ -1,8 +1,6 @@
 <?php
 if (!defined('INITIALIZED'))
     exit;
-$_SESSION['landpage'] = TRUE;
-$_SESSION['landtime'] = time();
 $fnc = function () {
     if (isset($_SESSION['landpage']) && $_SESSION['landpage'] == TRUE) {
         $now = time();
@@ -16,7 +14,7 @@ if($subtopic == 'latestnews' || $subtopic == ''){
 }
 
 
-if ($_SESSION['landpage'] == TRUE && isset($_SESSION['landpage'])) {
+if ($_SESSION['landpage'] != TRUE && !isset($_SESSION['landpage'])) {
     $_SESSION['landpage'] = TRUE;
     $_SESSION['landtime'] = time();
     include "load.landpage.php";
