@@ -218,7 +218,7 @@ if ($_SESSION['server_status'] == 1) {
             Made by.:
             <a class="navbar-brand white-text" href="http://codenome.com/">
                 <font face="Anurati">
-                    <span>COD <span class="orange-text">E</span></span>
+                    <span>COD<span class="orange-text">E</span></span>
                     <span>NOM<span class="orange-text">E</span></span>
                 </font>
             </a>
