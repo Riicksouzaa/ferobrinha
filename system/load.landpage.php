@@ -1,101 +1,134 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title><?= $config['server']['serverName'] ?> - Website</title>
-    <meta name="author" content="Ricardo Souza"/>
-    <meta name="description" content="This is the best Gesior made with :love: by.: Codenome developers."/>
-    <meta name="keywords" content="fullpage,jquery,alvaro,trigo,plugin,fullscren,screen,full,iphone5,apple"/>
-    <meta name="Resource-type" content="Document"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Starter Template - Materialize</title>
 
-
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.min.css"/>
-    <link rel="stylesheet" type="text/css" href="./bg_img.css?vs=6"/>
-    <link rel="stylesheet" type="text/css" href="./examples.css?vs=1"/>
-
-
-    <style>
-
-        /* Sections
-         * --------------------------------------- */
-        #section0 img,
-        #section1 img {
-            margin: 20px 0 0 0;
-        }
-
-        #section2 img {
-            margin: 20px 0 0 52px;
-        }
-
-        #section3 img {
-            bottom: 0px;
-            position: absolute;
-            margin-left: -420px;
-        }
-
-        .intro p {
-            width: 50%;
-            margin: 0 auto;
-            font-size: 1.5em;
-        }
-
-        .twitter-share-button {
-            position: absolute;
-            z-index: 99;
-            right: 149px;
-            top: 9px;
-        }
-
-    </style>
-    <!--[if IE]>
-    <script type="text/javascript">
-        var console = {
-            log: function () {
-            }
-        };
-    </script>
-    <![endif]-->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.min.js"></script>
-    <script type="text/javascript" src="./examples.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#fullpage').fullpage({
-                sectionsColor: ['#ABC', '#4BBFC3', '#ccddff'],
-                anchors: ['land', 'noticias', 'lastPage'],
-                menu: '#menu',
-                scrollingSpeed: 1000
-            });
-        });
-    </script>
-
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="./materialize/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="bg_img.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
+<!--
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">Navbar Link</a></li>
+        </ul>
 
-<ul id="menu">
-    <li data-menuanchor="firstPage"><a href="#land">Home</a></li>
-    <li data-menuanchor="secondPage"><a href="#noticias">Notícias</a></li>
-</ul>
-
-
-<div id="fullpage">
-    <div class="section" id="section0">
-        <h1><?=trim($config['server']['serverName']);?></h1>
-        <p><?=Website::getWebsiteConfig()->getValue('landpage_description')?></p>
+        <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Navbar Link</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
-    <div class="section" id="section1">
-        <?php for($i = 1; $i <= Website::getWebsiteConfig()->getValue('landpage_max_noticias'); $i++){?>
-        <div class="slide" id="slide<?=$i?>" data-anchor="blabla<?=$i?>">
-                <h1>Noticia <?=$i?></h1>
+</nav>
+-->
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">Starter Template</h1>
+        <div class="row center">
+            <h5 class="header white-text col s12 light">A modern responsive front-end framework based on Material Design</h5>
         </div>
-        <?php }?>
+        <div class="row center">
+            <a href="http://materializecss.com/getting-started.html" id="download-button"
+               class="btn-large waves-effect waves-light orange">Get Started</a>
+        </div>
+        <br><br>
+
     </div>
 </div>
+
+<div class="container">
+    <div class="section">
+
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+                    <h5 class="center white-text">Speeds up development</h5>
+
+                    <p class="light white-text">We did most of the heavy lifting for you to provide a default stylings that
+                        incorporate our custom components. Additionally, we refined animations and transitions to
+                        provide a smoother experience for developers.</p>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+                    <h5 class="center white-text">User Experience Focused</h5>
+
+                    <p class="light white-text">By utilizing elements and principles of Material Design, we were able to create a
+                        framework that incorporates components and animations that provide more feedback to users.
+                        Additionally, a single underlying responsive system across all platforms allow for a more
+                        unified user experience.</p>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+                    <h5 class="center white-text">Easy to work with</h5>
+
+                    <p class="light white-text">We have provided detailed documentation as well as specific code examples to help
+                        new users get started. We are also always open to feedback and can answer any questions a user
+                        may have about Materialize.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br><br>
+</div>
+
+<footer class="page-footer orange">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Company Bio</h5>
+                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's
+                    our full time job. Any amount would help support and continue development on this project and is
+                    greatly appreciated.</p>
+
+
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Settings</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">Link 2</a></li>
+                    <li><a class="white-text" href="#!">Link 3</a></li>
+                    <li><a class="white-text" href="#!">Link 4</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Connect</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">Link 2</a></li>
+                    <li><a class="white-text" href="#!">Link 3</a></li>
+                    <li><a class="white-text" href="#!">Link 4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+        </div>
+    </div>
+</footer>
+
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="./materialize/js/materialize.js"></script>
+<script src="./materialize/js/init.js"></script>
+
 </body>
 </html>
