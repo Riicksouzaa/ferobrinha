@@ -27,6 +27,10 @@ if ($_SESSION['server_status'] == 1) {
 } else {
     $players_online = ($infobar ? 'Server Offline' : 'Server<br/>Offline');
 }
+
+$query = $SQL->prepare("SELECT * FROM newsticker ORDER BY id DESC LIMIT " . Website::getWebsiteConfig()->getValue('landpage_max_noticias'));
+$query->execute();
+$noticias = $query->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -131,11 +135,11 @@ if ($_SESSION['server_status'] == 1) {
                                 </iframe>
                             </div>
                             <div class="carousel carousel-slider">
-                                <?php for ($i = 1; $i <= Website::getWebsiteConfig()->getValue('landpage_max_noticias'); $i++){ ?>
-                                <div class="carousel-item icon-block" href="#<?=$i?>!">
-                                    <h5 class="center white-text">Notícia <?=$i?></h5>
-                                    <p class="light white-text"><?=$i?><?=$i?><?=$i?><?=$i?><?=$i?></p>
-                                </div>
+                                <?php foreach ($noticias as $noticia) { ?>
+                                    <div class="carousel-item icon-block" href="#<?= $noticia['id'] ?>!">
+                                        <h5 class="center white-text">Notícia <?= $noticia['id'] ?></h5>
+                                        <p class="light center white-text"><?= $noticia['text'] ?></p>
+                                    </div>
                                 <?php } ?>
                             </div>
                         </div>

@@ -9,17 +9,18 @@ $fnc = function () {
         }
     }
 };
+
 if ($subtopic == 'latestnews' || $subtopic == '') {
     $fnc();
 }
+if (!isset($_SESSION['landpage']) && !isset($_SESSION['landtime'])) {
+    $_SESSION['landtime'] = time();
+    $_SESSION['landpage'] = TRUE;
+    header("Location: " . $config['base_url'] . "?faccess=landing");
+}
 
-
-if ($_SESSION['landpage'] != TRUE && !isset($_SESSION['landpage'])) {
-    if ($subtopic == 'latestnews' || $subtopic == '') {
-        $_SESSION['landpage'] = TRUE;
-        $_SESSION['landtime'] = time();
-        include "load.landpage.php";
-    }
+if ($_REQUEST['faccess'] == "landing") {
+    include "load.landpage.php";
 } else {
     $layout_header = '<script type=\'text/javascript\'>
 function GetXmlHttpObject()
