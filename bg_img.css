@@ -127,38 +127,3 @@ input[type=text]:not(.browser-default):disabled + label {
 embed, iframe, object {
     max-width: 100%;
 }
-
-/**
- * Demo Styles
- */
-
-html {
-    height: 100%;
-    box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-}
-
-body {
-    position: relative;
-    margin: 0;
-    padding-bottom: 6rem;
-    min-height: 100%;
-}
-
-/**
- * Footer Styles
- */
-
-.footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    text-align: center;
-}

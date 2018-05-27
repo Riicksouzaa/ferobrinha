@@ -40,7 +40,7 @@ if ($_SESSION['server_status'] == 1) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="./materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="./materialize/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="bg_img.css?vs=3" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="bg_img.css?vs=4" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 <div class="bg"></div>
@@ -154,7 +154,7 @@ if ($_SESSION['server_status'] == 1) {
     </div>
 </div>
 
-<footer class="footer">
+<footer style="padding: 1rem">
     <div class="right grey-text">
         <a class="grey-text" href="http://codenome.com/">
             Made by.:
