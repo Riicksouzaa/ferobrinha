@@ -130,19 +130,12 @@ if ($_SESSION['server_status'] == 1) {
                                 </iframe>
                             </div>
                             <div class="carousel carousel-slider">
-                                <div class="carousel-item icon-block" href="#one!" style="width: <?= (560 / 1.3) ?>">
-                                    <h5 class="center white-text">Notícia 1</h5>
-                                    <p class="light white-text">Foi realizado um update emergencial para corrigir alguns
-                                        bugs que
-                                        causavam bugs
-                                        nos gugs que estavam bugando outros bugs assim sendo a correção irá corrigir
-                                        esses
-                                        bugs.</p>
+                                <?php for ($i = 1; $i <= Website::getWebsiteConfig()->getValue('landpage_max_noticias'); $i++){ ?>
+                                <div class="carousel-item icon-block" href="#<?=$i?>!">
+                                    <h5 class="center white-text">Notícia <?=$i?></h5>
+                                    <p class="light white-text"><?=$i?><?=$i?><?=$i?><?=$i?><?=$i?></p>
                                 </div>
-                                <div class="carousel-item icon-block" href="#two!" style="width: <?= (560 / 1.3) ?>">
-                                    <h5 class="center white-text">Notícia 2</h5>
-                                    <p class="light white-text">meu pau é lindo.</p>
-                                </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -163,7 +156,7 @@ if ($_SESSION['server_status'] == 1) {
 <footer class="footer">
     <div class="right grey-text">
         <a class="grey-text" href="http://codenome.com/">
-        Made by.:
+            Made by.:
             <font face="Anurati">
                 <span>COD<span class="orange-text">E</span></span>
                 <span>NOM<span class="orange-text">E</span></span>
