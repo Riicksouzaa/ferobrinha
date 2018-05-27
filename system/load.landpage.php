@@ -40,103 +40,109 @@ if ($_SESSION['server_status'] == 1) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="./materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="./materialize/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="bg_img.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="bg_img.css?vs=3" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-<div class="bgwhitetransp">
-    <nav class="bg-black-transp" role="navigation">
-        <div class="nav-wrapper container">
-            <ul class="left hide-on-med-and-down">
-                <li><a href="./?subtopic=worlds"><?= $players_online ?></a></li>
-            </ul>
-            <ul class="center">
-                <li>
-                    <a id="logo-container" href="#" class="brand-logo center">
-                        <img width="150px" src="./images/logos/tibia-logo-artwork-top.gif"/>
-                    </a>
-                </li>
-            </ul>
-            <ul class="right">
-                <li><a class="" href="./">Ir para o site</a></li>
-            </ul>
-        </div>
-    </nav>
-
+<div>
     <div class="bgwhitetransp">
-        <div class="container">
-            <div class="bg"></div>
-            <br/><br/>
-            <div class="section">
-                <div class="row">
-                    <form class="col s12 m6" action="./?subtopic=createaccount" method="post">
-                        <h5 class="center white-text">Criar account</h5>
-                        <div class="row" style="margin-top: -15px !important;">
-                            <div class="input-field s12">
-                                <input required id="accountname" name="accountname" type="text"
-                                       class="validate white-text">
-                                <label for="accountname">Account Name</label>
+        <nav class="bg-black-transp" role="navigation">
+            <div class="nav-wrapper container">
+                <ul class="left hide-on-med-and-down">
+                    <li><a href="./?subtopic=worlds"><?= $players_online ?></a></li>
+                </ul>
+                <ul class="center">
+                    <li>
+                        <a id="logo-container" href="#" class="brand-logo center">
+                            <img width="150px" src="./images/logos/tibia-logo-artwork-top.gif"/>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="right">
+                    <li><a class="" href="./">Ir para o site</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="bgwhitetransp">
+            <div class="container">
+                <br/><br/>
+                <div class="section">
+                    <div class="row">
+                        <form class="col s12 m5" action="./?subtopic=createaccount" method="post">
+                            <h5 class="center white-text">Criar account</h5>
+                            <div class="row" style="margin-top: -15px !important;">
+                                <div class="input-field s12">
+                                    <input required id="accountname" name="accountname" type="text"
+                                           class="validate white-text">
+                                    <label for="accountname">Account Name</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row" style="margin-top: -15px !important;">
-                            <div class="input-field s12">
-                                <input required id="email" name="email" type="email" class="validate white-text">
-                                <label for="email">Email</label>
+                            <div class="row" style="margin-top: -15px !important;">
+                                <div class="input-field s12">
+                                    <input required id="email" name="email" type="email" class="validate white-text">
+                                    <label for="email">Email</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row" style="margin-top: -15px !important;">
-                            <div class="input-field s12">
-                                <input required id="password1" name="password1" type="password"
-                                       class="validate white-text">
-                                <label for="password1">Password</label>
+                            <div class="row" style="margin-top: -15px !important;">
+                                <div class="input-field s12">
+                                    <input required id="password1" name="password1" type="password"
+                                           class="validate white-text">
+                                    <label for="password1">Password</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row" style="margin-top: -15px !important;">
-                            <div class="input-field s12">
-                                <input required id="password2" name="password2" type="password"
-                                       class="validate white-text">
-                                <label for="password2">Repita o password</label>
+                            <div class="row" style="margin-top: -15px !important;">
+                                <div class="input-field s12">
+                                    <input required id="password2" name="password2" type="password"
+                                           class="validate white-text">
+                                    <label for="password2">Repita o password</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row" style="margin-top: -15px !important;">
-                            <div class="input-field s12">
-                                <input disabled value="<?= $config['server']['serverName']; ?>" id="disabled"
-                                       type="text"
-                                       class="validate">
-                                <label for="disabled">World</label>
+                            <div class="row" style="margin-top: -15px !important;">
+                                <div class="input-field s12">
+                                    <input disabled value="<?= $config['server']['serverName']; ?>" id="disabled"
+                                           type="text"
+                                           class="validate">
+                                    <label for="disabled">World</label>
+                                </div>
                             </div>
-                        </div>
-                        <p style="margin-top: -15px !important;">
-                            <label>
-                                <input required type="checkbox" id="agreeagreements" name="agreeagreements" value="true"
-                                       class="filled-in" checked="checked"/>
-                                <span>Concordo com as <a href="./?subtopic=tibiarules">regras</a></span>
-                            </label>
-                        </p>
-                        <input type="hidden" value="docreate" id="docreate" name="step"/>
-                        <div class="row center">
-                            <div class="input-field s12">
-                                <input value="Cadastrar" type="submit" class="validate btn-primary"/>
+                            <p style="margin-top: -15px !important;">
+                                <label>
+                                    <input required type="checkbox" id="agreeagreements" name="agreeagreements"
+                                           value="true"
+                                           class="filled-in" checked="checked"/>
+                                    <span>Concordo com as <a href="./?subtopic=tibiarules">regras</a></span>
+                                </label>
+                            </p>
+                            <input type="hidden" value="docreate" id="docreate" name="step"/>
+                            <div class="row center">
+                                <div class="input-field s12">
+                                    <input value="Cadastrar" type="submit" class="validate btn-primary"/>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                    <div class="col s12 m6" style="margin-top: 30px; padding-left: 60px">
-                        <iframe width="<?= (560 / 1.47) ?>" height="<?= (315 / 1.47) ?>"
-                                src="https://www.youtube.com/embed/<?=Website::getWebsiteConfig()->getValue('landpage_youtube')?>"
-                                frameborder="0" allow="autoplay; encrypted-media"
-                                allowfullscreen>
-                        </iframe>
-                        <div class="carousel carousel-slider">
-                            <div class="carousel-item icon-block" href="#one!" style="width: <?= (560 / 1.3) ?>">
-                                <h5 class="center white-text">Notícia 1</h5>
-                                <p class="light white-text">Foi realizado um update emergencial para corrigir alguns
-                                    bugs que
-                                    causavam bugs
-                                    nos gugs que estavam bugando outros bugs assim sendo a correção irá corrigir esses
-                                    bugs.</p>
+                        </form>
+                        <div class="col s12 m6 offset-m1" style="margin-top: 30px;">
+                            <!--<iframe width="<?= (560 / 1.47) ?>" height="<?= (315 / 1.47) ?>"-->
+                            <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;">
+                                <iframe src="https://www.youtube.com/embed/<?= Website::getWebsiteConfig()->getValue('landpage_youtube') ?>"
+                                        frameborder="0"
+                                        allow="autoplay; encrypted-media"
+                                        allowfullscreen>
+                                </iframe>
                             </div>
-                            <div class="carousel-item icon-block" href="#two!" style="width: <?= (560 / 1.3) ?>">
-                                <h5 class="center white-text">Notícia 2</h5>
-                                <p class="light white-text">meu pau é lindo.</p>
+                            <div class="carousel carousel-slider">
+                                <div class="carousel-item icon-block" href="#one!" style="width: <?= (560 / 1.3) ?>">
+                                    <h5 class="center white-text">Notícia 1</h5>
+                                    <p class="light white-text">Foi realizado um update emergencial para corrigir alguns
+                                        bugs que
+                                        causavam bugs
+                                        nos gugs que estavam bugando outros bugs assim sendo a correção irá corrigir
+                                        esses
+                                        bugs.</p>
+                                </div>
+                                <div class="carousel-item icon-block" href="#two!" style="width: <?= (560 / 1.3) ?>">
+                                    <h5 class="center white-text">Notícia 2</h5>
+                                    <p class="light white-text">meu pau é lindo.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,57 +150,25 @@ if ($_SESSION['server_status'] == 1) {
             </div>
         </div>
     </div>
-</div>
-<!--
-<div style="background-color: white; margin-top: -40px">
-    <div class="container">
-        <div class="section">
-            <div class="row">
-                <div class="col s12 m4">
-                    <div class="icon-block">
-                        <h2 class="center brown-text"><i class="material-icons">flash_on</i></h2>
-                        <h5 class="center">Notícia 1</h5>
-                        <p class="light">Foi realizado um update emergencial para corrigir alguns bugs que causavam bugs
-                            nos bugs que estavam bugando outros bugs assim sendo a correção irá corrigir esses bugs.</p>
-                    </div>
-                </div>
-
-
-                <div class="col s12 m4">
-                    <div class="icon-block">
-                        <h2 class="center brown-text"><i class="material-icons">settings</i></h2>
-                        <h5 class="center">Notícia 3</h5>
-                        <p class="light">Foi realizado um update emergencial para corrigir alguns bugs que causavam bugs
-                            nos nugs que estavam bugando outros bugs assim sendo a correção irá corrigir esses bugs.</p>
-                    </div>
-                </div>
+    <div class="bg-black-transp">
+        <div style="padding: 50px">
+            <div class="center">
+                <a href="./?subtopic=downloadclient" id="download-button"
+                   class="btn-primary">Fazer Download</a>
             </div>
-
-        </div>
-    </div>
-</div>
--->
-<div class="bg-black-transp">
-    <div style="padding: 50px">
-        <div class="center">
-            <a href="./?subtopic=downloadclient" id="download-button"
-               class="btn-primary">Fazer Download</a>
         </div>
     </div>
 </div>
 
-
-<footer class="page-footer light-blue">
-    <div class="footer-copyright right-align">
-        <div class="container">
-            Made by.:
-            <a class="navbar-brand white-text" href="http://codenome.com/">
-                <font face="Anurati">
-                    <span>COD<span class="orange-text">E</span></span>
-                    <span>NOM<span class="orange-text">E</span></span>
-                </font>
-            </a>
-        </div>
+<footer class="footer">
+    <div class="right grey-text">
+        <a class="grey-text" href="http://codenome.com/">
+        Made by.:
+            <font face="Anurati">
+                <span>COD<span class="orange-text">E</span></span>
+                <span>NOM<span class="orange-text">E</span></span>
+            </font>
+        </a>
     </div>
 </footer>
 

@@ -1,23 +1,21 @@
 /* Backgrounds will cover all the body
 * --------------------------------------- */
-body {
-    background: #041121 no-repeat;
-    background-size: 100%;
-}
 
 /* Defining each body background and styles
 * --------------------------------------- */
 body {
-    background: url(images/backgrounds/Background_Artwork_9.4.jpg) fixed;
+    background: #041121 url(images/backgrounds/Background_Artwork_9.4.jpg) no-repeat fixed;
+    background-size: cover;
 }
 
 .bg {
     width: 100%;
-    height: 120%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     background: url(images/backgrounds/lights.gif) fixed;
+    background-size: cover;
     opacity: 0.2;
     z-index: -1;
 }
@@ -111,4 +109,56 @@ input[type=text]:not(.browser-default):disabled {
 
 input[type=text]:not(.browser-default):disabled + label {
     color: rgba(255, 255, 255, 0.5);
+}
+
+.fluid-width-video-wrapper {
+    width: 100%;
+    position: relative;
+    padding: 0;
+}
+
+.fluid-width-video-wrapper iframe, .fluid-width-video-wrapper object, .fluid-width-video-wrapper embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+embed, iframe, object {
+    max-width: 100%;
+}
+
+/**
+ * Demo Styles
+ */
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+}
+
+/**
+ * Footer Styles
+ */
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
 }
