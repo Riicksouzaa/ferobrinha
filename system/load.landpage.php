@@ -43,6 +43,7 @@ if ($_SESSION['server_status'] == 1) {
     <link href="bg_img.css?vs=3" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
+<div class="bg"></div>
 <div>
     <div class="bgwhitetransp">
         <nav class="bg-black-transp" role="navigation">
