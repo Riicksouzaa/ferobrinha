@@ -74,27 +74,27 @@ if ($_SESSION['server_status'] == 1) {
                             <div class="row" style="margin-top: -15px !important;">
                                 <div class="input-field s12">
                                     <input required id="accountname" name="accountname" type="text"
-                                           class="validate white-text">
+                                           class="white-text">
                                     <label for="accountname">Account Name</label>
                                 </div>
                             </div>
                             <div class="row" style="margin-top: -15px !important;">
                                 <div class="input-field s12">
-                                    <input required id="email" name="email" type="email" class="validate white-text">
+                                    <input required id="email" name="email" type="email" class="white-text">
                                     <label for="email">Email</label>
                                 </div>
                             </div>
                             <div class="row" style="margin-top: -15px !important;">
                                 <div class="input-field s12">
                                     <input required id="password1" name="password1" type="password"
-                                           class="validate white-text">
+                                           class="white-text">
                                     <label for="password1">Password</label>
                                 </div>
                             </div>
                             <div class="row" style="margin-top: -15px !important;">
                                 <div class="input-field s12">
                                     <input required id="password2" name="password2" type="password"
-                                           class="validate white-text">
+                                           class="white-text">
                                     <label for="password2">Repita o password</label>
                                 </div>
                             </div>
