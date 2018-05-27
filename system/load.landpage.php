@@ -61,55 +61,39 @@ if ($_SESSION['server_status'] == 1) {
             </ul>
         </div>
     </nav>
-    <!--
-    <div class="row right-align">
-        <a href="http://materializecss.com/getting-started.html" id="download-button"
-           class="btn-primary">Fazer Login!</a>
-    </div>
-    -->
-    <!--
-    <div class="section no-pad-bot" id="index-banner">
-        <div class="container">
-            <br><br>
-            <h1 class="header center orange-text"><?= $config['server']['serverName']; ?></h1>
-            <div class="row center">
-                <h5 class="header white-text col s12 light"><?= Website::getWebsiteConfig()->getValue('landpage_description') ?></h5>
-            </div>
-            <br><br>
-        </div>
-    </div>
-    -->
 
     <div class="bgwhitetransp">
         <div class="container">
             <div class="bg"></div>
-            <br/>
-            <br/>
+            <br/><br/>
             <div class="section">
-                <div class="row container">
-                    <form class="col s12 push-m3 m6 offset-l3 l6" action="./?subtopic=createaccount" method="post">
+                <div class="row">
+                    <form class="col s12 m6" action="./?subtopic=createaccount" method="post">
                         <h5 class="center white-text">Criar account</h5>
                         <div class="row" style="margin-top: -15px !important;">
                             <div class="input-field s12">
-                                <input id="accountname" name="accountname" type="text" class="validate white-text">
+                                <input required id="accountname" name="accountname" type="text"
+                                       class="validate white-text">
                                 <label for="accountname">Account Name</label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -15px !important;">
                             <div class="input-field s12">
-                                <input id="email" name="email" type="email" class="validate white-text">
+                                <input required id="email" name="email" type="email" class="validate white-text">
                                 <label for="email">Email</label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -15px !important;">
                             <div class="input-field s12">
-                                <input id="password1" name="password1" type="password" class="validate white-text">
+                                <input required id="password1" name="password1" type="password"
+                                       class="validate white-text">
                                 <label for="password1">Password</label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -15px !important;">
                             <div class="input-field s12">
-                                <input id="password2" name="password2" type="password" class="validate white-text">
+                                <input required id="password2" name="password2" type="password"
+                                       class="validate white-text">
                                 <label for="password2">Repita o password</label>
                             </div>
                         </div>
@@ -123,7 +107,8 @@ if ($_SESSION['server_status'] == 1) {
                         </div>
                         <p style="margin-top: -15px !important;">
                             <label>
-                                <input type="checkbox" id="agreeagreements" name="agreeagreements" value="true" class="filled-in" checked="checked" />
+                                <input required type="checkbox" id="agreeagreements" name="agreeagreements" value="true"
+                                       class="filled-in" checked="checked"/>
                                 <span>Concordo com as <a href="./?subtopic=tibiarules">regras</a></span>
                             </label>
                         </p>
@@ -134,67 +119,53 @@ if ($_SESSION['server_status'] == 1) {
                             </div>
                         </div>
                     </form>
-
-                    <!--   Icon Section   -->
-                    <!--
-                    <div class="col s6 m6">
-                        <div class="icon-block">
-                            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-                            <h5 class="center white-text">Speeds up development</h5>
-        
-                            <p class="light white-text">We did most of the heavy lifting for you to provide a default stylings
-                                that
-                                incorporate our custom components. Additionally, we refined animations and transitions to
-                                provide a smoother experience for developers.</p>
+                    <div class="col s12 m6" style="margin-top: 30px; padding-left: 60px">
+                        <iframe width="<?= (560 / 1.47) ?>" height="<?= (315 / 1.47) ?>"
+                                src="https://www.youtube.com/embed/<?=Website::getWebsiteConfig()->getValue('landpage_youtube')?>"
+                                frameborder="0" allow="autoplay; encrypted-media"
+                                allowfullscreen>
+                        </iframe>
+                        <div class="carousel carousel-slider">
+                            <div class="carousel-item icon-block" href="#one!" style="width: <?= (560 / 1.3) ?>">
+                                <h5 class="center white-text">Notícia 1</h5>
+                                <p class="light white-text">Foi realizado um update emergencial para corrigir alguns
+                                    bugs que
+                                    causavam bugs
+                                    nos gugs que estavam bugando outros bugs assim sendo a correção irá corrigir esses
+                                    bugs.</p>
+                            </div>
+                            <div class="carousel-item icon-block" href="#two!" style="width: <?= (560 / 1.3) ?>">
+                                <h5 class="center white-text">Notícia 2</h5>
+                                <p class="light white-text">meu pau é lindo.</p>
+                            </div>
                         </div>
                     </div>
-                    -->
                 </div>
-
             </div>
-            <br>
-            <br>
-            <br>
         </div>
     </div>
 </div>
+<!--
 <div style="background-color: white; margin-top: -40px">
     <div class="container">
         <div class="section">
-
-            <!--   Icon Section   -->
             <div class="row">
                 <div class="col s12 m4">
                     <div class="icon-block">
                         <h2 class="center brown-text"><i class="material-icons">flash_on</i></h2>
-                        <h5 class="center">Speeds up development</h5>
-
-                        <p class="light">We did most of the heavy lifting for you to provide a default stylings that
-                            incorporate our custom components. Additionally, we refined animations and transitions to
-                            provide a smoother experience for developers.</p>
+                        <h5 class="center">Notícia 1</h5>
+                        <p class="light">Foi realizado um update emergencial para corrigir alguns bugs que causavam bugs
+                            nos bugs que estavam bugando outros bugs assim sendo a correção irá corrigir esses bugs.</p>
                     </div>
                 </div>
 
-                <div class="col s12 m4">
-                    <div class="icon-block">
-                        <h2 class="center brown-text"><i class="material-icons">group</i></h2>
-                        <h5 class="center">User Experience Focused</h5>
-
-                        <p class="light">By utilizing elements and principles of Material Design, we were able to create
-                            a framework that incorporates components and animations that provide more feedback to users.
-                            Additionally, a single underlying responsive system across all platforms allow for a more
-                            unified user experience.</p>
-                    </div>
-                </div>
 
                 <div class="col s12 m4">
                     <div class="icon-block">
                         <h2 class="center brown-text"><i class="material-icons">settings</i></h2>
-                        <h5 class="center">Easy to work with</h5>
-
-                        <p class="light">We have provided detailed documentation as well as specific code examples to
-                            help new users get started. We are also always open to feedback and can answer any questions
-                            a user may have about Materialize.</p>
+                        <h5 class="center">Notícia 3</h5>
+                        <p class="light">Foi realizado um update emergencial para corrigir alguns bugs que causavam bugs
+                            nos nugs que estavam bugando outros bugs assim sendo a correção irá corrigir esses bugs.</p>
                     </div>
                 </div>
             </div>
@@ -202,6 +173,7 @@ if ($_SESSION['server_status'] == 1) {
         </div>
     </div>
 </div>
+-->
 <div class="bg-black-transp">
     <div style="padding: 50px">
         <div class="center">
@@ -231,6 +203,19 @@ if ($_SESSION['server_status'] == 1) {
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="./materialize/js/materialize.js"></script>
 <script src="./materialize/js/init.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.carousel.carousel-slider').carousel({
+            fullWidth: true,
+            indicators: true
+        });
+        $('.carousel.carousel-slider').height(250);
+        $('.materialboxed').materialbox();
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+    });
+</script>
 
 </body>
 </html>
