@@ -68,9 +68,10 @@ class Account extends ObjectData
                     $keys[] = $this->getDatabaseHandler()->fieldName($key);
                     $values[] = $this->getDatabaseHandler()->quote($this->data[$key]);
                 }
-            $this->getDatabaseHandler()->query('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')');
-//            var_dump('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')');
-            $this->setID($this->getDatabaseHandler()->lastInsertId());
+//            $this->getDatabaseHandler()->query('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')');
+            var_dump('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')');
+            print_r('INSERT INTO ' . $this->getDatabaseHandler()->tableName(self::$table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')');
+//            $this->setID($this->getDatabaseHandler()->lastInsertId());
         } else {
             $updates = array();
             foreach (self::$fields as $key)

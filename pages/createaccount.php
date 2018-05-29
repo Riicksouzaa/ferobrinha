@@ -351,6 +351,7 @@ if (!$logged) {
                 $reg_account->setFlag(Website::getCountryCode(long2ip(Visitor::getIP())));
             }
             $reg_account->save();
+            die();
             
             if ($config['site']['send_emails']) {
                 $reg_name = $reg_account->getName();
