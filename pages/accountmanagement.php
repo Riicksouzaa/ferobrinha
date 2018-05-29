@@ -278,12 +278,12 @@ if (!$logged)
     }
 else {
     if($isTryingToLogin){
-        if (Website::getWebsiteConfig()->getValue('base_url') == "https://ferobraglobal.com/") {
-            if ($_SERVER['HTTP_REFERER'] != "https://ferobraglobal.com/?subtopic=accountmanagement") {
+        if (Website::getWebsiteConfig()->getValue('base_url') == Website::getWebsiteConfig()->getValue('realurl')) {
+            if ($_SERVER['HTTP_REFERER'] != Website::getWebsiteConfig()->getValue('realurl')."?subtopic=accountmanagement") {
                 header("Location: " . $_SERVER['HTTP_REFERER']);
             }
         } else {
-            if ($_SERVER['HTTP_REFERER'] != "https://localhost/global-website/production/ferobra-website/?subtopic=accountmanagement") {
+            if ($_SERVER['HTTP_REFERER'] != Website::getWebsiteConfig()->getValue('testurl')."?subtopic=accountmanagement") {
                 header("Location: " . $_SERVER['HTTP_REFERER']);
             }
         }

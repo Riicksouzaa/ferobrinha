@@ -14,7 +14,7 @@ use Thepixeldeveloper\Sitemap\Drivers\XmlWriterDriver;
 
 
 //header("Content-Type: text/xml; encoding=UTF-8");
-if($config['base_url'] != "https://ferobraglobal.com/"){
+if($config['base_url'] != Website::getWebsiteConfig()->getValue('realurl')){
     $savefile = "C:/xampp/htdocs/global-website/production/ferobra-website/";
 }else{
     $savefile = "/var/www/html/premium-gesior/";
