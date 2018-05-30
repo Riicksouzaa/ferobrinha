@@ -16,7 +16,7 @@ if($action == "") {
 						<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
 						<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 						<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>						
-						<div class="Text" >Guildas Ativas no ' .htmlspecialchars($config['server']['serverName']). '</div>
+						<div class="Text" >Active Guilds on ' .htmlspecialchars($config['server']['serverName']). '</div>
 						<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>
 						<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 						<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
@@ -35,7 +35,7 @@ if($action == "") {
 												<table class="TableContent" width="100%" >
 													<TR BGCOLOR=#D4C0A1>
 														<TD WIDTH=64><B>Logo</B></TD>
-														<TD WIDTH=100%><B>Descrição</B></TD>
+														<TD WIDTH=100%><B>Description</B></TD>
 														<TD WIDTH=56><B>&#160;</B></TD>
 													</TR>';
 												$showed_guilds = 1;
@@ -60,7 +60,7 @@ if($action == "") {
 																				<td style="border:0px;" ><input type="hidden" name=GuildName value="'.htmlspecialchars($guild->getName()).'" >
 																					<div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton.gif)" >
 																						<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_over.gif);" ></div>
-																							<input class="ButtonText" type="image" name="Ver" alt="View" src="'.$layout_name.'/images/global/buttons/_sbutton_view.gif" >
+																							<input class="ButtonText" type="image" name="View" alt="View" src="'.$layout_name.'/images/global/buttons/_sbutton_view.gif" >
 																						</div>
 																					</div>
 																				</td>
@@ -107,7 +107,7 @@ if($action == "") {
 		<BR>
 		<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%>
 			<TR>
-				<TD>Ainda não possui uma Guilda?</TD>
+				<TD>No guild found that suits your needs?</TD>
 			</TR>
 			<TR>
 				<TD><table border="0" cellspacing="0" cellpadding="0" >
@@ -133,7 +133,7 @@ if($action == "view")
 	$guild = new Guild();
 	$guild->loadByName($guild_name);
 	if(!$guild->isLoaded())
-		$guild_errors[] = 'Guilda com o nome <b>'.$guild_name.'</b> não existe.';
+		$guild_errors[] = 'Guild with name <b>'.$guild_name.'</b> doesn\'t exist.';
 	
 	if(!empty($guild_errors))
 	{
@@ -147,7 +147,7 @@ if($action == "view")
 								<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
 								<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 								<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>							
-								<div class="Text" >Erro</div>
+								<div class="Text" >Error</div>
 								<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>
 								<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 								<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
@@ -257,7 +257,7 @@ if($action == "view")
 										<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
 										<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 										<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>									
-										<div class="Text" >Informação da Guilda</div>
+										<div class="Text" >Guild Information</div>
 										<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>
 										<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 										<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
@@ -278,8 +278,8 @@ if($action == "view")
 													<TD>
 														<div id="GuildInformationContainer">
 															'.$description.'<br><br>
-															A guilda foi fundada no '.$config['server']['serverName'].' as '.date("M d Y",$guild->getCreateDate()).'.<BR>
-															Ela está ativa no momento.<BR>
+															The guild was founded on '.$config['server']['serverName'].' on '.date("M d Y",$guild->getCreateDate()).'.<BR>
+															It is currently active.<BR>
 														</div>
 													</TD>
 												</TR>
@@ -299,7 +299,7 @@ if($action == "view")
 										<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
 										<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 										<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>							
-										<div class="Text" >Navegação</div>
+										<div class="Text" >Navigation</div>
 										<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>
 										<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 										<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
@@ -365,7 +365,7 @@ if($action == "view")
 										<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
 										<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 										<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>										
-										<div class="Text" >Administração</div>
+										<div class="Text" >Administration</div>
 										<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>
 										<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 										<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
@@ -492,12 +492,12 @@ if($action == "view")
 										<div class="TableContentContainer" >
 											<table class="TableContent" width="100%" >
 												<tr class="LabelH">
-													<td>Posição <small style="font-weight:normal;" >[<a href="#" >sortido</a>]</small> 
+													<td>Rank <small style="font-weight:normal;" >[<a href="#" >sort</a>]</small> 
 													<img class="sortarrow" src="'.$layout_name.'/images/global/content/order_desc.gif" /></td>
-													<td>Nome e Título</td>
-													<td>Vocação <small style="font-weight:normal;" >[<a href="#" >sortido</a>]</small> 
+													<td>Name and Title</td>
+													<td>Vocation <small style="font-weight:normal;" >[<a href="#" >sort</a>]</small> 
 													<img class="sortarrow" src="'.$layout_name.'/images/global/general/blank.gif" /></td>
-													<td>Nível <small style="font-weight:normal;" >[<a href="#" >sortido</a>]</small> 
+													<td>Level <small style="font-weight:normal;" >[<a href="#" >sort</a>]</small> 
 													<img class="sortarrow" src="'.$layout_name.'/images/global/general/blank.gif" /></td>
 													<td>Status</td>
 												</tr>';
@@ -675,7 +675,7 @@ if($action == "view")
 							<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
 							<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 							<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>							
-							<div class="Text" >Personagens Convidados</div>
+							<div class="Text" >Invited Characters</div>
 							<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></span>
 							<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);" ></span> 
 							<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></span>
@@ -697,13 +697,13 @@ if($action == "view")
 												if(count($invited_list) == 0)
 													$main_content .= '
 														<TR BGCOLOR=#F1E0C6>
-															<TD>Nenhum personagem convidado encontrado.</TD>
+															<TD>No invited characters found.</TD>
 														</TR>';
 												else {
 													$main_content .= '
 														<TR BGCOLOR=#D4C0A1>
-															<TD WIDTH=70%><B>Nome</B></TD>
-															<TD WIDTH=30%><B>Data do convite</B></TD>
+															<TD WIDTH=70%><B>Name</B></TD>
+															<TD WIDTH=30%><B>Invitation Date</B></TD>
 														</TR>';
 													$show_accept_invite = 0;
 													$showed_invited = 1;
@@ -816,16 +816,16 @@ if($action == "create") {
 	$todo = $_REQUEST['todo'];
 	$guild_password = trim($_REQUEST['password']);	
 	if(!$logged)
-		$guild_errors[] = 'Você não está logado. Você não pode criar uma Guilda.';
+		$guild_errors[] = 'You are not logged in. You can\'t create guild.';
 	if(empty($guild_errors)) 
 	{
 		$account_players = $account_logged->getPlayers();
 		foreach($account_players as $player)
 		{
-			$player_rank = $player->getRank();
-			if(empty($player_rank))
-				if($player->getLevel() >= $config['site']['guild_need_level'])
-					if(!$config['site']['guild_need_pacc'] || $account_logged->isPremium())
+            $player_rank = $player->getRank();
+            if(empty($player_rank))
+            if($player->getLevel() >= $config['site']['guild_need_level'])
+            if(!$config['site']['guild_need_pacc'] || $account_logged->isPremium() || $config['server']['freePremium'] == "yes")
 						$array_of_player_nig[] = $player->getName();
 		}
 	}
@@ -937,9 +937,13 @@ if($action == "create") {
 			$new_guild->setCreationData(time());
 			$new_guild->setName($guild_name);
 			$new_guild->setOwner($player);
-			$new_guild->setDescription('Nova guilda, o Fundador deve editar isso! :)');
-			$new_guild->setGuildLogo('image/gif', Website::getFileContents('./images/default_guild_logo.gif'));
-			
+			$new_guild->setDescription('New guild. Leader must edit this text :)');
+			$new_guild->setGuildLogo('image/gif', Website::getFileContents('./images/guildlogos/default_logo.gif'));
+            if(Visitor::getIP() != FALSE){
+                $new_guild->setCreateIP(Visitor::getIP());
+            }else{
+                $new_guild->setCreateIP(0);
+            }
 			$new_guild->save();
 			$ranks = $new_guild->getGuildRanksList(true);
 			foreach($ranks as $rank)
@@ -1095,7 +1099,7 @@ if($action == "create") {
 		}
 	}
 }
-if ($action == "invite") {
+if($action == "invite") {
 	//set rights in guild
 	$guild_name = (string) $_REQUEST['GuildName'];
 	$name = $_REQUEST['character'];
@@ -2273,7 +2277,6 @@ if($action == "ranks") {
 }
 
 #organize ranks
-
 if($action == "members") {
 	
 	#infos
