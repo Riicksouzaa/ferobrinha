@@ -939,7 +939,11 @@ if($action == "create") {
 			$new_guild->setOwner($player);
 			$new_guild->setDescription('New guild. Leader must edit this text :)');
 			$new_guild->setGuildLogo('image/gif', Website::getFileContents('./images/guildlogos/default_logo.gif'));
-			
+            if(Visitor::getIP() != FALSE){
+                $new_guild->setCreateIP(Visitor::getIP());
+            }else{
+                $new_guild->setCreateIP(0);
+            }
 			$new_guild->save();
 			$ranks = $new_guild->getGuildRanksList(true);
 			foreach($ranks as $rank)
