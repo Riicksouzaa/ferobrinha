@@ -694,10 +694,11 @@ else {
             }
         }
     } else {
+        /**
         if ($account_logged->getSecret() === NULL || $account_logged->getSecret() == '') {
             $account_logged->setSecret($tfa->createSecret(160));
             $account_logged->save();
-        }
+        }*/
         $secret = $account_logged->getSecret();
         //Here start our new accountmanagement ;D
         if ($action == "") {
