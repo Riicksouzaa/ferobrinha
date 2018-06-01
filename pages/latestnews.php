@@ -196,13 +196,13 @@ $main_content .= '
 													
 												<table border="0" cellspacing="3" cellpadding="4" width="100%">
 											<tr>';
-$guildsPower = $SQL->query('SELECT `g`.`id` AS `id`, `g`.`name` AS `name`, COUNT(`g`.`name`) as `frags` FROM `players` p LEFT JOIN `player_deaths` pd ON `pd`.`killed_by` = `p`.`name` LEFT JOIN `guild_membership` gm ON `p`.`id` = `gm`.`player_id` LEFT JOIN `guilds` g ON `gm`.`guild_id` = `g`.`id` WHERE `pd`.`unjustified` = 1 GROUP BY `name` ORDER BY `frags` DESC, `name` ASC LIMIT 0, 4')->fetchAll();
+$guildsPower = $SQL->query('SELECT g.id as id, g.name as name, COALESCE(SUM(`pd`.`unjustified`),0) as `frags` FROM `players` p LEFT JOIN `player_deaths` pd ON `pd`.`killed_by` = `p`.`name` INNER JOIN `guild_membership` gm ON `p`.`id` = `gm`.`player_id` LEFT JOIN `guilds` g ON `gm`.`guild_id` = `g`.`id` GROUP BY g.id ORDER BY `frags` DESC, g.`id` ASC LIMIT 0, 4')->fetchAll();
 $main_content .= '<tr>';
 foreach ($guildsPower as $guildp) {
     $main_content .= '
-													<td style="width: 25%; text-align: center;">
-														<a href="?subtopic=guilds&action=view&GuildName=' . $guildp['name'] . '"><img src="guild_image.php?id=' . $guildp['id'] . '" width="64" height="64" border="0"/><br />' . $guildp['name'] . '</a><br />' . $guildp['frags'] . ' kills
-													</td>';
+                                                <td style="width: 25%; text-align: center;">
+                                                    <a href="?subtopic=guilds&action=view&GuildName=' . $guildp['name'] . '"><img src="guild_image.php?id=' . $guildp['id'] . '" width="64" height="64" border="0"/><br />' . $guildp['name'] . '</a><br />' . $guildp['frags'] . ' kills
+                                                </td>';
 }
 $main_content .= '
 																			</tr>
