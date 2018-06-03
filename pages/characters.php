@@ -181,7 +181,8 @@ if (!empty($name)) {
         $next_lvl_exp = $player->getExpForLevel($player->getLevel()+1);
         $next_lvl_exp_need = $next_lvl_exp - $cur_lvl_exp;
         
-        $next_lvl_percent = (float) (($cur_real_exp/$next_lvl_exp_need)*100);
+        $next_lvl_percent = (float) round((($cur_real_exp/$next_lvl_exp_need)*100),2,PHP_ROUND_HALF_DOWN);
+        $next_lvl_percent = ($next_lvl_percent == 100 ? 99.99 : $next_lvl_percent);
     
         $plus_content .= '<div class="account_plus_information">';
         $plus_content .= '
