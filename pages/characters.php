@@ -181,7 +181,7 @@ if (!empty($name)) {
         $next_lvl_exp = $player->getExpForLevel($player->getLevel()+1);
         $next_lvl_exp_need = $next_lvl_exp - $cur_lvl_exp;
         
-        $next_lvl_percent = (float) round((($cur_real_exp/$next_lvl_exp_need)*100),2,PHP_ROUND_HALF_DOWN);
+        $next_lvl_percent = (float) round(((($cur_real_exp/$next_lvl_exp_need)*100)),2,PHP_ROUND_HALF_DOWN);
         $next_lvl_percent = ($next_lvl_percent == 100 ? 99.99 : $next_lvl_percent);
     
         $plus_content .= '<div class="account_plus_information">';
@@ -253,19 +253,21 @@ if (!empty($name)) {
                             <td>
                                 <table width="100%" class="Table30">
                                     <tbody>
-                                        <tr bgcolor="#F1E0C6">
+                                        <tr bgcolor="#F1E0C6" style="text-align: center">
                                             <td width="80px"><b>Health:</b></td>
                                             <td>
+                                                ' . $player->getHealth() . '/' . $player->getHealthMax() . '(' . (round(($player->getHealth() / $player->getHealthMax()), 2, PHP_ROUND_HALF_UP) * 100) . '%)
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' . (round(($player->getHealth() / $player->getHealthMax()), 2, PHP_ROUND_HALF_UP) * 100) . '" aria-valuemin="0" aria-valuemax="100" style=" width:' . (($player->getHealth() / $player->getHealthMax()) * 100) . '%;" >' . $player->getHealth() . '/' . $player->getHealthMax() . '(' . (round(($player->getHealth() / $player->getHealthMax()), 2, PHP_ROUND_HALF_UP) * 100) . '%)</div>
+                                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' . (round(($player->getHealth() / $player->getHealthMax()), 2, PHP_ROUND_HALF_UP) * 100) . '" aria-valuemin="0" aria-valuemax="100" style=" width:' . (($player->getHealth() / $player->getHealthMax()) * 100) . '%;" ></div>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr bgcolor="#D4C0A1">
+                                        <tr bgcolor="#D4C0A1" style="text-align: center">
                                             <td><b>Mana:</b></td>
                                             <td>
+                                                ' . $player->getMana() . '/' . $player->getManaMax() . ' (' . (round(($player->getMana() / $player->getManaMax()), 2, PHP_ROUND_HALF_UP) * 100) . '%)
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-default" role="progressbar" aria-valuenow="' . (round(($player->getMana() / $player->getManaMax()), 2, PHP_ROUND_HALF_UP) * 100) . '" aria-valuemin="0" aria-valuemax="100" style="width:' . (($player->getMana() / $player->getManaMax()) * 100) . '%">' . $player->getMana() . '/' . $player->getManaMax() . ' (' . (round(($player->getMana() / $player->getManaMax()), 2, PHP_ROUND_HALF_UP) * 100) . '%)</div>
+                                                    <div class="progress-bar bg-default" role="progressbar" aria-valuenow="' . (round(($player->getMana() / $player->getManaMax()), 2, PHP_ROUND_HALF_UP) * 100) . '" aria-valuemin="0" aria-valuemax="100" style="width:' . (($player->getMana() / $player->getManaMax()) * 100) . '%"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -279,9 +281,10 @@ if (!empty($name)) {
                                         </tr>
                                         <tr bgcolor="#D4C0A1">
                                             <td><b>Percent:</b></td>
-                                            <td>
+                                            <td style="text-align: center">
+                                                ' . $next_lvl_percent . '%
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="' . $next_lvl_percent . '" aria-valuemin="0" aria-valuemax="100" style="width:' . $next_lvl_percent . '%">' . $next_lvl_percent . '%</div>
+                                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="' . $next_lvl_percent . '" aria-valuemin="0" aria-valuemax="100" style="width:' . $next_lvl_percent . '%"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -290,15 +293,15 @@ if (!empty($name)) {
                                 <table width="100%" class="Table30">
                                     <tbody>
                                         <tr>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=experience"><img class="SkillIcon" src="images/skills/level.gif" alt="" style="border-style: none"></a></td>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=magic"><img class="SkillIcon" src="images/skills/ml.gif" alt="" style="border-style: none"></a></td>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=fist"><img class="SkillIcon" src="images/skills/fist.gif" alt="" style="border-style: none"></a></td>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=club"><img class="SkillIcon" src="images/skills/club.gif" alt="" style="border-style: none"></a></td>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=sword"><img class="SkillIcon" src="images/skills/sword.gif" alt="" style="border-style: none"></a></td>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=axe"><img class="SkillIcon" src="images/skills/axe.gif" alt="" style="border-style: none"></a></td>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=distance"><img class="SkillIcon" src="images/skills/dist.gif" alt="" style="border-style: none"></a></td>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=shield"><img class="SkillIcon" src="images/skills/def.gif" alt="" style="border-style: none"></a></td>
-                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=fishing"><img class="SkillIcon" src="images/skills/fish.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=5"><img class="SkillIcon" src="images/skills/level.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=9"><img class="SkillIcon" src="images/skills/ml.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=7"><img class="SkillIcon" src="images/skills/fist.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=3"><img class="SkillIcon" src="images/skills/club.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=11"><img class="SkillIcon" src="images/skills/sword.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=2"><img class="SkillIcon" src="images/skills/axe.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=4"><img class="SkillIcon" src="images/skills/dist.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=10"><img class="SkillIcon" src="images/skills/def.gif" alt="" style="border-style: none"></a></td>
+                                            <td style="text-align: center;"><a href="?subtopic=highscores&list=6"><img class="SkillIcon" src="images/skills/fish.gif" alt="" style="border-style: none"></a></td>
                                         </tr>
                                         <tr bgcolor="#D4C0A1">
                                             <td style="text-align: center;"><strong>Level</strong></td>
