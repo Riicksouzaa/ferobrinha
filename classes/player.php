@@ -88,7 +88,12 @@ class Player extends ObjectData
 	public function getLookMount(){
         return $this->getStorage("10002011");
     }
-
+    
+    public function getExpForLevel($lv){
+        $lv--;
+        return ((50 * $lv * $lv * $lv) - (150 * $lv * $lv) + (400 * $lv)) / 3;
+    }
+    
     /**
      * @param null $class
      * @param null $direction

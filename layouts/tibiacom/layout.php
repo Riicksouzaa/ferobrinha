@@ -683,7 +683,7 @@ if(!defined('INITIALIZED'))
                                             <?php if(Website::getWebsiteConfig()->getValue('info_bar_cast')){?>
                                                 <a class="InfoBarBlock" href="./">
                                                     <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-cast.png">
-                                                    <span class="InfoBarNumbers"><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
+                                                    <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
                                                     <span class="InfoBarSmallElement">0</span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
                                                     <span class="InfoBarSmallElement">0</span>
                                                 </span>
@@ -692,7 +692,7 @@ if(!defined('INITIALIZED'))
                                             <?php if(Website::getWebsiteConfig()->getValue('info_bar_twitch')){?>
                                             <a class="InfoBarBlock" href="https://www.twitch.tv/directory/game/Tibia" target="_blank">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-twitch.png">
-                                                <span class="InfoBarNumbers"><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
+                                                <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
                                                     <span class="InfoBarSmallElement"><?= $twitch_a?></span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
                                                     <span class="InfoBarSmallElement"><?= $twitch_c?></span>
                                                 </span>
@@ -701,7 +701,7 @@ if(!defined('INITIALIZED'))
                                             <?php if(Website::getWebsiteConfig()->getValue('info_bar_youtube')){?>
                                             <a class="InfoBarBlock" href="https://gaming.youtube.com/game/UCccW6i67_MlXxwqBMh0emYA" target="_blank">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-youtube.png">
-                                                <span class="InfoBarNumbers">
+                                                <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>>
                                                     <img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
                                                     <span class="InfoBarSmallElement">17</span>
                                                     <img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
@@ -712,7 +712,7 @@ if(!defined('INITIALIZED'))
                                             <?php if(Website::getWebsiteConfig()->getValue('info_bar_forum')){?>
                                             <a href="http://forum.tibia.com/forum/?action=announcement&amp;announcementid=87&amp;boardid=89516">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-download.png">
-                                                <span class="InfoBarNumbers">
+                                                <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>>
                                                     <span class="InfoBarSmallElement">Fankit</span>
                                                 </span>
                                             </a>
@@ -720,7 +720,7 @@ if(!defined('INITIALIZED'))
                                             <?php if(Website::getWebsiteConfig()->getValue('info_bar_online')){?>
                                             <a style="float: right" href="<?php echo $config['base_url']?>?subtopic=worlds">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
-                                                <span class="InfoBarNumbers">
+                                                <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>>
                                                     <span class="InfoBarSmallElement"><?php echo $players_online; ?></span>
                                                 </span>
                                             </a>
