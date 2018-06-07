@@ -47,7 +47,7 @@ if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
  */
 $make_content_header = function ($name, $sm_text = ''){
     if($sm_text && $sm_text != ''){
-        $sm_text = '<span style="padding-left:490px"><small>'.$sm_text.'</small></span>';
+        $sm_text = '<div style="float: right"><small><span>'.$sm_text.'</small></span></div>';
     }
   $q = '
 <div class="CaptionContainer">
@@ -58,7 +58,7 @@ $make_content_header = function ($name, $sm_text = ''){
         <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span> 
         <span class="CaptionEdgeLeftBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
         <span class="CaptionVerticalLeft" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>   
-        <div class="Text">'.$name.' '.$sm_text.'</div>
+        <div class="Text"><div style="height: 20px"><div style="float: left">'.$name.'</div> '.$sm_text.'</div></div>
         <span class="CaptionVerticalRight" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>
         <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
         <span class="CaptionEdgeLeftBottom"></span>
