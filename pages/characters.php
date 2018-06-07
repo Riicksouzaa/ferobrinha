@@ -194,8 +194,8 @@ if (!empty($name)) {
                                 <td>
                                     <div id="TransferConditionsToggleButton" class="BigToggleButton" onclick="CollapseTable(\'TransferConditionsContainer\'); $(\'#labelshow\').html($(\'#labelshow\').html() == \'show\' ? \'hide\' : \'show\');">
                                         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-                                        <div id="Indicator_TransferConditionsContainer" class="CircleSymbolMinus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url("./layouts/tibiarl/images/global/content/circle-symbol-minus.gif");"></div>
-                                        <i class="fa fa-info-circle" aria-hidden="true"></i> Click here to <span id="labelshow">hide</span> <b>additional informations</b>.
+                                        <div id="Indicator_TransferConditionsContainer" class="CircleSymbolPlus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url(./layouts/tibiacom/images/global/content/circle-symbol-plus.gif);"></div>
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i> Click here to <span id="labelshow">show</span> <b>additional informations</b>.
                                     </div>
                                 </td>
                             </tr>

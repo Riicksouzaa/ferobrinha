@@ -2379,8 +2379,8 @@ label {
 .ForumPost {
     position: relative;
     height: 100%;
-    width: 798px;
-    margin: -5px;
+    width: 770px;
+    margin: 0 auto;
 }
 
 .PostUpper {
@@ -2399,7 +2399,7 @@ label {
     width: 1px;
     height: 100%;
     background-color: #fff0d9;
-    left: 185px;
+    left: 160px;
 }
 
 * html .PostCharacterText {
@@ -2407,9 +2407,10 @@ label {
 }
 
 .PostCharacterText {
-    width: 175px;
+    width: 144px;
     float: left;
-    padding: 5px;
+    padding: 8px;
+    text-align:  center;
 }
 
 .PostText {
@@ -2436,10 +2437,10 @@ label {
     overflow-y: visible;
     word-wrap: break-word;
     font-size: 8pt;
-    padding: 10px;
-    padding-right: 0;
+    /* padding: 0px; */
+    /* padding-right: 0; */
     margin-left: 180px;
-    width: 600px;
+    width: 576px;
 }
 
 .PostActions .AdditionalBox {
@@ -2453,7 +2454,7 @@ label {
 .CipPost .CipBorder {
     font-size: 1px;
     position: absolute;
-    width: 798px;
+    width: 770px;
     height: 3px;
     z-index: 99;
 }
@@ -2473,10 +2474,10 @@ label {
 
 .CipPost .CipBorder .CipBorderH {
     position: absolute;
-    width: 792px;
+    width: 765px;
     height: 3px;
     top: 0;
-    left: 3px
+    left: 3px;
 }
 
 .CipPost .CipBorder .CipBorderCornerR {
@@ -2514,9 +2515,9 @@ label {
 }
 
 .CipPost .CipPostIcon {
-    position: relative;
-    top: 7px;
-    left: 12px;
+    /* position: relative; */
+    /* top: 7px; */
+    /* left: 12px; */
     width: 60px;
     height: 60px;
 }

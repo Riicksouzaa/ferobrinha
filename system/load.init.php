@@ -42,9 +42,13 @@ if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
 
 /**
  * @param string $name
+ * @param string $sm_text
  * @return string
  */
-$make_content_header = function ($name){
+$make_content_header = function ($name, $sm_text = ''){
+    if($sm_text && $sm_text != ''){
+        $sm_text = '<span style="padding-left:490px"><small>'.$sm_text.'</small></span>';
+    }
   $q = '
 <div class="CaptionContainer">
     <div class="CaptionInnerContainer">
@@ -54,7 +58,7 @@ $make_content_header = function ($name){
         <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span> 
         <span class="CaptionEdgeLeftBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
         <span class="CaptionVerticalLeft" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>   
-        <div class="Text">'.$name.'</div>
+        <div class="Text">'.$name.' '.$sm_text.'</div>
         <span class="CaptionVerticalRight" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>
         <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
         <span class="CaptionEdgeLeftBottom"></span>
@@ -66,11 +70,12 @@ $make_content_header = function ($name){
 };
 /**
  * @param string $class
+ * @param string $align
  * @return string
  */
-$make_table_header = function ($class = 'Table3'){
+$make_table_header = function ($class = 'Table3', $align = ''){
     $q = '
-<table class="'.$class.'" cellpadding="0" cellspacing="0">
+<table class="'.$class.'" cellpadding="0" cellspacing="0" align="'.$align.'">
     <tbody>
         <tr>
             <td>
