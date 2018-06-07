@@ -58,7 +58,7 @@ $make_content_header = function ($name, $sm_text = ''){
         <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span> 
         <span class="CaptionEdgeLeftBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
         <span class="CaptionVerticalLeft" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>   
-        <div class="Text"><div style="height: 20px"><div style="float: left">'.$name.'</div> '.$sm_text.'</div></div>
+        <div class="Text" style="min-height: 17px"><div style="float: left">'.$name.'</div> '.$sm_text.'</div>
         <span class="CaptionVerticalRight" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>
         <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
         <span class="CaptionEdgeLeftBottom"></span>
