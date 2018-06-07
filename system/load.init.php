@@ -2,7 +2,7 @@
 if (!defined('INITIALIZED'))
     exit;
 
-$time_start = microtime(true);
+$time_start = microtime(TRUE);
 session_start();
 
 function autoLoadClass ($className)
@@ -45,37 +45,37 @@ if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
  * @param string $sm_text
  * @return string
  */
-$make_content_header = function ($name, $sm_text = ''){
-    if($sm_text && $sm_text != ''){
-        $sm_text = '<div style="float: right"><small><span>'.$sm_text.'</small></span></div>';
+$make_content_header = function ($name, $sm_text = '') {
+    if ($sm_text && $sm_text != '') {
+        $sm_text = '<div style="float: right"><small><span>' . $sm_text . '</small></span></div>';
     }
-  $q = '
+    $q = '
 <div class="CaptionContainer">
     <div class="CaptionInnerContainer">
         <span class="CaptionEdgeLeftTop" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
         <span class="CaptionEdgeRightTop" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
         <span class="CaptionBorderTop" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
-        <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span> 
+        <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
         <span class="CaptionEdgeLeftBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
-        <span class="CaptionVerticalLeft" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>   
-        <div class="Text" style="min-height: 17px"><div style="float: left">'.$name.'</div> '.$sm_text.'</div>
+        <span class="CaptionVerticalLeft" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>
+        <div class="Text" style="min-height: 17px"><div style="float: left">' . $name . '</div> ' . $sm_text . '</div>
         <span class="CaptionVerticalRight" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-vertical.gif);"></span>
         <span class="CaptionBorderBottom" style="background-image:url(./layouts/tibiacom/images/global/content/table-headline-border.gif);"></span>
         <span class="CaptionEdgeLeftBottom"></span>
         <span class="CaptionEdgeRightBottom" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
     </div>
-</div>  
+</div>
   ';
-  return $q;
+    return $q;
 };
 /**
  * @param string $class
  * @param string $align
  * @return string
  */
-$make_table_header = function ($class = 'Table3', $align = ''){
+$make_table_header = function ($class = 'Table3', $align = '') {
     $q = '
-<table class="'.$class.'" cellpadding="0" cellspacing="0" align="'.$align.'">
+<table class="' . $class . '" cellpadding="0" cellspacing="0" align="' . $align . '">
     <tbody>
         <tr>
             <td>
@@ -97,7 +97,7 @@ $make_table_header = function ($class = 'Table3', $align = ''){
 /**
  * @return string
  */
-$make_table_footer = function (){
+$make_table_footer = function () {
     $q = '
                                                 </tbody>
                                             </table>
@@ -118,7 +118,7 @@ $make_table_footer = function (){
         </tr>
     </tbody>
 </table>';
-    return $q;    
+    return $q;
 };
 
 // remove magic quotes, to make it compatible with some bad PHP configurations, 'stripslashes' in scripts is not needed anymore!
