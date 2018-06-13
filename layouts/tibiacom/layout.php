@@ -721,7 +721,7 @@ if(!defined('INITIALIZED'))
                                             <a style="float: right" href="<?php echo $config['base_url']?>?subtopic=worlds">
                                                 <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
                                                 <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>>
-                                                    <span class="InfoBarSmallElement"><?php echo $players_online; ?></span>
+                                                    <span class="InfoBarSmallElement show_online_data"><?php echo $players_online; ?></span>
                                                 </span>
                                             </a>
                                             <?php }?>
@@ -957,7 +957,16 @@ if(!defined('INITIALIZED'))
             });
         }
     </script>
-<div id="fb-root"></div>
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                $.getJSON("./?subtopic=get_online_data", function (data) {
+                    $("span.show_online_data").text(data).fadeIn('fast');
+                });
+            }, 1000);
+        });
+    </script>
+    <div id="fb-root"></div>
     <script>(function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
