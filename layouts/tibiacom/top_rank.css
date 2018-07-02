@@ -2,41 +2,45 @@
     color: #d3e7f2;
     position: relative;
     width: 100%;
-    background: url(./images/themeboxes/bk_themebox.png) no-repeat center calc(100% - 1044px),
-    url(./images/themeboxes/bk_themebox.png) no-repeat center calc(100% - 748px),
-    url(./images/themeboxes/bk_themebox.png) no-repeat center calc(100% - 452px),
-    url(./images/themeboxes/bk_themebox.png) no-repeat center bottom;
+    background: url(./images/themeboxes/bk_themebox_ferobra.png) no-repeat center calc(100% - 1044px),
+    url(./images/themeboxes/bk_themebox_ferobra.png) no-repeat center calc(100% - 748px),
+    url(./images/themeboxes/bk_themebox_ferobra.png) no-repeat center calc(100% - 452px),
+    url(./images/themeboxes/bk_themebox_ferobra.png) no-repeat center bottom;
     padding: 0 0 0 0;
     top: 141px;
+    max-height: 466px;
+    min-height: 415px;
     text-align: justify;
-    max-height: 452px;
     margin: 0 auto;
 }
 
 #TopLvl::after {
     content: "";
     z-index: 5;
-    background: url(./images/themeboxes/bk_pilares.png) no-repeat center;
-    background-position-x: 20px;
-    background-position-y: 34px;
-    width: 42px;
-    height: 602px;
+    background: url(./images/themeboxes/bk_pilar_left.png) no-repeat center;
+    background-size: cover;
+    background-position-x: 0;
+    background-position-y: 10px;
+    width: 10%;
+    height: 88%;
+    transform: rotate(0deg);
     position: absolute;
-    left: 155px;
-    top: -11px;
+    right: -13px;
+    top: -14px;
 }
 
 #TopLvl::before {
     content: "";
     z-index: 5;
-    background: url(./images/themeboxes/bk_pilares.png) no-repeat center;
-    background-position-x: 20px;
-    background-position-y: 34px;
-    width: 42px;
-    height: 602px;
+    background: url(./images/themeboxes/bk_pilar_right.png) no-repeat center;
+    background-size: cover;
+    background-position-x: 0px;
+    background-position-y: 10px;
+    width: 11%;
+    height: 90%;
     position: absolute;
-    left: -26px;
-    top: -11px;
+    left: -15px;
+    top: -18px;
 }
 
 .top1 {
@@ -87,12 +91,11 @@
 .topleveltext {
     color: #ffdf8e;
     text-shadow: 0 1px 2px #000, 0 1px 5px #000;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     box-shadow: none;
     overflow: hidden;
     white-space: nowrap;
-
 }
 
 .topleveltext:hover {

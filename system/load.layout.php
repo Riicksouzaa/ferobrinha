@@ -13,7 +13,7 @@ $fnc = function () {
 if ($subtopic == 'latestnews' || $subtopic == '') {
     $fnc();
 }
-if (!isset($_SESSION['landpage']) && !isset($_SESSION['landtime']) && $subtopic != "get_online_data") {
+if (!isset($_SESSION['landpage']) && !isset($_SESSION['landtime']) && $subtopic != "get_online_data" && Website::getWebsiteConfig()->getValue('landpage_isactive') ) {
     $_SESSION['landtime'] = time();
     $_SESSION['landpage'] = TRUE;
     header("Location: " . $config['base_url'] . "?faccess=landing");

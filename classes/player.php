@@ -312,6 +312,7 @@ class Player extends ObjectData
 
         unset($this->data['id']);
 	}
+	
 	public function getVocationName(){
         $voc = $this->getVocation();
         switch ($voc) {

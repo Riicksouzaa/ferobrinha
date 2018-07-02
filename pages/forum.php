@@ -734,7 +734,6 @@ if ($action == 'show_thread') {
         $main_content .= "</div>";
         if ($logged) {
             $main_content .= $make_table_header("Table5");
-            var_dump($section_id);
             $main_content .= '
 		<tr style="background-image: url(./layouts/tibiacom/images/global/content/scroll.gif)">
 			<td  colspan=1 align="left" ><a href="?subtopic=forum&action=new_topic&section_id=' . $section_id . '" ><img src="images/forum/topic.gif" name="" width="85" height="20" border="0" ></a>
