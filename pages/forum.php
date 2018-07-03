@@ -625,15 +625,15 @@ if ($action == 'show_thread') {
             $main_content .= '
 						<div class="PostSeparatorV" ></div>
 						<div class="PostUpper">';
-            $main_content.='<div class="PostCharacterText" >';
-            $main_content.='<b><a href="?subtopic=characters&name=' . urlencode($thread['name']) . '">' . htmlspecialchars($thread['name']) . '</a></b><br>';
+            $main_content .= '<div class="PostCharacterText" >';
+            $main_content .= '<b><a href="?subtopic=characters&name=' . urlencode($thread['name']) . '">' . htmlspecialchars($thread['name']) . '</a></b><br>';
             $p = new Player();
             $p->loadByName($thread['name']);
             
-            if ($thread['group_id'] >= 3){
+            if ($thread['group_id'] >= 3) {
                 $main_content .= '<img class="CipPostIcon" src="' . $layout_name . '/images/global/forum/cip_post_icon.gif" /><br>';
                 $main_content .= '<font class="ff_smallinfo">Community Manager<br/>';
-            }else{
+            } else {
                 $main_content .= $p->makeOutfitUrl();
             }
             $main_content .= '

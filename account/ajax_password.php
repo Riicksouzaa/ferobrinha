@@ -8,7 +8,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH
 
 header('X-Ajax-Cip-Response-Type: Container');
 
-function f($e)
+function f ($e)
 {
     die('{"AjaxObjects": [{"DataType": "Attributes","Data": "style=background-image:url(account/nok.gif)","Target": "#password1_indicator"},{"DataType": "Attributes","Data": "style=background-image:url(account/nok.gif)","Target": "#password2_indicator"},{"DataType": "HTML","Data": "' . $e . '","Target": "#password_errormessage"},{"DataType": "Attributes","Data": "class=red","Target": "#password1_label"},{"DataType": "Attributes","Data": "class=red","Target": "#password2_label"}]}');
 }

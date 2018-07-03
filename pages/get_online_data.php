@@ -1,5 +1,5 @@
 <?php
-if(!defined('INITIALIZED')){
+if (!defined('INITIALIZED')) {
     exit;
 }
 if (!session_id()) @ session_start();

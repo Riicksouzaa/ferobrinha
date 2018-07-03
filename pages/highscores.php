@@ -9,7 +9,7 @@ if (isset($_REQUEST['list'])) {
 
 $page = 0;
 if (isset($_REQUEST['page'])) {
-    $page =  (int)min(50, $_REQUEST['page']);
+    $page = (int)min(50, $_REQUEST['page']);
 } elseif (isset($_POST['page'])) {
     $page = (int)$_POST['page'];
 }
@@ -350,13 +350,13 @@ function sendHighscorePost(world,profession,list,page) {
 </script>";
 for ($i = 0; $i < $tp; $i++) {
     if ((int)$_REQUEST["page"] - 1 != $i) {
-        $main_content.='<form method="post" style="display:inline;margin-left:4px;" action="./?subtopic=highscores" id="sendHighscorePage'.$i.'">';
-        $main_content.='<input type="hidden" value="'.$config['server']['serverName'].'" name="world">';
-        $main_content.='<input type="hidden" value="'.$vocation.'" name="profession">';
-        $main_content.='<input type="hidden" value="'.(isset($_REQUEST['list']) ? $_REQUEST['list'] : (isset($_POST['list']) ? $_POST['list'] : 5)).'" name="list">';
-        $main_content.='<input type="hidden" value="'.($i+1).'" name="page">';
-        $main_content.='<a style="cursor:pointer;" onclick="document.getElementById(\'sendHighscorePage'.$i.'\').submit()" >'.($i+1).'</a>';
-        $main_content.='</form>';
+        $main_content .= '<form method="post" style="display:inline;margin-left:4px;" action="./?subtopic=highscores" id="sendHighscorePage' . $i . '">';
+        $main_content .= '<input type="hidden" value="' . $config['server']['serverName'] . '" name="world">';
+        $main_content .= '<input type="hidden" value="' . $vocation . '" name="profession">';
+        $main_content .= '<input type="hidden" value="' . (isset($_REQUEST['list']) ? $_REQUEST['list'] : (isset($_POST['list']) ? $_POST['list'] : 5)) . '" name="list">';
+        $main_content .= '<input type="hidden" value="' . ($i + 1) . '" name="page">';
+        $main_content .= '<a style="cursor:pointer;" onclick="document.getElementById(\'sendHighscorePage' . $i . '\').submit()" >' . ($i + 1) . '</a>';
+        $main_content .= '</form>';
 //        $main_content .= '<a id="goto-page-' . $i . '" style="margin-left:4px;" href="./?subtopic=highscores&world=' . $config["server"]["serverName"] . '&profession=' . $vocation . '&list=' . (isset($_REQUEST['list']) ? $_REQUEST['list'] : (isset($_POST['list']) ? $_POST['list'] : 5)) . '&page=' . ($i + 1) . '">' . ($i + 1) . '</a>';
     } else {
         $main_content .= "<b style='margin-left:4px;'>" . ($i + 1) . "</b>";

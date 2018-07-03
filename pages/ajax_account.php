@@ -1,7 +1,7 @@
 <?php
-if(!defined('INITIALIZED'))exit;
+if (!defined('INITIALIZED')) exit;
 
-function f($e)
+function f ($e)
 {
     echo '
     {"AjaxObjects": 
@@ -14,37 +14,31 @@ function f($e)
       {"DataType": "Attributes",
       "Data": "class=red",
       "Target": "#accountname_label"}]}';
-
+    
 }
 
 if (isset($_POST['a_AccountName'])) {
-
+    
     $s = isset($_POST['a_AccountName']) ? $_POST['a_AccountName'] : '';
-
-    if ($s == ''){
+    
+    if ($s == '') {
         f('Please enter an account name!');
         die();
-    }
-
-    elseif (strlen($s) < 3){
+    } elseif (strlen($s) < 3) {
         f('This account name is too short!');
         die();
-    }
-
-    elseif (strlen($s) > 30){
+    } elseif (strlen($s) > 30) {
         f('This account name is too long!');
         die();
     }
-
-
+    
+    
     //$s = strtoupper($s);
-
-    if (!ctype_alnum($s)){
+    
+    if (!ctype_alnum($s)) {
         f('This account name has an invalid format. Your account name may only consist of numbers 0-9 and letters A-Z!');
         die();
-    }
-
-    else {
+    } else {
         $account = new Account();
         $account->loadByName($s);
         if ($account->isLoaded())

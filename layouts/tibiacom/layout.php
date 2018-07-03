@@ -873,5 +873,8 @@ if(!defined('INITIALIZED'))
         gtag('config', 'UA-110963342-1');
     </script>
     <?php }?>
+    <!-- float facebook like box start -->
+    <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js" data-href="https://www.facebook.com/otservferobra/" async></script>
+    <!-- float facebook like box end -->
 </body>
 </html>

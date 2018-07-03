@@ -8,7 +8,7 @@
 
 $player_id = $_REQUEST['id'];
 if ($player_id) {
-    header("Location: ./?subtopic=accountmanagement&action=buychar&id=".$player_id);
+    header("Location: ./?subtopic=accountmanagement&action=buychar&id=" . $player_id);
 } else {
     
     $main_content .= "
@@ -117,13 +117,13 @@ if ($player_id) {
 <tr>
     ";
             $main_content .= "
-          <td><img class='Outfit' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == null ? 0 : $mount_id) . "' alt='' name=''></td>
+          <td><img class='Outfit' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''></td>
         ";
             $main_content .= "<td><a href='./?subtopic=characters&name=" . urlencode($player_info['name']) . "'>{$player_info['name']}</a><br/> {$player_sale_info->getVocationName()} - Level {$player_sale_info->getLevel()}</td>
 <td>
     <center><a href='?subtopic=accountmanagement&action=buychar&id=" . $player['id_player'] . "' style='padding:0px;margin:0px;'><input name='selectedcharacter' value='' type='hidden'><div class='BigButton' style='background-image:url(./layouts/tibiacom/images/global/buttons/sbutton_green.gif)'><div onmouseover='MouseOverBigButton(this);' onmouseout='MouseOutBigButton(this);'><div class='BigButtonOver' style='background-image: url(./layouts/tibiacom/images/global/buttons/sbutton_green_over.gif&quot;); visibility: visible;'></div><input class='ButtonText' name='Create Character' alt='Create Character' src='./layouts/tibiacom/images/global/buttons/buy_character.gif' type='image'></div></div></a></center>    
 </td>
-    <td>" . ($player['price_type'] == 0 ? number_format($player['price_coins'],0,',','.') . " Coins" : number_format($player['price_gold'],0,',','.') . " Gold Balance") . "</td>
+    <td>" . ($player['price_type'] == 0 ? number_format($player['price_coins'], 0, ',', '.') . " Coins" : number_format($player['price_gold'], 0, ',', '.') . " Gold Balance") . "</td>
 </tr>";
         }
     } else {
@@ -153,7 +153,7 @@ if ($player_id) {
     </table>
 </div>
     ';
-
+    
     $main_content .= '
         <p>To put a character of yours on sale just access the menu next to the tab on the option <a href="./?subtopic=accountmanagement&action=sellchar">Sell Characters</a>, remembering that you need to be logged in to your account for this option to appear.</p>
     ';

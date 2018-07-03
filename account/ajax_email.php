@@ -1,5 +1,5 @@
 <?php
-define('AJAXREQUEST', true);
+define('AJAXREQUEST', TRUE);
 $_GET['subtopic'] = 'guild_image';
 $_REQUEST['subtopic'] = 'guild_image';
 include('index.php');
@@ -12,7 +12,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH
 
 header('X-Ajax-Cip-Response-Type: Container');
 
-function f($e)
+function f ($e)
 {
     die('{"AjaxObjects": [{"DataType": "Attributes","Data": "style=background-image:url(account/nok.gif)","Target": "#email_indicator"},{"DataType": "HTML","Data": "' . $e . '","Target": "#email_errormessage"},{"DataType": "Attributes","Data": "class=red","Target": "#email_label"}]}');
 }

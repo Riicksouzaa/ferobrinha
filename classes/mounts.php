@@ -14,7 +14,6 @@ class Mounts
     
     /**
      * Mounts constructor.
-     * @param $path
      */
     public function __construct ()
     {
@@ -68,6 +67,55 @@ class Mounts
         $this->mountsbycliid = $mountsbycliid;
     }
     
+    public function getMountsByClientId ($client_id)
+    {
+        $id = (int)$client_id;
+        $mounts = $this->getMountsbycliid();
+        return $mounts[$id];
+    }
+    
+    /**
+     * @return mixed
+     */
+    private function getMountsbycliid ()
+    {
+        return $this->mountsbycliid;
+    }
+    
+    /**
+     * @param $player_id
+     * @return array|bool
+     */
+    public function getAllMountsByPlayerId ($player_id)
+    {
+        $player = new Player();
+        $player->loadById($player_id);
+        
+        $p = [];
+        for ($i = 0; $i < 10; $i++) {
+            $var = (10000000 + 2001);
+            $var = $var + $i;
+            if ($player->getStorage($var) != NULL) {
+                $p[$i]['key'] = $var;
+                $p[$i]['storage'] = $player->getStorage($var);
+            }
+        }
+        if ($p != NULL) {
+            foreach ($p as $storages) {
+                $teste = $this->getMountsByKey($storages['key']);
+                foreach ($teste as $mount) {
+                    if (((1 << (($mount['id'] - 1) % 31)) & $storages['storage'])) {
+                        $top = $this->getMountsById($mount['id']);
+                        $kappa[] = $top;
+                    }
+                }
+            }
+            return $kappa;
+        } else {
+            return FALSE;
+        }
+    }
+    
     /**
      * @return mixed
      */
@@ -95,55 +143,6 @@ class Mounts
     private function getMounts ()
     {
         return $this->mountsbyid;
-    }
-    
-    public function getMountsByClientId ($client_id)
-    {
-        $id = (int)$client_id;
-        $mounts = $this->getMountsbycliid();
-        return $mounts[$id];
-    }
-    
-    /**
-     * @return mixed
-     */
-    private function getMountsbycliid ()
-    {
-        return $this->mountsbycliid;
-    }
-    
-    /**
-     * @param $player_id
-     * @return array|bool
-     */
-    public function getAllMountsByPlayerId ($player_id)
-    {
-        $player = new Player();
-        $player->loadById($player_id);
-    
-        $p = [];
-        for ($i = 0; $i < 10; $i++) {
-            $var = (10000000 + 2001);
-            $var = $var + $i;
-            if ($player->getStorage($var) != null) {
-                $p[$i]['key'] = $var;
-                $p[$i]['storage'] = $player->getStorage($var);
-            }
-        }
-        if ($p != NULL) {
-            foreach ($p as $storages) {
-                $teste = $this->getMountsByKey($storages['key']);
-                foreach ($teste as $mount) {
-                    if (((1 << (($mount['id'] - 1) % 31)) & $storages['storage'])) {
-                        $top = $this->getMountsById($mount['id']);
-                        $kappa[] = $top;
-                    }
-                }
-            }
-            return $kappa;
-        } else {
-            return false;
-        }
     }
     
     

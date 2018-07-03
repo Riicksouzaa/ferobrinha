@@ -174,16 +174,16 @@ if (!empty($name)) {
         $player_info = $player->data;
         $mount_id = $player->getStorage('10002011');
         $cur_outfit .= "<img style='text-decoration:none;margin: 0 0 0 -13px;' class='outfitImgsell2' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''>";
-    
+        
         $cur_exp = $player->getExperience();
         $cur_lvl_exp = $player->getExpForLevel($player->getLevel());
         $cur_real_exp = $cur_exp - $cur_lvl_exp;
-        $next_lvl_exp = $player->getExpForLevel($player->getLevel()+1);
+        $next_lvl_exp = $player->getExpForLevel($player->getLevel() + 1);
         $next_lvl_exp_need = $next_lvl_exp - $cur_lvl_exp;
         
-        $next_lvl_percent = (float) round(((($cur_real_exp/$next_lvl_exp_need)*100)),2,PHP_ROUND_HALF_DOWN);
+        $next_lvl_percent = (float)round(((($cur_real_exp / $next_lvl_exp_need) * 100)), 2, PHP_ROUND_HALF_DOWN);
         $next_lvl_percent = ($next_lvl_percent == 100 ? 99.99 : $next_lvl_percent);
-    
+        
         $plus_content .= '<div class="account_plus_information">';
         $plus_content .= '
             <div class="TableContentAndRightShadow1" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-rm.gif);">
@@ -277,7 +277,7 @@ if (!empty($name)) {
                                     <tbody>
                                         <tr bgcolor="#F1E0C6">
                                             <td width="80px"><b>Exp:</b></td>
-                                            <td>Have <b>' . $player->getExperience() . '</b> and need <b>' . ($player->getExpForLevel($player->getLevel()+1)-$player->getExperience()) . '</b> to Level <b>' . ($player->getLevel() + 1) . '</b>.</td>
+                                            <td>Have <b>' . $player->getExperience() . '</b> and need <b>' . ($player->getExpForLevel($player->getLevel() + 1) - $player->getExperience()) . '</b> to Level <b>' . ($player->getLevel() + 1) . '</b>.</td>
                                         </tr>
                                         <tr bgcolor="#D4C0A1">
                                             <td><b>Percent:</b></td>

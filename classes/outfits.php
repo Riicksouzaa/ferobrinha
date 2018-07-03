@@ -12,7 +12,6 @@ class Outfits
     
     /**
      * outfits constructor.
-     * @param $path
      */
     public function __construct ()
     {

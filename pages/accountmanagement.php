@@ -277,13 +277,13 @@ if (!$logged)
 				</tr>';
     }
 else {
-    if($isTryingToLogin){
+    if ($isTryingToLogin) {
         if (Website::getWebsiteConfig()->getValue('base_url') == Website::getWebsiteConfig()->getValue('realurl')) {
-            if ($_SERVER['HTTP_REFERER'] != Website::getWebsiteConfig()->getValue('realurl')."?subtopic=accountmanagement") {
+            if ($_SERVER['HTTP_REFERER'] != Website::getWebsiteConfig()->getValue('realurl') . "?subtopic=accountmanagement") {
                 header("Location: " . $_SERVER['HTTP_REFERER']);
             }
         } else {
-            if ($_SERVER['HTTP_REFERER'] != Website::getWebsiteConfig()->getValue('testurl')."?subtopic=accountmanagement") {
+            if ($_SERVER['HTTP_REFERER'] != Website::getWebsiteConfig()->getValue('testurl') . "?subtopic=accountmanagement") {
                 header("Location: " . $_SERVER['HTTP_REFERER']);
             }
         }
@@ -353,7 +353,7 @@ else {
 <script>
     iziToast.show({
         title:"Olá",
-        message:"Bem vindo, '.$account_logged->getName().' Precisamos agora que você registre sua account e anote sua recovery key em um local seguro!!",
+        message:"Bem vindo, ' . $account_logged->getName() . ' Precisamos agora que você registre sua account e anote sua recovery key em um local seguro!!",
         position:"center"
     })
 </script>';
@@ -695,10 +695,10 @@ else {
         }
     } else {
         /**
-        if ($account_logged->getSecret() === NULL || $account_logged->getSecret() == '') {
-            $account_logged->setSecret($tfa->createSecret(160));
-            $account_logged->save();
-        }*/
+         * if ($account_logged->getSecret() === NULL || $account_logged->getSecret() == '') {
+         * $account_logged->setSecret($tfa->createSecret(160));
+         * $account_logged->save();
+         * }*/
         $secret = $account_logged->getSecret();
         //Here start our new accountmanagement ;D
         if ($action == "") {
@@ -4461,7 +4461,7 @@ else {
 											<tr bgcolor="' . $config['site']['darkborder'] . '">
 												<td>' . date("M d Y, H:i:s", $payments['date']) . '</td>
 												<td>' . $payments['method'] . '</td>
-												<td>R$ ' . number_format($payments['price'],'2', ',', '.') . '</td>
+												<td>R$ ' . number_format($payments['price'], '2', ',', '.') . '</td>
 												<td>' . $payments['status'] . '</td>
 												<td>' . (($payments['status'] == "confirm") ? '[<a style="white-space: nowrap" href="?subtopic=accountmanagement&action=confirmdonate&orderID=' . $payments['id'] . '" >Confirm</a>]<br/>' : '') . '</td>';
                     $main_content .= '
@@ -5570,10 +5570,10 @@ else {
 //        include 'accountmanagement/donate.php';
 //    }
         /** Process payment */
-        if($action == 'process_transfer_payment'){
+        if ($action == 'process_transfer_payment') {
             include 'accountmanagement/payment_methods/transfer.php';
         }
-        if($action == 'process_picpay_payment'){
+        if ($action == 'process_picpay_payment') {
             include 'accountmanagement/payment_methods/picpay.php';
         }
         

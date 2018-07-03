@@ -2,8 +2,9 @@
 if(!defined('INITIALIZED'))
 	exit;
 
-$list = $SQL->query('SELECT ' . $SQL->fieldName('name') . ', ' . $SQL->fieldName('id') . ', ' . $SQL->fieldName('group_id') . ' FROM ' . $SQL->tableName('players') . ' WHERE ' . $SQL->fieldName('group_id') . ' IN (' . implode(',', $config['site']['groups_support']) . ') ORDER BY ' . $SQL->fieldName('group_id') . ' DESC');
+$list = $SQL->query('SELECT `name`, `id`, `group_id` FROM players WHERE group_id IN (' . implode(',', $config['site']['groups_support']) . ') ORDER BY group_id DESC')->fetchAll();
 
+//var_dump($list);
 
 $main_content .= "
 <table border=0 cellpadding=4 cellspacing=1 width=100%>
@@ -48,6 +49,7 @@ $main_content .= "<table border=0 cellspacing=1 cellpadding=4 width=100%>
 
 foreach($list as $i => $supporter)
 {
+//    var_dump($supporter);
 	$bgcolor = (($i++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
 	$main_content .= '<tr bgcolor="'.$bgcolor.'"><td>'.htmlspecialchars($supporter['name']).'</a></td><td>' . htmlspecialchars(Website::getGroupName($supporter['group_id'])) . '</td></tr>';
 }
