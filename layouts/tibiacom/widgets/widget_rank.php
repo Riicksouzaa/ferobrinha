@@ -1,8 +1,8 @@
 <?php if (Website::getWebsiteConfig()->getValue('widget_rank')) { ?>
     <!-- TOP LEVEL -->
     <div id="TopLvl">
-        <p class="rank_pbot_copyright"><a href="http://pbotwars.com.br/">design by pbot</a></p>
-        <p class="rank_copyright"><a style="font-family: Anurati, Sans-serif !important;" href="https://codenome.com">Code nome</a></p>
+        <!--<p class="rank_pbot_copyright"><a href="http://pbotwars.com.br/">design by pbot</a></p>-->
+        <p class="rank_copyright"><a href="https://codenome.com">WE ARE<br>Code nome</a></p>
         <h3 class="TopLvl_title">Top <?php $qtd = Website::getWebsiteConfig()->getValue('top_lvl_qtd');
             $qtd = ($qtd < 1 ? 1 : $qtd > 5 ? 5 : $qtd);
             echo $qtd; ?> Experience</h3>
@@ -17,6 +17,25 @@
                 $currentMount = $player->getStorage(10002001 + 10);
                 ?>
                 <div class="tplevellayout">
+                <?php $out_anim = (Website::getWebsiteConfig()->getValue('top_lvl_out_anim') ? 'animoutfit' : 'outfit'); ?>
+                <style>
+                    <?php echo'
+                    .outfitImgtoplevel'.$player->getID().' {
+                        z-index: 1;
+                        width: 64px;
+                        height: 64px;
+                        position: absolute;
+                        left: -36px;
+                        margin-top: -15px;
+                        background: url(https://outfits.ferobraglobal.com/' . 'outfit' . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . ') no-repeat 0 0;
+                    }
+
+                    .topleveltext:hover > .outfitImgtoplevel'.$player->getID().' {
+                        background: url(https://outfits.ferobraglobal.com/' . 'animoutfit' . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . ') no-repeat 0 0;
+                    }';?>
+
+                </style>
+                
                 <?php
                 if (!$player->isOnline()) {
                     echo '<a class="topleveltext top_offline" style="text-decoration:none" href="?subtopic=characters&name=' . urlencode($player->getName()) . '">';
@@ -24,6 +43,7 @@
                     echo '<a class="topleveltext top_online" style="text-decoration:none" href="?subtopic=characters&name=' . urlencode($player->getName()) . '">';
                 }
                 ?>
+                <?php echo '<div class="outfitImgtoplevel'.$player->getID().'"></div>'; ?>
                 <span><?= $a ?></span> - <?= $player->getName() ?>
                 <br>
                 <small>&nbsp;&nbsp;&nbsp;Level: (<?php echo $player->getLevel() ?>)
@@ -31,11 +51,6 @@
                     &nbsp;&nbsp;&nbsp;<?= $player->getVocationName(); ?>
                 </small>
                 </a>
-                <?php $out_anim = (Website::getWebsiteConfig()->getValue('top_lvl_out_anim') ? 'animoutfit' : 'outfit'); ?>
-                <?php
-                echo '<img class="outfitImgtoplevel" src="https://outfits.ferobraglobal.com/';
-                echo $out_anim;
-                echo '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . '"/>'; ?>
                 <?php if ($a == 1) { ?>
                     <div><span class="firstlevel"><span id="firstlevel"></span></span></div>
                     <div class="rankinglevel">

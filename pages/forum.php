@@ -133,7 +133,7 @@ function replaceAll ($text, $smile)
             $bgcolor = 'CCCCCC';
         }
         $rows++;
-        $text = str_ireplace('[quote]' . $quote . '[/quote]', '<table cellpadding="0" style="background-color: #' . $bgcolor . '; width: 480px; border-style: dotted; border-color: #007900; border-width: 2px"><tr><td>' . $quote . '</td></tr></table>', $text);
+        $text = str_ireplace('[quote]' . $quote . '[/quote]', '<table cellpadding="0" style="background-color: #' . $bgcolor . '; width: 480px; border: 2px dotted #007900;"><tr><td>' . $quote . '</td></tr></table>', $text);
     }
     $rows = 0;
     while (stripos($text, '[url]') !== FALSE && stripos($text, '[/url]') !== FALSE) {

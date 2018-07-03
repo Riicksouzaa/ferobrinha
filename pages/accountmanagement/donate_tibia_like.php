@@ -88,7 +88,7 @@ if ($logged) {
     
     if ($step == 1) {
         $main_content .= '
-    <script src="' . $layout_name . '/changepmctibia.js'.$css_version.'"></script>
+    <script src="' . $layout_name . '/js/changepmctibia.js'.$css_version.'"></script>
     <form method="POST">
     <div class="TableContainer">
     <div class="CaptionContainer">
@@ -267,7 +267,7 @@ if ($logged) {
             $main_content .= '
                                                                     <div class="PMCID_Icon_Container" id="PMCID_Icon_Container_' . $payment_id . '">
                                                                         <div class="PMCID_Icon" id="PMCID_Icon_' . $payment_id . '" style="background-image:url(' . $layout_name . '/images//payment/pmcid_icon_normal.png);" onclick="ChangePMC(' . $payment_id . ');" onmouseover="MouseOverPMCID(' . $payment_id . ');" onmouseout="MouseOutPMCID(' . $payment_id . ');">
-                                                                            <div class="PermanentDeactivated PMCID_Deactivated_ByChoice" id="PMCID_NotAllowed_' . $payment_id . '" style="display: none;" "="">
+                                                                            <div class="PermanentDeactivated PMCID_Deactivated_ByChoice" id="PMCID_NotAllowed_' . $payment_id . '" style="display: none;">
                                                                                 <span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), \'Payment Method Info:\', \'<p>The payment method is not allowed for the selected service!</p>\', \'\');" onmouseout="$(\'#HelperDivContainer\').hide();">
                                                                                     <div class="PMCID_Deactivated" style="background-image: url(' . $layout_name . '/images/payment/pmcid_deactivated.png);"></div>
                                                                                 </span>

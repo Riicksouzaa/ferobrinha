@@ -69,31 +69,31 @@ if(!defined('INITIALIZED'))
     <link rel="apple-touch-icon-precomposed" href="<?php echo $layout_name; ?>/images/global/general/apple-touch-icon-precomposed.png">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="<?php echo $layout_name; ?>/basic_d.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/top_rank.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/pageloader.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/iziModal.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/iziToast.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/ouibounce.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/css/basic_d.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/css/top_rank.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/css/pageloader.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/css/iziModal.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/css/iziToast.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/css/ouibounce.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
     <?php
     if($_REQUEST['subtopic'] == "latestnews" || $_REQUEST['subtopic'] == "newsarchive")
-        echo '<link href="'.$layout_name.'/news.css'.$css_version.'" rel="stylesheet" type="text/css">';
+        echo '<link href="'.$layout_name.'/css/news.min.css'.$css_version.'" rel="stylesheet" type="text/css">';
     ?>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-    <script src="<?php echo $layout_name; ?>/jquery-ui.core.js<?php echo $css_version;?>" ></script>
-    <script src="<?php echo $layout_name; ?>/jquery-ui.widgets.js<?php echo $css_version;?>" ></script>
-    <script src="<?php echo $layout_name; ?>/jquery.mask.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/ajaxcip.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/ajaxmonteiro.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/iziModal.min.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/iziToast.min.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/ouibounce.min.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/jquery-ui.core.js<?php echo $css_version;?>" ></script>
+    <script src="<?php echo $layout_name; ?>/js/jquery-ui.widgets.js<?php echo $css_version;?>" ></script>
+    <script src="<?php echo $layout_name; ?>/js/jquery.mask.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/ajaxcip.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/ajaxmonteiro.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/iziModal.min.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/iziToast.min.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
     <?php
     if($_REQUEST['subtopic'] == "createaccount")
-        echo '<script src="'.$layout_name.'/create_character.js'.$css_version.'"></script>';
+        echo '<script src="'.$layout_name.'/js/create_character.js'.$css_version.'"></script>';
     ?>
     <script>
         iziToast.settings({
@@ -136,9 +136,9 @@ if(!defined('INITIALIZED'))
             g_FlashClientInPopUp = false;
         }
     </script>
-    <script src="<?php echo $layout_name; ?>/generic.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/initialize.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/swfobject.js<?php echo $css_version;?>" ></script>
+    <script src="<?php echo $layout_name; ?>/js/generic.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/initialize.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/swfobject.js<?php echo $css_version;?>" ></script>
     <?php if($_REQUEST['subtopic'] == "accountmanagement") { ?>
         <script type="text/javascript">
             function openGameWindow(a_URL)
@@ -738,7 +738,7 @@ if(!defined('INITIALIZED'))
                                         </div>
                                     </div>
                                     <?php }?>
-                                    <script type="text/javascript" src="<?php echo $layout_name; ?>/newsticker.js<?php echo $css_version ?>"></script>
+                                    <script type="text/javascript" src="<?php echo $layout_name; ?>/js/newsticker.js<?php echo $css_version ?>"></script>
                                     <?php echo $news_content; ?>
                                     <div id="NewsArchive" class="Box">
                                         <div class="Corner-tl" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/corner-tl.gif);"></div>
