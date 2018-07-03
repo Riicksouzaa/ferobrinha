@@ -563,6 +563,7 @@ if ($action == 'show_thread') {
 									" . $posts_per_page . "
 						OFFSET 
 									" . ($page * $posts_per_page))->fetchAll();
+        $section_id = $threads[0]['section'];
         if (isset($threads[0]['name']))
             $SQL->query("UPDATE " . $SQL->tableName('z_forum') . " SET " . $SQL->fieldName('views') . "=" . $SQL->fieldName('views') . "+1 WHERE " . $SQL->fieldName('id') . " = " . (int)$thread_id);
         
@@ -575,7 +576,7 @@ if ($action == 'show_thread') {
 					<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
 					<TD WIDTH=100% ALIGN=right>
 						<a href="?subtopic=forum" >Community Boards</a> | 
-						<a href="?subtopic=forum&action=show_board&id=' . $threads[0]['section'] . '">' . $sections[$threads[0]['section']] . '</a> | <b>' . htmlspecialchars($thread_name['post_topic']) . '</b>
+						<a href="?subtopic=forum&action=show_board&id=' . $threads[0]['section'] . '">' . $sections[$threads[0]['section']] . '</a> | <b style="word-break: break-all;">' . htmlspecialchars($thread_name['post_topic']) . '</b>
 					</TD>
 					<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
 				</TR>
@@ -586,15 +587,15 @@ if ($action == 'show_thread') {
         $main_content .= $make_content_header($sections[$threads[0]['section']] . ': ' . htmlspecialchars($thread_name['post_topic']), '<a href="?subtopic=forum&action=new_post&thread_id=' . $thread_id . '"><img src="images/forum/post.gif" name="" width="92" height="20" border="0" ></a>');
         $main_content .= $make_table_header();
         $main_content .= '
-<tr>
-    <td style="width: 157px">Author:</td>
-    <td>
-        <div>
-            <div style="float: left">Thread: #' . $threads[0]['id'] . '</div>
-            <div style="float: right">Pages: ' . $links_to_pages . '</div>
-        </div>
-    </td>
-</tr>';
+                        <tr>
+                            <td style=" border:0px solid; width: 150px"><b>Author:</b></td>
+                            <td style=" border:0px solid;">
+                                <div>
+                                    <div style="float: left"><b>Thread: #' . $threads[0]['id'] . '</b></div>
+                                    <div style="float: right"><b>Pages: ' . $links_to_pages . '</b></div>
+                                </div>
+                            </td>
+                        </tr>';
         foreach ($threads as $thread) {
             if (!is_int($number_of_rows / 2)) {
                 $bgcolor = $config['site']['darkborder'];

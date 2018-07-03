@@ -121,6 +121,23 @@ $make_table_footer = function () {
     return $q;
 };
 
+$make_double_archs = function ($title) {
+    $html = '
+<div style="text-align: -webkit-center !important;">
+    <table>
+        <tbody>
+            <tr>
+                <td><img src="./layouts/tibiacom/images/global/content/headline-bracer-left.gif"></td>
+                <td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">' . $title . '</td>
+                <td><img src="./layouts/tibiacom/images/global/content/headline-bracer-right.gif"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+  ';
+    return $html;
+};
+
 // remove magic quotes, to make it compatible with some bad PHP configurations, 'stripslashes' in scripts is not needed anymore!
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
     $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);

@@ -129,10 +129,12 @@ if (count($get_ticker) > 0)
     foreach ($get_ticker as $ticker)
         $main_content .= '
 																			<td style="width:90%;" >
+																			    <div style="max-width: 600px">
 																				<img src="' . $layout_name . '/images/global/content/' . $ticker['icon'] . '_small.gif" style=" vertical-align: middle;"> ' . $ticker['text'] . '
 																				<a href="#" id="delTicker">Delete</a>
 																				<input type="hidden" name="tickerID" value="' . $ticker['id'] . '"><br />
 																				<small><strong>Posted ' . date("M d Y, H:i:s", $ticker['date']) . '</strong></small>
+																			    </div>
 																			</td>';
 else
     $main_content .= '<td style="width:90%;" >No tickers added yet</td>';

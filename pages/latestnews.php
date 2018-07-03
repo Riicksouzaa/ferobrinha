@@ -240,10 +240,10 @@ if (isset($last_threads[0])) {
     					<div class="NewsHeadlineText">' . htmlspecialchars($thread['post_topic']) . '</div>
 					</div>
 				</div>
-				<table style=\'clear:both\' border=0 cellpadding=0 cellspacing=0 width=\'100%\'>
+				<table style="clear:both" border=0 cellpadding=0 cellspacing=0 width="100%">
 				<tr>';
         $main_content .= '
-				<td style=\'padding-left:10px;padding-right:10px;\' >' . showPost('', $thread['post_text'], $thread['post_smile']) . '<br>';
+				<td style="padding-left:10px;padding-right:10px" ><div style="max-width: 716px; word-wrap: break-word;">' . showPost('', $thread['post_text'], $thread['post_smile']) . '</div><br>';
         if ($group_id_of_acc_logged >= $config['site']['access_admin_panel'])
             $main_content .= '
 					<p align="right"><a href="?subtopic=forum&action=edit_post&id=' . $thread['id'] . '">» Edit this news</a></p>';

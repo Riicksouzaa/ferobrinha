@@ -2,6 +2,9 @@
   font-family: Anurati, Sans-serif, serif !important;
   text-transform: uppercase !important; }
 
+td {
+  word-wrap: break-word; }
+
 body {
   margin: 0;
   padding: 0;
@@ -603,6 +606,7 @@ body {
 
 .Content {
   position: relative;
+  max-width: 790px;
   top: 0;
   width: 100%;
   z-index: 100; }
@@ -2008,10 +2012,18 @@ label {
   height: 10px; }
 
 /* FORUM - general post format */
+.TableTopMargin {
+  position: relative;
+  top: -5px; }
+
+.CipPost {
+  margin: 0 auto;
+  padding: 0 !important; }
+
 .ForumPost {
   position: relative;
   height: 100%;
-  width: 770px;
+  max-width: 725px;
   margin: 0 auto; }
 
 .PostUpper {
@@ -2044,9 +2056,9 @@ label {
   min-height: 150px;
   overflow-x: auto;
   overflow-y: visible;
-  width: 600px;
+  max-width: 600px;
   word-wrap: break-word;
-  padding: 5px; }
+  padding: 10px !important; }
 
 .PostDetails {
   width: 175px;
@@ -2059,11 +2071,9 @@ label {
   overflow-x: auto;
   overflow-y: visible;
   word-wrap: break-word;
-  font-size: 8pt;
-  /* padding: 0; */
-  /* padding-right: 0; */
-  margin-left: 180px;
-  width: 576px; }
+  font-size: 7pt;
+  margin-left: 138px;
+  max-width: 515px; }
 
 .PostActions .AdditionalBox {
   float: right;
@@ -2075,7 +2085,7 @@ label {
 .CipPost .CipBorder {
   font-size: 1px;
   position: absolute;
-  width: 770px;
+  width: 99.5%;
   height: 3px;
   z-index: 99; }
 
@@ -2092,7 +2102,7 @@ label {
 
 .CipPost .CipBorder .CipBorderH {
   position: absolute;
-  width: 765px;
+  width: 100%;
   height: 3px;
   top: 0;
   left: 3px; }
@@ -2102,7 +2112,7 @@ label {
   width: 3px;
   height: 3px;
   top: 0;
-  right: 0;
+  right: -4px;
   z-index: 99; }
 
 .CipPost .CipBorderLeft {
@@ -3386,5 +3396,24 @@ table.fixed td {
 .bank_link {
   margin-top: 25px;
   text-align: center; }
+
+.scrollToTop {
+  background: url(../images/global/content/arrow_top.png) no-repeat 0 0;
+  width: 70px;
+  height: 70px;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #444;
+  text-decoration: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: none;
+  z-index: 50000; }
+
+.scrollToTop:hover {
+  text-decoration: none;
+  cursor: pointer; }
 
 /*# sourceMappingURL=basic_d.css.map */

@@ -3,6 +3,10 @@
   text-transform: uppercase !important;
 }
 
+td {
+  word-wrap: break-word;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -696,6 +700,7 @@ body {
 
 .Content {
   position: relative;
+  max-width: 790px;
   top: 0;
   width: 100%;
   z-index: 100;
@@ -2351,10 +2356,20 @@ label {
 }
 
 /* FORUM - general post format */
+.TableTopMargin{
+  position: relative;
+  top: -5px;
+}
+
+.CipPost {
+  margin: 0 auto;
+  padding: 0 !important;
+}
+
 .ForumPost {
   position: relative;
   height: 100%;
-  width: 770px;
+  max-width: 725px;
   margin: 0 auto;
 }
 
@@ -2385,7 +2400,7 @@ label {
   width: 144px;
   float: left;
   padding: 8px;
-  text-align:  center;
+  text-align: center;
 }
 
 .PostText {
@@ -2393,9 +2408,9 @@ label {
   min-height: 150px;
   overflow-x: auto;
   overflow-y: visible;
-  width: 600px;
+  max-width: 600px;
   word-wrap: break-word;
-  padding: 5px;
+  padding: 10px !important;
 }
 
 .PostDetails {
@@ -2410,11 +2425,9 @@ label {
   overflow-x: auto;
   overflow-y: visible;
   word-wrap: break-word;
-  font-size: 8pt;
-  /* padding: 0; */
-  /* padding-right: 0; */
-  margin-left: 180px;
-  width: 576px;
+  font-size: 7pt;
+  margin-left: 138px;
+  max-width: 515px;
 }
 
 .PostActions .AdditionalBox {
@@ -2428,7 +2441,7 @@ label {
 .CipPost .CipBorder {
   font-size: 1px;
   position: absolute;
-  width: 770px;
+  width: 99.5%;
   height: 3px;
   z-index: 99;
 }
@@ -2448,7 +2461,7 @@ label {
 
 .CipPost .CipBorder .CipBorderH {
   position: absolute;
-  width: 765px;
+  width: 100%;
   height: 3px;
   top: 0;
   left: 3px;
@@ -2459,7 +2472,7 @@ label {
   width: 3px;
   height: 3px;
   top: 0;
-  right: 0;
+  right: -4px;
   z-index: 99;
 }
 
@@ -3706,7 +3719,6 @@ table.fixed td {
 
 }
 
-
 /** PLUS ACCOUNT INFORMATION */
 .TableContentAndRightShadow1 {
   position: relative;
@@ -3715,7 +3727,6 @@ table.fixed td {
   font-size: 1px;
 }
 
-
 .TableContainer1 {
   border: 1px solid black;
   position: relative;
@@ -3723,24 +3734,21 @@ table.fixed td {
   font-size: 1px;
 }
 
-
-
 .Table30 {
   padding: 2px;
   background: #f0dfc4;
   border-spacing: 0;
   margin: 0 6px 6px 0;
   border: 1px solid #592700 !important;
-  -webkit-box-shadow: 2px 2px 5px 0 rgba(90,40,0,1);
-  -moz-box-shadow: 2px 2px 5px 0 rgba(90,40,0,1);
-  box-shadow: 2px 2px 5px 0 rgba(90,40,0,1);
+  -webkit-box-shadow: 2px 2px 5px 0 rgba(90, 40, 0, 1);
+  -moz-box-shadow: 2px 2px 5px 0 rgba(90, 40, 0, 1);
+  box-shadow: 2px 2px 5px 0 rgba(90, 40, 0, 1);
   float: left;
 }
 
 .Table30 td {
   padding: 4px;
 }
-
 
 .progress-bar {
   font-size: 11px;
@@ -3764,7 +3772,6 @@ table.fixed td {
   width: 32px;
   margin: 3px;
 }
-
 
 .btn-primary .caret,
 .btn-warning .caret,
@@ -3807,7 +3814,7 @@ table.fixed td {
   background-color: #da4f49;
   *background-color: #bd362f;
   background-image: -ms-linear-gradient(top, #ee5f5b, #bd362f);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from( #ee5f5b), to( #bd362f));
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
   background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
   background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
   background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
@@ -3839,7 +3846,7 @@ table.fixed td {
   background-color: #5bb75b;
   //background-color: #51a351;
   background-image: -ms-linear-gradient(top, #62c462, #51a351);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from( #62c462), to( #51a351));
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
   background-image: -webkit-linear-gradient(top, #62c462, #51a351);
   background-image: -o-linear-gradient(top, #62c462, #51a351);
   background-image: -moz-linear-gradient(top, #62c462, #51a351);
@@ -3866,6 +3873,7 @@ table.fixed td {
 .btn-group.open .btn-success.dropdown-toggle {
   background-color: #51a351;
 }
+
 /** END PLUS ACCOUNT INFORMATION */
 
 /**ERROR 404 */
@@ -3899,6 +3907,7 @@ table.fixed td {
 .error-404 .m-t-20 {
   margin-top: 20px !important;
 }
+
 /** FIM ERROR 404 */
 
 /* -------- */
@@ -3980,4 +3989,25 @@ table.fixed td {
 .bank_link {
   margin-top: 25px;
   text-align: center;
+}
+
+.scrollToTop {
+  background: url(../images/global/content/arrow_top.png) no-repeat 0 0;
+  width: 70px;
+  height: 70px;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #444;
+  text-decoration: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: none;
+  z-index: 50000;
+}
+
+.scrollToTop:hover {
+  text-decoration: none;
+  cursor: pointer;
 }
