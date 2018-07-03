@@ -1,3 +1,9 @@
+@import url(./Anurati-Regular.otf);
+.codenome-font {
+    font-family: Anurati, Sans-serif !important;
+    text-transform: uppercase !important;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -3570,13 +3576,12 @@ label {
     height: 60px;
     top: -45px;
     right: -40px;
-    background: red;
     border: 1px solid gray;
     -moz-border-radius: 60px;
     -webkit-border-radius: 60px;
     border-radius: 60px;
     color: #f2af4e;
-    background-color: #223533;
+    background: #223533;
     font-family: Arial, sans-serif;
     font-size: 25px;
     line-height: 60px;

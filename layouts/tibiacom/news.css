@@ -22,8 +22,8 @@
 .Content #NewsTicker .BoxContent {
   padding: 5px;
   min-height: 90px;
-  height: auto !important;
   height: 100px;
+  height: auto !important;
 }
 
 .Content #NewsTicker .BoxContent .Row {
@@ -101,7 +101,7 @@
   height: 100px;
   width: 150px;
   margin-left: 10px;
-  background-color: black;
+  /* background-color: black; */
   z-index: 90;
   float: right;
 }
@@ -204,12 +204,12 @@
 }
 
 .Content .NewsHeadline .MostPowerfullGuilds {
-    position: relative;
-    top: 7px;
-    text-align:center;
-    font-size: 10pt;
-    font-weight: bold;
-    color: white;
+  position: relative;
+  top: 7px;
+  text-align:center;
+  font-size: 10pt;
+  font-weight: bold;
+  color: white;
 }
 
 /* News Archive */

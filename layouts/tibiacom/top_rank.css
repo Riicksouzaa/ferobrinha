@@ -249,6 +249,8 @@
 .rank_copyright {
     z-index: 160;
     width: 100%;
+    text-transform: uppercase;
+    font-family: Anurati, Sans-serif, serif;
     font-size: .5em;
     position: absolute;
     bottom: 30px;
