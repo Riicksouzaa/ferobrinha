@@ -3416,4 +3416,25 @@ table.fixed td {
   text-decoration: none;
   cursor: pointer; }
 
+::-webkit-scrollbar {
+  width: 6px; }
+
+::-webkit-scrollbar-button {
+  /* 2 */ }
+
+::-webkit-scrollbar-track {
+  background-color: #051022; }
+
+::-webkit-scrollbar-track-piece {
+  /* 4 */ }
+
+::-webkit-scrollbar-thumb {
+  background: #494f4a; }
+
+::-webkit-scrollbar-corner {
+  /* 6 */ }
+
+::-webkit-resizer {
+  /* 7 */ }
+
 /*# sourceMappingURL=basic_d.css.map */

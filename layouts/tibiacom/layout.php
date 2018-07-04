@@ -157,7 +157,7 @@ if(!defined('INITIALIZED'))
             }
         </script>
     <?php } ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js<?php echo $css_version;?>"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js<?php echo $css_version;?>"></script>
 </head>
 
 <body onbeforeunload="SaveMenu();"
