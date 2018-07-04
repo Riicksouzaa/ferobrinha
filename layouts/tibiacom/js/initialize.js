@@ -4,7 +4,7 @@
 
 // executes JavaScripts for the loginbox and the menu
 function InitializePage() {
-    console.log("%cEspere! esse local e apenas para desenvolvedores, você pode ser banido do nosso site por está mexendo aqui! ", "color: red; font-size: x-large");
+    console.log("%cEspere! Este local é apenas para desenvolvedores. Seu ip foi registrado em nosso banco de dados para averiguação! Caso não tenha autorização você pode ser banido de nosso site. ", "color: red; font-size: x-large");
     LoadLoginBox();
     LoadMenu();
 }

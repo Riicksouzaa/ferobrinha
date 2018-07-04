@@ -3416,6 +3416,16 @@ table.fixed td {
   text-decoration: none;
   cursor: pointer; }
 
+.scrollToTopText {
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  left: -25px;
+  width: 10px;
+  bottom: -60px;
+  color: white; }
+
 ::-webkit-scrollbar {
   width: 6px; }
 

@@ -864,7 +864,7 @@ if(!defined('INITIALIZED'))
     
         });
     </script>
-    <div class="scrollToTop"></div>
+    <div class="scrollToTop"><p class="scrollToTopText">BACK</p></div>
     <script>
         $(document).ready(function () {
             setInterval(function () {
@@ -892,11 +892,10 @@ if(!defined('INITIALIZED'))
         gtag('js', new Date());
 
         gtag('config', 'UA-110963342-1');
-    </script>
-    <?php }?>
+    </script><?php } ?>
     <script src="<?php echo $layout_name; ?>/js/pace.min.js<?php echo $css_version;?>" data-pace-options='{ "elements": false, "startOnPageLoad": true, "ajax": false, "restartOnRequestAfter": false }'></script>
     <!-- float facebook like box start -->
-    <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js" data-href="https://www.facebook.com/otservferobra/" async></script>
+    <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="https://www.facebook.com/otservferobra/" async></script>
     <!-- float facebook like box end -->
 </body>
 </html>

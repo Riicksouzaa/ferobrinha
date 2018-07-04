@@ -4012,6 +4012,17 @@ table.fixed td {
   cursor: pointer;
 }
 
+.scrollToTopText {
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  left: -25px;
+  width: 10px;
+  bottom: -60px;
+  color: white;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -4026,11 +4037,9 @@ table.fixed td {
 ::-webkit-scrollbar-track-piece { /* 4 */
 }
 
-
 ::-webkit-scrollbar-thumb {
   background: rgb(73, 79, 74);
 }
-
 
 ::-webkit-scrollbar-corner { /* 6 */
   width: 6px;
