@@ -871,7 +871,7 @@ if(!defined('INITIALIZED'))
                 $.getJSON("./?subtopic=get_online_data", function (data) {
                     $("span.show_online_data").text(data).fadeIn('fast');
                 });
-            }, 1000);
+            }, 10000);
         });
     </script>
     <div id="fb-root"></div>
@@ -894,6 +894,7 @@ if(!defined('INITIALIZED'))
         gtag('config', 'UA-110963342-1');
     </script>
     <?php }?>
+    <script src="<?php echo $layout_name; ?>/js/pace.min.js<?php echo $css_version;?>" data-pace-options='{ "elements": false, "startOnPageLoad": true, "ajax": false, "restartOnRequestAfter": false }'></script>
     <!-- float facebook like box start -->
     <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js" data-href="https://www.facebook.com/otservferobra/" async></script>
     <!-- float facebook like box end -->

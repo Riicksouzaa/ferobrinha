@@ -3432,9 +3432,30 @@ table.fixed td {
   background: #494f4a; }
 
 ::-webkit-scrollbar-corner {
-  /* 6 */ }
+  /* 6 */
+  width: 6px; }
 
 ::-webkit-resizer {
   /* 7 */ }
+
+/* This is a compiled file, you should be editing the file in the templates directory */
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; }
+
+.pace-inactive {
+  display: none; }
+
+.pace .pace-progress {
+  background: #494f4a;
+  position: fixed;
+  z-index: 20000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 3px; }
 
 /*# sourceMappingURL=basic_d.css.map */
