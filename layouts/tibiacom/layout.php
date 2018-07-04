@@ -864,7 +864,7 @@ if(!defined('INITIALIZED'))
     
         });
     </script>
-    <div class="scrollToTop"><p class="scrollToTopText">BACK</p></div>
+    <div class="scrollToTop"><!--<p class="scrollToTopText">BACK</p>--></div>
     <script>
         $(document).ready(function () {
             setInterval(function () {
