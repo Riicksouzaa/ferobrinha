@@ -4,9 +4,9 @@
 
 // executes JavaScripts for the loginbox and the menu
 function InitializePage() {
-    console.log("%cEspere! Este local é apenas para desenvolvedores. Seu ip foi registrado em nosso banco de dados para averiguação! Caso não tenha autorização você pode ser banido de nosso site. ", "color: red; font-size: x-large");
     LoadLoginBox();
     LoadMenu();
+    console.log("%cEspere! Este local é apenas para desenvolvedores. Seu ip foi registrado em nosso banco de dados para averiguação! Caso não tenha autorização você pode ser banido de nosso site. ", "color: red; font-size: x-large");
 }
 
 // remove the deactivation container from the website
@@ -77,7 +77,7 @@ function CheckAll(form_name, checkbox_name) {
     }
     for (var i = 0; i < form.elements.length; i++) {
         var e = form.elements[i];
-        if (e.name != checkbox_name)
+        if (e.name !== checkbox_name)
             continue;
         e.checked = c;
     }
@@ -91,7 +91,7 @@ function CheckAll(form_name, checkbox_name) {
 // 'loginStatus' which is provided to the HTML-document by PHP in the file
 // 'header.inc'
 function LoadLoginBox() {
-    if (loginStatus == "false") {
+    if (loginStatus === "false") {
         document.getElementById('PlayNowContainer').childNodes[0].childNodes[1].childNodes[1].src = JS_DIR_IMAGES + "global/buttons/mediumbutton_playnow.png";
         document.getElementById('LoginstatusText_1').style.backgroundImage = "url('" + JS_DIR_IMAGES + "global/loginbox/loginbox-font-create-account.gif')";
         document.getElementById('LoginstatusText_2').style.backgroundImage = "url('" + JS_DIR_IMAGES + "global/loginbox/loginbox-font-create-account-over.gif')";
@@ -114,7 +114,7 @@ function MouseOutLoginBoxText(source) {
 }
 
 function LoginButtonAction() {
-    if (loginStatus == "false") {
+    if (loginStatus === "false") {
         window.location = "?subtopic=accountmanagement";
     } else {
         window.location = "?subtopic=accountmanagement";
@@ -122,7 +122,7 @@ function LoginButtonAction() {
 }
 
 function LoginstatusTextAction(source) {
-    if (loginStatus == "false") {
+    if (loginStatus === "false") {
         window.location = "?subtopic=createaccount";
     } else {
         window.location = "?subtopic=accountmanagement&action=logout";
@@ -145,8 +145,8 @@ function LoginstatusTextAction(source) {
  * the variable 'unloadhelper' is used because IE needs the event OnBeforeUnload() and all other browsers OnUnload()
  */
 
-var menu = new Array();
-menu[0] = new Object();
+var menu = [];
+menu[0] = {};
 var unloadhelper = false;
 var menuItemName = '';
 
@@ -160,7 +160,7 @@ function LoadMenu() {
     if(document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem)){
         document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem).style.visibility = "visible";
     }
-    if (self.name.lastIndexOf("&") == -1) {
+    if (self.name.lastIndexOf("&") === -1) {
         self.name = "news=1&community=0&forum=0&account=0&library=0&support=0&shop=0&";
     }
     FillMenuArray();
@@ -168,7 +168,7 @@ function LoadMenu() {
 }
 
 function SaveMenu() {
-    if (unloadhelper == false) {
+    if (unloadhelper === false) {
         SaveMenuArray();
         unloadhelper = true;
     }
@@ -203,7 +203,7 @@ function FillMenuArray() {
 // hide or show the corresponding submenus
 function InitializeMenu() {
     for (menuItemName in menu[0]) {
-        if (menu[0][menuItemName] == "0") {
+        if (menu[0][menuItemName] === "0") {
             if(document.getElementById(menuItemName + "_Submenu")){
                 document.getElementById(menuItemName + "_Submenu").style.visibility = "hidden";
                 document.getElementById(menuItemName + "_Submenu").style.display = "none";
@@ -242,15 +242,20 @@ function SaveMenuArray() {
 
 // onClick open or close submenus
 function MenuItemAction(sourceId) {
-    if (menu[0][sourceId] == 1) {
+    if (menu[0][sourceId] === '1') {
         CloseMenuItem(sourceId);
     } else {
+        $.each(menu[0], function (index, value) {
+            if(value === '1'){
+                CloseMenuItem(index);
+            }
+        });
         OpenMenuItem(sourceId);
     }
 }
 
 function OpenMenuItem(sourceId) {
-    menu[0][sourceId] = 1;
+    menu[0][sourceId] = '1';
     document.getElementById(sourceId + "_Submenu").style.visibility = "visible";
     document.getElementById(sourceId + "_Submenu").style.display = "block";
     document.getElementById(sourceId + "_Lights").style.visibility = "hidden";
@@ -258,7 +263,7 @@ function OpenMenuItem(sourceId) {
 }
 
 function CloseMenuItem(sourceId) {
-    menu[0][sourceId] = 0;
+    menu[0][sourceId] = '0';
     document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
     document.getElementById(sourceId + "_Submenu").style.display = "none";
     document.getElementById(sourceId + "_Lights").style.visibility = "visible";
@@ -293,20 +298,20 @@ function MouseOutSubmenuItem(source) {
 // display payment standby message
 function PaymentStandBy(a_Source, a_Case) {
     var m_Agree = false;
-    if (a_Source == "setup" && a_Case != 1) {
-        if (document.getElementById("CheckBoxAgreePayment").checked == true) {
+    if (a_Source === "setup" && a_Case !== 1) {
+        if (document.getElementById("CheckBoxAgreePayment").checked === true) {
             m_Agree = true;
         }
     }
-    if (a_Source == "setup" && a_Case == 1) {
-        if (document.getElementById("CheckBoxAgreePayment").checked == true && document.getElementById("CheckBoxAgreeSubscription").checked == true) {
+    if (a_Source === "setup" && a_Case === 1) {
+        if (document.getElementById("CheckBoxAgreePayment").checked === true && document.getElementById("CheckBoxAgreeSubscription").checked === true) {
             m_Agree = true;
         }
     }
-    if (a_Source == "cancel") {
+    if (a_Source === "cancel") {
         m_Agree = true;
     }
-    if (m_Agree == true) {
+    if (m_Agree === true) {
         document.getElementById("Step4MinorErrorBox").style.visibility = "hidden";
         document.getElementById("Step4MinorErrorBox").style.display = "none";
         document.getElementById("DisplayText").style.visibility = "hidden";
@@ -337,12 +342,12 @@ function NoteDownload(a_ClientType) {
 function SetFormFocus() {
     if (g_FormName.length > 0 && g_FieldName.length > 0) {
         var l_SetFocus = true;
-        if (g_FormName == 'AccountLogin') {
+        if (g_FormName === 'AccountLogin') {
             if (document.getElementsByName('loginname')[0].value.length > 0) {
                 l_SetFocus = false;
             }
         }
-        if (l_SetFocus == true) {
+        if (l_SetFocus === true) {
             document.forms[g_FormName].elements[g_FieldName].focus();
         }
     }
@@ -365,7 +370,7 @@ function ToggleMaskedText(a_TextFieldID) {
     m_DisplayedText = document.getElementById('Display' + a_TextFieldID).innerHTML;
     m_MaskedText = document.getElementById('Masked' + a_TextFieldID).innerHTML;
     m_ReadableText = document.getElementById('Readable' + a_TextFieldID).innerHTML;
-    if (m_DisplayedText == m_MaskedText) {
+    if (m_DisplayedText === m_MaskedText) {
         document.getElementById('Display' + a_TextFieldID).innerHTML = document.getElementById('Readable' + a_TextFieldID).innerHTML;
         document.getElementById('Button' + a_TextFieldID).src = JS_DIR_IMAGES + 'global/general/hide.gif';
     } else {
@@ -400,7 +405,7 @@ function RedirectGET(a_Target) {
 
 // post paramter object that will be used for post redirects
 // PostParameters["KEY"] = "VALUE";
-var PostParameters = new Object();
+var PostParameters = {};
 
 // post redirect function using jQuery
 function RedirectPOST(a_Target, a_ParameterArray) {
@@ -427,8 +432,8 @@ function RedirectPOST(a_Target, a_ParameterArray) {
 // define variables
 var g_CurrentScreenshot = 0;
 var g_NumberOfScreenshots = 0;
-var g_Screenshots = new Array();
-var g_ScreenshotTexts = new Array();
+var g_Screenshots = [];
+var g_ScreenshotTexts = [];
 
 // set a certain screenshot
 function SetScreenshot(a_Number) {

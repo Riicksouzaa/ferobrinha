@@ -17,7 +17,7 @@ foreach ($players_deaths as $death) {
         <TD WIDTH="30"><center>' . $players_deaths_count . '.</center></TD>
         <TD WIDTH="125"><small>' . date("j.m.Y, G:i:s", $death->getTime()) . '</small></TD>
         <TD>
-            <a href="index.php?subtopic=characters&name=' . urlencode($death->data['name']) . '">' . htmlspecialchars($death->data['name']) . '</a> at level ' . $death->getLevel() . ' by ' . $death->getKillerString();
+            <a href="?subtopic=characters&name=' . urlencode($death->data['name']) . '">' . htmlspecialchars($death->data['name']) . '</a> at level ' . $death->getLevel() . ' by ' . $death->getKillerString();
     if ($death->getMostDamageString() != '' && $death->getKillerString() != $death->getMostDamageString())
         $players_rows .= ' and ' . $death->getMostDamageString();
     $players_rows .= '</TD></TR>';

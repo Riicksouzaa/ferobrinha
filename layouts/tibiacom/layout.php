@@ -83,8 +83,9 @@ if(!defined('INITIALIZED'))
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-    <script src="<?php echo $layout_name; ?>/js/jquery-ui.core.js<?php echo $css_version;?>" ></script>
-    <script src="<?php echo $layout_name; ?>/js/jquery-ui.widgets.js<?php echo $css_version;?>" ></script>
+<!--    <script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.core.js--><?php //echo $css_version;?><!--" ></script>-->
+    <!--    <script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.widgets.js--><?php //echo $css_version;?><!--" ></script>    -->
+    <script src="<?php echo $layout_name; ?>/js/jquery-ui.min.js<?php echo $css_version;?>" ></script>
     <script src="<?php echo $layout_name; ?>/js/jquery.mask.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/ajaxcip.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/ajaxmonteiro.js<?php echo $css_version;?>"></script>
@@ -895,7 +896,7 @@ if(!defined('INITIALIZED'))
     </script><?php } ?>
     <script src="<?php echo $layout_name; ?>/js/pace.min.js<?php echo $css_version;?>" data-pace-options='{ "elements": false, "startOnPageLoad": true, "ajax": false, "restartOnRequestAfter": false }'></script>
     <!-- float facebook like box start -->
-    <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="https://www.facebook.com/otservferobra/" async></script>
+    <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="<?=$config['social']['facebook']?>" async></script>
     <!-- float facebook like box end -->
 </body>
 </html>
