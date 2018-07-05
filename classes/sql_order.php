@@ -6,6 +6,7 @@ class SQL_Order
 {
     const ASC = 'ASC';
     const DESC = 'DESC';
+    /** @var SQL_Order */
     public $field;
     public $order = self::ASC;
     

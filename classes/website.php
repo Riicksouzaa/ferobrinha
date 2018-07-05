@@ -4,11 +4,15 @@ if (!defined('INITIALIZED'))
 
 class Website extends WebsiteErrors
 {
+    /** @var ConfigPHP */
     public static $serverConfig;
+    /** @var ConfigLUA */
     public static $websiteConfig;
+    /** @var Vocations */
     public static $vocations;
     /** @var Groups */
     public static $groups;
+    /** @var Database */
     public static $SQL;
     public static $passwordsEncryptions = array(
         'plain' => 'plain',
@@ -20,12 +24,16 @@ class Website extends WebsiteErrors
     );
     private static $passwordsEncryption;
     
+    /**
+     * @param $value
+     */
     public static function setDatabaseDriver ($value)
     {
         self::$SQL = NULL;
         
         switch ($value) {
             case Database::DB_MYSQL:
+                /** @var Database_MySQL */
                 self::$SQL = new Database_MySQL();
                 break;
             case Database::DB_SQLITE:
@@ -34,6 +42,9 @@ class Website extends WebsiteErrors
         }
     }
     
+    /**
+     * @return Database
+     */
     public static function getDBHandle ()
     {
         if (isset(self::$SQL))
@@ -42,6 +53,10 @@ class Website extends WebsiteErrors
             new Error_Critic('#C-9', 'ERROR: <b>#C-9</b> : Class::Website - getDBHandle(), database driver not set.');
     }
     
+    /**
+     * @param $fileNameArray
+     * @return ConfigPHP
+     */
     public static function getConfig ($fileNameArray)
     {
         $fileName = implode('_', $fileNameArray);
@@ -53,6 +68,10 @@ class Website extends WebsiteErrors
             new Error_Critic('', __METHOD__ . ' - invalid folder/file name <b>' . htmlspecialchars('./config/' . $fileName . '.php') . '</b>');
     }
     
+    /**
+     * @param $path
+     * @return bool|string
+     */
     public static function getFileContents ($path)
     {
         $file = file_get_contents($path);
@@ -63,6 +82,12 @@ class Website extends WebsiteErrors
         return $file;
     }
     
+    /**
+     * @param      $path
+     * @param      $data
+     * @param bool $append
+     * @return bool|int
+     */
     public static function putFileContents ($path, $data, $append = FALSE)
     {
         if ($append)
@@ -76,11 +101,18 @@ class Website extends WebsiteErrors
         return $status;
     }
     
+    /**
+     * @param $path
+     */
     public static function deleteFile ($path)
     {
         unlink($path);
     }
     
+    /**
+     * @param $path
+     * @return bool
+     */
     public static function fileExists ($path)
     {
         return file_exists($path);
@@ -103,6 +135,9 @@ class Website extends WebsiteErrors
         }
     }
     
+    /**
+     * @return ConfigPHP
+     */
     public static function getServerConfig ()
     {
         if (!isset(self::$serverConfig))
@@ -118,11 +153,18 @@ class Website extends WebsiteErrors
         self::$serverConfig->setConfig($config['server']);
     }
     
+    /**
+     * @return mixed
+     */
     public static function getPasswordsEncryption ()
     {
         return self::$passwordsEncryption;
     }
     
+    /**
+     * @param $encryption
+     * @return bool
+     */
     public static function validatePasswordsEncryption ($encryption)
     {
         if (isset(self::$passwordsEncryptions[strtolower($encryption)]))
@@ -131,6 +173,11 @@ class Website extends WebsiteErrors
             return FALSE;
     }
     
+    /**
+     * @param      $password
+     * @param null $account
+     * @return string
+     */
     public static function encryptPassword ($password, $account = NULL)
     {
         // add SALT for 0.4
@@ -143,6 +190,9 @@ class Website extends WebsiteErrors
             new Error_Critic('#C-13', 'You cannot use Website::encryptPassword(\$password) when password encryption is not set.');
     }
     
+    /**
+     * @return Vocations
+     */
     public static function getVocations ()
     {
         if (!isset(self::$vocations))
@@ -157,6 +207,10 @@ class Website extends WebsiteErrors
         self::$vocations = new Vocations($path . 'data/XML/vocations.xml');
     }
     
+    
+    /**
+     * @return ConfigLUA
+     */
     public static function getWebsiteConfig ()
     {
         if (!isset(self::$websiteConfig))
@@ -172,6 +226,10 @@ class Website extends WebsiteErrors
         self::$websiteConfig->setConfig($config['site']);
     }
     
+    /**
+     * @param $id
+     * @return string
+     */
     public static function getVocationName ($id)
     {
         if (!isset(self::$vocations))
@@ -180,6 +238,9 @@ class Website extends WebsiteErrors
         return self::$vocations->getVocationName($id);
     }
     
+    /**
+     * @return Groups
+     */
     public static function getGroups ()
     {
         if (!isset(self::$groups))
@@ -194,6 +255,10 @@ class Website extends WebsiteErrors
         self::$groups = new Groups($path . 'data/XML/groups.xml');
     }
     
+    /**
+     * @param $id
+     * @return bool
+     */
     public static function getGroupName ($id)
     {
         if (!isset(self::$groups))
@@ -202,6 +267,10 @@ class Website extends WebsiteErrors
         return self::$groups->getGroupName($id);
     }
     
+    /**
+     * @param $IP
+     * @return string
+     */
     public static function getCountryCode ($IP)
     {
         $a = explode(".", $IP);
@@ -233,6 +302,9 @@ class Website extends WebsiteErrors
         return $lastCountryCode;
     }
     
+    /**
+     * @return string
+     */
     public static function generateSessionKey ()
     {
         global $SQL;
@@ -246,6 +318,9 @@ class Website extends WebsiteErrors
         return $sessionKey;
     }
     
+    /**
+     * @return string
+     */
     public static function newSessionKey ()
     {
         srand(time());

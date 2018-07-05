@@ -6,6 +6,10 @@ class DatabaseHandler
 {
     //private $SQL;
     
+    
+    /**
+     * @return Database
+     */
     public function getDatabaseHandler ()
     {
         /* CUSTOM VERSION, FASTER, BUT IT IS POSSIBLE TO SHOW DATABASE PASSWORD WHEN ERROR OCCUR

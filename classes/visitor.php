@@ -16,6 +16,7 @@ class Visitor
     private static $loginPassword;
     private static $loginSecretCode;
     private static $authenticStatus;
+    /** @var Account */
     private static $account;
     private static $loginState = self::LOGINSTATE_NOT_TRIED;
     

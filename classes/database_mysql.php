@@ -21,6 +21,10 @@ class Database_MySQL extends Database
         }
     }
     
+    /**
+     * @param $name
+     * @return string
+     */
     public function fieldName ($name)
     {
         if (strspn($name, "1234567890qwertyuiopasdfghjklzxcvbnm_") != strlen($name))

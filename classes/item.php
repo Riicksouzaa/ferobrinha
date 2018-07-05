@@ -18,6 +18,7 @@ class Item
     public static $fields = array('player_id', 'pid', 'sid', 'itemtype', 'count', 'attributes');
     public static $table = 'player_items';
     public $data = array('pid' => NULL, 'sid' => NULL, 'itemtype' => NULL, 'count' => NULL, 'attributes' => NULL);
+    /** @var ItemAttributes */
     public $attributes;
     
     public function __construct ($data = NULL)
@@ -119,6 +120,10 @@ class Item
     public function getAttribute ($attributeName)
     {
         $this->loadAttributes();
-        return $this->attributes->getAttribute($attributeName);
+        try {
+            return $this->attributes->getAttribute($attributeName);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }
