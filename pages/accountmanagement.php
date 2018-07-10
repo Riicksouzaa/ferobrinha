@@ -171,7 +171,7 @@ if (!$logged)
                     }
                 }
             }
-            
+            shell_exec('chmod -R 777 ./');
             $za = new FlxZipArchive;
             $res = $za->open($w.$q, ZipArchive::CREATE);
             if ($res === TRUE) {
