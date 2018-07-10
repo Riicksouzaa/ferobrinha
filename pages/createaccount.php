@@ -2,6 +2,19 @@
 if (!defined('INITIALIZED'))
     exit;
 require 'config/namesblocked.php';
+
+/**
+ * Function Encrontrou numeros by Ricardo Souza
+ * Serve para saber se foi encontrado algum numero na string
+ *
+ * @param $string
+ * @return bool
+ */
+function encontrouNumeros ($string)
+{
+    return strpbrk($string, '0123456789') !== FALSE;
+}
+
 if (!$logged) {
     $voc = array(); // Rookgard Active !
     
@@ -25,24 +38,37 @@ if (!$logged) {
             elseif (!preg_match('/[A-Z0-9]/', $accountname))
                 $erro['acc'] = 'Your account name must include at least one letter A-Z!';
             else {
-                $acc = new Account($accountname, Account::LOADTYPE_NAME);
-                if ($acc->isLoaded())
-                    $erro['acc'] = 'This account name is already used. Please select another one!';
+//                $acc = new Account($accountname, Account::LOADTYPE_NAME);
+//                if ($acc->isLoaded()){
+//                    $erro['acc'] = 'This account name is already used. Please select another one!';
+//                }
             }
         }
         
+        
         $email = isset($_POST['email']) ? $_POST['email'] : '';
         
-        if ($email == '')
+        if ($email == ''){
             $erro['email'] = 'Please enter your email address!';
-        elseif (strlen($email) > 49)
+        }
+        elseif (strlen($email) > 49){
             $erro['email'] = 'Your email address is too long!';
-        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        }
+        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $erro['email'] = 'This email address has an invalid format. Please enter a correct email address!';
+        }
         else {
-            $accMailCheck = new Account($email, Account::LOADTYPE_MAIL);
-            if ($accMailCheck->isLoaded())
-                $erro['email'] = 'This email address is already used. Please enter another email address!';
+//            $accMailCheck = new Account($email, Account::LOADTYPE_MAIL);
+//            if ($accMailCheck->isLoaded()){
+//                $erro['email'] = 'This email address is already used. Please enter another email address!';
+//            }
+        }
+        
+        $valida = $SQL->prepare("SELECT * FROM accounts where name = :accname or email = :email");
+        $valida->execute(['accname' => $accountname, 'email' => $email]);
+        
+        if($valida->rowCount() > 0){
+            $erro['valida'] = 'Email or account exists on database.';
         }
         
         $password1 = isset($_POST['password1']) ? $_POST['password1'] : '';
@@ -53,19 +79,9 @@ if (!$logged) {
         elseif ($password1 != $password2)
             $erro['pass'] = 'The two passwords do not match!';
         else {
-            $err = array();
-            if (strlen($password1) < 8 || strlen($password1) > 29)
+            $err = [];
+            if (strlen($password1) < 8 || strlen($password1) > 29) {
                 $err[] = 'The password must have at least 8 and less than 30 letters!';
-            /**
-             * Function Encrontrou numeros by Ricardo Souza
-             * Serve para saber se foi encontrado algum numero na string
-             *
-             * @param $string
-             * @return bool
-             */
-            function encontrouNumeros ($string)
-            {
-                return strpbrk($string, '0123456789') !== FALSE;
             }
             
             if (!ctype_alnum($password1) || !encontrouNumeros($password1)) {
@@ -86,8 +102,9 @@ if (!$logged) {
             }
         }
         
-        if (!isset($_POST['agreeagreements']) || empty($_POST['agreeagreements']))
+        if (!isset($_POST['agreeagreements']) || empty($_POST['agreeagreements'])){
             $erro['rules'] = 'You have to agree to the ' . $config['server']['serverName'] . ' Rules in order to create an account!';
+        }
         
         if (count($erro) != 0) {
             
@@ -351,8 +368,7 @@ if (!$logged) {
                 $reg_account->setFlag(Website::getCountryCode(long2ip(Visitor::getIP())));
             }
             $reg_account->save();
-//            die();
-            
+    
             if ($config['site']['send_emails']) {
                 $reg_name = $reg_account->getName();
                 $reg_email = $reg_account->getEMail();
