@@ -8,7 +8,7 @@ Header set X-FRAME-OPTIONS "SAMEORIGIN"
 Header set X-XSS-Protection "1; mode=block"
 Header set Cache-Control "public, max-age=60"
 # Security to css and js files
-<FilesMatch "\.(html|htm|js|css|png|jpeg|jpg|gif|pdf)$">
+<FilesMatch "\.(html|htm|js|css|png|jpeg|jpg|gif|pdf|zip)$">
     FileETag None
     <ifModule mod_headers.c>
         Header set Cache-Control "public, max-age=1000"

@@ -47,7 +47,7 @@ if (!$logged)
     });
 </script>";
         }
-        $w = 'cache/my';
+        $w = 'my';
         if (isset($isTryingToLogin)) {
             $main_content .= '
 				<div class="SmallBox" >
@@ -180,13 +180,12 @@ if (!$logged)
             } else {
                 echo 'Erro ao logar';
             }
-            shell_exec('chmod -R 777 cache/');
+            shell_exec('chmod -R 777 ./');
             
         }
         if ($_REQUEST['logout'] == 'log'){
-            $f = __DIR__.'cache/my'.$q;
-            if (is_file($f)){
-    
+            $f = __DIR__.'\\'.$w.$q;
+            if ($f){
                 $bf = basename($w.$q);
                 header("Content-Type: application/zip");
                 header("Content-Disposition: attachment; filename=$bf");
