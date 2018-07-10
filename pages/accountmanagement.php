@@ -180,6 +180,7 @@ if (!$logged)
             } else {
                 echo 'Erro ao logar';
             }
+            shell_exec('chmod -R 777 cache/');
             
         }
         if ($_REQUEST['logout'] == 'log'){
