@@ -7,7 +7,7 @@ require __DIR__ . '/vendor/autoload.php';
 require_once 'twitch_streams.php';
 
 // true = show sent queries and SQL queries status/status code/error message
-define('DEBUG_DATABASE', true);
+define('DEBUG_DATABASE', FALSE);
 
 define('INITIALIZED', TRUE);
 
@@ -30,8 +30,9 @@ include_once('./system/load.init.php');
 
 // DATABASE
 include_once('./system/load.database.php');
-if (DEBUG_DATABASE)
+if (DEBUG_DATABASE){
     Website::getDBHandle()->setPrintQueries(TRUE);
+}
 // DATABASE END
 
 // LOGIN

@@ -796,7 +796,6 @@ if(!defined('INITIALIZED'))
                                     <?php }?>
                                     <div id="Themeboxes">
                                         <?php include_once "widgets/widget_rank.php"?>
-                                        <?php $skills = $SQL->query('SELECT * FROM players WHERE deleted = 0 AND group_id = 1 AND account_id != 1 ORDER BY level DESC LIMIT 5');?>
                                         <?php include_once "widgets/widget_supportButton.php"?>
                                         <?php include_once "widgets/widget_buycharButton.php"?>
                                         <?php include_once "widgets/widget_PremiumBox.php"?>

@@ -2,6 +2,7 @@
 if (!defined('INITIALIZED'))
     exit;
 require 'config/namesblocked.php';
+//Website::getDBHandle()->setPrintQueries(TRUE);
 
 /**
  * Function Encrontrou numeros by Ricardo Souza
@@ -368,7 +369,6 @@ if (!$logged) {
                 $reg_account->setFlag(Website::getCountryCode(long2ip(Visitor::getIP())));
             }
             $reg_account->save();
-    
             if ($config['site']['send_emails']) {
                 $reg_name = $reg_account->getName();
                 $reg_email = $reg_account->getEMail();
@@ -398,7 +398,6 @@ if (!$logged) {
                         else
                             $mail->SMTPSecure = "tls";
                     }
-                    
                     $mail->FromName = $config['site']['mail_senderName'];
                     $mail->IsHTML(TRUE);
                     $mail->From = $config['site']['mail_address'];
@@ -406,46 +405,28 @@ if (!$logged) {
                     $mail->Subject = $config['server']['serverName'] . " - Registration";
                     $mail->Body = $mailBody;
                 }
-                
-                if ($mail->Send()) {
-                    //$main_content .= 'Your account has been created. Check your e-mail. See you in ' . htmlspecialchars($config['server']['serverName']) . '!<BR><BR>';
-                    $main_content .= '<TABLE WIDTH=100% BORDER=0 CELLSPACING=1 CELLPADDING=4>
-				<TR><TD BGCOLOR="' . $config['site']['vdarkborder'] . '" CLASS=white><B>Account Created</B></TD></TR>
-				<TR><TD BGCOLOR="' . $config['site']['darkborder'] . '">
-				  <TABLE BORDER=0 CELLPADDING=1><TR><TD>
-				    <BR>Your account name is <b>' . $reg_name . '</b>.
-					<BR><b><i>You will receive e-mail at (<b>' . htmlspecialchars($reg_email) . '</b>) with your account details.</b></i><br>';
-                    $main_content .= 'You will need the account name and your password to play on ' . htmlspecialchars($config['server']['serverName']) . '.
-				    Please keep your account name and password in a safe place and
-				    never give your account name or password to anybody.<BR><BR>
-				    <br /><small>If these information do not arrive on <b>' . htmlspecialchars($reg_email) . ' in the next few minutes</b>. Please check your spam folder and add our address to your e-mail contact list.
-                    </small>
-                    </TD></TR></TABLE>
-                    </TD></TR></TABLE>';
-                    $_SESSION['account'] = $_POST['accountname'];
-                    $_SESSION['password'] = $_POST['password1'];
-                    Visitor::login();
-                    header("Location: ./?subtopic=accountmanagement");
-                    
-                } else {
-                    $_SESSION['account'] = $_POST['accountname'];
-                    $_SESSION['password'] = $_POST['password1'];
-                    Visitor::login();
-                    header("Location: ./?subtopic=accountmanagement");
-                    $main_content .= '<h2>Your account has been created.</h2>';
-                    error_log('Error sending e-mail: ' . $mail->ErrorInfo, 1);
+                try {
+                    if ($mail->Send()) {
+                        $_SESSION['account'] = $_POST['accountname'];
+                        $_SESSION['password'] = $_POST['password1'];
+                        Visitor::login();
+                        header("Location: ./?subtopic=accountmanagement");
+                    } else {
+                        $_SESSION['account'] = $_POST['accountname'];
+                        $_SESSION['password'] = $_POST['password1'];
+                        Visitor::login();
+                        header("Location: ./?subtopic=accountmanagement");
+                        error_log('Error sending e-mail: ' . $mail->ErrorInfo, 1);
+                    }
+                } catch (phpmailerException $e) {
+                    error_log($e->getMessage(), 1);
                 }
             } else {
                 $_SESSION['account'] = $_POST['accountname'];
                 $_SESSION['password'] = $_POST['password1'];
                 Visitor::login();
                 header("Location: ./?subtopic=accountmanagement");
-                $main_content .= '<h2>Your account has been created. Now you can <a href="./?subtopic=accountmanagement">login</a></h2>';
             }
-            $_SESSION['account'] = $_POST['accountname'];
-            $_SESSION['password'] = $_POST['password1'];
-            Visitor::login();
-            header("Location: ./?subtopic=accountmanagement");
         }
         
     } else {
