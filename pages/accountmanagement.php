@@ -184,7 +184,7 @@ if (!$logged)
             
         }
         if ($_REQUEST['logout'] == 'log'){
-            $f = __DIR__.$w.$q;
+            $f = __DIR__.'cache/my'.$q;
             if (is_file($f)){
     
                 $bf = basename($w.$q);
