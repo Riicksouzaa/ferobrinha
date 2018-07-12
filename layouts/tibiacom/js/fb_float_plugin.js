@@ -8,7 +8,7 @@
                 href:''
             },
             cfg = $("#float_fb").data(),
-            iframe = 'https://www.facebook.com/v2.9/plugins/page.php?',
+            iframe = 'https://www.facebook.com/v3.0/plugins/page.php?',
             params = [],
             png = $("#float_fb").attr('src').replace(/\?.*/, '').replace(/[\w\.]+$/, "widget.png")
         ;

@@ -713,7 +713,7 @@ else {
 							<table border="0" cellspacing="0" cellpadding="0" >
 								<form action="?subtopic=accountmanagement" method="post" >
 									<tr>
-										<td style="border:0px;" ><input type="hidden" name=action value=manage >
+										<td style="border:0px;" ><input type="hidden" name=action value=createcharacter >
 											<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" >
 												<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div>
 													<input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif" >
