@@ -227,6 +227,10 @@ function InitializeMenu() {
             }
         }
     }
+    var OpennedMenu =  $('#submenu_'+activeSubmenuItem)[0].dataset['menu'];
+    if(menu[0][OpennedMenu] === '0'){
+        MenuItemAction(OpennedMenu);
+    }
 }
 
 // reconstruct the variable "self.name" out of the array menu
