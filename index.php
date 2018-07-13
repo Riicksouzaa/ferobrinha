@@ -4,7 +4,6 @@ error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
 
 //COMPOSER AUTOLOAD
 require __DIR__ . '/vendor/autoload.php';
-require_once 'twitch_streams.php';
 
 // true = show sent queries and SQL queries status/status code/error message
 define('DEBUG_DATABASE', FALSE);
@@ -20,7 +19,6 @@ define('AJAXREQUEST', FALSE);
 //header("X-Content-Type-Options: nosniff");
 //header("X-FRAME-OPTIONS: SAMEORIGIN");
 //header("X-XSS-Protection: 1; mode=block");
-date_default_timezone_set('America/Sao_Paulo');
 
 // check if site is disabled/requires installation
 include_once('./system/load.loadCheck.php');
@@ -44,6 +42,9 @@ if (!ONLY_PAGE)
 // some parts in that file can be blocked because of ONLY_PAGE constant
 include_once('./system/load.compat.php');
 // COMPAT END
+
+/** LOAD TWTCH STREAMS CASO SEJA NECESSÁRIO */
+require_once 'twitch_streams.php';
 
 // LOAD PAGE
 include_once('./system/load.page.php');
@@ -101,6 +102,7 @@ function valida_multiplas_reqs ()
 }
 
 flushSession();
+date_default_timezone_set('America/Sao_Paulo');
 // with ONLY_PAGE we return only page text, not layout
 if (in_array($_REQUEST['subtopic'], array("play", "refresh", "client_options_serverscript"))) {
     echo $main_content;
