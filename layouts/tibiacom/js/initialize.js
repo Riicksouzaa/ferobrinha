@@ -257,17 +257,25 @@ function MenuItemAction(sourceId) {
 function OpenMenuItem(sourceId) {
     menu[0][sourceId] = '1';
     document.getElementById(sourceId + "_Submenu").style.visibility = "visible";
-    document.getElementById(sourceId + "_Submenu").style.display = "block";
-    document.getElementById(sourceId + "_Lights").style.visibility = "hidden";
     document.getElementById(sourceId + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/minus.gif)";
+    document.getElementById(sourceId + "_Lights").style.visibility = "hidden";
+    $('#'+sourceId+'_Submenu').slideDown('slow');
+    //document.getElementById(sourceId + "_Submenu").style.display = "block";
+    //document.getElementById(sourceId + "_Lights").style.visibility = "hidden";
+    //document.getElementById(sourceId + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/minus.gif)";
 }
 
 function CloseMenuItem(sourceId) {
     menu[0][sourceId] = '0';
-    document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
-    document.getElementById(sourceId + "_Submenu").style.display = "none";
     document.getElementById(sourceId + "_Lights").style.visibility = "visible";
     document.getElementById(sourceId + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/plus.gif)";
+    $('#'+sourceId+'_Submenu').slideUp('fast', function () {
+        document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
+    });
+    //document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
+    //document.getElementById(sourceId + "_Submenu").style.display = "none";
+    //document.getElementById(sourceId + "_Lights").style.visibility = "visible";
+    //document.getElementById(sourceId + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/plus.gif)";
 }
 
 // mouse-over effects of menubuttons and submenuitems

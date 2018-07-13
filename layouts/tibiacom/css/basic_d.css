@@ -485,10 +485,7 @@ body {
   width: 12px;
   background-repeat: no-repeat; }
 
-.Lights {
-  visibility: hidden; }
-
-.Light_lu {
+.light_lu {
   position: absolute;
   top: 2px;
   left: 3px;
@@ -496,7 +493,7 @@ body {
   width: 2px;
   background-repeat: no-repeat; }
 
-.Light_ru {
+.light_ru {
   position: absolute;
   top: 2px;
   right: 3px;
@@ -504,12 +501,15 @@ body {
   width: 2px;
   background-repeat: no-repeat; }
 
-.Light_ld {
+.light_ld {
   position: absolute;
   height: 2px;
   width: 2px;
   top: 28px;
   left: 3px; }
+
+.Lights {
+  visibility: hidden; }
 
 .Icon {
   position: absolute;
@@ -526,33 +526,36 @@ body {
   left: 42px; }
 
 /* Submenus(items) */
-.LeftChain {
-  position: absolute;
-  top: 0;
-  left: -5px;
-  height: 33px;
-  width: 7px;
-  background-repeat: repeat-y; }
-
-.RightChain {
-  position: absolute;
-  top: 0;
-  right: -4px;
-  height: 33px;
-  width: 7px;
-  background-repeat: repeat-y; }
-
-.Submenu {
-  position: relative;
-  margin-left: 5px;
-  margin-right: 5px;
-  background-color: #0D2E2B;
-  width: 160px; }
+.menuitem {
+  width: fit-content; }
 
 .Submenuitem {
   position: relative;
   margin: 0;
   padding: 0; }
+
+.Submenuitem::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0px;
+  height: 33px;
+  width: 7px;
+  background: url(../images/global/general/chain.gif) repeat-y; }
+
+.Submenuitem::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0px;
+  height: 33px;
+  width: 7px;
+  background: url(../images/global/general/chain.gif) repeat-y; }
+
+.Submenu {
+  position: relative;
+  margin: 0 auto;
+  background-color: #0D2E2B; }
 
 .ActiveSubmenuItemIcon {
   position: absolute;
