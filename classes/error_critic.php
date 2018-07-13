@@ -6,6 +6,7 @@ class Error_Critic extends Error
 {
     public function __construct ($id = '', $text = '', $errors = array())
     {
+        header('Location: ./?subtopic=erro');
         echo '<h3>Error occured!</h3>';
         echo 'Error ID: <b>' . $id . '</b><br />';
         echo 'More info: <b>' . $text . '</b><br />';
