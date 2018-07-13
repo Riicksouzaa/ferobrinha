@@ -19,7 +19,6 @@
   background-position-y: 10px;
   width: 10%;
   height: 88%;
-  transform: rotate(0deg);
   position: absolute;
   right: -13px;
   top: -14px; }
@@ -31,11 +30,11 @@
   background-size: cover;
   background-position-x: 0;
   background-position-y: 10px;
-  width: 19px;
-  height: 327px;
+  width: 10%;
+  height: 88%;
   position: absolute;
   left: -15px;
-  top: -18px; }
+  top: -14px; }
 
 .top1 {
   color: #FFFF00 !important; }
