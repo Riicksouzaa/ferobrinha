@@ -11,10 +11,12 @@ class Visitor
     const LOGINSTATE_WRONG_PASSWORD = 3;
     const LOGINSTATE_LOGGED = 4;
     const LOGINSTATE_WRONG_SECRETCODE = 5;
+    const LOGINSTATE_WRONG_RECAPTCHA = 6;
     
     private static $loginAccount;
     private static $loginPassword;
     private static $loginSecretCode;
+    private static $loginRecaptcha;
     private static $authenticStatus;
     /** @var Account */
     private static $account;
@@ -23,6 +25,11 @@ class Visitor
     public static function setSecretCode ($code)
     {
         $_SESSION['SecretCode'] = $code;
+    }
+    
+    public static function setRecaptchaStatus ($status)
+    {
+        $_SESSION['recaptcha'] = $status;
     }
     
     public static function setPassword ($value)
@@ -60,39 +67,44 @@ class Visitor
     
     public static function loadAccount ()
     {
-        $tfa = new TwoFactorAuth();
-        
+    
         if (self::$loginState != self::LOGINSTATE_LOGGED) {
             self::$account = new Account();
         }
-        if (!empty(self::$loginAccount)) {
-            self::$account->loadByName(self::$loginAccount);
-            if (self::$account->isLoaded()) {
-                if (self::$account->isValidPassword(self::$loginPassword)) {
-                    if (self::$account->getSecretStatus() == '1') {
-                        if (isset($_SESSION['SecretCode'])) {
-                            self::$loginState = self::LOGINSTATE_LOGGED;
-                        } else {
-                            if ($tfa->verifyCode(self::$account->getSecret(), (self::$loginSecretCode !== NULL ? self::$loginSecretCode : "0"))) {
+        if ($_SESSION['recaptcha'] && $_SESSION['recaptcha'] == TRUE) {
+            $tfa = new TwoFactorAuth();
+            if (!empty(self::$loginAccount)) {
+                self::$account->loadByName(self::$loginAccount);
+                if (self::$account->isLoaded()) {
+                    if (self::$account->isValidPassword(self::$loginPassword)) {
+                        if (self::$account->getSecretStatus() == '1') {
+                            if (isset($_SESSION['SecretCode'])) {
                                 self::$loginState = self::LOGINSTATE_LOGGED;
                             } else {
-                                self::$loginState = self::LOGINSTATE_WRONG_SECRETCODE;
+                                if ($tfa->verifyCode(self::$account->getSecret(), (self::$loginSecretCode !== NULL ? self::$loginSecretCode : "0"))) {
+                                    self::$loginState = self::LOGINSTATE_LOGGED;
+                                } else {
+                                    self::$loginState = self::LOGINSTATE_WRONG_SECRETCODE;
+                                }
                             }
+                        } else {
+                            self::$loginState = self::LOGINSTATE_LOGGED;
                         }
                     } else {
-                        self::$loginState = self::LOGINSTATE_LOGGED;
+                        self::$loginState = self::LOGINSTATE_WRONG_PASSWORD;
                     }
                 } else {
-                    self::$loginState = self::LOGINSTATE_WRONG_PASSWORD;
+                    self::$loginState = self::LOGINSTATE_NO_ACCOUNT;
                 }
             } else {
-                self::$loginState = self::LOGINSTATE_NO_ACCOUNT;
+                self::$loginState = self::LOGINSTATE_NOT_TRIED;
+            }
+            
+            if (self::$loginState !== self::LOGINSTATE_LOGGED) {
+                self::$account = new Account();
             }
         } else {
-            self::$loginState = self::LOGINSTATE_NOT_TRIED;
-        }
-        if (self::$loginState !== self::LOGINSTATE_LOGGED) {
-            self::$account = new Account();
+            self::$loginState = self::LOGINSTATE_WRONG_RECAPTCHA;
         }
     }
     
@@ -109,6 +121,8 @@ class Visitor
             self::$loginPassword = $_SESSION['password'];
         if (isset($_SESSION['SecretCode']))
             self::$loginSecretCode = $_SESSION['SecretCode'];
+        if (isset($_SESSION['recaptcha']))
+            self::$loginRecaptcha = $_SESSION['recaptcha'];
     }
     
     public static function logout ()
@@ -116,6 +130,7 @@ class Visitor
         unset($_SESSION['account']);
         unset($_SESSION['password']);
         unset($_SESSION['SecretCode']);
+        unset($_SESSION['recaptcha']);
         self::$loginAccount = NULL;
         self::$loginPassword = NULL;
         self::$account = new Account();

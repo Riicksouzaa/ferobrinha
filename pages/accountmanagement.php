@@ -37,18 +37,37 @@ if (!$logged)
         $logB = '<span>Account Name:</span>';
         if (isset($action) && $action != '') {
             $main_content .= "
-<script>
-    iziToast.warning({
-        title: 'Hello:',
-        titleColor:'#5A2800',
-        message: 'You need to login first to access: " . $action . "',
-//        theme: 'dark',
-        position:'center'
-    });
-</script>";
+                <script>
+                    iziToast.warning({
+                        title: 'Hello:',
+                        titleColor:'#5A2800',
+                        message: 'You need to login first to access: " . $action . "',
+                //        theme: 'dark',
+                        position:'center'
+                    });
+                </script>";
         }
         
         if (isset($isTryingToLogin)) {
+    
+            //G RECAPTCHA TESTE
+            if (isset($_POST['login']) && $_POST['login'] == 'ok' && $_POST['account_login'] != '' && $_POST['password_login'] != '') {
+                $result = file_get_contents( 'https://www.google.com/recaptcha/api/siteverify', false, stream_context_create( array(
+                    'http' => array(
+                        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                        'method'  => 'POST',
+                        'content' => http_build_query( array(
+                            'response' => $_POST['g-recaptcha-response'],
+                            'secret' => '6LdeJmQUAAAAAABcuFD3MA15m0k_cdjpvk4a8VrT',
+                            'remoteip' => $_SERVER['REMOTE_ADDR']
+                        ) ),
+                    ),
+                ) ) );
+                $result = json_decode($result);
+            }else{
+                $result = FALSE;
+            }
+            
             $main_content .= '
 				<div class="SmallBox" >
 					<div class="MessageContainer" >
@@ -75,6 +94,9 @@ if (!$logged)
                     $secretL = '<span style="color:red;">Secret Code:</span>';
                     $login_secret = TRUE;
                     break;
+                case Visitor::LOGINSTATE_WRONG_RECAPTCHA:
+                    $main_content .= 'Ocorreu algum erro ao validar seu login.';
+                    break;
             }
             $main_content .= '
 					</div>
@@ -86,7 +108,12 @@ if (!$logged)
 			</div><br/>';
         }
         $main_content .= '
-			<form action="?subtopic=accountmanagement" method="post" style="margin: 0px; padding: 0px;">
+            <script>
+               function onSubmit(token) {
+                 document.getElementById("loginform").submit();
+               }
+            </script>
+			<form id="loginform" action="?subtopic=accountmanagement" method="post" style="margin: 0px; padding: 0px;">
 				<div class="TableContainer" >
 					<table class="Table4" cellpadding="0" cellspacing="0" >
 						<div class="CaptionContainer" >
@@ -120,6 +147,7 @@ if (!$logged)
 																	';
         if ($login_secret) {
             $main_content .= '
+                                                                            <input type="hidden" name="login" value="ok">
                                                                             <tr>
                                                                                 <td class="LabelV120" ><span>' . $logB . '</span></td>
                                                                                 <td><input type="password" name="account_login" value="' . $_POST["account_login"] . '" size="35" maxlength="30" ></td>
@@ -135,9 +163,10 @@ if (!$logged)
                                                                         ';
         } else {
             $main_content .= '
+                                                                        <input type="hidden" name="login" value="ok">
                                                                         <tr>
 																			<td class="LabelV120" ><span>' . $logB . '</span></td>
-																			<td><input type="password" autofocus name="account_login" size="35" maxlength="30" ></td>
+																			<td><input type="password" name="account_login" value="' . $_POST["account_login"] . '" size="35" maxlength="30" autofocus></td>
 																		</tr>
 																		<tr>
 																			<td class="LabelV120" ><span>' . $passB . '</span></td>
@@ -189,7 +218,17 @@ if (!$logged)
 																	<div style="float: right; font-size: 1px;" >
 																		<input type="hidden" name="page" value="overview" >
 																			<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" ><div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div>
-																					<input class="ButtonText" type="image" name="Login" alt="Login" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" >
+																					<button
+																					    style="background-color: transparent; border: 0 solid;"
+                                                                                        class="g-recaptcha ButtonText"
+                                                                                        data-badge="bottomleft"
+                                                                                        data-size="invisible"
+                                                                                        data-sitekey="6LdeJmQUAAAAAJX78IH3ZbfGqzEkm2Ndg66WvtKS"
+                                                                                        data-callback="onSubmit">
+                                                                                        <img style="position: relative;width: fit-content;left: -5px;" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" />
+                                                                                    </button>
+																					<!--<div class="g-recaptcha" data-sitekey="6LdeJmQUAAAAAJX78IH3ZbfGqzEkm2Ndg66WvtKS" data-callback="onSubmit"></div>-->
+																					<!--<input class="g-recaptcha ButtonText" data-sitekey="6LdeJmQUAAAAAJX78IH3ZbfGqzEkm2Ndg66WvtKS" data-callback="onSubmit"  type="image" name="Login" alt="Login" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" >-->
 																				</div>
 																			</div>
 																		</form>
