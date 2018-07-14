@@ -67,12 +67,16 @@ class Visitor
     
     public static function loadAccount ()
     {
-    
+        
         if (self::$loginState != self::LOGINSTATE_LOGGED) {
             self::$account = new Account();
         }
         if ($_SESSION['recaptcha'] && $_SESSION['recaptcha'] == TRUE) {
-            $tfa = new TwoFactorAuth();
+            try {
+                $tfa = new TwoFactorAuth();
+            } catch (\RobThree\Auth\TwoFactorAuthException $e) {
+                die($e->getMessage());
+            }
             if (!empty(self::$loginAccount)) {
                 self::$account->loadByName(self::$loginAccount);
                 if (self::$account->isLoaded()) {
@@ -80,15 +84,18 @@ class Visitor
                         if (self::$account->getSecretStatus() == '1') {
                             if (isset($_SESSION['SecretCode'])) {
                                 self::$loginState = self::LOGINSTATE_LOGGED;
+                                $_SESSION['logado'] = TRUE;
                             } else {
                                 if ($tfa->verifyCode(self::$account->getSecret(), (self::$loginSecretCode !== NULL ? self::$loginSecretCode : "0"))) {
                                     self::$loginState = self::LOGINSTATE_LOGGED;
+                                    $_SESSION['logado'] = TRUE;
                                 } else {
                                     self::$loginState = self::LOGINSTATE_WRONG_SECRETCODE;
                                 }
                             }
                         } else {
                             self::$loginState = self::LOGINSTATE_LOGGED;
+                            $_SESSION['logado'] = TRUE;
                         }
                     } else {
                         self::$loginState = self::LOGINSTATE_WRONG_PASSWORD;
@@ -99,12 +106,11 @@ class Visitor
             } else {
                 self::$loginState = self::LOGINSTATE_NOT_TRIED;
             }
-            
-            if (self::$loginState !== self::LOGINSTATE_LOGGED) {
-                self::$account = new Account();
-            }
         } else {
             self::$loginState = self::LOGINSTATE_WRONG_RECAPTCHA;
+        }
+        if (self::$loginState !== self::LOGINSTATE_LOGGED) {
+            self::$account = new Account();
         }
     }
     
@@ -131,6 +137,7 @@ class Visitor
         unset($_SESSION['password']);
         unset($_SESSION['SecretCode']);
         unset($_SESSION['recaptcha']);
+        unset($_SESSION['logado']);
         self::$loginAccount = NULL;
         self::$loginPassword = NULL;
         self::$account = new Account();

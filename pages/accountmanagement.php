@@ -49,24 +49,6 @@ if (!$logged)
         }
         
         if (isset($isTryingToLogin)) {
-    
-            //G RECAPTCHA TESTE
-            if (isset($_POST['login']) && $_POST['login'] == 'ok' && $_POST['account_login'] != '' && $_POST['password_login'] != '') {
-                $result = file_get_contents( 'https://www.google.com/recaptcha/api/siteverify', false, stream_context_create( array(
-                    'http' => array(
-                        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                        'method'  => 'POST',
-                        'content' => http_build_query( array(
-                            'response' => $_POST['g-recaptcha-response'],
-                            'secret' => '6LdeJmQUAAAAAABcuFD3MA15m0k_cdjpvk4a8VrT',
-                            'remoteip' => $_SERVER['REMOTE_ADDR']
-                        ) ),
-                    ),
-                ) ) );
-                $result = json_decode($result);
-            }else{
-                $result = FALSE;
-            }
             
             $main_content .= '
 				<div class="SmallBox" >
