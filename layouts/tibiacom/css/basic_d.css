@@ -3464,7 +3464,7 @@ table.fixed td {
   display: none; }
 
 .pace .pace-progress {
-  background: #494f4a;
+  background: rgba(177, 126, 15, 0.9);
   position: fixed;
   z-index: 20000;
   top: 0;
