@@ -2020,10 +2020,6 @@ label {
   position: relative;
   top: -5px; }
 
-.CipPost {
-  margin: 0 auto;
-  padding: 0 !important; }
-
 .ForumPost {
   position: relative;
   height: 100%;
@@ -2086,6 +2082,11 @@ label {
   margin: 4px 4px 0 0; }
 
 /* FORUM - CipSoft post format */
+.CipPost {
+  margin: 0 auto;
+  border: 0 solid !important;
+  padding: 0 !important; }
+
 .CipPost .CipBorder {
   font-size: 1px;
   position: absolute;
@@ -2142,9 +2143,6 @@ label {
   height: 100%; }
 
 .CipPost .CipPostIcon {
-  /* position: relative; */
-  /* top: 7px; */
-  /* left: 12px; */
   width: 60px;
   height: 60px; }
 
@@ -3431,7 +3429,7 @@ table.fixed td {
   color: white; }
 
 ::-webkit-scrollbar {
-  width: 6px; }
+  width: 6px !important; }
 
 ::-webkit-scrollbar-button {
   /* 2 */ }
@@ -3447,7 +3445,7 @@ table.fixed td {
 
 ::-webkit-scrollbar-corner {
   /* 6 */
-  width: 6px; }
+  width: 6px !important; }
 
 ::-webkit-resizer {
   /* 7 */ }
@@ -3471,5 +3469,25 @@ table.fixed td {
   right: 100%;
   width: 100%;
   height: 3px; }
+
+.TableContent tr {
+  background: #F1E0C6 !important; }
+
+.TableContent tr:nth-child(2n+1) {
+  background: #d5c0a1 !important; }
+
+.TableContent tr:first-child {
+  height: 30px !important;
+  text-align: left;
+  color: #5A2800;
+  font-weight: bold;
+  background: #d5c0a1 !important; }
+
+.TableContent tr:first-child td {
+  vertical-align: middle; }
+
+#TransferConditionsContainer {
+  width: 100%;
+  padding: 7px; }
 
 /*# sourceMappingURL=basic_d.css.map */

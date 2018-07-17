@@ -173,57 +173,45 @@ function showPost ($topic, $text, $smile)
 //Most Powerfull Guilds
 $main_content .= '
 <div class="InnerTableContainer">
-					<div class="TableShadowContainerRightTop">
-						<div class="TableShadowRightTop" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
-					</div>
-						<div class="TableContentAndRightShadow" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
-							<div class="TableContentContainer">
-								<table class="TableContent" style="border: 1px solid #faf0d7;">
-									<tbody>
-										<tr style="background-color: #505050;">
-										</tr>
-											<tr class="Table" style="background-color: #d4c0a1;">
-												<td style="width: 800; border: 1px; border-style: solid; border-color: #FAF0D7;">
-													<div class="NewsHeadline">
-														<div class="NewsHeadlineBackground" style="background-image:url(' . $layout_name . '/images/global/content/newsheadline_background.gif)">
-															<table border="0">
-																<tr>
-																	<div class="MostPowerfullGuilds">Most Powerfull Guilds</div>						
-																</tr>
-															</table>
-														</div>
-													</div>
-													
-												<table border="0" cellspacing="3" cellpadding="4" width="100%">
-											<tr>';
+    <div class="TableShadowContainerRightTop">
+        <div class="TableShadowRightTop" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
+    </div>
+    <div class="TableContentAndRightShadow" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+        <div class="TableContentContainer">
+            <table class="TableContent" style="border: 1px solid #faf0d7;">
+                <tbody>
+                    <tr class="Table">
+                        <td style="padding: 0; margin: 0 auto">
+                            <div class="NewsHeadline">
+                                <div class="NewsHeadlineBackground" style="background-image:url(' . $layout_name . '/images/global/content/newsheadline_background.gif)">
+                                    <div class="MostPowerfullGuilds">Most Powerfull Guilds</div>
+                                </div>
+                            </div>
+                            <table border="0" cellspacing="3" cellpadding="4" width="100%">
+                                <tr>';
 $guildsPower = $SQL->query('SELECT g.id as id, g.name as name, COALESCE(SUM(`pd`.`unjustified`),0) as `frags` FROM `players` p LEFT JOIN `player_deaths` pd ON `pd`.`killed_by` = `p`.`name` INNER JOIN `guild_membership` gm ON `p`.`id` = `gm`.`player_id` LEFT JOIN `guilds` g ON `gm`.`guild_id` = `g`.`id` GROUP BY g.id ORDER BY `frags` DESC, g.`id` ASC LIMIT 0, 4')->fetchAll();
-$main_content .= '<tr>';
 foreach ($guildsPower as $guildp) {
     $main_content .= '
-                                                <td style="width: 25%; text-align: center;">
-                                                    <a href="?subtopic=guilds&action=view&GuildName=' . $guildp['name'] . '"><img src="guild_image.php?id=' . $guildp['id'] . '" width="64" height="64" border="0"/><br />' . $guildp['name'] . '</a><br />' . $guildp['frags'] . ' kills
-                                                </td>';
+                                <td style="text-align: center;">
+                                    <a href="?subtopic=guilds&action=view&GuildName=' . $guildp['name'] . '"><img src="guild_image.php?id=' . $guildp['id'] . '" width="64" height="64" border="0"/><br />' . $guildp['name'] . '</a><br />' . $guildp['frags'] . ' kills
+                                </td>';
 }
 $main_content .= '
-																			</tr>
-																		</table>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-												</div>
-											<div class="TableShadowContainer">
-										<div class="TableBottomShadow" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
-									<div class="TableBottomLeftShadow" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
-								<div class="TableBottomRightShadow" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
-							</div>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="TableShadowContainer">
+        <div class="TableBottomShadow" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+            <div class="TableBottomLeftShadow" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+            <div class="TableBottomRightShadow" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+        </div>
+    </div>
+</div>
 <br />';
 //Most Powerfull Guilds End
 

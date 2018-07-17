@@ -33,6 +33,7 @@ if ($players_deaths_count == 0) {
     $main_content .= "<div class='TableContainer'>";
     $main_content .= $make_content_header("Last Deaths");
     $main_content .= $make_table_header();
+        $main_content .= "<tr><td>#</td><td>Date</td><td>Kill</td></tr>";
     $main_content .= $players_rows;
     $main_content .= $make_table_footer();
     $main_content .= "</div>";

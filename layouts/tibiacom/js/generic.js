@@ -371,10 +371,9 @@ function ActivateHelperDiv(a_Object, a_Title, a_Text, a_HelperDivPositionID)
 function CollapseTable(a_ID)
 {
     $('#' + a_ID).slideToggle('slow');
-    console.log($('#Indicator_' + a_ID).attr('class'));
-    if ($('#Indicator_' + a_ID).attr('class') == 'CircleSymbolPlus') {
-        $('#Indicator_' + a_ID).css('background-image', 'url(' + JS_DIR_IMAGES + 'global/content/circle-symbol-minus.gif)');
+    if ($('#Indicator_' + a_ID).hasClass('CircleSymbolPlus')) {
         $('#Indicator_' + a_ID).attr('class', 'CircleSymbolMinus');
+        $('#Indicator_' + a_ID).css('background-image', 'url(' + JS_DIR_IMAGES + 'global/content/circle-symbol-minus.gif)');
     } else {
         $('#Indicator_' + a_ID).css('background-image', 'url(' + JS_DIR_IMAGES + 'global/content/circle-symbol-plus.gif)');
         $('#Indicator_' + a_ID).attr('class', 'CircleSymbolPlus');

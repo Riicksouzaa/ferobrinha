@@ -2,12 +2,12 @@
 /**
  *
  * @package        uam.skeleton
- * @subpackage  controllers
- * @author        Codenome Developpers - Main Developer: Ricardo <http://codenome.com>
- * @copyright    Copyright (c) 2018, Codenome. (http://myara.net/)
+ * @subpackage     controllers
+ * @author         Codenome Developpers - Main Developer: Ricardo <http://codenome.com>
+ * @copyright      Copyright (c) 2018, Codenome. (http://myara.net/)
  * @license        GPL v3
- * @link        http://uam.codenome.com
- * @since        Version 0.0.1
+ * @link           http://uam.codenome.com
+ * @since          Version 0.0.1
  * @filesource
  */
 
@@ -22,32 +22,34 @@ $main_content .= '
 											<tr>
 												<td>
 													<div class="TableShadowContainerRightTop">
-														<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);"></div>
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
 													</div>
-													<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);">
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
 														<div class="TableContentContainer">
 															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
 																<tbody>
 																	<tr>
-																		<td><img class="AccountStatusImage" src="'.$layout_name.'/images/account/account-status_green.gif" alt="free account"></td>
+																		<td><img class="AccountStatusImage" src="' . $layout_name . '/images/account/account-status_green.gif" alt="free account"></td>
 																		<td width="100%" valign="middle">';
-function porcentagem_xn ( $porcentagem, $total ) {
-    return ( $porcentagem / 100 ) * $total;
+function porcentagem_xn ($porcentagem, $total)
+{
+    return ($porcentagem / 100) * $total;
 }
+
 $getBalance = $SQL->query("SELECT COALESCE(sum(abs(price)),0)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions b where b.status = 'delivered' and YEAR(b.data) = YEAR(CURDATE()) and MONTH(b.data) = MONTH(CURDATE())) as price FROM `z_shop_donates` a WHERE YEAR(FROM_UNIXTIME(a.date)) = YEAR(CURDATE()) AND MONTH(FROM_UNIXTIME(a.date)) = MONTH(CURDATE()) AND a.status = 'received'")->fetchAll();
-foreach($getBalance as $balance) {
+foreach ($getBalance as $balance) {
     $somaBalance += $balance['price'];
 }
 $profitTotal = $SQL->query("SELECT COALESCE(sum(abs(price)),0)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions b where b.status = 'delivered') as price FROM `z_shop_donates` a WHERE a.status = 'received'")->fetchAll();
 $main_content .= '
 																			<span class="red">
-																				<span class="BigBoldText">R$ '.number_format($somaBalance, 2, ',', '.').'</span>
+																				<span class="BigBoldText">R$ ' . number_format($somaBalance, 2, ',', '.') . '</span>
 																			</span>
 																			<small>
-																				<br>Saldo total de todas as doações realizadas no mês de '.date('F').'.<br>
-																				<!--('.$config['server']['ownerName'].' possui 50% dos lucros, um total de <span class="red">R$ '.number_format(porcentagem_xn(50,$somaBalance), 2, ',', '.').'--></span>
+																				<br>Saldo total de todas as doações realizadas no mês de ' . date('F') . '.<br>
+																				<!--(' . $config['server']['ownerName'] . ' possui 50% dos lucros, um total de <span class="red">R$ ' . number_format(porcentagem_xn(50, $somaBalance), 2, ',', '.') . '--></span>
 																			</small><br/>
-																			<small>O total geral em vendas em todos os meses foi de <span style="color: #1c6a12">R$ '.number_format($profitTotal[0]['price'],2,',','.').'</span></small>
+																			<small>O total geral em vendas em todos os meses foi de <span style="color: #1c6a12">R$ ' . number_format($profitTotal[0]['price'], 2, ',', '.') . '</span></small>
 																		</td>				
 																	</tr>
 																</tbody>
@@ -55,9 +57,9 @@ $main_content .= '
 														</div>
 													</div>
 													<div class="TableShadowContainer">
-														<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);">
-														<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);"></div>
-														<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);"></div>
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+														<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+														<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
 													</div>
 												</div>
 											</td>
@@ -73,20 +75,20 @@ $main_content .= '
 $main_content .= '
 			<div class="SmallBox" >
 				<div class="MessageContainer" >
-					<div class="BoxFrameHorizontal" style="background-image:url('.$layout_name.'/images/global/content/box-frame-horizontal.gif);" /></div>
-					<div class="BoxFrameEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></div>
-					<div class="BoxFrameEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></div>
+					<div class="BoxFrameHorizontal" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-horizontal.gif);" /></div>
+					<div class="BoxFrameEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></div>
+					<div class="BoxFrameEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></div>
 					<div class="Message">
-						<div class="BoxFrameVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></div>
-						<div class="BoxFrameVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);" /></div>
+						<div class="BoxFrameVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></div>
+						<div class="BoxFrameVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></div>
 						<table style="width:100%;" >
 							<td style="width:100%;text-align:center;" ><nobr>[<a href="#Ultimos+Servicos" >Últimos serviços comprados</a>]</nobr> <nobr>[<a href="#Confirmed" >Daoações confirmadas</a>]</nobr> <nobr>[<a href="#Pagseguro" >Pagseguro</a>]</nobr> <nobr>[<a href="#Bank+Transfer" >Transferência bancárias</a>]</nobr> <nobr>[<a href="#Paypal" >Paypal</a>]</nobr></td>
 						</tr>
 					</table>
 				</div>
-				<div class="BoxFrameHorizontal" style="background-image:url('.$layout_name.'/images/global/content/box-frame-horizontal.gif);" /></div>
-				<div class="BoxFrameEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></div>
-				<div class="BoxFrameEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);" /></div>
+				<div class="BoxFrameHorizontal" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-horizontal.gif);" /></div>
+				<div class="BoxFrameEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></div>
+				<div class="BoxFrameEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></div>
 			</div>
 		</div>
 		<br/>';
@@ -95,22 +97,22 @@ $main_content .= '
 				<div class="TopButtonContainer" >
 					<div class="TopButton" >
 						<a href="#top" >
-							<image style="border:0px;" src="'.$layout_name.'/images/global/content/back-to-top.gif" />
+							<image style="border:0px;" src="' . $layout_name . '/images/global/content/back-to-top.gif" />
 						</a>
 					</div>
 				</div>
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer"> 
-							<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
 							<div class="Text">5 últimos serviços comprados no site</div>
-							<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span> 
-							<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
+							<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 						</div>
 					</div>
 					<table class="Table3" cellpadding="0" cellspacing="0">
@@ -122,43 +124,43 @@ $main_content .= '
 											<tr>
 												<td>
 													<div class="TableShadowContainerRightTop" >
-														<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);" ></div>
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
 													</div>
-													<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);" >
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
 														<div class="TableContentContainer" >
 															<table class="TableContent" width="100%">';
 $get_Services = $SQL->query("SELECT * FROM `z_shop_payment` ORDER BY `date` DESC LIMIT 5")->fetchAll();
 $getCountServices = $SQL->query("SELECT COUNT(*) FROM `z_shop_payment` WHERE `status` = 'received'")->fetchColumn();
-if($getCountServices > 0) {
+if ($getCountServices > 0) {
     $main_content .= '
 																	<tr>';
-    foreach($get_Services as $service) {
-        $get_historyService = $SQL->query("SELECT * FROM `z_shop_offer` WHERE `id` = '".$service['service_id']."'")->fetch();
+    foreach ($get_Services as $service) {
+        $get_historyService = $SQL->query("SELECT * FROM `z_shop_offer` WHERE `id` = '" . $service['service_id'] . "'")->fetch();
         $pathToService = "";
         if ($get_historyService['category'] == 2)
-            $pathToService = "images/payment/".$get_historyService['default_image'];
+            $pathToService = "images/payment/" . $get_historyService['default_image'];
         elseif ($get_historyService['category'] == 4)
-            $pathToService = "images/shop/outfits/".strtolower(str_replace(" ","_",$get_historyService['addon_name']))."_male.gif";
+            $pathToService = "images/shop/outfits/" . strtolower(str_replace(" ", "_", $get_historyService['addon_name'])) . "_male.gif";
         elseif ($get_historyService['category'] == 3)
-            $pathToService = "images/shop/mounts/".str_replace(" ","_",$get_historyService['offer_name']).".gif";
+            $pathToService = "images/shop/mounts/" . str_replace(" ", "_", $get_historyService['offer_name']) . ".gif";
         elseif ($get_historyService['category'] == 5)
-            $pathToService = "images/shop/items/".$get_historyService['itemid'].".gif";
-
+            $pathToService = "images/shop/items/" . $get_historyService['itemid'] . ".gif";
+        
         $main_content .= '
 																		<td>
 																			<center>
-																				<img src="'.$layout_name.'/'.$pathToService.'" alt="Tibiamax"/><br>
-																				<small><strong>'.$get_historyService['offer_name'].'</strong></small><br>
-																				<small>(Comprado com a conta: <strong>'.$service['account_name'].'</strong>)</small>
+																				<img src="' . $layout_name . '/' . $pathToService . '" alt="Tibiamax"/><br>
+																				<small><strong>' . $get_historyService['offer_name'] . '</strong></small><br>
+																				<small>(Comprado com a conta: <strong>' . $service['account_name'] . '</strong>)</small>
 																			</center>
 																		</td>';
-
+        
     }
     $main_content .= '
 																	</tr>';
 } else
     $main_content .= '
-																<tr bgcolor="'.$config['site']['lightborder'].'">
+																<tr bgcolor="' . $config['site']['lightborder'] . '">
 																	<td colspan="5">Nenhum serviço comprado ainda.</td>
 																</tr>';
 $main_content .= '
@@ -166,22 +168,22 @@ $main_content .= '
 														</div>
 													</div>
 													<div class="TableShadowContainer" >
-														<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);" >
-															<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);" ></div>
-															<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);" ></div>
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
 														</div>
 													</div>
 												</td>
 											</tr>';
-if($getCountServices > 5)
+if ($getCountServices > 5)
     $main_content .= '
 											<tr>
 												<td align="center">
 													<form method="post" action="?subtopic=adminpanel&action=historymore">
 														<input type="hidden" name="service" value="items">
-														<div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_green.gif)" >
-															<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_green_over.gif);" ></div>
-																<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/buttons/_sbutton_vermais.gif" >
+														<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green.gif)" >
+															<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green_over.gif);" ></div>
+																<input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_vermais.gif" >
 															</div>
 														</div>
 													</form>
@@ -201,22 +203,22 @@ $main_content .= '
 				<div class="TopButtonContainer" >
 					<div class="TopButton" >
 						<a href="#top" >
-							<image style="border:0px;" src="'.$layout_name.'/images/global/content/back-to-top.gif" />
+							<image style="border:0px;" src="' . $layout_name . '/images/global/content/back-to-top.gif" />
 						</a>
 					</div>
 				</div>
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer"> 
-							<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
 							<div class="Text">Últimas 10 doações confirmadas</div>
-							<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span> 
-							<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
+							<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 						</div>
 					</div>
 					<table class="Table3" cellpadding="0" cellspacing="0">
@@ -228,9 +230,9 @@ $main_content .= '
 											<tr>
 												<td>
 													<div class="TableShadowContainerRightTop" >
-														<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);" ></div>
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
 													</div>
-													<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);" >
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
 														<div class="TableContentContainer" >
 															<table class="TableContent" width="100%">
 																<tr bgcolor="#D4C0A1">';
@@ -247,26 +249,26 @@ $main_content .= '
 																</tr>';
 
 $n = 0;
-if($getCountOrders > 0)
-    foreach($get_OrdersConfirmed as $order) {
-        $bgcolor = (($n++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+if ($getCountOrders > 0)
+    foreach ($get_OrdersConfirmed as $order) {
+        $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $main_content .= '
-																	<tr bgcolor="'.$bgcolor.'">
-																		<td>'.date("M d Y, G:i:s", $order['date']).'</td>
-																		<td>'.$order['coins'].' Tibia Coins</td>
-																		<td>'.$order['price'].' BRL</td>
-																		<td>'.$order['method'].'</td>';
-        $bankref = explode("-",$order['reference']);
+																	<tr bgcolor="' . $bgcolor . '">
+																		<td>' . date("M d Y, G:i:s", $order['date']) . '</td>
+																		<td>' . $order['coins'] . ' Tibia Coins</td>
+																		<td>' . $order['price'] . ' BRL</td>
+																		<td>' . $order['method'] . '</td>';
+        $bankref = explode("-", $order['reference']);
         $bankName = $bankref[1];
-        $main_content .= '<td>'.$bankName.'</td>';
+        $main_content .= '<td>' . $bankName . '</td>';
         $main_content .= '
-																		<td>'.$order['status'].'</td>
-																		<td>'.(($order['status'] == "confirmed") ? '[<a href="?subtopic=adminpanel&action=sendPoints&orderID='.$order['id'].'">view</a>]' : '').'</td>
+																		<td>' . $order['status'] . '</td>
+																		<td>' . (($order['status'] == "confirmed") ? '[<a href="?subtopic=adminpanel&action=sendPoints&orderID=' . $order['id'] . '">view</a>]' : '') . '</td>
 																	</tr>';
     }
 else
     $main_content .= '
-																<tr bgcolor="'.$config['site']['lightborder'].'">
+																<tr bgcolor="' . $config['site']['lightborder'] . '">
 																	<td colspan="7">Nenhuma doação confirmada ainda.</td>
 																</tr>';
 $main_content .= '
@@ -274,9 +276,9 @@ $main_content .= '
 														</div>
 													</div>
 													<div class="TableShadowContainer" >
-														<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);" >
-															<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);" ></div>
-															<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);" ></div>
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
 														</div>
 													</div>
 												</td>
@@ -293,22 +295,22 @@ $main_content .= '
 				<div class="TopButtonContainer" >
 					<div class="TopButton" >
 						<a href="#top" >
-							<image style="border:0px;" src="'.$layout_name.'/images/global/content/back-to-top.gif" />
+							<image style="border:0px;" src="' . $layout_name . '/images/global/content/back-to-top.gif" />
 						</a>
 					</div>
 				</div>
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer"> 
-							<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
 							<div class="Text">10 últimas doações realizadas por PagSeguro</div>
-							<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span> 
-							<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
+							<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 						</div>
 					</div>
 					<table class="Table3" cellpadding="0" cellspacing="0">
@@ -320,9 +322,9 @@ $main_content .= '
 											<tr>
 												<td>
 													<div class="TableShadowContainerRightTop" >
-														<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);" ></div>
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
 													</div>
-													<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);" >
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
 														<div class="TableContentContainer" >
 															<table class="TableContent" width="100%">
 																<tr bgcolor="#D4C0A1">
@@ -347,20 +349,20 @@ $status_pagamento = array(
 $get_Pagseguro = $SQL->query("SELECT * FROM `pagseguro_transactions` where `status` = 'DELIVERED' ORDER BY `data` DESC LIMIT 10")->fetchAll();
 $getCountPagseguro = $SQL->query("SELECT COUNT(*) FROM `pagseguro_transactions`")->fetchColumn();
 $n = 0;
-if($getCountPagseguro > 0)
-    foreach($get_Pagseguro as $pagseguro) {
-        $bgcolor = (($n++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+if ($getCountPagseguro > 0)
+    foreach ($get_Pagseguro as $pagseguro) {
+        $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
 //        $refPagseguro = explode("-",$pagseguro['reference']);
 //        $refPag = $refPagseguro[0];
 //        $getPriceService = $SQL->query("SELECT `price` FROM ``");
         $main_content .= '
-																	<tr bgcolor="'.$bgcolor.'">
-																		<td>'.$pagseguro['data'].'</td>';
+																	<tr bgcolor="' . $bgcolor . '">
+																		<td>' . $pagseguro['data'] . '</td>';
         $main_content .= '
-																		<td>'.$pagseguro['transaction_code'].'</td>
-																		<td>'.$pagseguro['name'].'</td>
-																		<td>R$'.number_format($pagseguro['payment_amount'],2,',','.').'</td>
-																		<td>'.$pagseguro['status'].'</td>';
+																		<td>' . $pagseguro['transaction_code'] . '</td>
+																		<td>' . $pagseguro['name'] . '</td>
+																		<td>R$' . number_format($pagseguro['payment_amount'], 2, ',', '.') . '</td>
+																		<td>' . $pagseguro['status'] . '</td>';
 //        $getReference = explode("-",$pagseguro['reference']);
 //        $pagseguroReference = $getReference[0];
 //        $getValor = $SQL->query("SELECT `price` FROM `z_shop_donates` WHERE `reference` = '$pagseguroReference'")->fetch();
@@ -372,7 +374,7 @@ if($getCountPagseguro > 0)
     }
 else
     $main_content .= '
-																<tr bgcolor="'.$config['site']['lightborder'].'">
+																<tr bgcolor="' . $config['site']['lightborder'] . '">
 																	<td colspan="5">Nenhuma doação realizada ainda.</td>
 																</tr>';
 $main_content .= '
@@ -380,22 +382,22 @@ $main_content .= '
 														</div>
 													</div>
 													<div class="TableShadowContainer" >
-														<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);" >
-															<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);" ></div>
-															<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);" ></div>
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
 														</div>
 													</div>
 												</td>
 											</tr>';
-if($getCountPagseguro > 10)
+if ($getCountPagseguro > 10)
     $main_content .= '
 											<tr>
 												<td align="center">
 													<form method="post" action="?subtopic=adminpanel&action=historymore">
 														<input type="hidden" name="service" value="pagseguro">
-														<div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_green.gif)" >
-															<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_green_over.gif);" ></div>
-																<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/buttons/_sbutton_vermais.gif" >
+														<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green.gif)" >
+															<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green_over.gif);" ></div>
+																<input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_vermais.gif" >
 															</div>
 														</div>
 													</form>
@@ -416,22 +418,22 @@ $main_content .= '
 				<div class="TopButtonContainer" >
 					<div class="TopButton" >
 						<a href="#top" >
-							<image style="border:0px;" src="'.$layout_name.'/images/global/content/back-to-top.gif" />
+							<image style="border:0px;" src="' . $layout_name . '/images/global/content/back-to-top.gif" />
 						</a>
 					</div>
 				</div>
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer"> 
-							<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
 							<div class="Text">10 últimas doações realizadas por transferência bancária</div>
-							<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span> 
-							<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
+							<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 						</div>
 					</div>
 					<table class="Table3" cellpadding="0" cellspacing="0">
@@ -443,9 +445,9 @@ $main_content .= '
 											<tr>
 												<td>
 													<div class="TableShadowContainerRightTop" >
-														<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);" ></div>
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
 													</div>
-													<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);" >
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
 														<div class="TableContentContainer" >
 															<table class="TableContent" width="100%">
 																<tr bgcolor="#D4C0A1">
@@ -458,23 +460,23 @@ $main_content .= '
 $get_Transfers = $SQL->query("SELECT * FROM `z_shop_donates` WHERE `method` = 'banktransfer' ORDER BY `date` DESC LIMIT 10")->fetchAll();
 $getCountTransfers = $SQL->query("SELECT COUNT(*) FROM `z_shop_donates` WHERE `method` = 'banktransfer'")->fetchColumn();
 $n = 0;
-if($getCountTransfers > 0)
-    foreach($get_Transfers as $transfer) {
-        $bgcolor = (($n++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+if ($getCountTransfers > 0)
+    foreach ($get_Transfers as $transfer) {
+        $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $main_content .= '
-																	<tr bgcolor="'.$bgcolor.'">
-																		<td>'.date("M d Y, G:i:s",$transfer['date']).'</td>';
+																	<tr bgcolor="' . $bgcolor . '">
+																		<td>' . date("M d Y, G:i:s", $transfer['date']) . '</td>';
         $main_content .= '
-																		<td>'.$transfer['reference'].'</td>
-																		<td>'.$transfer['account_name'].'</td>
-																		<td>'.number_format($transfer['price'], 2, ',', '.').'</td>
-																		<td>'.$transfer['status'].'</td>';
+																		<td>' . $transfer['reference'] . '</td>
+																		<td>' . $transfer['account_name'] . '</td>
+																		<td>' . number_format($transfer['price'], 2, ',', '.') . '</td>
+																		<td>' . $transfer['status'] . '</td>';
         $main_content .= '
 																	</tr>';
     }
 else
     $main_content .= '
-																<tr bgcolor="'.$config['site']['lightborder'].'">
+																<tr bgcolor="' . $config['site']['lightborder'] . '">
 																	<td colspan="5">Nenhuma doação realizada ainda.</td>
 																</tr>';
 $main_content .= '
@@ -482,22 +484,22 @@ $main_content .= '
 														</div>
 													</div>
 													<div class="TableShadowContainer" >
-														<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);" >
-															<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);" ></div>
-															<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);" ></div>
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
 														</div>
 													</div>
 												</td>
 											</tr>';
-if($getCountTransfers > 10)
+if ($getCountTransfers > 10)
     $main_content .= '
 											<tr>
 												<td align="center">
 													<form method="post" action="?subtopic=adminpanel&action=historymore">
 														<input type="hidden" name="service" value="transfer">
-														<div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_green.gif)" >
-															<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_green_over.gif);" ></div>
-																<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/buttons/_sbutton_vermais.gif" >
+														<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green.gif)" >
+															<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green_over.gif);" ></div>
+																<input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_vermais.gif" >
 															</div>
 														</div>
 													</form>
@@ -518,22 +520,22 @@ $main_content .= '
 				<div class="TopButtonContainer" >
 					<div class="TopButton" >
 						<a href="#top" >
-							<image style="border:0px;" src="'.$layout_name.'/images/global/content/back-to-top.gif" />
+							<image style="border:0px;" src="' . $layout_name . '/images/global/content/back-to-top.gif" />
 						</a>
 					</div>
 				</div>
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer"> 
-							<span class="CaptionEdgeLeftTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightTop" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionBorderTop" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionVerticalLeft" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
 							<div class="Text">10 últimas doações realizadas por PayPal</div>
-							<span class="CaptionVerticalRight" style="background-image:url('.$layout_name.'/images/global/content/box-frame-vertical.gif);"></span> 
-							<span class="CaptionBorderBottom" style="background-image:url('.$layout_name.'/images/global/content/table-headline-border.gif);"></span> 
-							<span class="CaptionEdgeLeftBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
-							<span class="CaptionEdgeRightBottom" style="background-image:url('.$layout_name.'/images/global/content/box-frame-edge.gif);"></span> 
+							<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 						</div>
 					</div>
 					<table class="Table3" cellpadding="0" cellspacing="0">
@@ -545,9 +547,9 @@ $main_content .= '
 											<tr>
 												<td>
 													<div class="TableShadowContainerRightTop" >
-														<div class="TableShadowRightTop" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rt.gif);" ></div>
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);" ></div>
 													</div>
-													<div class="TableContentAndRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-rm.gif);" >
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);" >
 														<div class="TableContentContainer" >
 															<table class="TableContent" width="100%">
 																<tr bgcolor="#D4C0A1">
@@ -560,23 +562,23 @@ $main_content .= '
 $get_Paypal = $SQL->query("SELECT * FROM `z_shop_donates` WHERE `method` = 'paypal' ORDER BY `date` DESC LIMIT 10")->fetchAll();
 $getCountPaypal = $SQL->query("SELECT COUNT(*) FROM `z_shop_donates` WHERE `method` = 'paypal'")->fetchColumn();
 $n = 0;
-if($getCountPaypal > 0)
-    foreach($get_Paypal as $paypal) {
-        $bgcolor = (($n++ % 2 == 1) ?  $config['site']['darkborder'] : $config['site']['lightborder']);
+if ($getCountPaypal > 0)
+    foreach ($get_Paypal as $paypal) {
+        $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $main_content .= '
-																	<tr bgcolor="'.$bgcolor.'">
-																		<td>'.date("M d Y, G:i:s",$paypal['date']).'</td>';
+																	<tr bgcolor="' . $bgcolor . '">
+																		<td>' . date("M d Y, G:i:s", $paypal['date']) . '</td>';
         $main_content .= '
-																		<td>'.$paypal['reference'].'</td>
-																		<td>'.$paypal['account_name'].'</td>
-																		<td>'.number_format($paypal['price'], 2, ',', '.').'</td>
-																		<td>'.$paypal['status'].'</td>';
+																		<td>' . $paypal['reference'] . '</td>
+																		<td>' . $paypal['account_name'] . '</td>
+																		<td>' . number_format($paypal['price'], 2, ',', '.') . '</td>
+																		<td>' . $paypal['status'] . '</td>';
         $main_content .= '
 																	</tr>';
     }
 else
     $main_content .= '
-																<tr bgcolor="'.$config['site']['lightborder'].'">
+																<tr bgcolor="' . $config['site']['lightborder'] . '">
 																	<td colspan="5">Nenhuma doação realizada ainda.</td>
 																</tr>';
 $main_content .= '
@@ -584,22 +586,22 @@ $main_content .= '
 														</div>
 													</div>
 													<div class="TableShadowContainer" >
-														<div class="TableBottomShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bm.gif);" >
-															<div class="TableBottomLeftShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-bl.gif);" ></div>
-															<div class="TableBottomRightShadow" style="background-image:url('.$layout_name.'/images/global/content/table-shadow-br.gif);" ></div>
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);" >
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);" ></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);" ></div>
 														</div>
 													</div>
 												</td>
 											</tr>';
-if($getCountPaypal > 10)
+if ($getCountPaypal > 10)
     $main_content .= '
 											<tr>
 												<td align="center">
 													<form method="post" action="?subtopic=adminpanel&action=historymore">
 														<input type="hidden" name="service" value="paypal">
-														<div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_green.gif)" >
-															<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_green_over.gif);" ></div>
-																<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/buttons/_sbutton_vermais.gif" >
+														<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green.gif)" >
+															<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_green_over.gif);" ></div>
+																<input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_vermais.gif" >
 															</div>
 														</div>
 													</form>
@@ -619,9 +621,9 @@ $main_content .= '
 $main_content .= '
 				<center>
 					<form method="post" action="?subtopic=adminpanel">
-						<div class="BigButton" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton.gif)" >
-							<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url('.$layout_name.'/images/global/buttons/sbutton_over.gif);" ></div>
-								<input class="ButtonText" type="image" name="Back" alt="Back" src="'.$layout_name.'/images/global/buttons/_sbutton_back.gif" >
+						<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)" >
+							<div onMouseOver="MouseOverBigButton(this);" onMouseOut="MouseOutBigButton(this);" ><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);" ></div>
+								<input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif" >
 							</div>
 						</div>
 					</form>

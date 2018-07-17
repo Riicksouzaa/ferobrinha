@@ -43,6 +43,7 @@ if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
 /**
  * @param string $name
  * @param string $sm_text
+ * @var $make_content_header
  * @return string
  */
 $make_content_header = function ($name, $sm_text = '') {
@@ -71,6 +72,7 @@ $make_content_header = function ($name, $sm_text = '') {
 /**
  * @param string $class
  * @param string $align
+ * @var          $make_table_footer
  * @return string
  */
 $make_table_header = function ($class = 'Table3', $align = '') {
@@ -93,8 +95,8 @@ $make_table_header = function ($class = 'Table3', $align = '') {
                                                 <tbody>';
     return $q;
 };
-/** @var $make_table_header */
 /**
+ * @var $make_table_footer
  * @return string
  */
 $make_table_footer = function () {
@@ -121,6 +123,11 @@ $make_table_footer = function () {
     return $q;
 };
 
+
+/**
+ * @var string $make_double_archs
+ * @return string
+ */
 $make_double_archs = function ($title) {
     $html = '
 <div style="text-align: -webkit-center !important;">

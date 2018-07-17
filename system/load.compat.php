@@ -8,7 +8,6 @@ use \RobThree\Auth\TwoFactorAuthException;
 /** @var TwoFactorAuth $tfa */
 $tfa = new TwoFactorAuth($config['server']['serverName'] . " Authentication");
 
-
 // DEFINE VARIABLES FOR SCRIPTS AND LAYOUTS (no more notices 'undefinied variable'!)
 if (!isset($_REQUEST['subtopic']) || empty($_REQUEST['subtopic']) || is_array($_REQUEST['subtopic'])) {
     $_REQUEST['subtopic'] = "latestnews";
