@@ -4077,26 +4077,6 @@ table.fixed td {
   height: 3px;
 }
 
-.TableContent tr {
-  background: #F1E0C6 !important;
-}
-
-.TableContent tr:nth-child(2n+1) {
-  background: #d5c0a1 !important;
-}
-
-.TableContent tr:first-child {
-  height: 30px !important;
-  text-align: left;
-  color: #5A2800;
-  font-weight: bold;
-  background: #d5c0a1 !important;
-}
-
-.TableContent tr:first-child td {
-  vertical-align: middle;
-}
-
 #TransferConditionsContainer{
   width: 100%;
   padding: 7px;
