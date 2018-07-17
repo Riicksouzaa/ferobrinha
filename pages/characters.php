@@ -16,7 +16,7 @@ if (!empty($name)) {
         
         $main_content .= '<div class="TableContainer" >';
         $main_content .= $make_content_header("Character Information");
-        $main_content .= $make_table_header();
+        $main_content .= $make_table_header('Table3', '', TRUE);
         $insell = $SQL->query("SELECT * FROM account_character_sale WHERE id_player = {$player->getID()}")->rowCount();
         $main_content .= '
         <tr>
@@ -334,7 +334,7 @@ if (!empty($name)) {
             //$main_content .= '<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%><TR BGCOLOR="'.$config['site']['vdarkborder'].'"><TD align="left" COLSPAN=2 CLASS=white><B>Quests</B></TD></TD align="right"></TD></TR>';
             $main_content .= '<div class="TableContainer" >';
             $main_content .= $make_content_header("Quests");
-            $main_content .= $make_table_header();
+            $main_content .= $make_table_header('Table3', '', TRUE);
             $number_of_quests = 0;
             foreach ($config['site']['quests'] as $questName => $storageID) {
                 $bgcolor = (($number_of_rows++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
@@ -369,7 +369,7 @@ if (!empty($name)) {
         if ($deads > 0) {
             $main_content .= "<div class='TableContainer'>";
             $main_content .= $make_content_header("Character Last Deaths");
-            $main_content .= $make_table_header();
+            $main_content .= $make_table_header('Table3', '', TRUE);
             $main_content .= $dead_add_content;
             $main_content .= $make_table_footer();
             $main_content .= "</div><br/>";
@@ -381,7 +381,7 @@ if (!empty($name)) {
                 
                 $main_content .= "<div class='TableContainer'>";
                 $main_content .= $make_content_header("Account Information");
-                $main_content .= $make_table_header();
+                $main_content .= $make_table_header('Table3', '', TRUE);
                 //$main_content.='<TR><TD>No one died on '.htmlspecialchars($config['server']['serverName']).'.</TD></TR>';
                 //$main_content .= '<table border="0" cellspacing="1" cellpadding="4" width="100%" ><tr bgcolor="#505050"><td colspan="2" class="white" ><b>Account Information</b></td></tr>';
                 if ($account->getLoyalty() >= 50) {
@@ -412,7 +412,7 @@ if (!empty($name)) {
                 
                 $main_content .= "<div class='TableContainer'>";
                 $main_content .= $make_content_header("Characters");
-                $main_content .= $make_table_header();
+                $main_content .= $make_table_header('Table3', '', TRUE);
                 //$main_content .= '<table border="0" cellspacing="1" cellpadding="4" width="100%" ><tr bgcolor="#505050"><td colspan="5" class="white"><b>Characters</b></td></tr>';
                 $main_content .= '<tr><td><strong>Name</strong></td><td><strong>World</strong></td><td><strong>Status</strong></td><td>Action</td></tr>';
                 $account_players = $account->getPlayersList();
@@ -452,7 +452,7 @@ if (!empty($name)) {
 if (!empty($search_error)) {
     $main_content .= "<div class='TableContainer'>";
     $main_content .= $make_content_header("Could not find character");
-    $main_content .= $make_table_header();
+    $main_content .= $make_table_header('Table3', '', TRUE);
     $main_content .= '
 			<TR>
 				<TD BGCOLOR="#D4C0A1" style="text-align: center">' . $search_error . '</TD>
@@ -464,7 +464,7 @@ if (!empty($search_error)) {
 
 $main_content .= "<div class='TableContainer'>";
 $main_content .= $make_content_header("Search Character");
-$main_content .= $make_table_header();
+$main_content .= $make_table_header('Table3', '', TRUE);
 $main_content .= '
 	<form action="" method="post">
 			<tr>

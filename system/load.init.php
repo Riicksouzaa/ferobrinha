@@ -43,7 +43,7 @@ if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
 /**
  * @param string $name
  * @param string $sm_text
- * @var $make_content_header
+ * @var          $make_content_header
  * @return string
  */
 $make_content_header = function ($name, $sm_text = '') {
@@ -70,12 +70,13 @@ $make_content_header = function ($name, $sm_text = '') {
     return $q;
 };
 /**
- * @param string $class
- * @param string $align
- * @var          $make_table_footer
+ * @param string  $class Table3
+ * @param string  $align ''
+ * @param boolean $stripped
+ * @var           $make_table_footer
  * @return string
  */
-$make_table_header = function ($class = 'Table3', $align = '') {
+$make_table_header = function ($class = 'Table3', $align = '', $stripped = FALSE) {
     $q = '
 <table class="' . $class . '" cellpadding="0" cellspacing="0" align="' . $align . '">
     <tbody>
@@ -91,7 +92,7 @@ $make_table_header = function ($class = 'Table3', $align = '') {
                                     </div>
                                     <div class="TableContentAndRightShadow" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-rm.gif);">
                                         <div class="TableContentContainer">
-                                            <table class="TableContent" width="100%">
+                                            <table class="TableContent' . ($stripped ? ' TableStripped ' : ' ') . '" width="100%">
                                                 <tbody>';
     return $q;
 };
