@@ -125,7 +125,7 @@ try {
         $acc_name = $ex[0];
         $product_id = $ex[1];
         $date = new DateTime();
-        $now = $date->format('[d/m/Y H:i:s] ');
+        $now = $date->format('[d-m-Y H:i:s] ');
         $price = (array_keys($config['donate']['offers'][intval($product_id)])[0] / 100);
         $coinCount = array_values($config['donate']['offers'][$product_id])[0];
         $acc = new Account();

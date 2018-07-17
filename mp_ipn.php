@@ -9,7 +9,6 @@
 // Include Mercadopago library
 require_once "config/config.php";
 require_once "vendor/autoload.php";
-date_default_timezone_set("America/Sao_Paulo");
 
 // Create an instance with your MercadoPago credentials (CLIENT_ID and CLIENT_SECRET):
 // Argentina: https://www.mercadopago.com/mla/herramientas/aplicaciones
@@ -19,7 +18,7 @@ date_default_timezone_set("America/Sao_Paulo");
 // Colombia: https://www.mercadopago.com/mco/herramientas/aplicaciones
 // Chile: https://www.mercadopago.com/mlc/herramientas/aplicaciones
 try {
-    $now = date('d/m/Y H:i:s');
+    $now = date('[d-m-Y H:i:s] ');
     if ($config['mp']['sandboxMode']) {
         $mp = new MP($config['mp']['SANDBOX_CLIENT_ID'], $config['mp']['SANDBOX_CLIENT_SECRET']);
     } else {
