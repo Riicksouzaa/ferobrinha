@@ -176,9 +176,12 @@ if ($logged) {
             foreach ($coins as $reais => $coins) {
                 $main_content .= '                                  <div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_' . $id . '">
                                                                         <div class="ServiceID_Icon_Container_Background" id="" style="background-image:url(' . $layout_name . '/images/payment/serviceid_icon_normal.png);">';
-                $realcoin = ($reais/$coins);
-                if($realcoin != 10){
-                    $main_content .= '                                        <img src="./layouts/tibiacom/images/payment/ribbon-'.((10-$realcoin)*10).'percent-off.png" style=" position: absolute; left: 0px; top: 0px;"/>';
+                $realcoin = ($reais/$coins)/100;
+                if($config['donate']['show_proporcao']){
+                    if($realcoin != $config['donate']['proporcao'] && $realcoin > 0){
+                        $percent = (100-(($realcoin*100)/$config['donate']['proporcao']));
+                        $main_content .= '                                        <img src="./layouts/tibiacom/images/payment/ribbon-'.$percent.'percent-off.png" style=" position: absolute; left: 0px; top: 0px;"/>';
+                    }
                 }
                 $main_content .= '
                                                                             <div class="ServiceID_Icon" id="ServiceID_Icon_' . $id . '" style="" onclick="ChangeService(' . $id . ', 13);" onmouseover="MouseOverServiceID(' . $id . ', 13);" onmouseout="MouseOutServiceID(' . $id . ', 13);">
