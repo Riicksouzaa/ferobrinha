@@ -251,6 +251,11 @@ class Player extends ObjectData
         return $this->getRank() != NULL && $this->getRank()->isLoaded();
     }
     
+    
+    /**
+     * @param bool $forceReload
+     * @return GuildRank
+     */
     public function getRank ($forceReload = FALSE)
     {
         if (!isset($this->guildNick) || !isset($this->rank) || $forceReload)
@@ -308,6 +313,11 @@ class Player extends ObjectData
         $this->getAccount()->unban();
     }
     
+    
+    /**
+     * @param bool $forceReload
+     * @return Account
+     */
     public function getAccount ($forceReload = FALSE)
     {
         if (!isset($this->account) || $forceReload)
@@ -316,7 +326,7 @@ class Player extends ObjectData
         return $this->account;
     }
     
-    public function setAccount ($account)
+    public function setAccount (Account $account)
     {
         $this->account = $account;
         $this->setAccountID($account->getID());

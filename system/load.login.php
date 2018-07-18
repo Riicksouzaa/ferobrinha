@@ -4,7 +4,7 @@ if (!defined('INITIALIZED'))
 
 if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'logout')
     Visitor::logout();
-if(!isset($_SESSION['logado'])){
+if (!isset($_SESSION['logado'])) {
     if (isset($_REQUEST['account_login']) && isset($_REQUEST['password_login']) && isset($_REQUEST['login']) && $_REQUEST['login'] == 'ok') {
         Visitor::setAccount($_REQUEST['account_login']);
         Visitor::setPassword($_REQUEST['password_login']);

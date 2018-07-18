@@ -15,13 +15,14 @@ if (!empty($name)) {
         $account = $player->getAccount();
         
         $main_content .= '<div class="TableContainer" >';
-        $main_content .= $make_content_header("Character Information");
+        $fb_link = '<div class="fb-share-button" data-href="'.Website::getWebsiteConfig()->getValue('base_url').'/?subtopic=characters&name='.urlencode($name).'" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u='.Website::getWebsiteConfig()->getValue('base_url').'/?subtopic=characters&name='.urlencode($name).'&src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartilhar</a></div>';
+        $main_content .= $make_content_header("Character Information", $fb_link);
         $main_content .= $make_table_header('Table3', '', TRUE);
         $insell = $SQL->query("SELECT * FROM account_character_sale WHERE id_player = {$player->getID()}")->rowCount();
         $main_content .= '
         <tr>
             <td width=20%>Name:</td>
-            <td>' . htmlspecialchars($player->getName()) . (($player->isDeleted()) ? ', will be deleted at ' . date("M j Y, H:i:s", $player->getDeletion()) : '') . '  ' . ($insell > 0 ? "<a href='./?subtopic=accountmanagement&action=buychar&id={$player->getID()}'>[Personagem à venda]</a>" : "") . '</td>
+            <td>' . htmlspecialchars($player->getName()) . (($player->isDeleted()) ? ', will be deleted at ' . date("M j Y, H:i:s", $player->getDeletion()) : '') . '  ' . ($insell > 0 ? "<a href='./?subtopic=accountmanagement&action=buychar&id={$player->getID()}'>[Personagem à venda]</a>" : "") . ' </td>
         </tr>';
         $player_id = $player->getID();
         $former_sql = "SELECT * FROM `player_former_names` WHERE `player_id` = '$player_id' ORDER BY `date` DESC LIMIT " . $config['site']['formerNames_amount'];

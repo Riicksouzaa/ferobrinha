@@ -2,8 +2,7 @@
 if (!defined('INITIALIZED'))
     exit;
 
-use \RobThree\Auth\TwoFactorAuth;
-use \RobThree\Auth\TwoFactorAuthException;
+use RobThree\Auth\TwoFactorAuth;
 
 /** @var TwoFactorAuth $tfa */
 $tfa = new TwoFactorAuth($config['server']['serverName'] . " Authentication");
@@ -28,7 +27,7 @@ if (isset($_REQUEST['action']))
 else
     $action = '';
 
-$logged = false;
+$logged = FALSE;
 /** @var Account $account_logged */
 $account_logged = new Account();
 $group_id_of_acc_logged = 0;
@@ -48,10 +47,10 @@ $layout_name = './layouts/' . Website::getWebsiteConfig()->getValue('layout');
  * @param string $position Center || Left || Right
  * @return string
  */
-$make_button = function ($position) use ($layout_name){
+$make_button = function ($position) use ($layout_name) {
     $q = "<div class='SubmitButtonRow'>";
     $q .= '
-            <div class="'.$position.'Button">
+            <div class="' . $position . 'Button">
                 <form action="./?subtopic=accountmanagement&action=donate" method="post" style="padding:0px;margin:0px;">
                     <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
                         <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
@@ -89,53 +88,53 @@ foreach ($layout_ini as $key => $value)
     $config['site'][$key] = $value;
 
 //###################### FUNCTIONS ######################
-function microtime_float()
+function microtime_float ()
 {
-    return microtime(true);
+    return microtime(TRUE);
 }
 
-function isPremium($premdays, $lastday)
+function isPremium ($premdays, $lastday)
 {
     return Functions::isPremium($premdays, $lastday);
 }
 
-function saveconfig_ini($config)
+function saveconfig_ini ($config)
 {
     new Error_Critic('', 'function <i>saveconfig_ini</i> is deprecated. Do not use it.');
 }
 
-function password_ency($password, $account = null)
+function password_ency ($password, $account = NULL)
 {
     new Error_Critic('', 'function <i>password_ency</i> is deprecated. Do not use it.');
 }
 
-function check_name($name)
+function check_name ($name)
 {
     $name = (string)$name;
     $temp = strspn("$name", "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM- [ ] '");
     if ($temp != strlen($name))
-        return false;
+        return FALSE;
     if (strlen($name) > 25)
-        return false;
-
-    return true;
+        return FALSE;
+    
+    return TRUE;
 }
 
-function check_account_name($name)
+function check_account_name ($name)
 {
     $name = (string)$name;
     $temp = strspn("$name", "QWERTYUIOPASDFGHJKLZXCVBNM0123456789");
     if ($temp != strlen($name))
-        return false;
+        return FALSE;
     if (strlen($name) < 1)
-        return false;
+        return FALSE;
     if (strlen($name) > 32)
-        return false;
-
-    return true;
+        return FALSE;
+    
+    return TRUE;
 }
 
-function check_name_new_char($name)
+function check_name_new_char ($name)
 {
     $name = (string)$name;
     $name_to_check = strtolower($name);
@@ -147,104 +146,104 @@ function check_name_new_char($name)
     $words_blocked = array('gamemaster', 'adm', 'admin', 'administrador', 'game master', 'game-master', "game'master", '--', "''", "' ", " '", '- ', ' -', "-'", "'-", 'fuck', 'sux', 'suck', 'noob', 'tutor');
     foreach ($first_words_blocked as $word)
         if ($word == substr($name_to_check, 0, strlen($word)))
-            return false;
+            return FALSE;
     if (substr($name_to_check, -1) == "'" || substr($name_to_check, -1) == "-")
-        return false;
+        return FALSE;
     if (substr($name_to_check, 1, 1) == ' ')
-        return false;
+        return FALSE;
     if (substr($name_to_check, -2, 1) == " ")
-        return false;
+        return FALSE;
     foreach ($names_blocked as $word)
         if ($word == $name_to_check)
-            return false;
+            return FALSE;
     for ($i = 0; $i < strlen($name_to_check); $i++)
         if ($name_to_check[$i - 1] == ' ' && $name_to_check[$i + 1] == ' ')
-            return false;
+            return FALSE;
     foreach ($words_blocked as $word)
-        if (!(strpos($name_to_check, $word) === false))
-            return false;
+        if (!(strpos($name_to_check, $word) === FALSE))
+            return FALSE;
     for ($i = 0; $i < strlen($name_to_check); $i++)
         if ($name_to_check[$i] == $name_to_check[($i + 1)] && $name_to_check[$i] == $name_to_check[($i + 2)])
-            return false;
+            return FALSE;
     for ($i = 0; $i < strlen($name_to_check); $i++)
         if ($name_to_check[$i - 1] == ' ' && $name_to_check[$i + 1] == ' ')
-            return false;
+            return FALSE;
     $temp = strspn("$name", "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM- '");
     if ($temp != strlen($name))
-        return false;
+        return FALSE;
     if (strlen($name) < 1)
-        return false;
+        return FALSE;
     if (strlen($name) > 25)
-        return false;
-
-    return true;
+        return FALSE;
+    
+    return TRUE;
 }
 
-function check_rank_name($name)
+function check_rank_name ($name)
 {
     $name = (string)$name;
     $temp = strspn("$name", "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-[ ] ");
     if ($temp != strlen($name))
-        return false;
+        return FALSE;
     if (strlen($name) < 1)
-        return false;
+        return FALSE;
     if (strlen($name) > 60)
-        return false;
-
-    return true;
+        return FALSE;
+    
+    return TRUE;
 }
 
-function check_guild_name($name)
+function check_guild_name ($name)
 {
     $name = (string)$name;
     $words_blocked = array('--', "''", "' ", " '", '- ', ' -', "-'", "'-", '  ');
     $temp = strspn("$name", "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-' ");
     if ($temp != strlen($name))
-        return false;
+        return FALSE;
     if (strlen($name) < 1)
-        return false;
+        return FALSE;
     if (strlen($name) > 60)
-        return false;
-
+        return FALSE;
+    
     foreach ($words_blocked as $word)
-        if (!(strpos($name, $word) === false))
-            return false;
-
-    return true;
+        if (!(strpos($name, $word) === FALSE))
+            return FALSE;
+    
+    return TRUE;
 }
 
-function check_password($pass)
+function check_password ($pass)
 {
     $pass = (string)$pass;
     $temp = strspn("$pass", "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890");
     if ($temp != strlen($pass))
-        return false;
+        return FALSE;
     if (strlen($pass) > 40)
-        return false;
-
-    return true;
+        return FALSE;
+    
+    return TRUE;
 }
 
-function check_mail($email)
+function check_mail ($email)
 {
     $email = (string)$email;
     $ok = "/[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,4}/";
-    return (preg_match($ok, $email)) ? true : false;
+    return (preg_match($ok, $email)) ? TRUE : FALSE;
 }
 
-function items_on_player($characterid, $pid)
+function items_on_player ($characterid, $pid)
 {
     new Error_Critic('', 'function <i>items_on_player</i> is deprecated. Do not use it. It used too many queries!');
 }
 
-function getReason($reasonId)
+function getReason ($reasonId)
 {
     return Functions::getBanReasonName($reasonId);
 }
 
 //################### DISPLAY FUNCTIONS #####################
 //return shorter text (news ticker)
-function short_text($text, $chars_limit)
+function short_text ($text, $chars_limit)
 {
     if (strlen($text) > $chars_limit)
         return substr($text, 0, strrpos(substr($text, 0, $chars_limit), " ")) . '...';
@@ -253,13 +252,13 @@ function short_text($text, $chars_limit)
 }
 
 //return text to news msg
-function news_place()
+function news_place ()
 {
     return '';
 }
 
 //set monster of week
-function logo_monster()
+function logo_monster ()
 {
     new Error_Critic('', 'function <i>logo_monster</i> is deprecated. Do not use it!');
 }

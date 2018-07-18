@@ -18,7 +18,7 @@ spl_autoload_register('autoLoadClass');
 
 //load acc. maker config to $config['site']
 /** @var array $config */
-$config = array();
+$config = [];
 include('./config/config.php');
 //load server config $config['server']
 if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
@@ -38,7 +38,6 @@ if (Website::getWebsiteConfig()->getValue('useServerConfigCache')) {
     $tmp_lua_config = new ConfigLUA(Website::getWebsiteConfig()->getValue('serverPath') . 'config.lua');
     $config['server'] = $tmp_lua_config->getConfig();
 }
-
 
 /**
  * @param string $name
@@ -69,6 +68,7 @@ $make_content_header = function ($name, $sm_text = '') {
   ';
     return $q;
 };
+
 /**
  * @param string  $class Table3
  * @param string  $align ''
@@ -96,6 +96,7 @@ $make_table_header = function ($class = 'Table3', $align = '', $stripped = FALSE
                                                 <tbody>';
     return $q;
 };
+
 /**
  * @var $make_table_footer
  * @return string
@@ -123,7 +124,6 @@ $make_table_footer = function () {
 </table>';
     return $q;
 };
-
 
 /**
  * @var string $make_double_archs

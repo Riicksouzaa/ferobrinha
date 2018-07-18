@@ -22,7 +22,7 @@ $getPlayerMountsByPlayerId = function ($player_id) use ($mounts) {
     for ($i = 0; $i < 10; $i++) {
         $var = (10000000 + 2001);
         $var = $var + $i;
-        if ($player->getStorage($var) != null) {
+        if ($player->getStorage($var) != NULL) {
             $p[$i]['key'] = $var;
             $p[$i]['storage'] = $player->getStorage($var);
         }
@@ -39,7 +39,7 @@ $getPlayerMountsByPlayerId = function ($player_id) use ($mounts) {
         }
         return $kappa;
     } else {
-        return false;
+        return FALSE;
     }
 };
 /**
@@ -54,29 +54,29 @@ $getPlayerOutfitsByPlayerId = function ($player_id) use ($outfits) {
     for ($i = 1; $i <= 500; $i++) {
         $var = (10000000 + 1000);
         $var = $var + $i;
-        if ($player->getStorage($var) != null) {
+        if ($player->getStorage($var) != NULL) {
             $p[] = $player->getStorage($var);
         }
     }
-    if ($p != null) {
+    if ($p != NULL) {
         $t = [];
         foreach ($p as $key => $value) {
             $q = $outfits->getOutfitByLooktype(0, $value >> 16);
-            if ($q != null) {
+            if ($q != NULL) {
                 $q['addon'] = $value - $q['storage'];
                 $t[] = $q;
             }
         }
         foreach ($p as $key => $value) {
             $q = $outfits->getOutfitByLooktype(1, $value >> 16);
-            if ($q != null) {
+            if ($q != NULL) {
                 $q['addon'] = $value - $q['storage'];
                 $t[] = $q;
             }
         }
         return $t;
     } else {
-        return false;
+        return FALSE;
     }
 };
 /**

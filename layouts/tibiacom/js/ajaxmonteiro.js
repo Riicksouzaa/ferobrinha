@@ -16,8 +16,8 @@ $(document).ready(function() { // This show and hide category manage button and 
 			},
 			dataType: "json",
 			success: function(data) {
-				if(data.status == "success") {
-					if(data.action == "hide") {
+				if(data.status === "success") {
+					if(data.action === "hide") {
 						thiis.html('Enable');
 						manageLink.hide();
 					} else {
@@ -47,7 +47,7 @@ $(document).ready(function() {
 			},
 			dataType: "json",
 			success: function(data) {
-				if(data.status == "success") {
+				if(data.status === "success") {
 					alert("you added " + newPoints + " points to the player successfully.");
 					$('input[name=addPoints]').val('');
 				}
@@ -71,8 +71,8 @@ $(document).ready(function() { // This show and hide category manage button and 
 			},
 			dataType: "json",
 			success: function(data) {
-				if(data.status == "success") {
-					if(data.action == "hide") {
+				if(data.status === "success") {
+					if(data.action === "hide") {
 						thiis.html('Enable');
 					} else {
 						thiis.html('Disable');
@@ -92,10 +92,8 @@ $(document).ready(function() {
 		var mountCosts = $('input[name=mountPrice]').val();
 		var proceder = true;
 		
-		if(mountInfo == "" || mountCosts == "") {
-			$('.mountStatusError').slideDown(500).html('All fields are required.');
-			$('.mountStatusError').delay(3000);
-			$('.mountStatusError').slideUp(500);
+		if(mountInfo === "" || mountCosts === "") {
+			$('.mountStatusError').slideDown(500).html('All fields are required.').delay(3000).slideUp(500);
 			proceder = false;
 		}
 		
@@ -110,9 +108,7 @@ $(document).ready(function() {
 				},
 				dataType:"json",
 				success: function(data) {
-					$('.mountStatusSuccess').slideDown().html(data.msg);
-					$('.mountStatusSuccess').delay(3000);
-					$('.mountStatusSuccess').slideUp();
+					$('.mountStatusSuccess').slideDown().html(data.msg).delay(3000).slideUp();
 					$('select[name=selectMount]').val('');
 					$('input[name=mountPrice]').de.val('');
 					
@@ -133,7 +129,7 @@ $(document).ready(function() {
 				data: {acao:"delMount",offerId:offerId},
 				dataType: "json",
 				success: function(data) {
-					if(data.status == "success") {
+					if(data.status === "success") {
 						location.reload();
 					}
 				}
@@ -148,7 +144,7 @@ $(document).ready(function() {
 		var outfitInfo = $('select[name=selectOutfit]').val();
 		var outfitPrice = $('input[name=outfitPrice]').val();
 		
-		if (outfitInfo == "" || outfitPrice == "") {
+		if (outfitInfo === "" || outfitPrice === "") {
 			alert('Fill out all fields!');
 			return false;
 		}
@@ -163,7 +159,7 @@ $(document).ready(function() {
 			},
 			dataType: "json",
 			success: function(data) {
-				if (data.status == "success"){
+				if (data.status === "success"){
 					$('.msgStatusSuccess').slideDown(500).html(data.msg);
 					$('.msgStatusSuccess').delay(3000);
 					$('.msgStatusSuccess').slideUp(500);
@@ -183,7 +179,7 @@ $(document).ready(function() {
 				data: {acao:"delOutfit",offerId:offerId},
 				dataType: "json",
 				success: function(data) {
-					if(data.status == "success") {
+					if(data.status === "success") {
 						location.reload();
 					}
 				}
@@ -204,7 +200,7 @@ $(document).ready(function() {
 		var itemAmount = $('input[name=itemAmount]').val();
 		var itemPrice = $('input[name=itemPrice]').val();
 		
-		if (itemID == "" || itemName == "" || itemAmount == "" || itemPrice == "") {
+		if (itemID === "" || itemName === "" || itemAmount === "" || itemPrice === "") {
 			alert('Fill out all fields!');
 			return false;
 		}
@@ -221,7 +217,7 @@ $(document).ready(function() {
 			},
 			dataType: "json",
 			success: function(data) {
-				if (data.status == "success"){
+				if (data.status === "success"){
 					$('.msgStatusSuccess').slideDown(500).html(data.msg);
 					$('.msgStatusSuccess').delay(3000);
 					$('.msgStatusSuccess').slideUp(500);
@@ -241,7 +237,7 @@ $(document).ready(function() {
 				data: {acao:"delItem",offerId:offerId},
 				dataType: "json",
 				success: function(data) {
-					if(data.status == "success") {
+					if(data.status === "success") {
 						location.reload();
 					}
 				}
@@ -273,7 +269,7 @@ $(document).ready(function() {
 			dataType: "json",
 			success: function(data) {
 				if (data.status) {
-					if (data.action == "hide") {
+					if (data.action === "hide") {
 						thiis.html('Enable');
 						extraValue.attr('disabled','disabled');
 						extraUpdate.attr('disabled','disabled');
@@ -338,7 +334,7 @@ $(document).ready(function() {
 			},
 			dataType:"json",
 			success: function(data) {
-				if (data.status == "success") {
+				if (data.status === "success") {
 					location.reload();
 				}
 			}
@@ -360,7 +356,7 @@ $(document).ready(function() {
 				},
 				dataType:"json",
 				success: function(data) {
-					if (data.status == "success") {
+					if (data.status === "success") {
 						location.reload();
 					}
 				}
@@ -378,7 +374,7 @@ $(document).ready(function() {
 		var pointsPrice = $('input[name=pointsPrice]').val();
 		var pointsDesc = $('input[name=pointsDesc]').val();
 		
-		if (pointsAmount == "" || pointsPrice == "") {
+		if (pointsAmount === "" || pointsPrice === "") {
 			alert('Points amount and points price are required!');
 			return false;
 		}
@@ -416,7 +412,7 @@ $(document).ready(function() {
 				},
 				dataType:"json",
 				success: function(data) {
-					if (data.status == "success") {
+					if (data.status === "success") {
 						location.reload();
 					}
 				}
@@ -440,8 +436,8 @@ $(document).ready(function() {
 			},
 			dataType:"json",
 			success: function(data) {
-				if (data.status == "success") {
-					if (data.points == "on") {
+				if (data.status === "success") {
+					if (data.points === "on") {
 						$('#doubleStatus').html('<img src="layouts/tibiacom/images/shop/on.png" width="47px" height="23px" title="Ativo">');
 						$('#doublePointsSelector').html('<div class="ribbon-double"></div>');
 					} else {

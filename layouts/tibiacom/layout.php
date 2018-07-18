@@ -69,16 +69,14 @@ if(!defined('INITIALIZED'))
     <link rel="apple-touch-icon-precomposed" href="<?php echo $layout_name; ?>/images/global/general/apple-touch-icon-precomposed.png">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="<?php echo $layout_name; ?>/css/basic_d.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/css/top_rank.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/css/pageloader.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/css/ferobra.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
     <link href="<?php echo $layout_name; ?>/css/iziModal.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/css/iziToast.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo $layout_name; ?>/css/ouibounce.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $layout_name; ?>/css/Toast.min.css<?php echo $css_version;?>" rel="stylesheet" type="text/css">
     <?php
     if($_REQUEST['subtopic'] == "latestnews" || $_REQUEST['subtopic'] == "newsarchive")
-        echo '<link href="'.$layout_name.'/css/news.min.css'.$css_version.'" rel="stylesheet" type="text/css">';
+//        echo '<link href="'.$layout_name.'/css/news.min.css'.$css_version.'" rel="stylesheet" type="text/css">';
     ?>
+    <?php $subtopic = $_REQUEST['subtopic'];?>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -88,13 +86,14 @@ if(!defined('INITIALIZED'))
     <script src="<?php echo $layout_name; ?>/js/jquery-ui.min.js<?php echo $css_version;?>" ></script>
     <script src="<?php echo $layout_name; ?>/js/jquery.mask.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/ajaxcip.js<?php echo $css_version;?>"></script>
+    <?php if($subtopic == 'adminpanel'){?>
     <script src="<?php echo $layout_name; ?>/js/ajaxmonteiro.js<?php echo $css_version;?>"></script>
+    <?php } ?>
     <script src="<?php echo $layout_name; ?>/js/iziModal.min.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/iziToast.min.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
     <?php
-    if($_REQUEST['subtopic'] == "createaccount")
-        echo '<script src="'.$layout_name.'/js/create_character.js'.$css_version.'"></script>';
+    if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'/js/create_character.js'.$css_version.'"></script>';
     ?>
     <script>
         iziToast.settings({
@@ -132,14 +131,14 @@ if(!defined('INITIALIZED'))
         var g_Deactivated=false;
         var g_FlashClientInPopUp= true;
     </script>
-    <script>
+    <!--<script>
         if(top.location != window.location) {
             g_FlashClientInPopUp = false;
         }
-    </script>
+    </script>-->
     <script src="<?php echo $layout_name; ?>/js/generic.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/initialize.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/js/swfobject.js<?php echo $css_version;?>" ></script>
+    <!--<script src="<?php echo $layout_name; ?>/js/swfobject.js<?php echo $css_version;?>" ></script>-->
     <?php if($_REQUEST['subtopic'] == "accountmanagement") { ?>
         <script type="text/javascript">
             function openGameWindow(a_URL)
@@ -158,7 +157,7 @@ if(!defined('INITIALIZED'))
             }
         </script>
     <?php } ?>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js<?php echo $css_version;?>"></script>
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js--><?php //echo $css_version;?><!--"></script>-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
@@ -599,25 +598,14 @@ if(!defined('INITIALIZED'))
                                         </div>
                                     </span>
                                 <div id="shop_Submenu" class="Submenu">
-                                    <?php if (isset($_SESSION['account'])){?>
-                                        <a href="?subtopic=accountmanagement&action=services&ServiceCategoryID=2">
-                                            <div id="submenu_shop" data-menu="shop" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
-                                                <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
-                                                <div id="ActiveSubmenuItemIcon_shop" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
-                                                <div id="ActiveSubmenuItemLabel_shop" class="SubmenuitemLabel">Webshop</div>
-                                                <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
-                                            </div>
-                                        </a>
-                                    <?php }else{?>
-                                        <a href="?subtopic=shop">
-                                            <div id="submenu_shop" data-menu="shop" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
-                                                <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
-                                                <div id="ActiveSubmenuItemIcon_shop" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
-                                                <div id="ActiveSubmenuItemLabel_shop" class="SubmenuitemLabel">Webshop</div>
-                                                <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
-                                            </div>
-                                        </a>
-                                    <?php }?>
+                                    <a href="?subtopic=shop">
+                                        <div id="submenu_shop" data-menu="shop" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
+                                            <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                            <div id="ActiveSubmenuItemIcon_shop" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
+                                            <div id="ActiveSubmenuItemLabel_shop" class="SubmenuitemLabel">Shop</div>
+                                            <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                        </div>
+                                    </a>
                                     <a href="?subtopic=accountmanagement&action=donate">
                                         <div id="submenu_donate" data-menu="shop" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
                                             <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
@@ -767,7 +755,7 @@ if(!defined('INITIALIZED'))
                                         elseif($_REQUEST['subtopic'] == "tankyou")
                                             $headline = "Thank You";
                                         ?>
-                                        <img id="ContentBoxHeadline" class="Title" src="pages/headline.php?txt=<?PHP echo ucwords(str_replace('_', ' ', strtolower($headline))); ?>" alt="Contentbox headline">
+                                        <img id="ContentBoxHeadline" class="Title" src="headline.php?text=<?PHP echo ucwords(str_replace('_', ' ', strtolower($headline))); ?>" alt="Contentbox headline">
                                         <div class="Border_2">
                                             <div class="Border_3">
                                                 <div class="BoxContent" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/scroll.gif);">
