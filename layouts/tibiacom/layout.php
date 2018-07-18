@@ -6,8 +6,9 @@ if(!defined('INITIALIZED'))
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="content-language" content="pt-br">
     <?php $p = new Player();?>
     <?php if($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == "buychar"){ $p->loadById($_REQUEST['id']); $ch = (isset($_REQUEST['id']) ? $p->getName() : null);}?>
     <?php if($_REQUEST['subtopic'] == "characters"){$ch = (isset($_REQUEST['name']) ? $_REQUEST['name'] : null);}?>
@@ -17,7 +18,6 @@ if(!defined('INITIALIZED'))
     <?php if($_REQUEST['subtopic'] == "houses"){$ch = (isset($_REQUEST['town']) ? $towns_list[$_REQUEST['town']] : (isset($_REQUEST['show']) ? $_REQUEST['show'] : null));}?>
     <title><?=$config['server']['serverName'].(isset($_REQUEST['subtopic'])? " - ".ucfirst($_REQUEST['subtopic']) :'').(isset($_REQUEST['action'])?" - ".ucfirst(strip_tags(htmlspecialchars(trim($_REQUEST['action'])))):"").(isset($ch)?" - ".ucfirst(strip_tags(htmlspecialchars(trim($ch)))):"")?> - Free Multiplayer Online Role Playing Game</title>
     <meta name="author" content="Ricardo Souza - Codenome">
-    <meta http-equiv="content-language" content="pt-br">
     <meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog,
     online role playing game, online multiplayer game, internet game, online rpg, rpg">
     <!-- META TAGS OPENGRAPH-->
