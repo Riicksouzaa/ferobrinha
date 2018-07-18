@@ -27,6 +27,8 @@ if(!defined('INITIALIZED'))
     <meta property="og:description" content="I'm using the best Gesior for tibia ot servers."/>
     <meta property="og:image" content="<?php if($_REQUEST['subtopic'] == "characters" && isset($_REQUEST['name'])){echo $config['base_url']."player_portrait.php?name=".strip_tags(htmlspecialchars(trim($_REQUEST['name'])));}else{echo $config['base_url']."layouts/tibiacom/images/global/header/background-artwork.jpg";}?>"/>
     <meta property="og:image:alt" content="<?php if($_REQUEST['subtopic'] == "characters" && isset($_REQUEST['name'])){echo "Player -> ".ucfirst(strip_tags(htmlspecialchars(trim($_REQUEST['name']))));}else{echo "background tibiano";}?>"/>
+    <meta property="og:image:width" content="<?php if($_REQUEST['subtopic'] == "characters" && isset($_REQUEST['name'])){echo '500';}else{echo '1600';}?>"/>
+    <meta property="og:image:height" content="<?php if($_REQUEST['subtopic'] == "characters" && isset($_REQUEST['name'])){echo '500';}else{echo '800';}?>"/>
     <meta property="og:locale" content="pt_BR"/>
     <!-- ##FIM META TAGS OPENGRAPH-->
     
