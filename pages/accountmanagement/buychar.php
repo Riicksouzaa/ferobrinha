@@ -343,6 +343,7 @@ if ($player_id) {
         dataType: "json",
         beforeSend: function(){
             $(".se-pre-con").fadeIn("fast");
+            return confirm("eoq?");
         },
         success: function(response) {
             console.log(response.error);
@@ -411,6 +412,7 @@ if ($player_id) {
         dataType: "json",
         beforeSend: function(){
             $(".se-pre-con").fadeIn("fast");
+            return confirm("eoq?");
         },
         success: function(response) {
             //console.log(response.error);
