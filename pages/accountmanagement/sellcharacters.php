@@ -51,8 +51,8 @@ $add_sell_character = function ($player_id, $price_type, $price, $rk) use ($veri
         if ($reqs) {
             $va = $SQL->query("SELECT player_sell_bank FROM accounts WHERE id = {$account_logged->getID()}")->fetchAll();
             $va = $va[0]['player_sell_bank'];
-            if ($va != NULL && $va != '' && $va != '0' && $va != 0) {
-                if ($va != $player_id) {
+            if ($va != NULL && $va != '' && $va != '0' && $va != 0 || !Website::getWebsiteConfig()->getValue('sell_by_gold')) {
+                if ($va != $player_id || !Website::getWebsiteConfig()->getValue('sell_by_gold')) {
                     $player_id = (int)$player_id;
                     $price_type = (int)$price_type;
                     $price = (int)$price;
@@ -65,7 +65,11 @@ $add_sell_character = function ($player_id, $price_type, $price, $rk) use ($veri
                     $valid = date_add($date, date_interval_create_from_date_string('5 days'))->format('Y-m-d H:i:s');
                     $price_coin = 0;
                     $price_gold = 0;
-                    $price_type = ($price_type == 0 ? 0 : 1);
+                    if(Website::getWebsiteConfig()->getValue('sell_by_gold')){
+                        $price_type = ($price_type == 0 ? 0 : 1);
+                    }else{
+                        $price_type = 0;
+                    }
                     if ($price_type == 0) {
                         $price_coin = $price;
                         $price_max = Website::getWebsiteConfig()->getValue('max_price_coin');
@@ -94,7 +98,11 @@ $add_sell_character = function ($player_id, $price_type, $price, $rk) use ($veri
                                    VALUES (:account_id, NULL , :player_id, :now, NULL);");
                                         $query->execute(['account_id' => $player->getAccountID(), 'player_id' => $player_id, 'now' => $now]);
                                         
-                                        $data = getStatus(FALSE, 'Player inserido com sucesso.');
+                                        if(Website::getWebsiteConfig()->getValue('sell_by_gold')){
+                                            $data = getStatus(FALSE, 'Player inserido com sucesso.');
+                                        }else{
+                                            $data = getStatus(FALSE, 'Player inserido com sucesso. A venda via GOLD está inativa portanto o valor escolhido será tratado como coins.');
+                                        }
                                         return json_encode($data);
                                     } else {
                                         $data = getStatus(TRUE, 'O player que você tentou vender não pertence à essa account.');

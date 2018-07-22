@@ -336,42 +336,78 @@ if ($player_id) {
         var data = form.serialize();
         var url = form.attr("action");
         var type = form.attr("method");
-        $.ajax({
-        url: url,
-        data: data,
-        type: type,
-        dataType: "json",
-        beforeSend: function(){
-            $(".se-pre-con").fadeIn("fast");
-            return confirm("eoq?");
-        },
-        success: function(response) {
-            console.log(response.error);
-          if(response.error === true){
-                $(".se-pre-con").fadeOut("slow");
-                iziToast.error({
-                                title: "ERROR:",
-                                message: response.msg,
-                                position: "topRight", // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
-                                timeout: 2500
-                            });
-          }else{
-            $(".se-pre-con").fadeOut("slow");
-            iziToast.success({
-                    title:"Success:",
-                    message:response.msg,
-                    position:"center",
-                    timeout: 2500,
-                    overlay:true,
-                    overlayClose:true,
-                    onClosing: function (instance, toast, closedBy) {
-                        // console.info(\'closedBy: \' + closedBy);
-                        window.location.replace("./?subtopic=accountmanagement");
+        iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                displayMode: \'once\',
+                id: \'question\',
+                zindex: 999,
+                title: \'Hey\',
+                message: \'Are you sure about that?\',
+                position: \'center\',
+                buttons: [
+                    [\'<button><b>YES</b></button>\', function (instance, toast) {
+                    instance.hide({ transitionOut: \'fadeOut\' }, toast, \'button\');
+                    $.ajax({
+                    url: url,
+                    data: data,
+                    type: type,
+                    dataType: "json",
+                    beforeSend: function(){
+                        iziToast.info({
+                            title:"Loading",
+                            message: "...",
+                            position: "topRight"
+                        });
+                    },
+                    success: function(response) {
+                        //console.log(response.error);
+                      if(response.error === true){
+                            iziToast.destroy();
+                            iziToast.error({
+                                            title: "ERROR:",
+                                            message: response.msg,
+                                            position: "topRight", // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+                                            timeout: 2500
+                                        });
+                      }else{
+                        $(".se-pre-con").fadeOut("slow");
+                        iziToast.success({
+                                title:"Success:",
+                                message:response.msg,
+                                position:"center",
+                                timeout: 2500,
+                                overlay:true,
+                                overlayClose:true,
+                                onClosing: function (instance, toast, closedBy) {
+                                    // console.info(\'closedBy: \' + closedBy);
+                                    window.location.replace("./?subtopic=accountmanagement");
+                                }
+                        });
+                      }
+                    },
+                    error: function() {
+                      $(".se-pre-con").fadeOut("slow");
                     }
+                    });
+                    }, true],
+                    [\'<button>NO</button>\', function (instance, toast) {
+                        instance.hide({ transitionOut: \'fadeOut\' }, toast, \'button\');
+                        iziToast.error({
+                            title:"Compra",
+                            message: "Cancelada..."
+                        });
+                    }],
+                ],
+                onClosing: function(instance, toast, closedBy){
+                    console.info(\'Closing | closedBy: \' + closedBy);
+                },
+                onClosed: function(instance, toast, closedBy){
+                    console.info(\'Closed | closedBy: \' + closedBy);
+                }
             });
-          }
-        }
-        });
+        
         return false;
     });
 </script>';
@@ -405,42 +441,78 @@ if ($player_id) {
         var data = form.serialize();
         var url = form.attr("action");
         var type = form.attr("method");
-        $.ajax({
-        url: url,
-        data: data,
-        type: type,
-        dataType: "json",
-        beforeSend: function(){
-            $(".se-pre-con").fadeIn("fast");
-            return confirm("eoq?");
-        },
-        success: function(response) {
-            //console.log(response.error);
-          if(response.error === true){
-                $(".se-pre-con").fadeOut("slow");
-                iziToast.error({
-                                title: "ERROR:",
-                                message: response.msg,
-                                position: "topRight", // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
-                                timeout: 2500
-                            });
-          }else{
-            $(".se-pre-con").fadeOut("slow");
-            iziToast.success({
-                    title:"Success:",
-                    message:response.msg,
-                    position:"center",
-                    timeout: 2500,
-                    overlay:true,
-                    overlayClose:true,
-                    onClosing: function (instance, toast, closedBy) {
-                        // console.info(\'closedBy: \' + closedBy);
-                        window.location.replace("./?subtopic=accountmanagement");
+        iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                displayMode: \'once\',
+                id: \'question\',
+                zindex: 999,
+                title: \'Hey\',
+                message: \'Are you sure about that?\',
+                position: \'center\',
+                buttons: [
+                    [\'<button><b>YES</b></button>\', function (instance, toast) {
+                    instance.hide({ transitionOut: \'fadeOut\' }, toast, \'button\');
+                    $.ajax({
+                    url: url,
+                    data: data,
+                    type: type,
+                    dataType: "json",
+                    beforeSend: function(){
+                        iziToast.info({
+                            title:"Loading",
+                            message: "...",
+                            position: "topRight"
+                        });
+                    },
+                    success: function(response) {
+                        //console.log(response.error);
+                      if(response.error === true){
+                            iziToast.destroy();
+                            iziToast.error({
+                                            title: "ERROR:",
+                                            message: response.msg,
+                                            position: "topRight", // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+                                            timeout: 2500
+                                        });
+                      }else{
+                        $(".se-pre-con").fadeOut("slow");
+                        iziToast.success({
+                                title:"Success:",
+                                message:response.msg,
+                                position:"center",
+                                timeout: 2500,
+                                overlay:true,
+                                overlayClose:true,
+                                onClosing: function (instance, toast, closedBy) {
+                                    // console.info(\'closedBy: \' + closedBy);
+                                    window.location.replace("./?subtopic=accountmanagement");
+                                }
+                        });
+                      }
+                    },
+                    error: function() {
+                      $(".se-pre-con").fadeOut("slow");
                     }
+                    });
+                    }, true],
+                    [\'<button>NO</button>\', function (instance, toast) {
+                        instance.hide({ transitionOut: \'fadeOut\' }, toast, \'button\');
+                        iziToast.error({
+                            title:"Compra",
+                            message: "Cancelada..."
+                        });
+                    }],
+                ],
+                onClosing: function(instance, toast, closedBy){
+                    console.info(\'Closing | closedBy: \' + closedBy);
+                },
+                onClosed: function(instance, toast, closedBy){
+                    console.info(\'Closed | closedBy: \' + closedBy);
+                }
             });
-          }
-        }
-        });
+        
         return false;
     });
 </script>';
