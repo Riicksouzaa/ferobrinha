@@ -40,18 +40,20 @@ try {
 //    }
     if(isset($_REQUEST['type'])){
         $topic = $_REQUEST['type'];
+        $id = $_REQUEST['data_id'];
     }else{
         $topic = $_GET["topic"];
+        $id = $_REQUEST['id'];
     }
     $merchant_order_info = NULL;
     
     switch ($topic) {
         case 'payment':
-            $payment_info = $mp->get("/v1/payments/" . $_GET["id"]);
+            $payment_info = $mp->get("/v1/payments/" . $id);
             $merchant_order_info = $mp->get("/merchant_orders/" . $payment_info["response"]["order"]["id"]);
             break;
         case 'merchant_order':
-            $merchant_order_info = $mp->get("/merchant_orders/" . $_GET["id"]);
+            $merchant_order_info = $mp->get("/merchant_orders/" . $id);
             break;
         default:
             $merchant_order_info = NULL;
