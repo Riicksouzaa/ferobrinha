@@ -18,7 +18,7 @@ require_once "vendor/autoload.php";
 // Colombia: https://www.mercadopago.com/mco/herramientas/aplicaciones
 // Chile: https://www.mercadopago.com/mlc/herramientas/aplicaciones
 try {
-    $now = date('[d-m-Y H:i:s] ');
+    $now = date('d-m-Y H:i:s');
     if ($config['mp']['sandboxMode']) {
         $mp = new MP($config['mp']['SANDBOX_CLIENT_ID'], $config['mp']['SANDBOX_CLIENT_SECRET']);
     } else {
@@ -27,7 +27,7 @@ try {
     $mp->sandbox_mode($config['mp']['sandboxMode']);
 
 // Check mandatory parameters
-    if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
+    if (!isset($_GET["data_id"], $_GET["topic"]) || !ctype_digit($_GET["data_id"])) {
         $handle = fopen('mp.log', 'a');
         fwrite($handle, "------------------------\r\n");
         foreach ($_REQUEST as $key => $value){
