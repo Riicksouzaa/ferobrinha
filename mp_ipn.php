@@ -27,19 +27,22 @@ try {
     $mp->sandbox_mode($config['mp']['sandboxMode']);
 
 // Check mandatory parameters
-    if (!isset($_GET["data_id"], $_GET["topic"]) || !ctype_digit($_GET["data_id"])) {
-        $handle = fopen('mp.log', 'a');
-        fwrite($handle, "------------------------\r\n");
-        foreach ($_REQUEST as $key => $value){
-            fwrite($handle, "[".$now."] {$key} => {$value} \r\n");
-        }
-        fwrite($handle, "[".$now."] ERROR 400 \r\n");
-        fwrite($handle, "------------------------\r\n");
-        http_response_code(400);
-        return;
+//    if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["data_id"])) {
+//        $handle = fopen('mp.log', 'a');
+//        fwrite($handle, "------------------------\r\n");
+//        foreach ($_REQUEST as $key => $value){
+//            fwrite($handle, "[".$now."] {$key} => {$value} \r\n");
+//        }
+//        fwrite($handle, "[".$now."] ERROR 400 \r\n");
+//        fwrite($handle, "------------------------\r\n");
+//        http_response_code(400);
+//        return;
+//    }
+    if(isset($_REQUEST['type'])){
+        $topic = $_REQUEST['type'];
+    }else{
+        $topic = $_GET["topic"];
     }
-    
-    $topic = $_GET["topic"];
     $merchant_order_info = NULL;
     
     switch ($topic) {
