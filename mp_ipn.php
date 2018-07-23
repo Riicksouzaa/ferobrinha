@@ -18,7 +18,7 @@ require_once "vendor/autoload.php";
 // Colombia: https://www.mercadopago.com/mco/herramientas/aplicaciones
 // Chile: https://www.mercadopago.com/mlc/herramientas/aplicaciones
 try {
-    $now = date('d-m-Y H:i:s');
+    $now = date('[d-m-Y H:i:s]');
     if ($config['mp']['sandboxMode']) {
         $mp = new MP($config['mp']['SANDBOX_CLIENT_ID'], $config['mp']['SANDBOX_CLIENT_SECRET']);
     } else {
@@ -31,9 +31,9 @@ try {
 //        $handle = fopen('mp.log', 'a');
 //        fwrite($handle, "------------------------\r\n");
 //        foreach ($_REQUEST as $key => $value){
-//            fwrite($handle, "[".$now."] {$key} => {$value} \r\n");
+//            fwrite($handle, $now." {$key} => {$value} \r\n");
 //        }
-//        fwrite($handle, "[".$now."] ERROR 400 \r\n");
+//        fwrite($handle, $now." ERROR 400 \r\n");
 //        fwrite($handle, "------------------------\r\n");
 //        http_response_code(400);
 //        return;
@@ -67,7 +67,7 @@ try {
         $handle = fopen('mp.log', 'a');
         fwrite($handle, "------------------------\r\n");
         foreach ($_REQUEST as $key => $value){
-            fwrite($handle, "[".$now."] Status 200 {$key} => {$value} \r\n");
+            fwrite($handle, $now." Status 200 {$key} => {$value} \r\n");
         }
         fwrite($handle, "------------------------\r\n");
     }
@@ -75,8 +75,8 @@ try {
     $handle = fopen('mp.log', 'a');
     fwrite($handle, "------------------------\r\n");
     foreach ($_REQUEST as $key => $value){
-        fwrite($handle, "[".$now."] {$key} => {$value} \r\n");
+        fwrite($handle, $now." {$key} => {$value} \r\n");
     }
-    fwrite($handle, "[".$now."] ERROR: {$e->getMessage()} \r\n");
+    fwrite($handle, $now." ERROR: {$e->getMessage()} \r\n");
     fwrite($handle, "------------------------\r\n");
 }
