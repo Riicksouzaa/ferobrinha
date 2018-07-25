@@ -23,7 +23,7 @@ if ($config['site']['send_emails']) {
                                             <tbody>
                                                 <tr>
                                                     <td align='center' style='font-family:Helvetica,Arial,sans-serif;line-height:160%;padding-top:10px;padding-bottom:5px;background: #fff;'>
-                                                        <img src=".Website::getWebsiteConfig()->getValue('realurl')."'/layouts/tibiacom/images/global/header/tibia-logo-artwork-top.png' alt='" . $config['server']['serverName'] . "' id='m_163543659143129539nuLogo' width='150' style='border:0;height:auto;line-height:100%;outline:none;text-decoration:none;max-width:170px;width:170px'>
+                                                        <img src='".Website::getWebsiteConfig()->getValue('realurl')."/layouts/tibiacom/images/global/header/tibia-logo-artwork-top.png' alt='" . $config['server']['serverName'] . "' id='m_163543659143129539nuLogo' width='150' style='border:0;height:auto;line-height:100%;outline:none;text-decoration:none;max-width:170px;width:170px'>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -37,8 +37,8 @@ if ($config['site']['send_emails']) {
                                                 <tr>
                                                     <td valign='top' class='m_163543659143129539headerContent' style='font-family:Helvetica,Arial,sans-serif;line-height:100%;color:#505050;font-size:20px;font-weight:bold;padding:50px 0;text-align:left;vertical-align:middle'>
                                                         <!--<img src='https://ci3.googleusercontent.com/proxy/JMeIll9Tyq4x_CnC0tRfKKTN_HZ_n9rBbMSmM6d-V_9gNH0_6o2bnc1BkDhZFuzwEhygVjnChaCZOU0kDaXYBY5LmblhyvoWhl4MfOb8BA=s0-d-e1-ft#http://nu-emails.s3.amazonaws.com/header_waiting_list.png' alt='Retorno sobre o pedido do seu cartão' style='max-width:600px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none' id='m_163543659143129539headerImage' class='CToWUd'>-->
-														<img style='float: left; vertical-align: middle' src=".Website::getWebsiteConfig()->getValue('realurl')."'layouts/tibiacom/images/global/content/headline-bracer-left.gif'/>
-														<img style='float: right; vertical-align: middle' src=".Website::getWebsiteConfig()->getValue('realurl')."'layouts/tibiacom/images/global/content/headline-bracer-right.gif'/>
+														<img style='float: left; vertical-align: middle' src='".Website::getWebsiteConfig()->getValue('realurl')."layouts/tibiacom/images/global/content/headline-bracer-left.gif'/>
+														<img style='float: right; vertical-align: middle' src='".Website::getWebsiteConfig()->getValue('realurl')."layouts/tibiacom/images/global/content/headline-bracer-right.gif'/>
 														<div style='text-align: center; color:#fff'>
 															Recibo da sua compra de " . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . " " . $config['sale']['productName'] . "<br/> no website " . $config['server']['serverName'] . "
 														</div>
@@ -115,7 +115,7 @@ if ($config['site']['send_emails']) {
                                                 </tr>
                                                 <tr>
                                                     <td class='m_163543659143129539spaceXL' style='font-family:Helvetica,Arial,sans-serif;line-height:160%;padding-bottom:40px;text-align:center'>
-                                                        <p style='margin:0;color:#999;font-size:12px'><span class='il'>" . $config['server']['serverName'] . "</span> 2018</p>
+                                                        <p style='margin:0;color:#999;font-size:12px'><span class='il'>" . $config['server']['serverName'] . "</span> ".date('Y')."</p>
                                                         <span class='m_163543659143129539hidden' style='color:#ffffff;font-size:0;height:0'></span>
                                                     </td>
                                                 </tr>
