@@ -8,7 +8,7 @@ class DatabaseHandler
     
     
     /**
-     * @return Database
+     * @return Database_MySQL
      */
     public function getDatabaseHandler ()
     {

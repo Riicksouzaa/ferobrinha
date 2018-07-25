@@ -12,7 +12,7 @@ class Website extends WebsiteErrors
     public static $vocations;
     /** @var Groups */
     public static $groups;
-    /** @var Database */
+    /** @var Database_MySQL */
     public static $SQL;
     public static $passwordsEncryptions = array(
         'plain' => 'plain',
@@ -43,7 +43,7 @@ class Website extends WebsiteErrors
     }
     
     /**
-     * @return Database
+     * @return Database_MySQL
      */
     public static function getDBHandle ()
     {

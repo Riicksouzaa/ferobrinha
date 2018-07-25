@@ -67,6 +67,10 @@ class New_items extends ObjectData
         $this->item = $item;
     }
     
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getItemByItemId ($id)
     {
         return $this->getItem()[$id];
