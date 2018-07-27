@@ -16,7 +16,7 @@ class Vocations implements Iterator, Countable
         
         $this->XML = $XML;
         $_tmp_vocations = array();
-        
+        /** @var DOMElement $vocation */
         foreach ($XML->getElementsByTagName('vocation') as $vocation) {
             if ($vocation->hasAttribute('id') && $vocation->hasAttribute('name')) {
                 $vocationData = array();

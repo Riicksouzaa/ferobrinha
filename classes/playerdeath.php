@@ -55,7 +55,7 @@ class PlayerDeath extends ObjectData
     public function getKillerString ()
     {
         if ($this->data['is_player']) {
-            return '<a href="index.php?subtopic=characters&name=' . urlencode($this->data['killed_by']) . '">' . htmlspecialchars($this->data['killed_by']) . '</a>';
+            return '<a href="?subtopic=characters&name=' . urlencode($this->data['killed_by']) . '">' . htmlspecialchars($this->data['killed_by']) . '</a>';
         } else {
             return htmlspecialchars($this->data['killed_by']);
         }
@@ -64,7 +64,7 @@ class PlayerDeath extends ObjectData
     public function getMostDamageString ()
     {
         if ($this->data['mostdamage_is_player']) {
-            return '<a href="index.php?subtopic=characters&name=' . urlencode($this->data['mostdamage_by']) . '">' . htmlspecialchars($this->data['mostdamage_by']) . '</a>';
+            return '<a href="?subtopic=characters&name=' . urlencode($this->data['mostdamage_by']) . '">' . htmlspecialchars($this->data['mostdamage_by']) . '</a>';
         } else {
             return htmlspecialchars($this->data['mostdamage_by']);
         }

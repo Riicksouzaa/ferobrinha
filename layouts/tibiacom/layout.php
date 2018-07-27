@@ -799,6 +799,12 @@ if(!defined('INITIALIZED'))
                             </div>
                         </div>
                     </div>
+                    <div id="Footer">
+                        <!--<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>-->
+                        Copyright by <a href="https://www.cipsoft.com" target="_new"><b>CipSoft GmbH</b></a>. All rights reserveds<br>
+                        <b>Edited by.: <a class="codenome-font"  href="https://codenome.com">Code nome</a></b><br>
+                        <a href=?subtopic=forum><b>Game Forum</b></a> | <a href=<?php echo $config['social']['facebook']; ?>><b>Facebook</b></a> | <a href=?subtopic=team><b>Support Game</b></a><br>
+                    </div>
                 </div>
             </div>
             <div id="HelperDivContainer" style="background-image: url(<?php echo $layout_name; ?>/images/global/content/scroll.gif);">
@@ -808,12 +814,6 @@ if(!defined('INITIALIZED'))
                 <center><img class="Ornament" src="<?php echo $layout_name; ?>/images/global/content/ornament.gif"></center><br>
             </div>
         </div>
-    </div>
-    <div id="Footer">
-        <!--<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>-->
-        Copyright by <a href="https://www.cipsoft.com" target="_new"><b>CipSoft GmbH</b></a>. All rights reserveds<br>
-        <b>Edited by.: <a class="codenome-font"  href="https://codenome.com">Code nome</a></b><br>
-        <a href=?subtopic=forum><b>Game Forum</b></a> | <a href=<?php echo $config['social']['facebook']; ?>><b>Facebook</b></a> | <a href=?subtopic=team><b>Support Game</b></a><br>
     </div>
     <script type="text/javascript">
         // disable all control elements which are not part of the content container element
