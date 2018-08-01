@@ -44,14 +44,14 @@ if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
     $accId = $account_logged->getID();
     $ticketsOpen = $SQL->query("SELECT * FROM tickets WHERE ticket_status = 'Waiting' AND ticket_admin_reply = 0");
     foreach ($ticketsOpen as $resultadoOpen) {
-        $main_content .= '<tr bgcolor="">
+        $main_content .= '<tr>
 																		<td width="75%">
-																			<a href="?subtopic=ticket&amp;action=showticket&amp;do=number&amp;id=' . $resultadoOpen['ticket_id'] . '">#' . $resultadoOpen['ticket_id'] . '</a>
+																			<a href="?subtopic=ticket&action=showticket&do=number&id=' . $resultadoOpen['ticket_id'] . '">#' . $resultadoOpen['ticket_id'] . '</a>
 																		</td>
 																		<td>
 																			<nobr>
 																				<small>
-																					<a href="?subtopic=characters&amp;name=' . $resultadoOpen['ticket_author'] . '">' . $resultadoOpen['ticket_author'] . '</a>
+																					<a href="?subtopic=characters&name=' . $resultadoOpen['ticket_author'] . '">' . $resultadoOpen['ticket_author'] . '</a>
 																				</small>
 																			</nobr>
 																		</td>
@@ -138,12 +138,12 @@ if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
     foreach ($ticketsOpen as $resultadoOpen) {
         $main_content .= '<tr bgcolor="">
 																		<td width="75%">
-																			<a href="?subtopic=ticket&amp;action=showticket&amp;do=number&amp;id=' . $resultadoOpen['ticket_id'] . '">#' . $resultadoOpen['ticket_id'] . '</a>
+																			<a href="?subtopic=ticket&action=showticket&do=number&id=' . $resultadoOpen['ticket_id'] . '">#' . $resultadoOpen['ticket_id'] . '</a>
 																		</td>
 																		<td>
 																			<nobr>
 																				<small>
-																					<a href="?subtopic=characters&amp;name=' . $resultadoOpen['ticket_author'] . '">' . $resultadoOpen['ticket_author'] . '</a>
+																					<a href="?subtopic=characters&name=' . $resultadoOpen['ticket_author'] . '">' . $resultadoOpen['ticket_author'] . '</a>
 																				</small>
 																			</nobr>
 																		</td>
@@ -198,7 +198,7 @@ if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
 								<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 								<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
 								<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
-								<div class="Text"> Closed Tickets </div>
+								<div class="Text">Closed Tickets</div>
 								<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
 								<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
 								<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
@@ -227,14 +227,14 @@ if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
     $accId = $account_logged->getID();
     $ticketsClosed = $SQL->query("SELECT * FROM tickets WHERE ticket_status = 'Closed'");
     foreach ($ticketsClosed as $resultadoClosed) {
-        $main_content .= '<tr bgcolor="">
+        $main_content .= '<tr>
 																		<td width="75%">
-																			<a href="?subtopic=ticket&amp;action=showticket&amp;do=number&amp;id=' . $resultadoClosed['ticket_id'] . '">#' . $resultadoClosed['ticket_id'] . '</a>
+																			<a href="?subtopic=ticket&action=showticket&do=number&id=' . $resultadoClosed['ticket_id'] . '">#' . $resultadoClosed['ticket_id'] . '</a>
 																		</td>
 																		<td>
 																			<nobr>
 																				<small>
-																					<a href="?subtopic=characters&amp;name=' . $resultadoClosed['ticket_author'] . '">' . $resultadoClosed['ticket_author'] . '</a>
+																					<a href="?subtopic=characters&name=' . $resultadoClosed['ticket_author'] . '">' . $resultadoClosed['ticket_author'] . '</a>
 																				</small>
 																			</nobr>
 																		</td>

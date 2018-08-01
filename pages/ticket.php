@@ -78,16 +78,16 @@ if (!$logged) {
 			</div>';
     return;
 }
-
+/** @var $action string*/
 if ($action == "createticket") {
-    $categories = array(1 => 'Help', 2 => 'Donate', 3 => 'Suggestions', 4 => 'Report Bug', 5 => 'Claims',
+    $categories = [1 => 'Help', 2 => 'Donate', 3 => 'Suggestions', 4 => 'Report Bug', 5 => 'Claims',
         6 => 'Banishment', 7 => 'Character Problem', 8 => 'Account Problem', 9 => 'Forum',
-        10 => 'Others');
-    $category = $_POST['reportCategory'];
-    $playerID = $_POST['reportPlayer'];
+        10 => 'Others'];
+    $category = (int)$_POST['reportCategory'];
+    $playerID = (string)strip_tags($_POST['reportPlayer']);
     $playerName = $playerID;
-    $subject = trim(htmlspecialchars($_POST['reportSubject']));
-    $description = $_POST['reportText'];
+    $subject = htmlspecialchars(trim(strip_tags($_POST['reportSubject'], '<p><a>')));
+    $description = htmlspecialchars(trim(strip_tags($_POST['reportText'], '<p><a>')));
 //		$date = date('M m Y', time());
     $date = date("Y-m-d H:i:s");
 //		$generateId = rand(238493, 995849);
@@ -104,7 +104,6 @@ if ($action == "createticket") {
 //	       $ticketId = $result['ticket_id'];
 //	      }
 //	     }
-    
     if ($category > 0 && $categories[$category]) {
         $category = $categories[$category];
     } else {
@@ -147,7 +146,7 @@ if ($action == "createticket") {
         return;
     }
     
-    if (!$playerID > 0) {
+    if (!$playerID) {
         $main_content .= '
 			<div class="TableContainer" >
 				<table class="Table1" cellpadding="0" cellspacing="0" >
@@ -311,255 +310,296 @@ if ($action == "createticket") {
     }
 
 //		$SQL->query("INSERT INTO `tickets`(`ticket_id`, `ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`)	VALUES ($generateId,'$subject','$playerName',$accid,'You',0,'$date','Not closed','Waiting','$category','$description')");
-    $SQL->query("INSERT INTO `tickets`(`ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`)	VALUES ('$subject','$playerName',$accid,'You',0,'$date','Not closed','Waiting','$category','$description')");
+    $insert = $SQL->prepare("INSERT INTO `tickets`(`ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`) VALUES (:subject, :playerName, :accid, 'You', 0, :date, 'Not closed', 'Waiting', :category, :description)");
+    $insert->execute(['subject' => $subject, 'playerName' => $playerName, 'accid' => $accid, 'date' => $date, 'category' => $category, 'description' => $description]);
     $generateId = $SQL->query("SELECT LAST_INSERT_ID() as id from `tickets`")->fetchAll()[0]['id'];
-    $main_content .= '<div class="BoxContent" style="background-image:url(' . $layout_name . '/images/global/content/scroll.gif)">
-		<center>
-				<table>
-					<tbody>
-						<tr>
-							<td><img src="' . $layout_name . '/images/global/content/headline-bracer-left.gif"></td>
-							<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Tickets - ' . $config['server']['serverName'] . ' Support<br></td>
-							<td><img src="' . $layout_name . '/images/global/content/headline-bracer-right.gif"></td>
-						</tr>
-					</tbody>
-				</table>
-			</center>
-			<br>
-							<div class="TableContainer">
-					<div class="CaptionContainer">
-							<div class="CaptionInnerContainer"> 
-								<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"> </span>
-								<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
-								<div class="Text"> Ticket View </div>
-								<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
-								<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
-								<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
-								<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
-							</div>
-						</div><table class="Table3" cellpadding="0" cellspacing="0">
-						
-						<tbody><tr>
-							<td><div class="InnerTableContainer">
-									<table style="width:100%;"><tbody><tr>
-											<td colspan="2"><div class="TableShadowContainerRightTop">
-													<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
-												</div>
-												<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
-													<div class="TableContentContainer">
-																<table class="TableContent" width="100%">
-															<tbody><tr style="background-color:#F1E0C6;">
-																<td class="LabelV"> Ticket </td>
-																<td>' . $generateId . '</td>
-															</tr>
-															<tr style="background-color:#D4C0A1;">
-																<td class="LabelV"> Subject </td>
-																<td>' . $subject . '</td>
-															</tr>
-															<tr style="background-color:#F1E0C6;">
-																<td class="LabelV"> Created By </td>
-																<td><a href="?subtopic=characters&amp;name=">' . $playerName . '</a></td>
-															</tr>
-															<tr style="background-color:#D4C0A1;">
-																<td class="LabelV" width="20%"> Date </td>
-																<td width="80%">' . $date . '</td>
-															</tr>
-															<tr style="background-color:#F1E0C6;">
-																<td class="LabelV" width="20%"> Ended in </td>
-																<td width="80%">Not Defined</td>
-																</tr>
-															<tr style="background-color:#D4C0A1;"><td class="LabelV"> Status </td>
-																<td><font color="gray"><b>Waiting</b></font></td>
-															</tr>
-															<tr style="background-color:#F1E0C6;">
-																<td class="LabelV"> Category </td>
-																<td>' . $category . '</td>
-															</tr>
-															<tr style="background-color:#D4C0A1;">
-																<td class="LabelV"> Description </td>
-																<td width="70%" style="word-wrap: break-word;">
-																<p>
-																	' . $description . '
-																</p>
-															</td>
-															</tr>
-														</tbody></table>
-													</div>
-												</div>
-												<div class="TableShadowContainer">
-													<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
-														<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
-														<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-													<td width="30%">
-														<div class="TableShadowContainerRightTop">
-															<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
-														</div>
-														<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
-															<div class="TableContentContainer">														
-																<table class="TableContent" width="100%" height="80px">
-																	<tbody><tr>
-																		<td><small><strong>Name:</strong> Support System</small></td>
-																	</tr>
-																	<tr>
-																		<td><small><strong>Position:</strong> Automatic Message </small></td>
-																	</tr>
-																	<tr>
-																		<td><small><strong>Reply:</strong> #1 &nbsp;&nbsp;&nbsp;(02 Feb 2017)</small></td>
-																	</tr>
-																</tbody></table>
-															</div>
-														</div>
-														<div class="TableShadowContainer">
-															<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
-																<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
-																<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
-															</div>
-														</div>
-													</td>
-													<td class="CipPost">
-														<div class="TableShadowContainerRightTop">
-															<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
-														</div>
-														<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
-															<div class="TableContentContainer"><table class="TableContent" width="100%" height="80px">
-																	<tbody><tr style="background-color:#D4C0A1;">
-																		<td><div style="max-height: 80px; overflow-y: auto;"><small>
-																			<p>Olá, <b>' . $playerName . '</b>. Nossa Staff acaba de receber seu Ticket e tentará resolve-lo o mais rápido prossivel. Lembrando que o prazo múnimo para resposta do Ticket é de 24 Horas, peço que tenha paciencia e não envie inúmeras mensagens.</p>
-																		</small></div></td>
-																	</tr>
-																</tbody></table></div>
-														</div>
-														<div class="TableShadowContainer">
-															<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
-																<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
-																<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
-															</div>
-														</div>
-													</td>
-												</tr>
-										<tr>
-												<td>
-													<table class="InnerTableButtonRow" cellpadding="0" cellspacing="0">
-														<tbody><tr>
-															<td width="143px"><table border="0" cellspacing="0" cellpadding="0">
-															
-																	<form action="?subtopic=accountmanagement&amp;action=showticket&amp;do=closeticket&amp;id=' . $generateId . '" method="post"></form>
-																		<tbody><tr>
-																			<td style="border:0px;"><div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
-																					<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="visibility: hidden; background-image: url(&quot;' . $layout_name . '/images/global/buttons/sbutton_over.gif&quot;);"></div>
-																						<input class="ButtonText" type="image" name="closeask" value="Submit" alt="Close Ticket" src="' . $layout_name . '/images/global/buttons/_sbutton_closeticket.gif">
-																					</div>
-																				</div>
-																			</td>
-																		</tr>
-																	
-																</tbody>
-																
-																</table>
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-										</tbody>
-										
-												</table>
-								</div>
-							</td>
-						</tr>
-					</tbody></table></div>
-					<form action="?subtopic=ticket&amp;action=showticket&amp;do=reply&amp;id=' . $generateId . '" method="post">
-						<div class="TableContainer" style="margin-top:20px">
-							<div class="CaptionContainer">
-									<div class="CaptionInnerContainer"> 
-										<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
-										<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
-										<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"> </span>
-										<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
-										<div class="Text"> Reply </div>
-										<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
-										<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
-										<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
-										<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
-									</div>
-								</div><table class="Table3" cellpadding="0" cellspacing="0">
-								
-								<tbody><tr>
-									<td>
-										<div class="InnerTableContainer">
-											<table style="width:100%;">
-												<tbody><tr>
-													<td>
-														<div class="TableShadowContainerRightTop">
-															<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
-														</div>
-														<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
-															<div class="TableContentContainer">
-																<table class="TableContent" width="100%">
-																	<tbody><tr style="background-color:#D4C0A1;">
-																		<td>
-																			<textarea name="reportText"></textarea>
-																		</td>
-																	</tr>
-																</tbody></table>
-															</div>
-														</div>
-														<div class="TableShadowContainer">
-															<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
-																<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
-																<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><table class="InnerTableButtonRow" cellpadding="0" cellspacing="0">
-															<tbody><tr>
-																<td width="143px">
-																	<table border="0" cellspacing="0" cellpadding="0">
-																		<tbody><tr>
-																			<td style="border:0px;">
-																				<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
-																					<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="visibility: hidden; background-image: url(&quot;' . $layout_name . '/images/global/buttons/sbutton_over.gif&quot;);"></div>
-																						<input class="ButtonText" type="image" name="finish" value="Submit" src="' . $layout_name . '/images/global/buttons/_sbutton_submit.gif">
-																					</div>
-																				</div>
-																			</td>
-																		</tr>
-																	</tbody></table>
-																</td>
-															</tr>
-														</tbody></table>
-													</td>
-												</tr>
-											</tbody></table>
-										</div>
-									</td>
-								</tr>
-							</tbody></table>
-						</div>
-					</form>
-					<br><br>
-				<table border="0" width="100%">
-				<tbody><tr>
-				<td align="center">
-						<form action="?subtopic=accountmanagement" method="post" style="padding:0px;margin:0px;" class="ng-pristine ng-valid">
-							<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
-								<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="visibility: hidden; background-image: url(&quot;' . $layout_name . '/images/global/buttons/sbutton_over.gif&quot;);"></div>
-									<input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif">
-								</div>
-							</div>
-						</form>
-					</td>
-				</tr>
-			</tbody></table></div>';
+    $main_content .= '
+<div class="BoxContent" style="background-image:url(' . $layout_name . '/images/global/content/scroll.gif)">
+    <center>
+        <table>
+            <tbody>
+                <tr>
+                    <td><img src="' . $layout_name . '/images/global/content/headline-bracer-left.gif"></td>
+                    <td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Tickets - ' . $config['server']['serverName'] . ' Support<br></td>
+                    <td><img src="' . $layout_name . '/images/global/content/headline-bracer-right.gif"></td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+    <br>
+    <div class="TableContainer">
+        <div class="CaptionContainer">
+            <div class="CaptionInnerContainer">
+                <span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+                <span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+                <span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"> </span>
+                <span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+                <div class="Text"> Ticket View </div>
+                <span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+                <span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+                <span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+                <span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+            </div>
+        </div>
+        <table class="Table3" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="InnerTableContainer">
+                            <table style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="TableShadowContainerRightTop">
+                                                <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
+                                            </div>
+                                            <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+                                                <div class="TableContentContainer">
+                                                    <table class="TableContent" width="100%">
+                                                        <tbody>
+                                                            <tr style="background-color:#F1E0C6;">
+                                                                <td class="LabelV"> Ticket </td>
+                                                                <td>' . $generateId . '</td>
+                                                            </tr>
+                                                            <tr style="background-color:#D4C0A1;">
+                                                                <td class="LabelV"> Subject </td>
+                                                                <td>' . $subject . '</td>
+                                                            </tr>
+                                                            <tr style="background-color:#F1E0C6;">
+                                                                <td class="LabelV"> Created By </td>
+                                                                <td><a href="?subtopic=characters&amp;name=">' . $playerName . '</a></td>
+                                                            </tr>
+                                                            <tr style="background-color:#D4C0A1;">
+                                                                <td class="LabelV" width="20%"> Date </td>
+                                                                <td width="80%">' . $date . '</td>
+                                                            </tr>
+                                                            <tr style="background-color:#F1E0C6;">
+                                                                <td class="LabelV" width="20%"> Ended in </td>
+                                                                <td width="80%">Not Defined</td>
+                                                            </tr>
+                                                            <tr style="background-color:#D4C0A1;">
+                                                                <td class="LabelV"> Status </td>
+                                                                <td><font color="gray"><b>Waiting</b></font></td>
+                                                            </tr>
+                                                            <tr style="background-color:#F1E0C6;">
+                                                                <td class="LabelV"> Category </td>
+                                                                <td>' . $category . '</td>
+                                                            </tr>
+                                                            <tr style="background-color:#D4C0A1;">
+                                                                <td class="LabelV"> Description </td>
+                                                                <td width="70%" style="word-wrap: break-word;">
+                                                                    <p>
+                                                                        ' . $description . '
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="TableShadowContainer">
+                                                <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+                                                    <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+                                                    <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="TableShadowContainerRightTop">
+                                                <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
+                                            </div>
+                                            <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+                                                <div class="TableContentContainer">
+                                                    <table class="TableContent" width="100%" height="80px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><small><strong>Name:</strong> Support System</small></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><small><strong>Position:</strong> Automatic Message </small></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><small><strong>Reply:</strong> #1 &nbsp;&nbsp;&nbsp;(02 Feb 2017)</small></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="TableShadowContainer">
+                                                <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+                                                    <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+                                                    <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="CipPost">
+                                            <div class="TableShadowContainerRightTop">
+                                                <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
+                                            </div>
+                                            <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+                                                <div class="TableContentContainer">
+                                                    <table class="TableContent" width="100%" height="80px">
+                                                        <tbody>
+                                                            <tr style="background-color:#D4C0A1;">
+                                                                <td>
+                                                                    <div style="max-height: 80px; overflow-y: auto;">
+                                                                        <small>
+                                                                            <p>Olá, <b>' . $playerName . '</b>. Nossa Staff acaba de receber seu Ticket e tentará resolve-lo o mais rápido prossivel. Lembrando que o prazo múnimo para resposta do Ticket é de 24 Horas, peço que tenha paciencia e não envie inúmeras mensagens.</p>
+                                                                        </small>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="TableShadowContainer">
+                                                <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+                                                    <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+                                                    <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table class="InnerTableButtonRow" cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="143px">
+                                                            <table border="0" cellspacing="0" cellpadding="0">
+                                                                <form action="?subtopic=accountmanagement&amp;action=showticket&amp;do=closeticket&amp;id=' . $generateId . '" method="post"></form>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="border:0px;">
+                                                                            <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
+                                                                                <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                                                                                    <div class="BigButtonOver" style="visibility: hidden; background-image: url(&quot;' . $layout_name . '/images/global/buttons/sbutton_over.gif&quot;);"></div>
+                                                                                    <input class="ButtonText" type="image" name="closeask" value="Submit" alt="Close Ticket" src="' . $layout_name . '/images/global/buttons/_sbutton_closeticket.gif">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <form action="?subtopic=ticket&amp;action=showticket&amp;do=reply&amp;id=' . $generateId . '" method="post">
+        <div class="TableContainer" style="margin-top:20px">
+            <div class="CaptionContainer">
+                <div class="CaptionInnerContainer">
+                    <span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+                    <span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+                    <span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"> </span>
+                    <span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+                    <div class="Text"> Reply </div>
+                    <span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
+                    <span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
+                    <span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+                    <span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
+                </div>
+            </div>
+            <table class="Table3" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="InnerTableContainer">
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="TableShadowContainerRightTop">
+                                                    <div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"> </div>
+                                                </div>
+                                                <div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+                                                    <div class="TableContentContainer">
+                                                        <table class="TableContent" width="100%">
+                                                            <tbody>
+                                                                <tr style="background-color:#D4C0A1;">
+                                                                    <td>
+                                                                        <textarea name="reportText"></textarea>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="TableShadowContainer">
+                                                    <div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+                                                        <div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+                                                        <div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table class="InnerTableButtonRow" cellpadding="0" cellspacing="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="143px">
+                                                                <table border="0" cellspacing="0" cellpadding="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style="border:0px;">
+                                                                                <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
+                                                                                    <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                                                                                        <div class="BigButtonOver" style="visibility: hidden; background-image: url(&quot;' . $layout_name . '/images/global/buttons/sbutton_over.gif&quot;);"></div>
+                                                                                        <input class="ButtonText" type="image" name="finish" value="Submit" src="' . $layout_name . '/images/global/buttons/_sbutton_submit.gif">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <br><br>
+    <table border="0" width="100%">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <form action="?subtopic=accountmanagement" method="post" style="padding:0px;margin:0px;" class="ng-pristine ng-valid">
+                        <div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
+                            <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                                <div class="BigButtonOver" style="visibility: hidden; background-image: url(&quot;' . $layout_name . '/images/global/buttons/sbutton_over.gif&quot;);"></div>
+                                <input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif">
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    ';
     return;
 }
 
@@ -623,7 +663,7 @@ if ($action == "showticket") {
         $authorid = $result['ticket_author_acc_id'];
     }
     
-    if ($authorid <> $account_logged->getID()) {
+    if ($authorid != $account_logged->getID()) {
         if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
         
         } else {
@@ -818,7 +858,7 @@ if ($action == "showticket") {
 						</tr>
 					</tbody></table></div>';
     
-    if ($status <> 'Closed') {
+    if ($status != 'Closed') {
         $main_content .= '
 					<form action="?subtopic=ticket&amp;action=showticket&amp;do=reply&amp;id=' . $idTicket . '" method="post">
 						<div class="TableContainer" style="margin-top:20px">
