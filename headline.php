@@ -20,7 +20,7 @@ imagefill($im, 0, 0, imagecolortransparent($im, null));
 
 
 $box = new Box($im);
-$box->setFontFace("images/martel.ttf"); // http://www.dafont.com/elevant-by-pelash.font
+$box->setFontFace(__DIR__."/images/martel.ttf"); // http://www.dafont.com/elevant-by-pelash.font
 $box->setFontSize(25);
 $box->setFontColor(new Color(240, 209, 164));
 //$box->setFontColor(new Color(0, 0, 0));

@@ -124,7 +124,7 @@ if (isset($_REQUEST['name'])) {
     $h = imagesy($im);
     
     $box = new Box($im);
-    $box->setFontFace("images/martel.ttf"); // http://www.dafont.com/elevant-by-pelash.font
+    $box->setFontFace(__DIR__."/images/martel.ttf"); // http://www.dafont.com/elevant-by-pelash.font
     $box->setFontColor(new Color(240, 209, 164));
     $box->setStrokeColor(new Color(1, 1, 1)); // Set stroke color
     $box->setStrokeSize(1); // Stroke size in pixels
@@ -140,7 +140,7 @@ if (isset($_REQUEST['name'])) {
     $box->setFontSize(30);
     $box->setBox(0, 40, $w, $h);
     $box->draw(ucfirst($p->getVocationName())); // Text to draw
-    $box->setFontFace('images/Roboto-Regular.ttf');
+    $box->setFontFace(__DIR__.'/images/Roboto-Regular.ttf');
 //    $box->setBox(0, 400, $w, $h);
 //    $box->draw("Level: {$p->getLevel()}"); // Text to draw
     

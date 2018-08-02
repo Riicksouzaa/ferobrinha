@@ -7,3 +7,6 @@ paypal.log
 create_user_mp.sh
 composer.lock
 mp.log
+mkcert.sh
+twitch.sh
+sitemaps.sh
