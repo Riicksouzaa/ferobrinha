@@ -527,7 +527,8 @@ body {
 
 /* Submenus(items) */
 .menuitem {
-  width: fit-content; }
+  width: fit-content;
+  width: -moz-fit-content; }
 
 .Submenuitem {
   position: relative;
