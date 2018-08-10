@@ -208,12 +208,12 @@ if (!$logged)
                                                                                         class="g-recaptcha ButtonText"
                                                                                         data-badge="bottomleft"
                                                                                         data-size="invisible"
-                                                                                        data-sitekey="6LdeJmQUAAAAAJX78IH3ZbfGqzEkm2Ndg66WvtKS"
+                                                                                        data-sitekey="'.Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey').'"
                                                                                         data-callback="onSubmit">
                                                                                         <img style="position: relative;width: fit-content;left: -5px;" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" />
                                                                                     </button>
-																					<!--<div class="g-recaptcha" data-sitekey="6LdeJmQUAAAAAJX78IH3ZbfGqzEkm2Ndg66WvtKS" data-callback="onSubmit"></div>-->
-																					<!--<input class="g-recaptcha ButtonText" data-sitekey="6LdeJmQUAAAAAJX78IH3ZbfGqzEkm2Ndg66WvtKS" data-callback="onSubmit"  type="image" name="Login" alt="Login" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" >-->
+																					<!--<div class="g-recaptcha" data-sitekey="'.Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey').'" data-callback="onSubmit"></div>-->
+																					<!--<input class="g-recaptcha ButtonText" data-sitekey="'.Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey').'" data-callback="onSubmit"  type="image" name="Login" alt="Login" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" >-->
 																				</div>
 																			</div>
 																		</form>

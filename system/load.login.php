@@ -16,7 +16,7 @@ if (!isset($_SESSION['logado'])) {
                     'method' => 'POST',
                     'content' => http_build_query(array(
                         'response' => $_POST['g-recaptcha-response'],
-                        'secret' => '6LdeJmQUAAAAAABcuFD3MA15m0k_cdjpvk4a8VrT',
+                        'secret' => Website::getWebsiteConfig()->getValue('gRecaptchaSecret'),
                         'remoteip' => $_SERVER['REMOTE_ADDR']
                     )),
                 ),
