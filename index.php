@@ -112,4 +112,5 @@ if (in_array($_REQUEST['subtopic'], array("play", "refresh", "client_options_ser
     else
         echo $main_content;
 }
+var_dump($_SESSION);
 // LAYOUT END

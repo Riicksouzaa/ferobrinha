@@ -409,11 +409,13 @@ if (!$logged) {
                     if ($mail->Send()) {
                         $_SESSION['account'] = $_POST['accountname'];
                         $_SESSION['password'] = $_POST['password1'];
+                        $_SESSION['recaptcha'] = TRUE;
                         Visitor::login();
                         header("Location: ./?subtopic=accountmanagement");
                     } else {
                         $_SESSION['account'] = $_POST['accountname'];
                         $_SESSION['password'] = $_POST['password1'];
+                        $_SESSION['recaptcha'] = TRUE;
                         Visitor::login();
                         header("Location: ./?subtopic=accountmanagement");
                         error_log('Error sending e-mail: ' . $mail->ErrorInfo, 1);
@@ -424,6 +426,7 @@ if (!$logged) {
             } else {
                 $_SESSION['account'] = $_POST['accountname'];
                 $_SESSION['password'] = $_POST['password1'];
+                $_SESSION['recaptcha'] = TRUE;
                 Visitor::login();
                 header("Location: ./?subtopic=accountmanagement");
             }
