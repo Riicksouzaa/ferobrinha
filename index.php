@@ -111,7 +111,7 @@ $now = $date->format('[d-m-Y H:i:s] ');
     foreach ($_REQUEST as $key => $value) {
         fwrite($handle, $key . "=>" . $value . ";");
     }
-    fwrite($handle, $_SERVER['REMOTE_ADDR']);
+    fwrite($handle, $_SERVER['REMOTE_ADDR'].";".$_SERVER['HTTP_REFERER']);
     fwrite($handle, "\r\n");
 fclose($handle);
 // with ONLY_PAGE we return only page text, not layout
