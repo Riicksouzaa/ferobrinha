@@ -103,6 +103,17 @@ function valida_multiplas_reqs ()
 
 flushSession();
 date_default_timezone_set('America/Sao_Paulo');
+
+$date = new DateTime();
+$now = $date->format('[d-m-Y H:i:s] ');
+    $handle = fopen('full_log.log', 'a');
+    fwrite($handle, $now.':> ');
+    foreach ($_REQUEST as $key => $value) {
+        fwrite($handle, $key . "=>" . $value . ";");
+    }
+    fwrite($handle, $_SERVER['REMOTE_ADDR']);
+    fwrite($handle, "\r\n");
+fclose($handle);
 // with ONLY_PAGE we return only page text, not layout
 if (in_array($_REQUEST['subtopic'], array("play", "refresh", "client_options_serverscript"))) {
     echo $main_content;

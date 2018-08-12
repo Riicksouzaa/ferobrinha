@@ -39,9 +39,11 @@ if (Website::getWebsiteConfig()->getValue('info_bar_twitch')) {
                 $json = curl_exec($curl);
                 curl_close($curl);
                 $t = json_decode($json);
-                foreach ($t->data as $tw) {
-                    $twitch_a++;
-                    $twitch_c = $twitch_c + $tw->viewer_count;
+                if(!empty($t->data)){
+                    foreach ($t->data as $tw) {
+                        $twitch_a++;
+                        $twitch_c = $twitch_c + $tw->viewer_count;
+                    }
                 }
             }
         }
