@@ -274,7 +274,7 @@ function CloseMenuItem(sourceId) {
     document.getElementById(sourceId + "_Lights").style.visibility = "visible";
     document.getElementById(sourceId + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/plus.gif)";
     $('#'+sourceId+'_Submenu').slideUp('fast', function () {
-        document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
+        // document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
     });
     //document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
     //document.getElementById(sourceId + "_Submenu").style.display = "none";
