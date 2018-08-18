@@ -112,7 +112,7 @@ $now = $date->format('[d-m-Y H:i:s] ');
         fwrite($handle, $key . "=>" . $value . ";");
     }
     fwrite($handle, $_SERVER['REMOTE_ADDR'].";".$_SERVER['HTTP_REFERER']);
-    fwrite($handle, "\r\n");
+    fwrite($handle, "\r\n<br/>");
 fclose($handle);
 // with ONLY_PAGE we return only page text, not layout
 if (in_array($_REQUEST['subtopic'], array("play", "refresh", "client_options_serverscript"))) {

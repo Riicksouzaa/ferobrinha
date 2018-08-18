@@ -626,7 +626,6 @@ $main_content .= '
 																		<td></td>
 																		<td align="right" style="padding-right:7px;width:100%;">
 																			<form action="?subtopic=accountmanagement&action=createcharacter" method="post" style="padding:0px;margin:0px;">
-																				<input type="hidden" name="selectedcharacter" value="Draz Mytos">
 																				<div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
 																					<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton_over.gif);"></div>
 																						<input class="ButtonText" type="image" name="Create Character" alt="Create Character" src="' . $layout_name . '/images/global/buttons/_sbutton_createcharacter.gif">
