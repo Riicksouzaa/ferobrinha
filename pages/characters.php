@@ -91,7 +91,7 @@ if (!empty($name)) {
         }
         
         $house = $SQL->query("SELECT * FROM `houses` WHERE `owner` = '" . $player->getID() . "'")->fetch();
-        if (count($house[0]) > 0) {
+        if (!empty($house[0])) {
             
             $main_content .= '<TR ><TD>House:</TD><TD>';
             $main_content .= $house['name'] . ' (' . $towns_list[$house['town_id']] . ')' . '</TD></TR>';

@@ -65,9 +65,9 @@ $add_sell_character = function ($player_id, $price_type, $price, $rk) use ($veri
                     $valid = date_add($date, date_interval_create_from_date_string('5 days'))->format('Y-m-d H:i:s');
                     $price_coin = 0;
                     $price_gold = 0;
-                    if(Website::getWebsiteConfig()->getValue('sell_by_gold')){
+                    if (Website::getWebsiteConfig()->getValue('sell_by_gold')) {
                         $price_type = ($price_type == 0 ? 0 : 1);
-                    }else{
+                    } else {
                         $price_type = 0;
                     }
                     if ($price_type == 0) {
@@ -98,9 +98,9 @@ $add_sell_character = function ($player_id, $price_type, $price, $rk) use ($veri
                                    VALUES (:account_id, NULL , :player_id, :now, NULL);");
                                         $query->execute(['account_id' => $player->getAccountID(), 'player_id' => $player_id, 'now' => $now]);
                                         
-                                        if(Website::getWebsiteConfig()->getValue('sell_by_gold')){
+                                        if (Website::getWebsiteConfig()->getValue('sell_by_gold')) {
                                             $data = getStatus(FALSE, 'Player inserido com sucesso.');
-                                        }else{
+                                        } else {
                                             $data = getStatus(FALSE, 'Player inserido com sucesso. A venda via GOLD está inativa portanto o valor escolhido será tratado como coins.');
                                         }
                                         return json_encode($data);
@@ -272,22 +272,29 @@ $buy_character_in_sale = function ($player_id, $account_id, $char_id = NULL) use
                             if ($price <= $saldo) {
                                 $verifica_logado = $SQL->prepare("SELECT * FROM players_online WHERE player_id = :pid");
                                 $verifica_logado->execute(['pid' => $char_id]);
-                                if($verifica_logado->rowCount() == 0){
+                                if ($verifica_logado->rowCount() == 0) {
                                     $bank_char_id = $SQL->query("SELECT player_sell_bank from accounts WHERE id = $old_id")->fetchAll();
                                     $bank_char_id = $bank_char_id[0]['player_sell_bank'];
-                                    $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price,char_id,dta_insert, dta_sale) VALUES (:old_id, :player_id, :account_id, :price_type, :price, :char_id, $dta, :dta)");
-                                    $query->execute(['old_id' => $old_id, 'player_id' => $player_id, 'account_id' => $account_id, 'price_type' => $p[0]['price_type'], 'price' => $price, 'char_id' => $char_id, 'dta' => $dta]);
-                                    $query = $SQL->prepare("DELETE FROM account_character_sale WHERE id_player = :id");
-                                    $query->execute(['id' => $player_id]);
-                                    $query = $SQL->prepare("UPDATE players SET balance = (balance-:price) WHERE id = :p_id");
-                                    $query->execute(['price' => $price, 'p_id' => $char_id]);
-                                    $query = $SQL->prepare("UPDATE players SET balance = (balance+(:price-(:price*($percent)))) WHERE id = :p_id");
-                                    $query->execute(['price' => $price, 'p_id' => $bank_char_id]);
-                                    $query = $SQL->prepare("UPDATE players SET account_id = :acc_id WHERE id = :pl_id");
-                                    $query->execute(['acc_id' => $account_logged->getID(), 'pl_id' => $player_id]);
-                                    $data = getStatus(FALSE, 'Você comprou este personagem com sucesso.');
-                                    return json_encode($data);
-                                }else{
+                                    $verifica_banco_logado = $SQL->prepare("SELECT * FROM players_online WHERE player_id = :pid");
+                                    $verifica_banco_logado->execute(['pid' => $bank_char_id]);
+                                    if ($verifica_banco_logado->rowCount() == 0) {
+                                        $query = $SQL->prepare("INSERT INTO account_character_sale_history (id_old_account, id_player, id_new_account,price_type,price,char_id,dta_insert, dta_sale) VALUES (:old_id, :player_id, :account_id, :price_type, :price, :char_id, $dta, :dta)");
+                                        $query->execute(['old_id' => $old_id, 'player_id' => $player_id, 'account_id' => $account_id, 'price_type' => $p[0]['price_type'], 'price' => $price, 'char_id' => $char_id, 'dta' => $dta]);
+                                        $query = $SQL->prepare("DELETE FROM account_character_sale WHERE id_player = :id");
+                                        $query->execute(['id' => $player_id]);
+                                        $query = $SQL->prepare("UPDATE players SET balance = (balance-:price) WHERE id = :p_id");
+                                        $query->execute(['price' => $price, 'p_id' => $char_id]);
+                                        $query = $SQL->prepare("UPDATE players SET balance = (balance+(:price-(:price*($percent)))) WHERE id = :p_id");
+                                        $query->execute(['price' => $price, 'p_id' => $bank_char_id]);
+                                        $query = $SQL->prepare("UPDATE players SET account_id = :acc_id WHERE id = :pl_id");
+                                        $query->execute(['acc_id' => $account_logged->getID(), 'pl_id' => $player_id]);
+                                        $data = getStatus(FALSE, 'Você comprou este personagem com sucesso.');
+                                        return json_encode($data);
+                                    } else {
+                                        $data = getStatus(TRUE, 'O personagem banco do comprador não pode estar online. Por favor solicite a ele que faça logout e tente novamente.');
+                                        return json_encode($data);
+                                    }
+                                } else {
                                     $data = getStatus(TRUE, 'Seu personagem não pode estar logado ao realizar essa compra. Por favor faça logout e tente novamente.');
                                     return json_encode($data);
                                 }
