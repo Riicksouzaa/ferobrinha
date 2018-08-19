@@ -1,4 +1,7 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+
 if (!defined('INITIALIZED'))
     exit;
 

@@ -6,7 +6,11 @@
  * Time: 18:58
  */
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if ($config['site']['send_emails']) {
+    /** @var Account $acc */
     $payeer_name = (($acc->getRLName() == '' || $acc->getRLName() == NULL) ? $acc->getName() : $acc->getRLName());
     $newMailBody = "
 <div marginwidth='0' marginheight='0' style='margin:0;padding:0;height:100%;width:100%;background-color:#f7f7f7'>

@@ -1,7 +1,10 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+
 if (!defined('INITIALIZED'))
     exit;
-require 'config/namesblocked.php';
+require '../config/namesblocked.php';
 //Website::getDBHandle()->setPrintQueries(TRUE);
 
 /**
