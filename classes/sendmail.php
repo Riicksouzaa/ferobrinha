@@ -43,6 +43,7 @@ class SendMail extends Website
      * @param $mailDescription
      * @param $mailBodyDescription
      * @param $mailBody
+     * @return bool
      */
     public function send ($sendTo, $nameSendTo, $subject, $mailDescription, $mailBodyDescription, $mailBody)
     {
@@ -58,7 +59,11 @@ class SendMail extends Website
             $this->mail->Body = $this->makeTemplate($mailDescription, $nameSendTo, $mailBodyDescription, $mailBody);
             
             /** Enviar */
-            $this->mail->send();
+            if($this->mail->send()){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
         } catch (\Exception $e) {
             echo 'Message could not be sent. Mailer Error: ', $this->mail->ErrorInfo;
         }

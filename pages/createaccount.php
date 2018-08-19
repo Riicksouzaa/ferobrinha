@@ -1,7 +1,5 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-
 if (!defined('INITIALIZED'))
     exit;
 require '../config/namesblocked.php';
@@ -52,16 +50,13 @@ if (!$logged) {
         
         $email = isset($_POST['email']) ? $_POST['email'] : '';
         
-        if ($email == ''){
+        if ($email == '') {
             $erro['email'] = 'Please enter your email address!';
-        }
-        elseif (strlen($email) > 49){
+        } elseif (strlen($email) > 49) {
             $erro['email'] = 'Your email address is too long!';
-        }
-        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $erro['email'] = 'This email address has an invalid format. Please enter a correct email address!';
-        }
-        else {
+        } else {
 //            $accMailCheck = new Account($email, Account::LOADTYPE_MAIL);
 //            if ($accMailCheck->isLoaded()){
 //                $erro['email'] = 'This email address is already used. Please enter another email address!';
@@ -71,7 +66,7 @@ if (!$logged) {
         $valida = $SQL->prepare("SELECT * FROM accounts where name = :accname or email = :email");
         $valida->execute(['accname' => $accountname, 'email' => $email]);
         
-        if($valida->rowCount() > 0){
+        if ($valida->rowCount() > 0) {
             $erro['valida'] = 'Email or account exists on database.';
         }
         
@@ -106,7 +101,7 @@ if (!$logged) {
             }
         }
         
-        if (!isset($_POST['agreeagreements']) || empty($_POST['agreeagreements'])){
+        if (!isset($_POST['agreeagreements']) || empty($_POST['agreeagreements'])) {
             $erro['rules'] = 'You have to agree to the ' . $config['server']['serverName'] . ' Rules in order to create an account!';
         }
         
@@ -373,58 +368,33 @@ if (!$logged) {
             }
             $reg_account->save();
             if ($config['site']['send_emails']) {
+                $mail = new SendMail();
                 $reg_name = $reg_account->getName();
                 $reg_email = $reg_account->getEMail();
-                $mailBody = '<html>
-			<body>
+                $mailBody = '
 			<h3>Your account name and password!</h3>
 			<p>You or someone else registred on server <a href="' . $config['server']['url'] . '"><b>' . htmlspecialchars($config['server']['serverName']) . '</b></a> with this e-mail.</p>
 			<p>Account name: <b>' . htmlspecialchars($reg_name) . '</b></p>			
 			<br />
 			<p>After login you can:</p>
-			<li>Create new characters
-			<li>Change your current password
-			<li>Change your current e-mail
-			</body>
-			</html>';
-                $mail = new PHPMailer();
-                if ($config['site']['smtp_enabled']) {
-                    $mail->IsSMTP();
-                    $mail->Host = $config['site']['smtp_host'];
-                    $mail->Port = (int)$config['site']['smtp_port'];
-                    $mail->SMTPAuth = $config['site']['smtp_auth'];
-                    $mail->Username = $config['site']['smtp_user'];
-                    $mail->Password = $config['site']['smtp_pass'];
-                    if ($config['site']['smtp_secure']) {
-                        if ((int)$config['site']['smtp_port'] == 465)
-                            $mail->SMTPSecure = "ssl";
-                        else
-                            $mail->SMTPSecure = "tls";
-                    }
-                    $mail->FromName = $config['site']['mail_senderName'];
-                    $mail->IsHTML(TRUE);
-                    $mail->From = $config['site']['mail_address'];
-                    $mail->AddAddress($reg_email);
-                    $mail->Subject = $config['server']['serverName'] . " - Registration";
-                    $mail->Body = $mailBody;
-                }
-                try {
-                    if ($mail->Send()) {
-                        $_SESSION['account'] = $_POST['accountname'];
-                        $_SESSION['password'] = $_POST['password1'];
-                        $_SESSION['recaptcha'] = TRUE;
-                        Visitor::login();
-                        header("Location: ./?subtopic=accountmanagement");
-                    } else {
-                        $_SESSION['account'] = $_POST['accountname'];
-                        $_SESSION['password'] = $_POST['password1'];
-                        $_SESSION['recaptcha'] = TRUE;
-                        Visitor::login();
-                        header("Location: ./?subtopic=accountmanagement");
-                        error_log('Error sending e-mail: ' . $mail->ErrorInfo, 1);
-                    }
-                } catch (phpmailerException $e) {
-                    error_log($e->getMessage(), 1);
+			<li>Create new characters</li>
+			<li>Change your current password</li>
+			<li>Change your current e-mail</li>';
+                $subject = "Conta criada no website {$config['server']['serverName']}";
+                $mailDescription = "Bem vindo ao, {$config['server']['serverName']}";
+                $mailBodyDescription = "Aqui estão os dados de criação de sua nova conta no {$config['server']['serverName']}";
+                if ($mail->send($reg_email, $reg_name, $subject, $mailDescription, $mailBodyDescription, $mailBody)) {
+                    $_SESSION['account'] = $_POST['accountname'];
+                    $_SESSION['password'] = $_POST['password1'];
+                    $_SESSION['recaptcha'] = TRUE;
+                    Visitor::login();
+                    header("Location: ./?subtopic=accountmanagement");
+                } else {
+                    $_SESSION['account'] = $_POST['accountname'];
+                    $_SESSION['password'] = $_POST['password1'];
+                    $_SESSION['recaptcha'] = TRUE;
+                    Visitor::login();
+                    header("Location: ./?subtopic=accountmanagement");
                 }
             } else {
                 $_SESSION['account'] = $_POST['accountname'];
