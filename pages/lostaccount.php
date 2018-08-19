@@ -1,7 +1,5 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-
 if (!defined('INITIALIZED'))
     exit;
 
@@ -358,30 +356,8 @@ if ($config['site']['send_emails']) {
 						</body>
 					</html>';
                 
-                $mail = new PHPMailer();
-                if ($config['site']['smtp_enabled']) {
-                    $mail->IsSMTP();
-                    $mail->Host = $config['site']['smtp_host'];
-                    $mail->Port = (int)$config['site']['smtp_port'];
-                    $mail->SMTPAuth = $config['site']['smtp_auth'];
-                    $mail->Username = $config['site']['smtp_user'];
-                    $mail->Password = $config['site']['smtp_pass'];
-                    if ($config['site']['smtp_secure']) {
-                        if ((int)$config['site']['smtp_port'] == 465)
-                            $mail->SMTPSecure = "ssl";
-                        else
-                            $mail->SMTPSecure = "tls";
-                    }
-                } else
-                    $mail->IsMail();
-                $mail->IsHTML(TRUE);
-                $mail->From = $config['site']['mail_address'];
-                $mail->FromName = $config['server']['serverName'];
-                $mail->AddAddress($account->getEmail());
-                $mail->Subject = "Account name for " . $config['server']['serverName'] . "";
-                $mail->Body = $mailBody;
-                
-                if ($mail->Send()) {
+                $mail = new SendMail();
+                if ($mail->send($account->getEmail(), $account->getRLName(), "Account name for " . $config['server']['serverName'], "Account name for " . $config['server']['serverName'], "Account name for " . $config['server']['serverName'], $mailBody)) {
                     $main_content .= '
 						<TABLE CELLSPACING=1 CELLPADDING=4 BORDER=0 WIDTH=100%>
 							<TR>
@@ -500,30 +476,8 @@ if ($config['site']['send_emails']) {
 						</html>';
                 }
                 
-                $mail = new PHPMailer();
-                if ($config['site']['smtp_enabled']) {
-                    $mail->IsSMTP();
-                    $mail->Host = $config['site']['smtp_host'];
-                    $mail->Port = (int)$config['site']['smtp_port'];
-                    $mail->SMTPAuth = $config['site']['smtp_auth'];
-                    $mail->Username = $config['site']['smtp_user'];
-                    $mail->Password = $config['site']['smtp_pass'];
-                    if ($config['site']['smtp_secure']) {
-                        if ((int)$config['site']['smtp_port'] == 465)
-                            $mail->SMTPSecure = "ssl";
-                        else
-                            $mail->SMTPSecure = "tls";
-                    }
-                } else
-                    $mail->IsMail();
-                $mail->IsHTML(TRUE);
-                $mail->From = $config['site']['mail_address'];
-                $mail->FromName = $config['server']['serverName'];
-                $mail->AddAddress($account->getEmail());
-                $mail->Subject = "Confirmation key for new password " . $config['server']['serverName'];
-                $mail->Body = $mailBody;
-                
-                if ($mail->Send()) {
+                $mail = new SendMail();
+                if ($mail->send($account->getEmail(), $account->getRLName(), "Confirmation key for new password " . $config['server']['serverName'], "Confirmation key for new password " . $config['server']['serverName'], "Confirmation key for new password " . $config['server']['serverName'], $mailBody)) {
                     $main_content .= '
 						<TABLE CELLSPACING=1 CELLPADDING=4 BORDER=0 WIDTH=100%>
 							<TR>
@@ -741,30 +695,8 @@ if ($config['site']['send_emails']) {
 					<p>Kind regards,<br />
 					Your " . $config['server']['serverName'] . " Team</p>";
                 
-                $mail = new PHPMailer();
-                if ($config['site']['smtp_enabled']) {
-                    $mail->IsSMTP();
-                    $mail->Host = $config['site']['smtp_host'];
-                    $mail->Port = (int)$config['site']['smtp_port'];
-                    $mail->SMTPAuth = $config['site']['smtp_auth'];
-                    $mail->Username = $config['site']['smtp_user'];
-                    $mail->Password = $config['site']['smtp_pass'];
-                    if ($config['site']['smtp_secure']) {
-                        if ((int)$config['site']['smtp_port'] == 465)
-                            $mail->SMTPSecure = "ssl";
-                        else
-                            $mail->SMTPSecure = "tls";
-                    }
-                } else
-                    $mail->IsMail();
-                $mail->IsHTML(TRUE);
-                $mail->From = $config['site']['mail_address'];
-                $mail->FromName = $config['server']['serverName'];
-                $mail->AddAddress($email);
-                $mail->Subject = "Account name and new password for " . $config['server']['serverName'];
-                $mail->Body = $mailBody;
-                
-                if ($mail->Send()) {
+                $mail = new SendMail();
+                if ($mail->send($email, $email, "Account name and new password for " . $config['server']['serverName'], "Account name and new password for " . $config['server']['serverName'], "Account name and new password for " . $config['server']['serverName'], $mailBody)) {
                     $main_content .= '
 						<TABLE CELLSPACING=1 CELLPADDING=4 BORDER=0 WIDTH=100%>
 							<TR>
@@ -912,30 +844,8 @@ if ($config['site']['send_emails']) {
 					<p>Kind regards,<br />
 					Your ' . $config['server']['serverName'] . ' Team</p>';
                 
-                $mail = new PHPMailer();
-                if ($config['site']['smtp_enabled']) {
-                    $mail->IsSMTP();
-                    $mail->Host = $config['site']['smtp_host'];
-                    $mail->Port = (int)$config['site']['smtp_port'];
-                    $mail->SMTPAuth = $config['site']['smtp_auth'];
-                    $mail->Username = $config['site']['smtp_user'];
-                    $mail->Password = $config['site']['smtp_pass'];
-                    if ($config['site']['smtp_secure']) {
-                        if ((int)$config['site']['smtp_port'] == 465)
-                            $mail->SMTPSecure = "ssl";
-                        else
-                            $mail->SMTPSecure = "tls";
-                    }
-                } else
-                    $mail->IsMail();
-                $mail->IsHTML(TRUE);
-                $mail->From = $config['site']['mail_address'];
-                $mail->FromName = $config['server']['serverName'];
-                $mail->AddAddress($account->getEmail());
-                $mail->Subject = "Account name and confirmation key for " . $config['server']['serverName'] . "";
-                $mail->Body = $mailBody;
-                
-                if ($mail->Send()) {
+                $mail = new SendMail();
+                if ($mail->send($account->getEmail(), $account->getRLName(), "Account name and confirmation key for " . $config['server']['serverName'], "Account name and confirmation key for " . $config['server']['serverName'], "Account name and confirmation key for " . $config['server']['serverName'], $mailBody)) {
                     $main_content .= '
 						<TABLE CELLSPACING=1 CELLPADDING=4 BORDER=0 WIDTH=100%>
 							<TR>
@@ -1088,30 +998,8 @@ if ($config['site']['send_emails']) {
 							</body>
 						</html>';
                 
-                $mail = new PHPMailer();
-                if ($config['site']['smtp_enabled']) {
-                    $mail->IsSMTP();
-                    $mail->Host = $config['site']['smtp_host'];
-                    $mail->Port = (int)$config['site']['smtp_port'];
-                    $mail->SMTPAuth = $config['site']['smtp_auth'];
-                    $mail->Username = $config['site']['smtp_user'];
-                    $mail->Password = $config['site']['smtp_pass'];
-                    if ($config['site']['smtp_secure']) {
-                        if ((int)$config['site']['smtp_port'] == 465)
-                            $mail->SMTPSecure = "ssl";
-                        else
-                            $mail->SMTPSecure = "tls";
-                    }
-                } else
-                    $mail->IsMail();
-                $mail->IsHTML(TRUE);
-                $mail->From = $config['site']['mail_address'];
-                $mail->FromName = $config['server']['serverName'];
-                $mail->AddAddress($account->getEmail());
-                $mail->Subject = "New Password for " . $config['server']['serverName'] . "";
-                $mail->Body = $mailBody;
-                
-                if ($mail->Send()) {
+                $mail = new SendMail();
+                if ($mail->send($account->getEmail(), $account->getRLName(), "New Password for " . $config['server']['serverName'], "New Password for " . $config['server']['serverName'], "New Password for " . $config['server']['serverName'], $mailBody)) {
                     
                     $main_content .= '
 					<TABLE CELLSPACING=1 CELLPADDING=4 BORDER=0 WIDTH=100%>
