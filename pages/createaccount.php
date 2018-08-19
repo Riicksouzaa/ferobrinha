@@ -377,9 +377,9 @@ if (!$logged) {
 			<p>Account name: <b>' . htmlspecialchars($reg_name) . '</b></p>			
 			<br />
 			<p>After login you can:</p>
-			<li>Create new characters</li>
-			<li>Change your current password</li>
-			<li>Change your current e-mail</li>';
+			Create new characters <br>
+			Change your current password <br>
+			Change your current e-mail <br>';
                 $subject = "Conta criada no website {$config['server']['serverName']}";
                 $mailDescription = "Bem vindo ao, {$config['server']['serverName']}";
                 $mailBodyDescription = "Aqui estão os dados de criação de sua nova conta no {$config['server']['serverName']}";
