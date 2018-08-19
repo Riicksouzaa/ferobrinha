@@ -12,7 +12,8 @@ require 'config/config.php';
 // fix user data, load config, enable class auto loader
 require_once "vendor/autoload.php";
 include_once('./system/load.init.php');
-$mail = new SendMail('test', 'souzaariick@gmail.com', 'Ricardo', 'test', 'test');
+$mail = new SendMail();
+$mail->send('test', 'souzaariick@gmail.com', 'Ricardo', 'teste', 'Wellcome', 'EOQ MALUCO');
 die();
 
 

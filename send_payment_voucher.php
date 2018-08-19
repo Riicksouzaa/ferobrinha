@@ -138,7 +138,8 @@ if ($config['site']['send_emails']) {
                     ";
     
     $subject = 'Sua compra de ' . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
-    $mail = new SendMail($config['server']['serverName'], $acc->getEMail(), $acc->getRLName(), $subject, $newMailBody);
+    $mail = new SendMail();
+    $mail->send($config['server']['serverName'], $acc->getEMail(), $payeer_name, $subject, $newMailBody);
     
 //    $mail = new PHPMailer(TRUE);
 //
