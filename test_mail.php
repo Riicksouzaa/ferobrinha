@@ -7,11 +7,7 @@
  */
 
 require 'config/config.php';
-require 'custom_scripts/PHPMailer/PHPMailer.php';
-require 'custom_scripts/PHPMailer/Exception.php';
-require 'custom_scripts/PHPMailer/SMTP.php';
-require 'custom_scripts/PHPMailer/OAuth.php';
-require 'custom_scripts/PHPMailer/POP3.php';
+require_once "vendor/autoload.php";
 
 use \PHPMailer\PHPMailer\PHPMailer;
 use \PHPMailer\PHPMailer\Exception;

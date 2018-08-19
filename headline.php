@@ -1,12 +1,6 @@
 <?php
 //$text = $_GET['text'];
-require_once "custom_scripts/gd-text/Box.php";
-require_once "custom_scripts/gd-text/Color.php";
-require_once "custom_scripts/gd-text/HorizontalAlignment.php";
-require_once "custom_scripts/gd-text/TextWrapping.php";
-require_once "custom_scripts/gd-text/VerticalAlignment.php";
-require_once "custom_scripts/gd-text/Struct/Point.php";
-require_once "custom_scripts/gd-text/Struct/Rectangle.php";
+require_once "vendor/autoload.php";
 
 use GDText\Box;
 use GDText\Color;
