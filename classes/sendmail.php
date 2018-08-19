@@ -37,25 +37,27 @@ class SendMail extends Website
     }
     
     /**
-     * @param $serverName
      * @param $sendTo
      * @param $nameSendTo
      * @param $subject
      * @param $mailDescription
+     * @param $mailBodyDescription
      * @param $mailBody
      */
-    public function send ($serverName, $sendTo, $nameSendTo, $subject, $mailDescription, $mailBody)
+    public function send ($sendTo, $nameSendTo, $subject, $mailDescription, $mailBodyDescription, $mailBody)
     {
+        global $config;
         try {
             /** Recipients */
-            $this->mail->setFrom(Website::getWebsiteConfig()->getValue('smtp_user'), "Contato - " . $serverName);
+            $this->mail->setFrom(Website::getWebsiteConfig()->getValue('smtp_user'), "Contato - " . $config['server']['serverName']);
             $this->mail->addAddress($sendTo, $nameSendTo);     // Add a recipient
             
             /** Content */
             $this->mail->isHTML(TRUE);                                  // Set email format to HTML
             $this->mail->Subject = $subject;
-            $this->mail->Body = $this->makeTemplate($mailDescription, $mailBody);
+            $this->mail->Body = $this->makeTemplate($mailDescription, $nameSendTo, $mailBodyDescription, $mailBody);
             
+            /** Enviar */
             $this->mail->send();
         } catch (\Exception $e) {
             echo 'Message could not be sent. Mailer Error: ', $this->mail->ErrorInfo;
@@ -65,10 +67,12 @@ class SendMail extends Website
     
     /**
      * @param $mailDescription
+     * @param $nameSendTo
+     * @param $mailBodyDescription
      * @param $mailBody
      * @return string
      */
-    private function makeTemplate ($mailDescription, $mailBody)
+    private function makeTemplate ($mailDescription, $nameSendTo, $mailBodyDescription, $mailBody)
     {
         global $config;
         
@@ -104,7 +108,7 @@ class SendMail extends Website
 														<img style='float: left; vertical-align: middle' src='" . Website::getWebsiteConfig()->getValue('realurl') . "layouts/tibiacom/images/global/content/headline-bracer-left.gif'/>
 														<img style='float: right; vertical-align: middle' src='" . Website::getWebsiteConfig()->getValue('realurl') . "layouts/tibiacom/images/global/content/headline-bracer-right.gif'/>
 														<div style='text-align: center; color:#fff'>
-															" . $mailDescription . "
+															{$mailDescription}
 														</div>
 													</td>
                                                 </tr>
@@ -118,8 +122,8 @@ class SendMail extends Website
                                             <tbody>
                                                 <tr>
                                                     <td valign='top' style='font-family:Helvetica,Arial,sans-serif;line-height:160%;padding-bottom:32px;text-align:center'>
-                                                        <h2 class='m_163543659143129539greeting' style='display:block;font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:normal;margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;text-align:center;color:#404040;font-size:20px'>Olá, <strong class='m_163543659143129539highlight' style='color:#6d2177;font-weight:600'>{$payeer_name}</strong>!</h2>
-                                                        <h3 class='m_163543659143129539greeting' style='display:block;font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:normal;margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;text-align:center;color:#404040;font-size:20px'>Segue abaixo os dados para conferencia da sua compra.</h3>
+                                                        <h2 class='m_163543659143129539greeting' style='display:block;font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:normal;margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;text-align:center;color:#404040;font-size:20px'>Olá, <strong class='m_163543659143129539highlight' style='color:#6d2177;font-weight:600'>{$nameSendTo}</strong>!</h2>
+                                                        <h3 class='m_163543659143129539greeting' style='display:block;font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:normal;margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;text-align:center;color:#404040;font-size:20px'>{$mailBodyDescription}</h3>
                                                     </td>
                                                 </tr>
                                                 <tr>

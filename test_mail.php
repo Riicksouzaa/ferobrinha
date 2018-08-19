@@ -13,7 +13,7 @@ require 'config/config.php';
 require_once "vendor/autoload.php";
 include_once('./system/load.init.php');
 $mail = new SendMail();
-$mail->send('test', 'souzaariick@gmail.com', 'Ricardo', 'teste', 'Wellcome', 'EOQ MALUCO');
+$mail->send('souzaariick@gmail.com', 'Ricardo', 'Se liga nessa', 'Olha só isso', 'se liga logo krl', 'EOQ MALUCO');
 die();
 
 
