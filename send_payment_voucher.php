@@ -137,30 +137,33 @@ if ($config['site']['send_emails']) {
 </div>
                     ";
     
-    $mail = new PHPMailer(TRUE);
+    $subject = 'Sua compra de ' . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
+    $mail = new SendMail($config['server']['serverName'], $acc->getEMail(), $acc->getRLName(), $subject, $newMailBody);
     
-    try {
-        /** Server settings */
-        $mail->SMTPDebug = 0;                                 // Enable verbose debug output
-        $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = $config['site']['smtp_host'];           // Specify main and backup SMTP servers
-        $mail->SMTPAuth = $config['site']['smtp_auth'];       // Enable SMTP authentication
-        $mail->Username = $config['site']['smtp_user'];       // SMTP username
-        $mail->Password = $config['site']['smtp_pass'];       // SMTP password
-        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 587;                                    // TCP port to connect to
-        
-        /** Recipients */
-        $mail->setFrom($config['site']['smtp_user'], "Contato - " . $config['server']['serverName']);
-        $mail->addAddress($acc->getEMail(), $acc->getRLName());     // Add a recipient
-        
-        /** Content */
-        $mail->isHTML(TRUE);                                  // Set email format to HTML
-        $mail->Subject = 'Sua compra de ' . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
-        $mail->Body = $newMailBody;
-//                        $mail->AltBody = $mailBody;
-        $mail->send();
-    } catch (Exception $e) {
-        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-    }
+//    $mail = new PHPMailer(TRUE);
+//
+//    try {
+//        /** Server settings */
+//        $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+//        $mail->isSMTP();                                      // Set mailer to use SMTP
+//        $mail->Host = $config['site']['smtp_host'];           // Specify main and backup SMTP servers
+//        $mail->SMTPAuth = $config['site']['smtp_auth'];       // Enable SMTP authentication
+//        $mail->Username = $config['site']['smtp_user'];       // SMTP username
+//        $mail->Password = $config['site']['smtp_pass'];       // SMTP password
+//        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+//        $mail->Port = 587;                                    // TCP port to connect to
+//
+//        /** Recipients */
+//        $mail->setFrom($config['site']['smtp_user'], "Contato - " . $config['server']['serverName']);
+//        $mail->addAddress($acc->getEMail(), $acc->getRLName());     // Add a recipient
+//
+//        /** Content */
+//        $mail->isHTML(TRUE);                                  // Set email format to HTML
+//        $mail->Subject = 'Sua compra de ' . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
+//        $mail->Body = $newMailBody;
+////                        $mail->AltBody = $mailBody;
+//        $mail->send();
+//    } catch (Exception $e) {
+//        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+//    }
 }
