@@ -675,12 +675,13 @@ if(!defined('INITIALIZED'))
                                         <div class="BorderTitleText" style="background-image:url(layouts/tibiacom/images/global/content/newsheadline_background.gif); height: 28px;">
                                             <div class="InfoBar">
                                                 <?php if(Website::getWebsiteConfig()->getValue('info_bar_cast')){?>
-                                                    <a class="InfoBarBlock" href="./">
+                                                    <?php $playersCast = $SQL->query("SELECT count(*) as `players_cast`, sum(`spectators`) as `spectators` FROM `live_casts`")->fetch(); ?>
+                                                    <a class="InfoBarBlock" href="./?subtopic=castsystem">
                                                         <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-cast.png">
                                                         <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
-                                                        <span class="InfoBarSmallElement">0</span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
-                                                        <span class="InfoBarSmallElement">0</span>
-                                                    </span>
+                                                            <span class="InfoBarSmallElement"><?= $playersCast['players_cast'] ?></span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
+                                                            <span class="InfoBarSmallElement"><?= $playersCast['spectators'] == 0 ? 0 : $playersCast['spectators'] ?></span>
+                                                        </span>
                                                     </a>
                                                 <?php }?>
                                                 <?php if(Website::getWebsiteConfig()->getValue('info_bar_twitch')){?>
@@ -697,9 +698,9 @@ if(!defined('INITIALIZED'))
                                                     <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-youtube.png">
                                                     <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>>
                                                         <img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
-                                                        <span class="InfoBarSmallElement">17</span>
+                                                        <span class="InfoBarSmallElement">0</span>
                                                         <img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
-                                                        <span class="InfoBarSmallElement">661</span>
+                                                        <span class="InfoBarSmallElement">0</span>
                                                     </span>
                                                 </a>
                                                 <?php }?>

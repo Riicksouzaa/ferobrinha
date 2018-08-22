@@ -154,7 +154,7 @@ if (!$logged)
 																		</tr>
 																		<tr>
 																			<td class="LabelV120" ><span>' . $passB . '</span></td>
-																			<td><input type="password" name="password_login" size="35" maxlength="29" ></td>
+																			<td><input autofocus type="password" name="password_login" size="35" maxlength="29" ></td>
 																		</tr>
                                                                         ';
         }
