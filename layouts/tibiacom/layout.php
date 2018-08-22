@@ -329,6 +329,14 @@ if(!defined('INITIALIZED'))
                                         </div>
                                     </span>
                                 <div id="community_Submenu" class="Submenu">
+                                    <a href="?subtopic=castsystem">
+                                        <div id="submenu_castsystem" data-menu="community" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
+                                            <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                            <div id="ActiveSubmenuItemIcon_castsystem" class="ActiveSubmenuItemIcon" style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-activesubmenu.gif);"></div>
+                                            <div id="ActiveSubmenuItemLabel_castsystem" class="SubmenuitemLabel">Cast System</div>
+                                            <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
+                                        </div>
+                                    </a>
                                     <a href="?subtopic=characters">
                                         <div id="submenu_characters" data-menu="community" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
                                             <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
