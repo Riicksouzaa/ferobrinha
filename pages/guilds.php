@@ -2937,6 +2937,8 @@ if ($action == "description") {
         $max_image_size_b = $config['site']['guild_image_size_kb'] * 1024;
         if ($_REQUEST['guildlogo'] == "yes") {
             $file = $_FILES['newlogo'];
+            $pathinfo = pathinfo($file);
+            var_dump($pathinfo);
             if (is_uploaded_file($file['tmp_name']))
                 switch ($file['error']) {
                     case UPLOAD_ERR_OK:
@@ -3135,7 +3137,6 @@ if ($action == "description") {
 					</TR>
 				</TABLE>';
         } elseif ($_REQUEST['guildlogo'] == "yes") {
-            var_dump($_REQUEST);
             if (!is_uploaded_file($file['tmp_name'])) {
                 $guild->setGuildLogo('image/gif', Website::getFileContents('./images/default_guild_logo.gif'));
                 $guild->save();
