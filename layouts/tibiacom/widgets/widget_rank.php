@@ -26,7 +26,7 @@
                         height: 64px;
                         position: absolute;
                         left: -36px;
-                        margin-top: -15px;
+                        margin-top: -20px;
                         background: url(https://outfits.ferobraglobal.com/' . 'outfit' . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . ') no-repeat 0 0;
                     }
 
