@@ -12,7 +12,7 @@ $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array('sec' => 5, 'usec' => 0));
 socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => 5, 'usec' => 0));
 $buf = chr(6).chr(0).chr(255).chr(255).'info';
-socket_connect($socket, 'ferobraglobal.com', 7171);
+socket_connect($socket, 'ipdoserver', 7171);
 $w = socket_write($socket, chr(6).chr(0).chr(255).chr(255).'info');
 //$r = socket_recv($socket, $buf, 1024, MSG_WAITALL);
 $r = socket_read($socket, 1024);

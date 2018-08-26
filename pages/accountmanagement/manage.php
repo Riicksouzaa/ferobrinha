@@ -465,7 +465,7 @@ $main_content .= '
 									</tr>';
 $getDonates = $SQL->query("SELECT * FROM `z_shop_donates` WHERE `status` = 'confirm' AND `account_name` = '" . $account_logged->getName() . "'")->fetchAll();
 $num = 0;
-if (!empty($getDonates[0])) {
+if (!isset($getDonates)) {
     $main_content .= '
 									<tr>
 										<td>

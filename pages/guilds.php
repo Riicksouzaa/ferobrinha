@@ -2937,6 +2937,7 @@ if ($action == "description") {
         $max_image_size_b = $config['site']['guild_image_size_kb'] * 1024;
         if ($_REQUEST['guildlogo'] == "yes") {
             $file = $_FILES['newlogo'];
+            var_dump($file);
             if (is_uploaded_file($file['tmp_name']))
                 switch ($file['error']) {
                     case UPLOAD_ERR_OK:
