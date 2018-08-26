@@ -387,6 +387,7 @@ if(!defined('INITIALIZED'))
                                             <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                         </div>
                                     </a>
+                                    <!--
                                     <a href="?subtopic=houses">
                                         <div id="submenu_houses" data-menu="community" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
                                             <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
@@ -394,7 +395,7 @@ if(!defined('INITIALIZED'))
                                             <div id="ActiveSubmenuItemLabel_houses" class="SubmenuitemLabel">Houses</div>
                                             <div class="RightChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
                                         </div>
-                                    </a>
+                                    </a>-->
                                     <a href="?subtopic=guilds">
                                         <div id="submenu_guilds" data-menu="community" class="Submenuitem" onmouseover="MouseOverSubmenuItem(this)" onmouseout="MouseOutSubmenuItem(this)">
                                             <div class="LeftChain" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif);"></div>
