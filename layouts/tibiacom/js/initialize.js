@@ -161,7 +161,7 @@ function LoadMenu() {
         document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem).style.visibility = "visible";
     }
     if (self.name.lastIndexOf("&") === -1) {
-        self.name = "news=1&community=0&forum=0&account=0&library=0&support=0&shop=0&";
+        self.name = "news=1&community=0&forum=0&account=0&library=0&events=0&support=0&shop=0&";
     }
     FillMenuArray();
     InitializeMenu();
