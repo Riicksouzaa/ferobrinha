@@ -11,6 +11,11 @@ before_script:
 - apt-get update -yqq
 - apt-get install git -yqq
 
+# Install gd-text in PHP
+- apt-get install php7.2-gd
+- apt-get install php7.2-intl
+- apt-get install php7.2-xsl
+
 # Install mysql driver
 - docker-php-ext-install pdo_mysql
 
