@@ -12,9 +12,9 @@ before_script:
 - apt-get install git -yqq
 
 # Install gd-text in PHP
-- apt-get install php7.2-gd
-- apt-get install php7.2-intl
-- apt-get install php7.2-xsl
+- apt-get install php7.2-gd -yqq
+- apt-get install php7.2-intl -yqq
+- apt-get install php7.2-xsl -yqq
 
 # Install mysql driver
 - docker-php-ext-install pdo_mysql
@@ -33,14 +33,10 @@ variables:
   MYSQL_DATABASE: hello_world_test
   MYSQL_ROOT_PASSWORD: mysql
 
-# We test PHP5.6 (the default) with MySQL
-test:mysql:
-  script:
-  - vendor/bin/phpunit --configuration phpunit_mysql.xml --coverage-text
 
 # We test PHP7 with MySQL, but we allow it to fail
-test:php7:mysql:
-  image: php:7
+test:php7.2:mysql:
+  image: php:7.2
   script:
   - vendor/bin/phpunit --configuration phpunit_mysql.xml --coverage-text
   allow_failure: true

@@ -5,7 +5,7 @@ cache/*
 vendor/
 paypal.log
 create_user_mp.sh
-composer.lock
+#composer.lock
 mp.log
 mkcert.sh
 twitch.sh
