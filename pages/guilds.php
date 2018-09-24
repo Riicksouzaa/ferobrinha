@@ -3139,8 +3139,8 @@ if ($action == "description") {
                 $guild->setGuildLogo('image/gif', Website::getFileContents('./images/default_guild_logo.gif'));
                 $guild->save();
             } else {
-                $guild->setGuildLogo('image/gif', Website::getFileContents('./images/default_guild_logo.gif'));
-//                $guild->setGuildLogo($info['mime'], file_get_contents($file['tmp_name']));
+//                $guild->setGuildLogo('image/gif', Website::getFileContents('./images/default_guild_logo.gif'));
+                $guild->setGuildLogo($info['mime'], file_get_contents($file['tmp_name']));
                 $guild->save();
             }
             $main_content .= '
