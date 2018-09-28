@@ -9,6 +9,6 @@
 $events = new Events();
 
 $arr = $events->getArrGroupNames();
-var_dump($events->getEvents());
-//var_dump(array_search('Battlefield 4',$arr));
+
+var_dump($arr);
 
