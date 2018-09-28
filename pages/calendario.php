@@ -71,7 +71,17 @@ $events = $event->getEvents();
         foreach ($ev as $key=>$value){
             $main_content .='<tr style="max-width: 10px">';
             for($i = 0; $i <= 6; $i++) {
-                $main_content .= '<td>' . $value['name'] . '</td>';
+                $main_content .= '<td><a href="?subtopic=events&name='.urlencode($value['group']).'">' . $value['name'] . '</a></td>';
+            }
+            $main_content .='</tr>';
+            $main_content .='<tr style="max-width: 10px">';
+            for($i = 0; $i <= 6; $i++) {
+                $main_content .= '<td style="text-align: center">' . $value['time'] . '</td>';
+            }
+            $main_content .='</tr>';
+            $main_content .='<tr style="max-width: 10px">';
+            for($i = 0; $i <= 6; $i++) {
+                $main_content .= '<td style="text-align: center"> --- </td>';
             }
             $main_content .='</tr>';
         }

@@ -440,14 +440,7 @@ if(!defined('INITIALIZED'))
                                         </div>
                                     <?php }?>
                                     <div id="Themeboxes">
-                                        <?php include_once "widgets/widget_rank.php"?>
-                                        <?php include_once "widgets/widget_supportButton.php"?>
-                                        <?php include_once "widgets/widget_buycharButton.php"?>
-                                        <?php include_once "widgets/widget_PremiumBox.php"?>
-                                        <?php include_once "widgets/widget_Serverinfobox.php"?>
-                                        <?php include_once "widgets/widget_NetworksBox.php"?>
-                                        <?php include_once "widgets/widget_CurrentPollBox.php"?>
-                                        <?php include_once "widgets/widget_CastleWarBox.php"?>
+                                        <?php include_once "widgets/widgets.php"; ?>
                                     </div>
                                 </div>
                             </div>
