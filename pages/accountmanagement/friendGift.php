@@ -6,7 +6,7 @@
  * Time: 18:22
  */
 
-$orderID = $_REQUEST['serviceID'];
+$orderID = (int)$_REQUEST['serviceID'];
 $getPaymentInfo = $SQL->query("SELECT * FROM `z_shop_payment` WHERE `id` = '$orderID' AND `account_name` = '" . $account_logged->getName() . "'")->fetch();
 if ($getPaymentInfo['account_name'] != $account_logged->getName())
     header("Location: ./?subtopic=accountmanagement&action=manage");
