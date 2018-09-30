@@ -6,6 +6,17 @@
  * Time: 10:23
  */
 
-$main_content .= "<div style='text-align: center'>";
-$main_content .= '<img style="margin: 0 auto; width: 70%" src="./images/SIT3.png"/>';
-$main_content .= "</div>";
+$players = $SQL->query('SELECT * FROM players order by experience desc ')->fetchAll();
+foreach ($players as $key => $value) {
+//    var_dump($value);
+    $lv = $value['level'];
+    $lv--;
+    $explvl = ((pow($lv, 3) * 50) - (pow($lv, 2) * 150) + (pow($lv, 1) * 400)) / 3;
+    while ($explvl <= $value['experience']) {
+        $explvl = ((pow($lv, 3) * 50) - (pow($lv, 2) * 150) + (pow($lv, 1) * 400)) / 3;
+        $lv++;
+    }
+    $q = $SQL->prepare("UPDATE players SET level = :lv where id = :id");
+    $q->execute(["lv" => --$lv, 'id' => $value['id']]);
+    
+}
