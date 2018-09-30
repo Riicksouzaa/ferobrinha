@@ -7,17 +7,23 @@
  */
 
 $orderID = (int)$_REQUEST['serviceID'];
-$getPaymentInfo = $SQL->query("SELECT * FROM `z_shop_payment` WHERE `id` = '$orderID' AND `account_name` = '" . $account_logged->getName() . "'")->fetch();
+$getPaymentInfo = $SQL->prepare("SELECT * FROM `z_shop_payment` WHERE `id` = :orderid AND `account_name` = :accname");
+$getItemInfo->execute(['orderid' => $orderID, 'accname' => $account_logged->getName()]);
+$getItemInfo->fetch();
+
 if ($getPaymentInfo['account_name'] != $account_logged->getName())
     header("Location: ./?subtopic=accountmanagement&action=manage");
-$getItemInfo = $SQL->query("SELECT * FROM `z_shop_offer` WHERE `id` = '" . $getPaymentInfo['service_id'] . "'")->fetch();
+$getItemInfo = $SQL->prepare("SELECT * FROM `z_shop_offer` WHERE `id` = :serviceid");
+$getItemInfo->execute(['serviceid' => $getPaymentInfo['service_id']]);
+$getItemInfo->fetchAll();
 
 if ($_POST['transferService'] == "yes") {
     
     $friend_account_name = $_REQUEST['friendAccount'];
-    $serviceId = $_REQUEST['giftID'];
+    $serviceId = (int)$_REQUEST['giftID'];
     
-    $transfer_service = $SQL->query("UPDATE `z_shop_payment` SET `account_name` = '$friend_account_name' WHERE `id` = '$orderID'");
+    $transfer_service = $SQL->prepare("UPDATE `z_shop_payment` SET `account_name` = :accname WHERE `id` = :orderid");
+    $transfer_service->execute(['accname' => $friend_account_name, 'orderid' => $orderID]);
     if ($transfer_service)
         $main_content .= '
 							<div class="TableContainer" >
@@ -95,7 +101,9 @@ if ($_POST['transferService'] == "yes") {
 											<td class="LabelV">Transfer to friend:</td>
 											<td>
 												<select name="friendAccount">';
-    $getVipList = $SQL->query("SELECT `player_id` FROM `account_viplist` WHERE `account_id` = '" . $account_logged->getID() . "'")->fetchAll();
+    $getVipList = $SQL->prepare("SELECT `player_id` FROM `account_viplist` WHERE `account_id` = :account_id");
+    $getVipList->execute(['account_id' => $account_logged->getID()]);
+    $getVipList->fetchAll();
     foreach ($getVipList as $vip) {
         $player_vip = new Player();
         $player_vip->loadById($vip['player_id']);
