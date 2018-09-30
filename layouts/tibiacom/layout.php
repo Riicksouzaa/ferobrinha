@@ -316,7 +316,9 @@ if(!defined('INITIALIZED'))
                                     $infobar = Website::getWebsiteConfig()->getValue('info_bar_active');
         
                                     if($_SESSION['server_status'] == 1){
-                                        $qtd_players_online = $SQL->query("SELECT count(*) as total from `players_online`")->fetch();
+                                        $qtd_players_online = $SQL->prepare("SELECT count(*) as total from `players_online`");
+                                        $qtd_players_online->execute([]);
+                                        $qtd_players_online->fetch();
                                         if($qtd_players_online["total"] == "1"){
                                             $players_online = ($infobar ? $qtd_players_online["total"].' Player Online' : $qtd_players_online["total"].'<br/>Player Online');
                                         }else{
@@ -335,7 +337,9 @@ if(!defined('INITIALIZED'))
                                         <div class="BorderTitleText" style="background-image:url(layouts/tibiacom/images/global/content/newsheadline_background.gif); height: 28px;">
                                             <div class="InfoBar">
                                                 <?php if(Website::getWebsiteConfig()->getValue('info_bar_cast')){?>
-                                                    <?php $playersCast = $SQL->query("SELECT count(*) as `players_cast`, sum(`spectators`) as `spectators` FROM `live_casts`")->fetch(); ?>
+                                                    <?php $playersCast = $SQL->prepare("SELECT count(*) as `players_cast`, sum(`spectators`) as `spectators` FROM `live_casts`"); ?>
+                                                    <?php $playersCast->execute([]); ?>
+                                                    <?php $playersCast->fetch(); ?>
                                                     <a class="InfoBarBlock" href="./?subtopic=castsystem">
                                                         <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-cast.png">
                                                         <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">

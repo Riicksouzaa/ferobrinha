@@ -48,16 +48,18 @@ require_once "classes/account.php";
  * @return bool
  */
 $issetTransactionOnDatabase = function ($tid) use ($SQL) {
-    $query = $SQL->query("SELECT * FROM paypal_transactions WHERE txn_id = '$tid'")->fetchAll();
-    $result = count($query);
-    if ($result > 0) {
+    $query = $SQL->prepare("SELECT * FROM paypal_transactions WHERE txn_id = :tid");
+    $query->execute(['tid' => $tid]);
+    if ($query->rowCount() > 0) {
         return TRUE;
     } else {
         return FALSE;
     }
 };
 $doubleStatus = function () use ($SQL) {
-    $q = $SQL->query("SELECT value FROM server_config WHERE config = 'double'")->fetchAll();
+    $q = $SQL->prepare("SELECT value FROM server_config WHERE config = 'double'");
+    $q->execute([]);
+    $q->fetchAll();
     if ($q[0]['value'] == "active") {
         return TRUE;
     } else {
@@ -66,9 +68,9 @@ $doubleStatus = function () use ($SQL) {
 };
 
 $transactionCompleted = function ($tid) use ($SQL) {
-    $query = $SQL->query("SELECT * FROM paypal_transactions WHERE txn_id = '$tid' and payment_status = 'Completed'")->fetchAll();
-    $result = count($query);
-    if ($result > 0) {
+    $query = $SQL->prepare("SELECT * FROM paypal_transactions WHERE txn_id = '$tid' and payment_status = 'Completed'");
+    $query->execute([]);
+    if ($query->rowCount() > 0) {
         return TRUE;
     } else {
         return FALSE;
@@ -80,7 +82,9 @@ $transactionCompleted = function ($tid) use ($SQL) {
  * @param $txn_id
  */
 $updatepaypal = function ($payment_status, $txn_id) use ($SQL) {
-    $SQL->query("UPDATE paypal_transactions SET payment_status = '$payment_status' WHERE txn_id = '$txn_id'")->fetchAll();
+    $update = $SQL->prepare("UPDATE paypal_transactions SET payment_status = :payment_status WHERE txn_id = :txn_id");
+    $update->execute(['payment_status' => $payment_status, 'txn_id' => $txn_id]);
+    $update->fetchAll();
 };
 /**
  * @param $payment_status
@@ -93,7 +97,9 @@ $updatepaypal = function ($payment_status, $txn_id) use ($SQL) {
  */
 $insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL) {
     $date_now = date('Y-m-d H:i:s');
-    $SQL->query("INSERT INTO paypal_transactions (payment_status, date, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES ('$payment_status', '$date_now' , '$payer_email','$payer_id','$item_number1','$mc_gross','$mc_currency','$txn_id')")->fetchAll();
+    $insert = $SQL->prepare("INSERT INTO paypal_transactions (payment_status, date, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES (:payment_status, :date_now , :payer_email, :payer_id, :item_number1, :mc_gross, :mc_currency, :txn_id)");
+    $insert->execute(['payment_status' => $payment_status, 'date' => $date_now, 'payer_email' => $payer_email, 'payer_id' => $payer_id, 'item_number1' => $item_number1, 'mc_gross' => $mc_gross, 'mc_currency' => $mc_currency, 'txn_id' => $txn_id]);
+    $insert->fetchAll();
 };
 
 $log_post = function () {

@@ -84,7 +84,9 @@ if (strtolower($accountName) == "cast"){
     $isCasting = true;
 }
 if($isCasting){
-    $casts = $SQL->query("SELECT `player_id` FROM `live_casts`")->fetchAll();
+    $casts = $SQL->prepare("SELECT `player_id` FROM `live_casts`");
+    $casts->execute();
+    $casts->fetchAll();
     if (count($casts[0]) == 0){
         sendError("There is no live casts right now!");
     }
