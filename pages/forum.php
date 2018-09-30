@@ -75,6 +75,11 @@ $sections_desc = [
     7 => 'Everything about your private interests which has nothing to do with Tibia.'];
 // END
 # Check if player can post
+
+/**
+ * @param $account Account
+ * @return bool
+ */
 function canPost ($account)
 {
     if ($account->isLoaded()) {
@@ -87,7 +92,14 @@ function canPost ($account)
     return FALSE;
 }
 
-# Replace codes for smiles
+
+/**
+ * Replace codes for smiles
+ *
+ * @param $text
+ * @param $smile
+ * @return mixed
+ */
 function replaceSmile ($text, $smile)
 {
     $smileys = [

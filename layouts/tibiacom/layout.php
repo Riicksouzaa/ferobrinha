@@ -337,9 +337,9 @@ if(!defined('INITIALIZED'))
                                         <div class="BorderTitleText" style="background-image:url(layouts/tibiacom/images/global/content/newsheadline_background.gif); height: 28px;">
                                             <div class="InfoBar">
                                                 <?php if(Website::getWebsiteConfig()->getValue('info_bar_cast')){?>
-                                                    <?php $playersCast = $SQL->prepare("SELECT count(*) as `players_cast`, sum(`spectators`) as `spectators` FROM `live_casts`"); ?>
-                                                    <?php $playersCast->execute([]); ?>
-                                                    <?php $playersCast->fetch(); ?>
+                                                    <?php
+                                                    $playersCast = $SQL->query("SELECT count(*) as `players_cast`, sum(`spectators`) as `spectators` FROM `live_casts`")->fetchAll();
+                                                    ?>
                                                     <a class="InfoBarBlock" href="./?subtopic=castsystem">
                                                         <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-cast.png">
                                                         <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
