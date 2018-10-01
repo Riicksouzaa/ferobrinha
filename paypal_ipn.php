@@ -59,7 +59,7 @@ $issetTransactionOnDatabase = function ($tid) use ($SQL) {
 $doubleStatus = function () use ($SQL) {
     $q = $SQL->prepare("SELECT value FROM server_config WHERE config = 'double'");
     $q->execute([]);
-    $q->fetchAll();
+    $q = $q->fetchAll();
     if ($q[0]['value'] == "active") {
         return TRUE;
     } else {
@@ -84,7 +84,6 @@ $transactionCompleted = function ($tid) use ($SQL) {
 $updatepaypal = function ($payment_status, $txn_id) use ($SQL) {
     $update = $SQL->prepare("UPDATE paypal_transactions SET payment_status = :payment_status WHERE txn_id = :txn_id");
     $update->execute(['payment_status' => $payment_status, 'txn_id' => $txn_id]);
-    $update->fetchAll();
 };
 /**
  * @param $payment_status
@@ -99,7 +98,6 @@ $insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number
     $date_now = date('Y-m-d H:i:s');
     $insert = $SQL->prepare("INSERT INTO paypal_transactions (payment_status, date, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES (:payment_status, :date_now , :payer_email, :payer_id, :item_number1, :mc_gross, :mc_currency, :txn_id)");
     $insert->execute(['payment_status' => $payment_status, 'date' => $date_now, 'payer_email' => $payer_email, 'payer_id' => $payer_id, 'item_number1' => $item_number1, 'mc_gross' => $mc_gross, 'mc_currency' => $mc_currency, 'txn_id' => $txn_id]);
-    $insert->fetchAll();
 };
 
 $log_post = function () {

@@ -57,7 +57,7 @@ if (strtolower($accountName) == "cast")
 if ($isCasting) {
     $casts = $SQL->prepare("SELECT `player_id` FROM `live_casts`");
     $casts->execute();
-    $casts->fetchAll();
+    $casts = $casts->fetchAll();
     if (count($casts[0]) == 0)
         sendError("There is no live casts right now!");
     foreach ($casts as $cast) {

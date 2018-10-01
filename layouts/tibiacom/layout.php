@@ -75,7 +75,12 @@ if(!defined('INITIALIZED'))
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <style>
             .InfoBarNumbers{
-                top: 0px !important;
+                top: 0 !important;
+            }
+            .InfoBarSmallElement {
+                margin-left: 5px;
+                position: relative;
+                margin-top: -2px;
             }
         </style>
     <?php } ?>
@@ -318,7 +323,7 @@ if(!defined('INITIALIZED'))
                                     if($_SESSION['server_status'] == 1){
                                         $qtd_players_online = $SQL->prepare("SELECT count(*) as total from `players_online`");
                                         $qtd_players_online->execute([]);
-                                        $qtd_players_online->fetch();
+                                        $qtd_players_online = $qtd_players_online->fetch();
                                         if($qtd_players_online["total"] == "1"){
                                             $players_online = ($infobar ? $qtd_players_online["total"].' Player Online' : $qtd_players_online["total"].'<br/>Player Online');
                                         }else{
@@ -338,12 +343,14 @@ if(!defined('INITIALIZED'))
                                             <div class="InfoBar">
                                                 <?php if(Website::getWebsiteConfig()->getValue('info_bar_cast')){?>
                                                     <?php
-                                                    $playersCast = $SQL->query("SELECT count(*) as `players_cast`, sum(`spectators`) as `spectators` FROM `live_casts`")->fetchAll();
+                                                    $playersCast = $SQL->query("SELECT count(*) as `players_cast`, sum(`spectators`) as `spectators` FROM `live_casts`");
+                                                    $playersCast->execute([]);
+                                                    $playersCast = $playersCast->fetchAll();
                                                     ?>
                                                     <a class="InfoBarBlock" href="./?subtopic=castsystem">
                                                         <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-cast.png">
                                                         <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
-                                                            <span class="InfoBarSmallElement"><?= $playersCast['players_cast'] ?></span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
+                                                            <span class="InfoBarSmallElement"><?= $playersCast['players_cast'] == null ? 0 : $playersCast['players_cast']  ?></span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
                                                             <span class="InfoBarSmallElement"><?= $playersCast['spectators'] == 0 ? 0 : $playersCast['spectators'] ?></span>
                                                         </span>
                                                     </a>
