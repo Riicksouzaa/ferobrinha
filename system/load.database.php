@@ -48,5 +48,5 @@ if (Website::getServerConfig()->isSetKey(SERVERCONFIG_SQL_PASS)) {
 Website::updatePasswordEncryption();
 /** @var Database_MySQL $SQL */
 $SQL = Website::getDBHandle();
-
+//$SQL->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 $SQLPDO = $SQL;

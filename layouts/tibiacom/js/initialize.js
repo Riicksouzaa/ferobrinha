@@ -154,10 +154,10 @@ var menuItemName = '';
 // 'activeSubmenuItem' (provided to HTML-document by PHP in the file
 // 'header.inc'
 function LoadMenu() {
-    if(document.getElementById("submenu_" + activeSubmenuItem)){
+    if (document.getElementById("submenu_" + activeSubmenuItem)) {
         document.getElementById("submenu_" + activeSubmenuItem).style.color = "white";
     }
-    if(document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem)){
+    if (document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem)) {
         document.getElementById("ActiveSubmenuItemIcon_" + activeSubmenuItem).style.visibility = "visible";
     }
     if (self.name.lastIndexOf("&") === -1) {
@@ -204,31 +204,31 @@ function FillMenuArray() {
 function InitializeMenu() {
     for (menuItemName in menu[0]) {
         if (menu[0][menuItemName] === "0") {
-            if(document.getElementById(menuItemName + "_Submenu")){
+            if (document.getElementById(menuItemName + "_Submenu")) {
                 document.getElementById(menuItemName + "_Submenu").style.visibility = "hidden";
                 document.getElementById(menuItemName + "_Submenu").style.display = "none";
             }
-            if(document.getElementById(menuItemName + "_Lights")){
+            if (document.getElementById(menuItemName + "_Lights")) {
                 document.getElementById(menuItemName + "_Lights").style.visibility = "visible";
             }
-            if(document.getElementById(menuItemName + "_Extend")){
+            if (document.getElementById(menuItemName + "_Extend")) {
                 document.getElementById(menuItemName + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/plus.gif)";
             }
         } else {
-            if(document.getElementById(menuItemName + "_Submenu")){
+            if (document.getElementById(menuItemName + "_Submenu")) {
                 document.getElementById(menuItemName + "_Submenu").style.visibility = "visible";
                 document.getElementById(menuItemName + "_Submenu").style.display = "block";
             }
-            if(document.getElementById(menuItemName + "_Lights")){
+            if (document.getElementById(menuItemName + "_Lights")) {
                 document.getElementById(menuItemName + "_Lights").style.visibility = "hidden";
             }
-            if(document.getElementById(menuItemName + "_Extend")){
+            if (document.getElementById(menuItemName + "_Extend")) {
                 document.getElementById(menuItemName + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/minus.gif)";
             }
         }
     }
-    var OpennedMenu =  $('#submenu_'+activeSubmenuItem)[0].dataset['menu'];
-    if(menu[0][OpennedMenu] === '0'){
+    var OpennedMenu = $('#submenu_' + activeSubmenuItem)[0].dataset['menu'];
+    if (menu[0][OpennedMenu] === '0') {
         MenuItemAction(OpennedMenu);
     }
 }
@@ -244,13 +244,19 @@ function SaveMenuArray() {
     self.name = temp;
 }
 
+
 // onClick open or close submenus
 function MenuItemAction(sourceId) {
+    var time = new Date().getTime();
+    sessionStorage.SessionName = time;
+    sessionStorage.setItem("time", time);
+    console.log(sessionStorage.getItem("time"), sessionStorage.getItem("timed"));
+    if(sessionStorage.getItem("time") >= sessionStorage.getItem("timed") || sessionStorage.getItem("timed") == null)
     if (menu[0][sourceId] === '1') {
         CloseMenuItem(sourceId);
     } else {
         $.each(menu[0], function (index, value) {
-            if(value === '1'){
+            if (value === '1') {
                 CloseMenuItem(index);
             }
         });
@@ -263,7 +269,10 @@ function OpenMenuItem(sourceId) {
     document.getElementById(sourceId + "_Submenu").style.visibility = "visible";
     document.getElementById(sourceId + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/minus.gif)";
     document.getElementById(sourceId + "_Lights").style.visibility = "hidden";
-    $('#'+sourceId+'_Submenu').slideDown('slow');
+    var timed = new Date().getTime() + 500;
+    sessionStorage.setItem("timed", timed);
+    $('#' + sourceId + '_Submenu').slideDown('slow');
+
     //document.getElementById(sourceId + "_Submenu").style.display = "block";
     //document.getElementById(sourceId + "_Lights").style.visibility = "hidden";
     //document.getElementById(sourceId + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/minus.gif)";
@@ -273,9 +282,11 @@ function CloseMenuItem(sourceId) {
     menu[0][sourceId] = '0';
     document.getElementById(sourceId + "_Lights").style.visibility = "visible";
     document.getElementById(sourceId + "_Extend").style.backgroundImage = "url(" + JS_DIR_IMAGES + "global/general/plus.gif)";
-    $('#'+sourceId+'_Submenu').slideUp('fast', function () {
+    $('#' + sourceId + '_Submenu').slideUp('fast', function () {
         // document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
     });
+    var timed = new Date().getTime() + 300;
+    sessionStorage.setItem("timed", timed);
     //document.getElementById(sourceId + "_Submenu").style.visibility = "hidden";
     //document.getElementById(sourceId + "_Submenu").style.display = "none";
     //document.getElementById(sourceId + "_Lights").style.visibility = "visible";
@@ -284,25 +295,25 @@ function CloseMenuItem(sourceId) {
 
 // mouse-over effects of menubuttons and submenuitems
 function MouseOverMenuItem(source) {
-    if(source.firstChild.style){
+    if (source.firstChild.style) {
         source.firstChild.style.visibility = "visible";
     }
 }
 
 function MouseOutMenuItem(source) {
-    if(source.firstChild.style){
+    if (source.firstChild.style) {
         source.firstChild.style.visibility = "hidden";
     }
 }
 
 function MouseOverSubmenuItem(source) {
-    if(source.style){
+    if (source.style) {
         source.style.backgroundColor = "#14433F";
     }
 }
 
 function MouseOutSubmenuItem(source) {
-    if(source.style){
+    if (source.style) {
         source.style.backgroundColor = "#0D2E2B";
     }
 }

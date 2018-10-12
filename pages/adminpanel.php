@@ -10,5 +10,6 @@ if ($logged) {
         if ($action == "sendPoints") include "adminpanel/sendpoints.php";
         if ($action == "shopmanage") include "adminpanel/shopmanage.php";
         if ($action == 'shop_system') include "adminpanel/shop_system.php";
+        if ($action == 'manage_wikki') include "adminpanel/wikki.php";
     }
 }
