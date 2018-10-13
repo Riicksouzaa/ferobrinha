@@ -136,6 +136,12 @@ $main_content .= '
             <span class="wiki_edit">Postado em:<b class="wikki_time"> ' . $dt_insert . '</b></span><br>
             <span class="wiki_edit">Editado em:<b class="wikki_time"> ' . $dt_update . '</b></span>
         </div>
+        ';
+if (intval($account_logged->getPageAccess()) >= Website::getWebsiteConfig()->getValue('access_admin_panel')) {
+    $main_content .= "<br><a style='float: right; margin-right: 30px' href='./?subtopic=adminpanel&action=manage_wikki&step=edit&id={$cat_content["id"]}'>Editar</a>";
+};
+$main_content .= '
+        
         <div class="wiki_text" id="div-wiki-61">
             <img class="wiki_logo" src="' . $layout_name . '/images/global/header/tibia-logo-artwork-top_astari.png">
             <div class="bbcode_center" style="text-align:center">
