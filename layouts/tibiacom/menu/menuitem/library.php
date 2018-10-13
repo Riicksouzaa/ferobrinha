@@ -3,8 +3,7 @@
         <div class="MenuButton"
              style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
             <div onmouseover="MouseOverMenuItem(this);"
-                 onmouseout="MouseOutMenuItem(this);">
-                <div class="Button"
+                 onmouseout="MouseOutMenuItem(this);"><div class="Button"
                      style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
                 <span id="library_Lights" class="Lights" style="visibility: visible;">
                     <div class="light_lu"

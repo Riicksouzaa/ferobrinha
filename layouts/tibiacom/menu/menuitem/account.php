@@ -1,27 +1,27 @@
 <div id="account" class="menuitem">
-                                <span onclick="MenuItemAction('account')">
-                                        <div class="MenuButton"
-                                             style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
-                                            <div onmouseover="MouseOverMenuItem(this);"
-                                                 onmouseout="MouseOutMenuItem(this);"><div class="Button"
-                                                                                           style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
-                                                <span id="account_Lights" class="Lights" style="visibility: visible;">
-                                                    <div class="light_lu"
-                                                         style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/green-light.gif);"></div>
-                                                    <div class="light_ld"
-                                                         style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/green-light.gif);"></div>
-                                                    <div class="light_ru"
-                                                         style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/green-light.gif);"></div>
-                                                </span>
-                                                <div id="account_Icon" class="Icon"
-                                                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-account.gif);"></div>
-                                                <div id="account_Label" class="Label"
-                                                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-account.gif);"></div>
-                                                <div id="account_Extend" class="Extend"
-                                                     style="background-image: url(<?php echo $layout_name; ?>/images/global/general/plus.gif);"></div>
-                                            </div>
-                                        </div>
-                                    </span>
+    <span onclick="MenuItemAction('account')">
+        <div class="MenuButton"
+             style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background.gif);">
+            <div onmouseover="MouseOverMenuItem(this);"
+                 onmouseout="MouseOutMenuItem(this);"><div class="Button"
+                                                           style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/button-background-over.gif);"></div>
+                <span id="account_Lights" class="Lights" style="visibility: visible;">
+                    <div class="light_lu"
+                         style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/green-light.gif);"></div>
+                    <div class="light_ld"
+                         style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/green-light.gif);"></div>
+                    <div class="light_ru"
+                         style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/green-light.gif);"></div>
+                </span>
+                <div id="account_Icon" class="Icon"
+                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-account.gif);"></div>
+                <div id="account_Label" class="Label"
+                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-account.gif);"></div>
+                <div id="account_Extend" class="Extend"
+                     style="background-image: url(<?php echo $layout_name; ?>/images/global/general/plus.gif);"></div>
+            </div>
+        </div>
+    </span>
     <div id="account_Submenu" class="Submenu">
         <a href="?subtopic=accountmanagement&page=overview">
             <div id="submenu_accountmanagement" data-menu="account" class="Submenuitem"

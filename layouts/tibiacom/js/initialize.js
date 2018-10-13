@@ -295,6 +295,7 @@ function CloseMenuItem(sourceId) {
 
 // mouse-over effects of menubuttons and submenuitems
 function MouseOverMenuItem(source) {
+    console.log(source.firstChild.style);
     if (source.firstChild.style) {
         source.firstChild.style.visibility = "visible";
     }
