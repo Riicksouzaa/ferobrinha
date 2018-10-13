@@ -34,7 +34,7 @@ $insere_nova_category = function ($name, $desc, $txt) use ($SQL) {
             $query = $SQL->prepare("INSERT INTO atr_wikki_category
                                               (nome, descricao, text)
                                                VALUES (:n, :d, :t);");
-            $query->execute(['n' => utf8_encode($name), 'd' => utf8_encode($desc), 't' => utf8_encode($txt)]);
+            $query->execute(['n' => utf8_decode($name), 'd' => utf8_decode($desc), 't' => utf8_decode($txt)]);
             $data = getStatus(FALSE, "inserido com sucesso.");
             $query = $SQL->query("SELECT a.id_atr_wikki_category FROM atr_wikki_category a order by a.id_atr_wikki_category desc;")->fetch();
             $data['id'] = $query['id_atr_wikki_category'];
@@ -58,7 +58,7 @@ $insere_nova_category = function ($name, $desc, $txt) use ($SQL) {
  */
 $edita_category = function ($id, $name, $desc, $txt) use ($SQL) {
     $query = $SQL->prepare("UPDATE atr_wikki_category SET nome = :n, descricao = :d, text = :txt where id_atr_wikki_category = :id");
-    $query->execute(['n' => utf8_encode($name), 'd' => utf8_encode($desc), 'txt' => utf8_encode($txt), 'id' => utf8_encode($id)]);
+    $query->execute(['n' => utf8_decode($name), 'd' => utf8_decode($desc), 'txt' => utf8_decode($txt), 'id' => utf8_decode($id)]);
     $data = getStatus(FALSE, "Updated.");
     return json_encode($data);
 };
@@ -155,9 +155,9 @@ if ($_POST) {
                     $main_content .= $make_content_header("Editar Categoria", $voltar);
                     $main_content .= $make_table_header('Table3', '', TRUE);
                     $cat_values = $category_by_id->fetch();
-                    foreach ($cat_values as $key => $value) {
-                        $cat_values[$key] = utf8_encode($value);
-                    }
+//                    foreach ($cat_values as $key => $value) {
+//                        $cat_values[$key] = utf8_encode($value);
+//                    }
                     $main_content .= '
 <form action="" method="post">
     <input type="hidden" value="2" name="type">
