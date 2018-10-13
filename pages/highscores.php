@@ -339,10 +339,6 @@ if (!isset($_REQUEST["page"])) {
 $main_content .= "
 <script>
 function sendHighscorePost(world,profession,list,page) {
-    console.log(world);
-    console.log(profession);
-    console.log(list);
-    console.log(page);
     $.post('./?subtopic=highscores', {world: world, profession:profession, list:list, page:page} );
     return true;
 };

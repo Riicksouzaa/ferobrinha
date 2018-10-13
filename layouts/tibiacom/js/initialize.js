@@ -250,7 +250,7 @@ function MenuItemAction(sourceId) {
     var time = new Date().getTime();
     sessionStorage.SessionName = time;
     sessionStorage.setItem("time", time);
-    console.log(sessionStorage.getItem("time"), sessionStorage.getItem("timed"));
+    //console.log(sessionStorage.getItem("time"), sessionStorage.getItem("timed"));
     if(sessionStorage.getItem("time") >= sessionStorage.getItem("timed") || sessionStorage.getItem("timed") == null)
     if (menu[0][sourceId] === '1') {
         CloseMenuItem(sourceId);
@@ -295,7 +295,7 @@ function CloseMenuItem(sourceId) {
 
 // mouse-over effects of menubuttons and submenuitems
 function MouseOverMenuItem(source) {
-    console.log(source.firstChild.style);
+    //console.log(source.firstChild.style);
     if (source.firstChild.style) {
         source.firstChild.style.visibility = "visible";
     }

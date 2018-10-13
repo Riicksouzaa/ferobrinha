@@ -125,7 +125,7 @@ $main_content .= '
 																<tr style="background-color:#D4C0A1;" >
 																	<td class="LabelV" >The last one:</td>';
 $get_ticker = $SQL->query("SELECT * FROM `newsticker` ORDER BY `date` DESC LIMIT 1")->fetchAll();
-if (count($get_ticker) > 0)
+if (!empty($get_ticker))
     foreach ($get_ticker as $ticker)
         $main_content .= '
 																			<td style="width:90%;" >
@@ -142,10 +142,10 @@ $main_content .= '
 																</tr>
 																<tr style="background-color:#F1E0C6;" >
 																	<td class="LabelV" >Add one:</td>
-																	<td>																		
+																	<td>
 																		<table class="TableContent" width="100%">
 																			<tr>
-																				<td width="100%"><input type="text" name="tickerText" style="width:100%;" placeholder="Max lenght 255 characters" maxlenght="255"></td>
+																				<td width="100%" colspan="2"><textarea type="text" name="tickerText" placeholder="Max lenght 255 characters"></textarea></td>
 																			</tr>
 																			<tr>
 																				<td width="90%">

@@ -593,7 +593,6 @@ q.submit(function() {
         $(\".se-pre-con\").fadeIn(\"fast\");
     },
     success: function(response) {
-        console.log(response.error);
       if(response.error === true){
             $(\".se-pre-con\").fadeOut(\"slow\");
             iziToast.error({

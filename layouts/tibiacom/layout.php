@@ -562,5 +562,18 @@ if(!defined('INITIALIZED'))
     <!-- float facebook like box start -->
     <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="<?=$config['social']['facebook']?>" async></script>
     <!-- float facebook like box end -->
+    <!--Tiny Editor -->
+    <script type="text/javascript" src="./vendor/tinymce/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",  // change this value according to your HTML
+            plugins : "autolink link image lists preview",
+            a_plugin_option: true,
+            skin: 'lightgray',
+            themes: "modern",
+            language: "pt_BR",
+            a_configuration_option: 400
+        });
+    </script>
 </body>
 </html>

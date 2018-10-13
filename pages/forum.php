@@ -9,53 +9,6 @@ $group_not_blocked = $config['site']['access_admin_panel']; // group id of playe
 $posts_per_page = 20;
 $threads_per_page = 20;
 
-//Tiny Editor
-$main_content .= '
-<script type="text/javascript" src="' . $layout_name . '/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-        tinyMCE.init({
-        // General options
-        mode : "textareas",
-        theme : "advanced",
-        plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
-
-        // Theme options
-        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-        theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,ltr,rtl",
-        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks",
-        theme_advanced_toolbar_location : "top",
-        theme_advanced_toolbar_align : "left",
-        theme_advanced_statusbar_location : "bottom",
-        theme_advanced_resizing : true,
-
-        // Example content CSS (should be your site CSS)
-        content_css : "css/content.css",
-
-        // Drop lists for link/image/media/template dialogs
-        template_external_list_url : "lists/template_list.js",
-        external_link_list_url : "lists/link_list.js",
-        external_image_list_url : "lists/image_list.js",
-        media_external_list_url : "lists/media_list.js",
-
-        // Style formats
-        style_formats : [
-            {title : \'Bold text\', inline : \'b\'},
-            {title : \'Red text\', inline : \'span\', styles : {color : \'#ff0000\'}},
-            {title : \'Red header\', block : \'h1\', styles : {color : \'#ff0000\'}},
-            {title : \'Example 1\', inline : \'span\', classes : \'example1\'},
-            {title : \'Example 2\', inline : \'span\', classes : \'example2\'},
-            {title : \'Table styles\'},
-            {title : \'Table row 1\', selector : \'tr\', classes : \'tablerow1\'}
-        ],
-
-        // Replace values for the template plugin
-        template_replace_values : {
-            username : "Some User",
-            staffid : "991234"
-        }
-    });
-</script>';
 // SECTION WITH ID 1 IS FOR "NEWS", ONLY ADMINS CAN CREATE NEW THREAD IN IT
 $sections = [
     1 => 'News',
@@ -867,7 +820,7 @@ if ($action == 'new_post') {
                         $errors[] = showErrorMsg('Please select a character.');
                         $player_on_account = FALSE;
                     }
-                    if (count($errors) == 0) {
+                    if (empty($errors)) {
                         foreach ($players_from_account as $player)
                             if ($char_id == $player['id'])
                                 $player_on_account = TRUE;
@@ -875,13 +828,13 @@ if ($action == 'new_post') {
                             $errors[] = showErrorMsg('Player with selected ID ' . $char_id . ' doesn\'t exist or isn\'t on your account');
                         }
                     }
-                    if (count($errors) == 0) {
+                    if (empty($errors)) {
                         $last_post = $account_logged->getCustomField('last_post');
                         if ($last_post + $post_interval - time() > 0 && $group_id_of_acc_logged < $group_not_blocked) {
                             $errors[] = showErrorMsg('You can post one time per ' . $post_interval . ' seconds. Next post after ' . ($last_post + $post_interval - time()) . ' second(s).');
                         }
                     }
-                    if (count($errors) == 0) {
+                    if (empty($errors)) {
                         $saved = TRUE;
                         $account_logged->set('last_post', time());
                         $account_logged->save();
@@ -930,7 +883,7 @@ if ($action == 'new_post') {
                     }
                 }
                 if (!$saved) {
-                    if (count($errors) > 0) {
+                    if (!empty($errors)) {
                         $main_content .= '<font color="red" size="2"><b>Errors occured:</b>';
                         foreach ($errors as $error)
                             $main_content .= '<br />* ' . $error;
@@ -1194,14 +1147,14 @@ if ($action == 'edit_post') {
                             $errors[] = showErrorMsg('Thread topic can\'t be empty.');
                             $player_on_account = FALSE;
                         }
-                        if (count($errors) == 0) {
+                        if (empty($errors)) {
                             foreach ($players_from_account as $player)
                                 if ($char_id == $player['id'])
                                     $player_on_account = TRUE;
                             if (!$player_on_account)
                                 $errors[] = showErrorMsg('Player with selected ID ' . $char_id . ' doesn\'t exist or isn\'t on your account');
                         }
-                        if (count($errors) == 0) {
+                        if (empty($errors)) {
                             $saved = TRUE;
                             if ($account_logged->getId() != $thread['author_aid'])
                                 $char_id = $thread['author_guid'];
@@ -1218,7 +1171,7 @@ if ($action == 'edit_post') {
                         $smile = (int)$thread['post_smile'];
                     }
                     if (!$saved) {
-                        if (count($errors) > 0) {
+                        if (!empty($errors)) {
                             $main_content .= '<br /><font color="red" size="2"><b>Errors occured:</b>';
                             foreach ($errors as $error)
                                 $main_content .= '<br />* ' . $error;
@@ -1449,21 +1402,21 @@ if ($action == 'new_topic') {
                         $errors[] = showErrorMsg('Please select a character.');
                         $player_on_account = FALSE;
                     }
-                    if (count($errors) == 0) {
+                    if (empty($errors)) {
                         foreach ($players_from_account as $player)
                             if ($char_id == $player['id'])
                                 $player_on_account = TRUE;
                         if (!$player_on_account)
                             $errors[] = showErrorMsg('Player with selected ID ' . $char_id . ' doesn\'t exist or isn\'t on your account');
                     }
-                    if (count($errors) == 0) {
+                    if (empty($errors)) {
                         $last_post = $account_logged->getCustomField('last_post');
                         if ($last_post + $post_interval - time() > 0 && $group_id_of_acc_logged < $group_not_blocked)
                             $errors[] = showErrorMsg('You can post one time per ' . $post_interval . ' seconds. Next post after ' . ($last_post + $post_interval - time()) . ' second(s).');
                     }
                     
                     if (isset($_POST['save_topic'])) {
-                        if (count($errors) == 0) {
+                        if (empty($errors)) {
                             $saved = TRUE;
                             $account_logged->set('last_post', time());
                             $account_logged->save();
@@ -1516,7 +1469,7 @@ if ($action == 'new_topic') {
                     }
                 }
                 if (!$saved) {
-                    if (count($errors) > 0) {
+                    if (!empty($errors)) {
                         $main_content .= '<font color="red" size="2"><b>Errors occured:</b>';
                         foreach ($errors as $error)
                             $main_content .= '<br />' . $error;

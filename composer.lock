@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "df83f8965f9e4e52d1b6b315ccbe3e99",
+    "content-hash": "06bad2e96690b107ce1dd909593c5254",
     "packages": [
         {
             "name": "blockchain/blockchain",
@@ -1114,6 +1114,52 @@
                 "xml-sitemap"
             ],
             "time": "2018-06-24T16:00:39+00:00"
+        },
+        {
+            "name": "tinymce/tinymce",
+            "version": "4.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tinymce/tinymce-dist.git",
+                "reference": "e6ad606b0da07cc7d1847f01d5d89b42920d5bc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/e6ad606b0da07cc7d1847f01d5d89b42920d5bc2",
+                "reference": "e6ad606b0da07cc7d1847f01d5d89b42920d5bc2",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "tinymce.js",
+                        "plugins/*/plugin.js",
+                        "themes/*/theme.js"
+                    ],
+                    "files": [
+                        "tinymce.min.js",
+                        "plugins/*/plugin.min.js",
+                        "themes/*/theme.min.js",
+                        "skins/**"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-only"
+            ],
+            "description": "Web based JavaScript HTML WYSIWYG editor control.",
+            "homepage": "http://www.tinymce.com",
+            "keywords": [
+                "editor",
+                "html",
+                "javascript",
+                "richtext",
+                "tinymce",
+                "wysiwyg"
+            ],
+            "time": "2018-09-13T14:31:22+00:00"
         }
     ],
     "packages-dev": [],

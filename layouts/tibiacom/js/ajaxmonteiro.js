@@ -317,13 +317,15 @@ $(document).ready(function() {
 $(document).ready(function() {
 	$('#insertTicker').click(function(event){
 		//vars
-		var tickerText = $('input[name=tickerText]').val();
+        tinymce.triggerSave();
+		var tickerText = $('textarea[name=tickerText]').val();
 		var tickerIcon = $('select[name=tickerIcon]').val();
 		
 		if (tickerText == "" || tickerIcon == "") {
 			alert('All fields are required!');
 			return false;
 		}
+
 		$.ajax({
 			url: 'ajax.php',
 			type: 'POST',
