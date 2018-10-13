@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `atr_wikki_category` (
   PRIMARY KEY (`id_atr_wikki_category`)
 )
   ENGINE = InnoDB
-  AUTO_INCREMENT = 5
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `atr_wikki_subcategory` (
@@ -32,5 +32,10 @@ CREATE TABLE IF NOT EXISTS `atr_wikki_subcategory` (
     ON UPDATE NO ACTION
 )
   ENGINE = InnoDB
-  AUTO_INCREMENT = 3
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = utf8;
+
+ALTER TABLE `atr_wikki_category`
+  COLLATE = utf8_general_ci ;
+ALTER TABLE `atr_wikki_subcategory`
+  COLLATE = utf8_general_ci ;
