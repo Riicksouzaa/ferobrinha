@@ -52,7 +52,7 @@ $main_content .= '
             </form>
         </li>-->';
 foreach ($menu as $key => $value) {
-    $main_content .= '<li ' . ($cat_id == $value['id_atr_wikki_category'] ? 'class="active"' : '') . '><a href="?subtopic=wikki&cat=' . $value['id_atr_wikki_category'] . '">' . ucfirst(utf8_encode($value['nome'])) . '</a></li>';
+    $main_content .= '<li ' . ($cat_id == $value['id_atr_wikki_category'] ? 'class="active"' : '') . '><a href="?subtopic=wikki&cat=' . $value['id_atr_wikki_category'] . '">' . ucfirst($value['nome']) . '</a></li>';
 }
 /** FECHAMENTO UL MENU */
 $main_content .= '</ul>';
@@ -113,9 +113,9 @@ if (isset($sub_id) && !empty($sub_id)) {
 }
 
 
-foreach ($cat_content as $key => $value) {
-    $cat_content[$key] = utf8_encode($value);
-}
+//foreach ($cat_content as $key => $value) {
+//    $cat_content[$key] = utf8_encode($value);
+//}
 $dt_insert = new DateTime($cat_content['dt_insert']);
 $dt_insert = $dt_insert->format('d/m/Y H:i:s');
 $dt_update = new DateTime($cat_content['dt_update']);
@@ -160,9 +160,9 @@ if ($submenus) {
         <ul class="wiki_submenu">';
     /** LISTA DE SUBMENUS */
     foreach ($submenus as $key => $value) {
-        foreach ($value as $kvalor => $kvalue) {
-            $value[$kvalor] = utf8_encode($kvalue);
-        }
+//        foreach ($value as $kvalor => $kvalue) {
+//            $value[$kvalor] = utf8_encode($kvalue);
+//        }
         $main_content .= '
                 <li>
                     <a href="?subtopic=wikki&cat=' . $value['cat_id'] . '&sub=' . $value['sub_cat_id'] . '">
