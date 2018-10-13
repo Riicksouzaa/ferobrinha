@@ -34,7 +34,7 @@ $insere_nova_category = function ($name, $desc, $txt) use ($SQL) {
             $query = $SQL->prepare("INSERT INTO atr_wikki_category
                                               (nome, descricao, text)
                                                VALUES (:n, :d, :t);");
-            $query->execute(['n' => utf8_decode($name), 'd' => utf8_decode($desc), 't' => utf8_decode($txt)]);
+            $query->execute(['n' => $name, 'd' => $desc, 't' => $txt]);
             $data = getStatus(FALSE, "inserido com sucesso.");
             $query = $SQL->query("SELECT a.id_atr_wikki_category FROM atr_wikki_category a order by a.id_atr_wikki_category desc;")->fetch();
             $data['id'] = $query['id_atr_wikki_category'];
@@ -58,7 +58,7 @@ $insere_nova_category = function ($name, $desc, $txt) use ($SQL) {
  */
 $edita_category = function ($id, $name, $desc, $txt) use ($SQL) {
     $query = $SQL->prepare("UPDATE atr_wikki_category SET nome = :n, descricao = :d, text = :txt where id_atr_wikki_category = :id");
-    $query->execute(['n' => utf8_decode($name), 'd' => utf8_decode($desc), 'txt' => utf8_decode($txt), 'id' => utf8_decode($id)]);
+    $query->execute(['n' => $name, 'd' => $desc, 'txt' => $txt, 'id' => $id]);
     $data = getStatus(FALSE, "Updated.");
     return json_encode($data);
 };
