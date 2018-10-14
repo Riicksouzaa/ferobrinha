@@ -288,7 +288,6 @@ var wikkiContentEdit = {
       'link',
       'textcolor',
       'lists',
-      'powerpaste',
       'linkchecker',
       'contextmenu',
       'autolink',
