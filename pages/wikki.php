@@ -138,7 +138,7 @@ $main_content .= '
         </div>
         ';
 if (intval($account_logged->getPageAccess()) >= Website::getWebsiteConfig()->getValue('access_admin_panel')) {
-    $main_content .= "<br><a style='float: right; margin-right: 30px' href='./?subtopic=adminpanel&action=manage_wikki&step=edit&id={$cat_content["id"]}'>Editar</a>";
+    $main_content .= "<br><a style='float: right; margin-right: 30px' href='./?subtopic=adminpanel&action=manage_wikki&step=edit&id={$cat_content["id"]}'>Editar</a><br>";
 };
 $main_content .= '
         
