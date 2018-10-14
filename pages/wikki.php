@@ -288,10 +288,8 @@ var wikkiContentEdit = {
       'link',
       'textcolor',
       'lists',
-      'linkchecker',
       'contextmenu',
       'autolink',
-      'tinymcespellchecker',
       'image'
     ],
     init_instance_callback: function(ed) {
