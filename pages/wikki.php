@@ -6,6 +6,14 @@
  * Time: 17:11
  */
 
+
+$isAdmin = function () use ($account_logged) {
+    if (intval($account_logged->getPageAccess()) >= Website::getWebsiteConfig()->getValue('access_admin_panel')) {
+        return TRUE;
+    }
+    return FALSE;
+};
+
 $wikki_menu = $SQL->prepare("SELECT * FROM atr_wikki_category");
 $wikki_menu->execute([]);
 $menu = $wikki_menu->fetchAll();
@@ -125,7 +133,7 @@ $dt_update = $dt_update->format('d/m/Y H:i:s');
 /** Iniciado o content */
 $main_content .= '
     <div class="wiki_content" id="tab">
-        <h4 class="wiki_title">' . ucfirst($cat_content['name']) . '</h4>
+        <h4 class="' . ($isAdmin() ? 'wikki-header-editable' : '') . ' wiki_title">' . ucfirst($cat_content['name']) . '</h4>
         <div class="breadcumb">';
 if ($cat_content['is_subcat']) {
     $main_content .= '<a href="?subtopic=wikki">Wikki</a> > <a href="?subtopic=wikki&cat=' . $cat_content['cat_id'] . '"> ' . ucfirst($cat_content['cat_name']) . '</a> > <a href="?subtopic=wikki&cat=' . $cat_content['cat_id'] . '&sub=' . $cat_content['id'] . '"> ' . ucfirst($cat_content['name']) . '</a>';
@@ -137,7 +145,7 @@ $main_content .= '
             <span class="wiki_edit">Editado em:<b class="wikki_time"> ' . $dt_update . '</b></span>
         </div>
         ';
-if (intval($account_logged->getPageAccess()) >= Website::getWebsiteConfig()->getValue('access_admin_panel')) {
+if ($isAdmin()) {
     $main_content .= "<br><a style='float: right; margin-right: 30px' href='./?subtopic=adminpanel&action=manage_wikki&step=edit&id={$cat_content["id"]}'>Editar</a><br>";
 };
 $main_content .= '
@@ -148,7 +156,9 @@ $main_content .= '
                 <em>
                     <span class="med">
                         <span style="color:#d04a00">
-                            ' . $cat_content['description'] . '
+                            <div class="' . ($isAdmin ? 'wikki-description-editable' : '') . '">
+                                ' . $cat_content['description'] . '
+                            </div>
                             <br>
                         </span>
                     </span>
@@ -156,7 +166,9 @@ $main_content .= '
             </div>
             <div class="bbcode_center" style="text-align:center"><span class="sma"></span></div>
             <hr style="border: 1px solid #efddc2;">
-            ' . $cat_content['txt'] . '
+            <div class="' . ($isAdmin() ? 'wikki-content-editable' : '') . '">
+                ' . $cat_content['txt'] . '
+            </div>
             <hr style="border: 1px solid #efddc2;">
             <br>';
 $submenus = $have_subcat();
@@ -184,5 +196,98 @@ $main_content .= '
 
 /** FECHAMENTO */
 $main_content .= '</div>';
+
+$tintMCE =
+    "
+<script>
+
+function editWikkiAll() {
+  $.ajax({
+        url:'./?subtopic=adminpanel&action=manage_wikki',
+        type:'POST',
+        data: {
+            type:2,
+            id:" . $cat_content['id'] . ",
+            name:$('.wikki-header-editable').html(),
+            desc:$('.wikki-description-editable').html(),
+            txt:$('.wikki-content-editable').html()
+        },
+        dataType:'JSON',
+        success: function(t) {
+          if(!t.error){
+              iziToast.success({
+                title:'Success:',
+                message:t.msg,
+                position:'topRight',
+                timeout: 1000,
+                overlay:false,
+                overlayClose:false,
+                onClosing: function (instance, toast, closedBy) {
+                    console.log(instance, toast, closedBy);
+                }
+              });
+          } else {
+             iziToast.error({
+                title:'Erro:',
+                message:t.msg,
+                position:'topRight',
+                timeout: 1000,
+                overlay:false,
+                overlayClose:false,
+                onClosing: function (instance, toast, closedBy) {
+                    console.log(instance, toast, closedBy);
+                }
+             });
+          }
+        }
+    });
+}
+
+
+var wikkiTitleEdit = {
+    selector: '.wikki-header-editable',
+    menubar: false,
+    inline: true,
+    theme: 'inlite',
+    insert_toolbar: 'undo redo',
+    selection_toolbar: '',
+    setup: function(ed) {
+      ed.on('KeyUp', function(e) {
+        tinymce.triggerSave();
+        editWikkiAll();
+      });
+    }
+  };
+var wikkiDescriptionEdit = {
+    selector: '.wikki-description-editable',
+    menubar: false,
+    inline: true,
+    theme: 'inlite',
+    setup: function(e) {
+      e.on('KeyUp', function(q) {
+        tinymce.triggerSave();
+        editWikkiAll();
+      })
+    }
+};
+var wikkiContentEdit = {
+    selector: '.wikki-content-editable',
+    menubar: false,
+    inline: true,
+    setup: function(e) {
+      e.on('KeyUp', function(q) {
+        tinymce.triggerSave();
+        editWikkiAll();
+      })
+    }
+};
+tinymce.init(wikkiTitleEdit);
+tinymce.init(wikkiDescriptionEdit);
+tinymce.init(wikkiContentEdit);
+</script>
+";
+if ($isAdmin()) {
+    $main_content .= $tintMCE;
+}
 
 
