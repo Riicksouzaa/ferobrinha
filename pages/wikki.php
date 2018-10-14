@@ -60,7 +60,7 @@ $main_content .= '
             </form>
         </li>-->';
 foreach ($menu as $key => $value) {
-    $main_content .= '<li ' . ($cat_id == $value['id_atr_wikki_category'] ? 'class="active"' : '') . '><a href="?subtopic=wikki&cat=' . $value['id_atr_wikki_category'] . '">' . ucfirst($value['nome']) . '</a></li>';
+    $main_content .= '<li ' . ($cat_id == $value['id_atr_wikki_category'] ? 'class="active"' : '') . '><a ' . ($cat_id == $value['id_atr_wikki_category'] ? 'class="is_title"' : '') . ' href="?subtopic=wikki&cat=' . $value['id_atr_wikki_category'] . '">' . ucfirst($value['nome']) . '</a></li>';
 }
 /** FECHAMENTO UL MENU */
 $main_content .= '</ul>';
@@ -138,16 +138,16 @@ $main_content .= '
 if ($cat_content['is_subcat']) {
     $main_content .= '<a href="?subtopic=wikki">Wikki</a> > <a href="?subtopic=wikki&cat=' . $cat_content['cat_id'] . '"> ' . ucfirst($cat_content['cat_name']) . '</a> > <a href="?subtopic=wikki&cat=' . $cat_content['cat_id'] . '&sub=' . $cat_content['id'] . '"> ' . ucfirst($cat_content['name']) . '</a>';
 } else {
-    $main_content .= '<a href="?subtopic=wikki">Wikki</a> > <a href="?subtopic=wikki&cat=' . $cat_content['id'] . '">' . ucfirst($cat_content['name']) . '</a>';
+    $main_content .= '<a href="?subtopic=wikki">Wikki</a> > <a class="is_title" href="?subtopic=wikki&cat=' . $cat_content['id'] . '">' . ucfirst($cat_content['name']) . '</a>';
 }
 $main_content .= '
             <span class="wiki_edit">Postado em:<b class="wikki_time"> ' . $dt_insert . '</b></span><br>
-            <span class="wiki_edit">Editado em:<b class="wikki_time"> ' . $dt_update . '</b></span>
+            <span class="wiki_edit">Editado em:<b class="wikki_time wikki-edited-time"> ' . $dt_update . '</b></span>
         </div>
         ';
-if ($isAdmin()) {
-    $main_content .= "<br><a style='float: right; margin-right: 30px' href='./?subtopic=adminpanel&action=manage_wikki&step=edit&id={$cat_content["id"]}'>Editar</a><br>";
-};
+//if ($isAdmin()) {
+//    $main_content .= "<br><a style='float: right; margin-right: 30px' href='./?subtopic=adminpanel&action=manage_wikki&step=edit&id={$cat_content["id"]}'>Editar</a><br>";
+//};
 $main_content .= '
         
         <div class="wiki_text" id="div-wiki-61">
@@ -201,6 +201,12 @@ $tintMCE =
     "
 <script>
 
+function curDate() {
+  var datetime = new Date();
+  var now = ' ' + datetime.getDate() + '/' + (datetime.getMonth()+1) + '/' + datetime.getFullYear() + ' ' + (datetime.getHours() < 10 ? '0'+(datetime.getHours()) : datetime.getHours()  ) + ':' + (datetime.getMinutes() < 10 ? '0'+datetime.getMinutes(): datetime.getMinutes()) + ':' + (datetime.getSeconds() < 10 ? '0'+datetime.getSeconds():datetime.getSeconds());
+  return now;
+}
+
 function editWikkiAll() {
   $.ajax({
         url:'./?subtopic=adminpanel&action=manage_wikki',
@@ -223,9 +229,9 @@ function editWikkiAll() {
                 overlay:false,
                 overlayClose:false,
                 onClosing: function (instance, toast, closedBy) {
-                    console.log(instance, toast, closedBy);
                 }
               });
+              $('.wikki-edited-time').html(curDate());
           } else {
              iziToast.error({
                 title:'Erro:',
@@ -235,14 +241,12 @@ function editWikkiAll() {
                 overlay:false,
                 overlayClose:false,
                 onClosing: function (instance, toast, closedBy) {
-                    console.log(instance, toast, closedBy);
                 }
              });
           }
         }
     });
 }
-
 
 var wikkiTitleEdit = {
     selector: '.wikki-header-editable',
@@ -251,34 +255,51 @@ var wikkiTitleEdit = {
     theme: 'inlite',
     insert_toolbar: 'undo redo',
     selection_toolbar: '',
-    setup: function(ed) {
-      ed.on('KeyUp', function(e) {
+    init_instance_callback: function(ed) {
+      ed.on('blur', function(e) {
         tinymce.triggerSave();
         editWikkiAll();
       });
+      ed.on('KeyUp', function(e) {
+          console.log(e);
+        $('.is_title').html($('.wikki-header-editable').html());
+      });
     }
   };
+
 var wikkiDescriptionEdit = {
     selector: '.wikki-description-editable',
     menubar: false,
     inline: true,
     theme: 'inlite',
-    setup: function(e) {
-      e.on('KeyUp', function(q) {
+    init_instance_callback: function(ed) {
+      ed.on('blur', function(e) {
         tinymce.triggerSave();
         editWikkiAll();
-      })
+      });
     }
 };
 var wikkiContentEdit = {
     selector: '.wikki-content-editable',
+//    theme: 'inlite',
     menubar: false,
     inline: true,
-    setup: function(e) {
-      e.on('KeyUp', function(q) {
+    plugins: [
+      'link',
+      'textcolor',
+      'lists',
+      'powerpaste',
+      'linkchecker',
+      'contextmenu',
+      'autolink',
+      'tinymcespellchecker',
+      'image'
+    ],
+    init_instance_callback: function(ed) {
+      ed.on('blur', function(e) {
         tinymce.triggerSave();
         editWikkiAll();
-      })
+      });
     }
 };
 tinymce.init(wikkiTitleEdit);
