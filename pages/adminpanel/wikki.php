@@ -63,6 +63,50 @@ $edita_category = function ($id, $name, $desc, $txt) use ($SQL) {
     return json_encode($data);
 };
 
+/**
+ * @function $insere_nova_sub_category
+ *
+ * @param $cat_id
+ * @param $name
+ * @param $desc
+ * @param $txt
+ * @return string
+ */
+$insere_nova_sub_category = function ($cat_id, $name, $desc, $txt) use ($SQL) {
+    if (strlen($name) >= 3) {
+        if (strlen($desc) >= 3) {
+            $query = $SQL->prepare("INSERT INTO atr_wikki_subcategory
+                                              (id_atr_wikki_category, name, description, text)
+                                               VALUES (:i, :n, :d, :t);");
+            $query->execute(['i' => $cat_id, 'n' => $name, 'd' => $desc, 't' => $txt]);
+            $data = getStatus(FALSE, "inserido com sucesso.");
+            $query = $SQL->query("SELECT a.id_atr_wikki_subcategory FROM atr_wikki_subcategory a order by a.id_atr_wikki_subcategory desc;")->fetch();
+            $data['id'] = $query['id_atr_wikki_category'];
+            return json_encode($data);
+        } else {
+            $data = getStatus(TRUE, "É Necessário que a descrição tenha 3 ou mais caracteres.");
+            return json_encode($data);
+        }
+    } else {
+        $data = getStatus(TRUE, "È necessário inserir um nome com pelo menos 3 caracteres.");
+        return json_encode($data);
+    }
+};
+
+/**
+ * @param $id
+ * @param $name
+ * @param $desc
+ * @param $txt
+ * @return string
+ */
+$edita_sub_category = function ($id, $name, $desc, $txt) use ($SQL) {
+    $query = $SQL->prepare("UPDATE atr_wikki_subcategory SET name = :n, description = :d, text = :txt where id_atr_wikki_subcategory = :id");
+    $query->execute(['n' => $name, 'd' => $desc, 'txt' => $txt, 'id' => $id]);
+    $data = getStatus(FALSE, "Updated.");
+    return json_encode($data);
+};
+
 if ($_POST) {
     $type = $_POST['type'];
     switch ($type) {
@@ -81,6 +125,25 @@ if ($_POST) {
             $txt = $_POST['txt'];
             
             echo $edita_category($id, $name, $desc, $txt);
+            
+            die();
+            break;
+        case 3:
+            $cat_id = $_POST['cat_id'];
+            $name = $_POST['name'];
+            $desc = $_POST['desc'];
+            $txt = $_POST['txt'];
+            
+            echo $insere_nova_sub_category($cat_id, $name, $desc, $txt);
+            die();
+            break;
+        case 4:
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $desc = $_POST['desc'];
+            $txt = $_POST['txt'];
+            
+            echo $edita_sub_category($id, $name, $desc, $txt);
             
             die();
             break;

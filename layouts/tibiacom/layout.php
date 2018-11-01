@@ -92,94 +92,6 @@ if(!defined('INITIALIZED'))
 //        echo '<link href="'.$layout_name.'/css/news.min.css'.$css_version.'" rel="stylesheet" type="text/css">';
     ?>
     <?php $subtopic = $_REQUEST['subtopic'];?>
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <!--<script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.core.js--><?php //echo $css_version;?><!--" ></script>-->
-    <!--<script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.widgets.js--><?php //echo $css_version;?><!--" ></script>-->
-    <script src="<?php echo $layout_name; ?>/js/jquery-ui.min.js<?php echo $css_version;?>" ></script>
-    <script src="<?php echo $layout_name; ?>/js/jquery.mask.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/js/ajaxcip.js<?php echo $css_version;?>"></script>
-    <?php if($subtopic == 'adminpanel'){?>
-    <script src="<?php echo $layout_name; ?>/js/ajaxmonteiro.js<?php echo $css_version;?>"></script>
-    <?php } ?>
-    <script src="<?php echo $layout_name; ?>/js/iziModal.min.js<?php echo $css_version;?>"></script>
-    <!--Tiny Editor -->
-    <script type="text/javascript" src="./vendor/tinymce/tinymce/tinymce.min.js"></script>
-    <script src="<?php echo $layout_name; ?>/js/iziToast.min.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
-    <?php
-    if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'/js/create_character.js'.$css_version.'"></script>';
-    ?>
-    <script>
-        iziToast.settings({
-            icon:'material-icons',
-            titleSize:'10pt',
-            titleColor:'#5A2800',
-            messageSize:'10pt',
-            messageColor:'#5A2800',
-            backgroundColor:'#D4C0A1',
-            progressBarColor:'rgba(90,40,0,.8)',
-            // progressBarColor:'url(./layouts/tibiacom/images/global/content/table-headline-border.gif)',
-            closeOnEscape: true,
-            overlay:true,
-            overlayClose: true,
-        });
-    </script>
-    <script>
-        var loginStatus=0;
-        loginStatus='<?php if($logged){ ?>true<?php } else { ?>false<?php } ?>';
-        <?php if ($_REQUEST['subtopic'] == 'accountmanagement' && $_REQUEST['action'] == 'donate'){?>
-        var activeSubmenuItem='donate';
-        <?php }elseif($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == 'buychar'){?>
-        var activeSubmenuItem='buychar';
-        <?php }elseif($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == 'sellchar'){?>
-        var activeSubmenuItem='sellchar';
-        <?php }elseif($_REQUEST['subtopic'] == "events"){?>
-            <?php $ev = new Events();?>
-            <?php $kappa = $ev->getArrGroupNames();?>
-            var activeSubmenuItem='<?php echo array_search($_REQUEST['name'],$kappa);?>';
-        <?php }else{?>
-        var activeSubmenuItem='<?php echo $subtopic; ?>';
-        <?php }?>
-        var JS_DIR_IMAGES=0;
-        JS_DIR_IMAGES='<?php echo $layout_name; ?>/images/';
-        var JS_DIR_ACCOUNT=0;
-        JS_DIR_ACCOUNT='';
-        var g_FormName='';
-        var g_FormField='';
-        var g_Deactivated=false;
-        var g_FlashClientInPopUp= true;
-    </script>
-    <!--<script>
-        if(top.location != window.location) {
-            g_FlashClientInPopUp = false;
-        }
-    </script>-->
-    <script src="<?php echo $layout_name; ?>/js/generic.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/js/initialize.js<?php echo $css_version;?>"></script>
-    <!--<script src="<?php echo $layout_name; ?>/js/swfobject.js<?php echo $css_version;?>" ></script>-->
-    <?php if($_REQUEST['subtopic'] == "accountmanagement") { ?>
-        <script type="text/javascript">
-            function openGameWindow(a_URL)
-            {
-                var Height = 768;
-                var Width = 1024;
-                var Top = (screen.height - Height) / 2;
-                var Left = (screen.width - Width) / 2;
-                var NewWindow = window.open(a_URL + '&window=2',
-                    "Tibia",
-                    "width=" + Width + ",height=" + Height + ",top=" + Top + ",left=" + Left + ",dependent=no,hotkeys=no,location=no,menubar=no,resizable=yes,scrollbars=no,status=no,toolbar=no"
-                );
-                if (NewWindow != null) {
-                    NewWindow.focus();
-                }
-            }
-        </script>
-    <?php } ?>
-<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js--><?php //echo $css_version;?><!--"></script>-->
-    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body onbeforeunload="SaveMenu();"
@@ -191,9 +103,117 @@ if(!defined('INITIALIZED'))
       onunload="SaveMenu();"
       onload="SetFormFocus();"
       data-twttr-rendered="true">
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<!--<script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.core.js--><?php //echo $css_version;?><!--" ></script>-->
+<!--<script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.widgets.js--><?php //echo $css_version;?><!--" ></script>-->
+<script src="<?php echo $layout_name; ?>/js/jquery-ui.min.js<?php echo $css_version;?>" ></script>
+<script src="<?php echo $layout_name; ?>/js/jquery.mask.js<?php echo $css_version;?>"></script>
+<script src="<?php echo $layout_name; ?>/js/ajaxcip.js<?php echo $css_version;?>"></script>
+<?php if($subtopic == 'adminpanel'){?>
+    <script src="<?php echo $layout_name; ?>/js/ajaxmonteiro.js<?php echo $css_version;?>"></script>
+<?php } ?>
+<script src="<?php echo $layout_name; ?>/js/iziModal.min.js<?php echo $css_version;?>"></script>
+<!--Tiny Editor -->
+<script type="text/javascript" src="./vendor/tinymce/tinymce/tinymce.min.js"></script>
+<!--    <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=vct6772xi5zrh195yd6scyhdke2ldwlubrpqq024580vr62v'></script>-->
+<script src="<?php echo $layout_name; ?>/js/iziToast.min.js<?php echo $css_version;?>"></script>
+<?php
+if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'/js/create_character.js'.$css_version.'"></script>';
+?>
+<script type="text/javascript">
+    iziToast.settings({
+        icon:'material-icons',
+        titleSize:'10pt',
+        titleColor:'#5A2800',
+        messageSize:'10pt',
+        messageColor:'#5A2800',
+        backgroundColor:'#D4C0A1',
+        progressBarColor:'rgba(90,40,0,.8)',
+        // progressBarColor:'url(./layouts/tibiacom/images/global/content/table-headline-border.gif)',
+        closeOnEscape: true,
+        overlay:true,
+        overlayClose: true,
+    });
+    tinymce.init({
+        selector: "textarea",  // change this value according to your HTML
+        plugins : [
+            "autolink",
+            "link",
+            "image",
+            "lists",
+            "preview",
+            "textcolor"
+        ],
+        // toolbar: "undo redo | forecolor backcolor",
+        a_plugin_option: false,
+        skin: 'lightgray',
+        themes: "modern",
+        language: "pt_BR",
+        a_configuration_option: 400
+    });
+</script>
+<script>
+    var loginStatus=0;
+    loginStatus='<?php if($logged){ ?>true<?php } else { ?>false<?php } ?>';
+    <?php if ($_REQUEST['subtopic'] == 'accountmanagement' && $_REQUEST['action'] == 'donate'){?>
+    var activeSubmenuItem='donate';
+    <?php }elseif($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == 'buychar'){?>
+    var activeSubmenuItem='buychar';
+    <?php }elseif($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == 'sellchar'){?>
+    var activeSubmenuItem='sellchar';
+    <?php }elseif($_REQUEST['subtopic'] == "events"){?>
+    <?php $ev = new Events();?>
+    <?php $kappa = $ev->getArrGroupNames();?>
+    var activeSubmenuItem='<?php echo array_search($_REQUEST['name'],$kappa);?>';
+    <?php }else{?>
+    var activeSubmenuItem='<?php echo $subtopic; ?>';
+    <?php }?>
+    var JS_DIR_IMAGES=0;
+    JS_DIR_IMAGES='<?php echo $layout_name; ?>/images/';
+    var JS_DIR_ACCOUNT=0;
+    JS_DIR_ACCOUNT='';
+    var g_FormName='';
+    var g_FormField='';
+    var g_Deactivated=false;
+    var g_FlashClientInPopUp= true;
+</script>
+<!--<script>
+    if(top.location != window.location) {
+        g_FlashClientInPopUp = false;
+    }
+</script>-->
+<script src="<?php echo $layout_name; ?>/js/generic.js<?php echo $css_version;?>"></script>
+<script src="<?php echo $layout_name; ?>/js/initialize.js<?php echo $css_version;?>"></script>
+<!--<script src="<?php echo $layout_name; ?>/js/swfobject.js<?php echo $css_version;?>" ></script>-->
+<?php if($_REQUEST['subtopic'] == "accountmanagement") { ?>
+    <script type="text/javascript">
+        function openGameWindow(a_URL)
+        {
+            var Height = 768;
+            var Width = 1024;
+            var Top = (screen.height - Height) / 2;
+            var Left = (screen.width - Width) / 2;
+            var NewWindow = window.open(a_URL + '&window=2',
+                "Tibia",
+                "width=" + Width + ",height=" + Height + ",top=" + Top + ",left=" + Left + ",dependent=no,hotkeys=no,location=no,menubar=no,resizable=yes,scrollbars=no,status=no,toolbar=no"
+            );
+            if (NewWindow != null) {
+                NewWindow.focus();
+            }
+        }
+    </script>
+<?php } ?>
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js--><?php //echo $css_version;?><!--"></script>-->
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
 <div class="se-pre-con"></div>
 <?php if(Website::getWebsiteConfig()->getValue('ouibounce_isActive')){?>
     <?php if($_REQUEST['subtopic'] != "accountmanagement" && $_REQUEST['action'] != "donate"){?>
+    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
     <script>
         var modal = document.getElementById('ouibounce-modal');
         var bounce = ouibounce($("#ouibounce-modal")[0],
@@ -564,16 +584,5 @@ if(!defined('INITIALIZED'))
     <!-- float facebook like box start -->
     <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="<?=$config['social']['facebook']?>" async></script>
     <!-- float facebook like box end -->
-    <script type="text/javascript">
-        tinymce.init({
-            selector: "textarea",  // change this value according to your HTML
-            plugins : "autolink link image lists preview",
-            a_plugin_option: true,
-            skin: 'lightgray',
-            themes: "modern",
-            language: "pt_BR",
-            a_configuration_option: 400
-        });
-    </script>
 </body>
 </html>

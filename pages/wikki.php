@@ -212,7 +212,7 @@ function editWikkiAll() {
         url:'./?subtopic=adminpanel&action=manage_wikki',
         type:'POST',
         data: {
-            type:2,
+            type:" . ($cat_content['is_subcat'] ? '4' : '2') . ",
             id:" . $cat_content['id'] . ",
             name:$('.wikki-header-editable').html(),
             desc:$('.wikki-description-editable').html(),
@@ -260,10 +260,13 @@ var wikkiTitleEdit = {
         tinymce.triggerSave();
         editWikkiAll();
       });
-      ed.on('KeyUp', function(e) {
+      " . ($cat_content['is_subcat'] ? '' : '
+        ed.on("KeyUp", function(e) {
           console.log(e);
-        $('.is_title').html($('.wikki-header-editable').html());
+        $(".is_title").html($(".wikki-header-editable").html());
       });
+      
+      ') . "
     }
   };
 
