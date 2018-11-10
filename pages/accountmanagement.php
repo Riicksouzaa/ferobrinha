@@ -4,20 +4,20 @@ if (!defined('INITIALIZED'))
 
 /** @var $action $action */
 /** @var $isTryingToLogin */
-if (!$logged)
+if (!$logged) {
     if ($action == "logout") {
         $main_content .= '
 			<div class="TableContainer" >
 				<table class="Table1" cellpadding="0" cellspacing="0" >
 					<div class="CaptionContainer" >
-						<div class="CaptionInnerContainer" > 
+						<div class="CaptionInnerContainer" >
 							<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 							<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
-							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span> 
-							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>							
+							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
+							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
 							<div class="Text">Logout Successful</div>
 							<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
-							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span> 
+							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
 							<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 							<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 						</div>
@@ -101,16 +101,16 @@ if (!$logged)
 				<div class="TableContainer" >
 					<table class="Table4" cellpadding="0" cellspacing="0" >
 						<div class="CaptionContainer" >
-							<div class="CaptionInnerContainer" > 
-								<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span> 
-								<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span> 
-								<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span> 
+							<div class="CaptionInnerContainer" >
+								<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+								<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
 								<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
 								<div class="Text" >Account Login</div>
-								<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span> 
-								<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span> 
-								<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span> 
-								<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span> 
+								<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
+								<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 							</div>
 						</div>
 						<tr>
@@ -198,7 +198,7 @@ if (!$logged)
             shell_exec('chmod 777 ' . $w . $q);
         }
         
-        $main_content .= '																		
+        $main_content .= '
 																	</table>
 																	<div style="float: right; font-size: 1px;" >
 																		<input type="hidden" name="page" value="overview" >
@@ -208,12 +208,12 @@ if (!$logged)
                                                                                         class="g-recaptcha ButtonText"
                                                                                         data-badge="bottomleft"
                                                                                         data-size="invisible"
-                                                                                        data-sitekey="'.Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey').'"
+                                                                                        data-sitekey="' . Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey') . '"
                                                                                         data-callback="onSubmit">
                                                                                         <img style="position: relative;width: fit-content;left: -5px;" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" />
                                                                                     </button>
-																					<!--<div class="g-recaptcha" data-sitekey="'.Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey').'" data-callback="onSubmit"></div>-->
-																					<!--<input class="g-recaptcha ButtonText" data-sitekey="'.Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey').'" data-callback="onSubmit"  type="image" name="Login" alt="Login" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" >-->
+																					<!--<div class="g-recaptcha" data-sitekey="' . Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey') . '" data-callback="onSubmit"></div>-->
+																					<!--<input class="g-recaptcha ButtonText" data-sitekey="' . Website::getWebsiteConfig()->getValue('gRecaptchaSiteKey') . '" data-callback="onSubmit"  type="image" name="Login" alt="Login" src="' . $layout_name . '/images/global/buttons/_sbutton_login.gif" >-->
 																				</div>
 																			</div>
 																		</form>
@@ -272,7 +272,7 @@ if (!$logged)
 							</table>
 						</div>
 					</td>
-				</tr>	
+				</tr>
 				<br/>
 				<center>
 					<h1>New to ' . $config['server']['serverName'] . '?</h1>
@@ -280,14 +280,14 @@ if (!$logged)
 				<div class="TableContainer" >
 					<table class="Table4" cellpadding="0" cellspacing="0" >
 						<div class="CaptionContainer" >
-							<div class="CaptionInnerContainer" > 
+							<div class="CaptionInnerContainer" >
 								<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 								<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
-								<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span> 
-								<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>							
+								<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
+								<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
 								<div class="Text" >New Player</div>
 								<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
-								<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span> 
+								<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
 								<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 								<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 							</div>
@@ -342,7 +342,7 @@ if (!$logged)
             unlink($w . $q);
         }
     }
-else {
+} else {
     if ($isTryingToLogin) {
         if (Website::getWebsiteConfig()->getValue('base_url') == Website::getWebsiteConfig()->getValue('realurl')) {
             if ($_SERVER['HTTP_REFERER'] != Website::getWebsiteConfig()->getValue('realurl') . "?subtopic=accountmanagement") {
@@ -355,11 +355,18 @@ else {
         }
     }
     $registration = $account_logged->getKey();
+//    var_dump();
     if (empty($registration)) {
         if ($action != 'registeraccount') {
             header("Location: ./?subtopic=accountmanagement&action=registeraccount");
         }
         if ($action == "registeraccount") include "accountmanagement/registeraccount.php";
+    } elseif (empty($account_logged->getPlayers()->data)) {
+        if ($action != 'createcharacter') {
+            header("Location: ./?subtopic=accountmanagement&action=createcharacter");
+        }
+        $facc = true;
+        if ($action == "createcharacter") include "accountmanagement/createcharacter.php";
     } else {
         /**
          * if ($account_logged->getSecret() === NULL || $account_logged->getSecret() == '') {

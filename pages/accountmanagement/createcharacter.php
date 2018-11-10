@@ -37,6 +37,20 @@ $main_content .= '
                             }
                 </script>
                 ';
+if($facc){
+    $main_content.='
+    <script>
+        iziToast.show({
+            title: "Bem vindo ao '.$config['server']['serverName'].'",
+            message: "Hora de cadastrar seu primeiro personagem.",
+            position:"topRight",
+            onClosing: function(){
+                $("#newcharname").focus();
+            }
+        });
+    </script>
+    ';
+}
 $newchar_name = ucwords(strtolower(trim($_POST['newcharname'])));
 $newchar_sex = $_POST['newcharsex'];
 $newchar_vocation = $_POST['newcharvocation'];
