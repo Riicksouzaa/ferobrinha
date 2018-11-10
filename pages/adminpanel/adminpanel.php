@@ -181,6 +181,8 @@ $main_content .= '
 					</table>
 				</div><br>';
 include 'ticketspanel.php';
+$main_content.='<br>';
+include 'wikki.php';
 $main_content .= '
 				<br>
 				<div class="TableContainer">

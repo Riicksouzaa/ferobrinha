@@ -80,8 +80,8 @@ $insere_nova_sub_category = function ($cat_id, $name, $desc, $txt) use ($SQL) {
                                                VALUES (:i, :n, :d, :t);");
             $query->execute(['i' => $cat_id, 'n' => $name, 'd' => $desc, 't' => $txt]);
             $data = getStatus(FALSE, "inserido com sucesso.");
-            $query = $SQL->query("SELECT a.id_atr_wikki_subcategory FROM atr_wikki_subcategory a order by a.id_atr_wikki_subcategory desc;")->fetch();
-            $data['id'] = $query['id_atr_wikki_category'];
+            $query = $SQL->query("SELECT a.id_atr_wikki_subcategory FROM atr_wikki_subcategory a WHERE id_atr_wikki_category = {$cat_id} order by a.id_atr_wikki_subcategory desc;")->fetch();
+            $data['id'] = $query['id_atr_wikki_subcategory'];
             return json_encode($data);
         } else {
             $data = getStatus(TRUE, "É Necessário que a descrição tenha 3 ou mais caracteres.");
@@ -156,6 +156,7 @@ if ($_POST) {
     
     $main_content .= $make_double_archs("Wikki Painel");
     $step = $_REQUEST['step'];
+    $voltar .= '<a style="color: white; margin-right: 5px;" href="?subtopic=adminpanel">Voltar</a>';
     switch ($step) {
         case 'edit':
             if ($_REQUEST['id']) {
@@ -271,7 +272,6 @@ if ($_POST) {
             
             
             $main_content .= '<div class="TableContainer">';
-            $voltar .= '<a style="color: white; margin-right: 5px;" href="?subtopic=adminpanel&action=manage_wikki">Voltar</a>';
             $main_content .= $make_content_header("ADD NEW CATEGORY", $voltar);
             $main_content .= $make_table_header('Table3', '', TRUE);
             $main_content .= '
@@ -347,18 +347,114 @@ $("#wikki_cat_insert").submit(function () {
             $main_content .= $make_table_footer();
             $main_content .= '</div>';
             break;
+        case 'subAdd':
+            $main_content .= '<div class="TableContainer">';
+//            $voltar .= '<a style="color: white; margin-right: 5px;" href="?subtopic=adminpanel&action=manage_wikki">Voltar</a>';
+            $main_content .= $make_content_header("ADD NEW SUB CATEGORY", $voltar);
+            $main_content .= $make_table_header('Table3', '', TRUE);
+            $main_content .= '
+<form action="./?subtopic=adminpanel&action=manage_wikki" id="wikki_subcat_insert" method="post">
+    <input type="hidden" value="3" name="type">
+    <tr>
+        <td>Categoria:</td>
+        <td>
+        <select name="cat_id" id="cat_id" style="width: 100%">
+    ';
+            $query = 'SELECT * FROM atr_wikki_category';
+            $q = $SQL->prepare($query);
+            $q->execute([]);
+            $q = $q->fetchAll();
+            foreach ($q as $key => $value) {
+                $main_content .= '<option value="' . $value['id_atr_wikki_category'] . '">' . $value['nome'] . '</option>';
+            }
+            
+            $main_content .= '
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Nome:</td>
+        <td><input style="width: 100%" type="text" name="name" id="form-name" placeholder="Insira o nome" autofocus></td>
+    </tr>
+    <tr>
+        <td>Descrição:</td>
+        <td><input style="width: 100%" type="text" name="desc" id="form-desc" placeholder="Insira uma descrição"></td>
+    </tr>
+    <tr>
+        <td>Text:</td>
+        <td>
+            <textarea rows=20 cols=55 id="form-txt" name="txt">
+            
+            </textarea>
+        </td>
+    </tr>
+    <tr><td colspan="2" style="text-align: center"><button type="submit">Inserir Subcategoria</button></td></tr>
+</form>
+';
+            $main_content .= '
+<script>
+$("#wikki_subcat_insert").submit(function () {
+  tinyMCE.triggerSave();
+  var form = $(this);
+  var data = form.serialize();
+  var q = form.serializeArray();
+  var url = form.attr("action");
+  var type = form.attr("method");
+  console.log(form, data);
+  $.ajax({
+    url: url,
+    data: data,
+    type: type,
+    dataType: "json",
+    beforeSend: function () {
+      iziToast.error({
+        title: "...:",
+        message: "LOADING...",
+        position: "topRight", // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+        timeout: 2500
+      });
+    },
+    success: function (response) {
+      if (response.error === true) {
+        iziToast.error({
+          title: "ERROR:",
+          message: response.msg,
+          position: "topRight", // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+          timeout: 2500
+        });
+      } else {
+        $(".se-pre-con").fadeOut("slow");
+        iziToast.success({
+          title: "Success:",
+          message: response.msg,
+          position: "topRight",
+          timeout: 2500,
+          onClosing: function (instance, toast, closedBy) {
+              window.location.replace("./?subtopic=wikki&cat=" + q[1]["value"] + "&sub=" + response.id);
+          }
+        });
+      }
+    }
+  });
+  return false;
+});
+</script>
+            ';
+            $main_content .= $make_table_footer();
+            $main_content .= '</div>';
+            break;
         default:
             $main_content .= '
                     <div style="text-align: center">
                         <a href="./?subtopic=adminpanel&action=manage_wikki&step=add">
-                            <div style="text-align: center; padding: 30px; border: grey solid 3px">ADD</div> <br>
+                            <div style="text-align: center; padding: 30px; border: grey solid 3px">Adicionar nova wikki</div> <br>
                         </a>
                     </div>
                     ';
             $main_content .= '
                     <div style="text-align: center">
-                        <a href="./?subtopic=adminpanel&action=manage_wikki&step=edit">
-                            <div style="text-align: center; padding: 30px; border: grey solid 3px">EDITAR</div> <br>
+                        <a href="./?subtopic=adminpanel&action=manage_wikki&step=subAdd">
+                            <div style="text-align: center; padding: 30px; border: grey solid 3px">Adicionar nova Subcategoria</div> <br>
                         </a>
                     </div>
                     ';
