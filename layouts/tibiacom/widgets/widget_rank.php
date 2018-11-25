@@ -8,8 +8,10 @@
             echo $qtd; ?> Experience</h3>
         <?php
         $a = 1;
+        $group_inactive = Website::getWebsiteConfig()->getValue('top_lvl_group_inactive');
+        $acc_inactive = Website::getWebsiteConfig()->getValue('top_lvl_acc_inactive');
         //    $queryOnline = $SQL->query('SELECT * , p.level FROM player_storage a INNER JOIN  players p ON  a.player_id = p.id WHERE a.key = 48506 AND a.value >= 0 ORDER BY a.value DESC, p.level DESC LIMIT 5');
-        $queryOnline = $SQL->query('SELECT * from players p where p.group_id not in (5,6,7) and p.account_id != 1 order by p.level DESC, p.experience DESC LIMIT ' . $qtd);
+        $queryOnline = $SQL->query('SELECT * from players p where p.group_id not in ('.$group_inactive.') and p.account_id not in ('.$acc_inactive.') order by p.level DESC, p.experience DESC LIMIT ' . $qtd);
         foreach ($queryOnline as $results) {
             $player = new Player();
             $player->loadById($results['id']);
@@ -27,7 +29,7 @@
                         position: absolute;
                         left: -36px;
                         margin-top: -20px;
-                        background: url(https://outfits.ferobraglobal.com/' . 'outfit' . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . ') no-repeat 0 0;
+                        background: url(https://outfits.ferobraglobal.com/' . $out_anim . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . ') no-repeat 0 0;
                     }
 
                     .topleveltext:hover > .outfitImgtoplevel'.$player->getID().' {

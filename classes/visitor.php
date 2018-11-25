@@ -71,43 +71,45 @@ class Visitor
         if (self::$loginState != self::LOGINSTATE_LOGGED) {
             self::$account = new Account();
         }
-        if ($_SESSION['recaptcha'] && $_SESSION['recaptcha'] == TRUE) {
-            try {
-                $tfa = new TwoFactorAuth();
-            } catch (\RobThree\Auth\TwoFactorAuthException $e) {
-                die($e->getMessage());
-            }
-            if (!empty(self::$loginAccount)) {
-                self::$account->loadByName(self::$loginAccount);
-                if (self::$account->isLoaded()) {
-                    if (self::$account->isValidPassword(self::$loginPassword)) {
-                        if (self::$account->getSecretStatus() == '1') {
-                            if (isset($_SESSION['SecretCode'])) {
-                                self::$loginState = self::LOGINSTATE_LOGGED;
-                                $_SESSION['logado'] = TRUE;
-                            } else {
-                                if ($tfa->verifyCode(self::$account->getSecret(), (self::$loginSecretCode !== NULL ? self::$loginSecretCode : "0"))) {
+        if(isset($_SESSION['recaptcha'])){
+            if ($_SESSION['recaptcha'] && $_SESSION['recaptcha'] == TRUE) {
+                try {
+                    $tfa = new TwoFactorAuth();
+                } catch (\RobThree\Auth\TwoFactorAuthException $e) {
+                    die($e->getMessage());
+                }
+                if (!empty(self::$loginAccount)) {
+                    self::$account->loadByName(self::$loginAccount);
+                    if (self::$account->isLoaded()) {
+                        if (self::$account->isValidPassword(self::$loginPassword)) {
+                            if (self::$account->getSecretStatus() == '1') {
+                                if (isset($_SESSION['SecretCode'])) {
                                     self::$loginState = self::LOGINSTATE_LOGGED;
                                     $_SESSION['logado'] = TRUE;
                                 } else {
-                                    self::$loginState = self::LOGINSTATE_WRONG_SECRETCODE;
+                                    if ($tfa->verifyCode(self::$account->getSecret(), (self::$loginSecretCode !== NULL ? self::$loginSecretCode : "0"))) {
+                                        self::$loginState = self::LOGINSTATE_LOGGED;
+                                        $_SESSION['logado'] = TRUE;
+                                    } else {
+                                        self::$loginState = self::LOGINSTATE_WRONG_SECRETCODE;
+                                    }
                                 }
+                            } else {
+                                self::$loginState = self::LOGINSTATE_LOGGED;
+                                $_SESSION['logado'] = TRUE;
                             }
                         } else {
-                            self::$loginState = self::LOGINSTATE_LOGGED;
-                            $_SESSION['logado'] = TRUE;
+                            self::$loginState = self::LOGINSTATE_WRONG_PASSWORD;
                         }
                     } else {
-                        self::$loginState = self::LOGINSTATE_WRONG_PASSWORD;
+                        self::$loginState = self::LOGINSTATE_NO_ACCOUNT;
                     }
                 } else {
-                    self::$loginState = self::LOGINSTATE_NO_ACCOUNT;
+                    self::$loginState = self::LOGINSTATE_NOT_TRIED;
                 }
             } else {
-                self::$loginState = self::LOGINSTATE_NOT_TRIED;
+                self::$loginState = self::LOGINSTATE_WRONG_RECAPTCHA;
             }
-        } else {
-            self::$loginState = self::LOGINSTATE_WRONG_RECAPTCHA;
         }
         if (self::$loginState !== self::LOGINSTATE_LOGGED) {
             self::$account = new Account();

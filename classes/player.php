@@ -80,6 +80,38 @@ class Player extends ObjectData
         return $this->data['id'];
     }
     
+    public function getPlayerQuestStatusByQuestName ($name)
+    {
+        $quest = new Quests();
+        $pq = $quest->getQuestByName($name);
+        $this->loadStorages();
+        $storage = $this->getStorage($pq['startstorageid']);
+        return $pq;
+    }
+    
+    public function loadStorages ()
+    {
+        $this->storages = array();
+        // load all
+        $storages = $this->getDatabaseHandler()->query('SELECT ' . $this->getDatabaseHandler()->fieldName('player_id') . ', ' . $this->getDatabaseHandler()->fieldName('key') .
+            ', ' . $this->getDatabaseHandler()->fieldName('value') . ' FROM ' . $this->getDatabaseHandler()->tableName('player_storage') .
+            ' WHERE ' . $this->getDatabaseHandler()->fieldName('player_id') . ' = ' . $this->getDatabaseHandler()->quote($this->data['id']))->fetchAll();
+        foreach ($storages as $storage) {
+            $this->storages[$storage['key']] = $storage['value'];
+        }
+    }
+    
+    public function getStorage ($key)
+    {
+        if (!isset($this->storages)) {
+            $this->loadStorages();
+        }
+        if (isset($this->storages[$key]))
+            return $this->storages[$key];
+        else
+            return NULL;
+    }
+    
     public function getItems ($forceReload = FALSE)
     {
         if (!isset($this->items) || $forceReload)
@@ -139,29 +171,6 @@ class Player extends ObjectData
     public function getLookMount ()
     {
         return $this->getStorage("10002011");
-    }
-    
-    public function getStorage ($key)
-    {
-        if (!isset($this->storages)) {
-            $this->loadStorages();
-        }
-        if (isset($this->storages[$key]))
-            return $this->storages[$key];
-        else
-            return NULL;
-    }
-    
-    public function loadStorages ()
-    {
-        $this->storages = array();
-        // load all
-        $storages = $this->getDatabaseHandler()->query('SELECT ' . $this->getDatabaseHandler()->fieldName('player_id') . ', ' . $this->getDatabaseHandler()->fieldName('key') .
-            ', ' . $this->getDatabaseHandler()->fieldName('value') . ' FROM ' . $this->getDatabaseHandler()->tableName('player_storage') .
-            ' WHERE ' . $this->getDatabaseHandler()->fieldName('player_id') . ' = ' . $this->getDatabaseHandler()->quote($this->data['id']))->fetchAll();
-        foreach ($storages as $storage) {
-            $this->storages[$storage['key']] = $storage['value'];
-        }
     }
     
     public function getName ()
@@ -307,7 +316,7 @@ class Player extends ObjectData
     /*
      * default tfs 0.3.6 fields
     */
-
+    
     public function unban ()
     {
         $this->getAccount()->unban();
@@ -332,11 +341,6 @@ class Player extends ObjectData
         $this->setAccountID($account->getID());
     }
     
-    public function setAccountID ($value)
-    {
-        $this->data['account_id'] = $value;
-    }
-    
     public function loadAccount ()
     {
         $this->account = new Account($this->getAccountID());
@@ -345,6 +349,11 @@ class Player extends ObjectData
     public function getAccountID ()
     {
         return $this->data['account_id'];
+    }
+    
+    public function setAccountID ($value)
+    {
+        $this->data['account_id'] = $value;
     }
     
     public function isBanned ()
@@ -758,7 +767,7 @@ class Player extends ObjectData
      * hide_char , INT, default 0
      * comment , TEXT, default ''
     */
-
+    
     public function setGroupID ($value)
     {
         $this->data['group_id'] = $value;
@@ -812,7 +821,7 @@ class Player extends ObjectData
     /*
      * for compability with old scripts
     */
-
+    
     public function getCapacity ()
     {
         return $this->data['cap'];
