@@ -152,16 +152,17 @@ if (!empty($name)) {
         //Plus Account Information
         include_once "system/load.newclasses.php";
         $verifica_item_id = function ($pid) use ($player) {
-            if ($player->getItems()->getItem($pid)[array_keys($player->getItems()->getItem($pid))[0]]->data['itemtype'] == NULL) {
+            $kalabok = (array_keys($player->getItems()->getItem($pid)) === []?'':array_keys($player->getItems()->getItem($pid))[0]);
+            if ($player->getItems()->getItem($pid)[$kalabok]->data['itemtype'] == NULL) {
                 return '<td style="background-color: #d4c0a1; text-align: center;"><img src="./layouts/tibiacom/images/shop/items/' . $pid . '.gif" class="CharItems"></td>';
             } else {
-                $item_id = $player->getItems()->getItem($pid)[array_keys($player->getItems()->getItem($pid))[0]]->data['itemtype'];
+                $item_id = $player->getItems()->getItem($pid)[$kalabok]->data['itemtype'];
                 return '<td align="center" style="background-color: #D4C0A1;"><img src="./layouts/tibiacom/images/shop/items/' . $item_id . '.png" class="CharItems"></td>';
             }
         };
         $player_info = $player->data;
         $mount_id = $player->getStorage('10002011');
-        $cur_outfit .= "<img style='text-decoration:none;margin: 0 0 0 -13px;' class='outfitImgsell2' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''>";
+        $cur_outfit = "<img style='text-decoration:none;margin: 0 0 0 -13px;' class='outfitImgsell2' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''>";
         
         $cur_exp = $player->getExperience();
         $cur_lvl_exp = $player->getExpForLevel($player->getLevel());
@@ -172,7 +173,7 @@ if (!empty($name)) {
         $next_lvl_percent = (float)round(((($cur_real_exp / $next_lvl_exp_need) * 100)), 2, PHP_ROUND_HALF_DOWN);
         $next_lvl_percent = ($next_lvl_percent == 100 ? 99.99 : $next_lvl_percent);
         
-        $plus_content .= '<div class="account_plus_information">';
+        $plus_content = '<div class="account_plus_information">';
         $plus_content .= '
             <div class="TableContentAndRightShadow1" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-rm.gif);">
                 <div class="TableContainer1">

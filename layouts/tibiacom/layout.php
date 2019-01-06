@@ -372,8 +372,8 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                                                     <a class="InfoBarBlock" href="./?subtopic=castsystem">
                                                         <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-cast.png">
                                                         <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-streamers.png">
-                                                            <span class="InfoBarSmallElement"><?= $playersCast['players_cast'] == null ? 0 : $playersCast['players_cast']  ?></span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
-                                                            <span class="InfoBarSmallElement"><?= $playersCast['spectators'] == 0 ? 0 : $playersCast['spectators'] ?></span>
+                                                            <span class="InfoBarSmallElement"><?= (isset($playersCast['players_cast']) == null ? 0 : $playersCast['players_cast'])  ?></span><img class="InfoBarSmallElement" src="layouts/tibiacom/images/global/header/info/icon-viewers.png">
+                                                            <span class="InfoBarSmallElement"><?= (isset($playersCast['spectators']) == 0 ? 0 : $playersCast['spectators']) ?></span>
                                                         </span>
                                                     </a>
                                                 <?php }?>

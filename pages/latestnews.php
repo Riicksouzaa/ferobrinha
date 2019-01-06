@@ -23,7 +23,7 @@ if (is_object($tickers)) {
         else
             $color = "Even";
         
-        $tickers_to_add .= '
+        $tickers_to_add = '
 							<div id="TickerEntry-' . $number_of_tickers . '" class="Row" onclick=\'TickerAction("TickerEntry-' . $number_of_tickers . '")\'>
 								<div class="' . $color . '">
 									<div class="NewsTickerIcon" style="background-image:url(' . $layout_name . '/images/global/content/' . $ticker['icon'] . '_small.gif)"></div>
@@ -37,6 +37,23 @@ if (is_object($tickers)) {
 							</div>';
         $number_of_tickers++;
     }
+}else{
+    if (is_int($number_of_tickers / 2))
+        $color = "Odd";
+    else
+        $color = "Even";
+    $tickers_to_add = '
+							<div id="TickerEntry-0" class="Row" onclick=\'TickerAction("TickerEntry-0")\'>
+								<div class="' . $color . '">
+									<div class="NewsTickerIcon" style="background-image:url(' . $layout_name . '/images/global/content/newsicon_technical_small.gif)"></div>
+									<div id="TickerEntry-0-Button" class="NewsTickerExtend" style="background-image:url(' . $layout_name . '/images/global/general/plus.gif)"></div>
+									<div class="NewsTickerText">
+										<span class="NewsTickerDate">' . date("M j Y") . ' - </span>
+										<div id="TickerEntry-0-ShortText" class="NewsTickerShortText">' . short_text('Ainda não foi cadastrado nenhum ticker', 100) . '</div>
+										<div id="TickerEntry-0-FullText" class="NewsTickerFullText">Ainda não foi cadastrado nenhum ticker</div>
+									</div>
+								</div>
+							</div>';
 }
 $news_content .= $tickers_to_add;
 

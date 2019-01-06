@@ -31,7 +31,7 @@ class New_items extends ObjectData
             $id = [];
             foreach ($items as $key => $item) {
                 $ittem = $item['@attributes'];
-                $attr = $item['attribute'];
+                $attr = isset($item['attribute']);
                 if (is_array($attr)) {
                     if (count($attr) == 1) {
                         $attr[0] = $item['attribute']['@attributes'];
@@ -44,8 +44,8 @@ class New_items extends ObjectData
                     }
                 }
                 $ittem['attr'] = $attr;
-                $id[$ittem['id']] = $ittem;
-                if ($ittem['id'] == NULL && isset($ittem['fromid'])) {
+                $id[isset($ittem['id'])] = $ittem;
+                if (isset($ittem['id']) == NULL && isset($ittem['fromid'])) {
                     for ($ittem['fromid']; $ittem['fromid'] < $ittem['toid']; $ittem['fromid']++) {
                         $ittem['id'] = $ittem['fromid'];
                         $id[$ittem['fromid']] = $ittem;

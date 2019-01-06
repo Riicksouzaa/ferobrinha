@@ -1,4 +1,5 @@
 <?php
+
 // comment to show E_NOTICE [undefinied variable etc.], comment if you want make script and see all errors
 error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
 
@@ -111,7 +112,7 @@ $now = $date->format('[d-m-Y H:i:s] ');
     foreach ($_REQUEST as $key => $value) {
         fwrite($handle, $key . "=>" . $value . ";");
     }
-    fwrite($handle, $_SERVER['REMOTE_ADDR'].";".$_SERVER['HTTP_REFERER']);
+    fwrite($handle, $_SERVER['REMOTE_ADDR'].";".(isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'inexistente'));
     fwrite($handle, "\r\n<br/>");
 fclose($handle);
 // with ONLY_PAGE we return only page text, not layout

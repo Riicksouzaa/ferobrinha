@@ -9,6 +9,9 @@
                         break;
                     }
                 }
+                if(!isset($guildId)){
+                    $guildId = NULL;
+                }
                 
                 $guild = new Guild();
                 $guild->loadById($guildId);

@@ -19,7 +19,7 @@ if (!isset($_SESSION['landpage']) && !isset($_SESSION['landtime']) && $subtopic 
     header("Location: " . $config['base_url'] . "?faccess=landing");
 }
 
-if ($_REQUEST['faccess'] == "landing") {
+if (isset($_REQUEST['faccess']) && $_REQUEST['faccess'] == "landing") {
     include "load.landpage.php";
 } else {
     $layout_header = '<script type="text/javascript\">
