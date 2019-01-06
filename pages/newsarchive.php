@@ -11,6 +11,7 @@ if ($action == "") {
 			<td class="white" width="70%"><b>Title</b></td>
 			<td class="white"><b>Date</b></td>
 		</tr>';
+        $number_of_rows = $news_DB->rowCount();
         foreach ($news_DB as $news) {
             if (is_int($number_of_rows / 2)) {
                 $bgcolor = $config['site']['darkborder'];

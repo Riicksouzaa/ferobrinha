@@ -4,12 +4,14 @@ if(!defined('INITIALIZED'))
 if(empty($orderby)) {
     $orderby = 'spectators';
 }
+$idd = (int) isset($_GET['world']);
 
-if($idd == (int) $_GET['world'])
+if($idd)
 {
     $world_id = $idd;
-    $world_name = $world_n;
+//    $world_name = $world_name;
 }
+
 if(!isset($world_id))
 {
     $world_id = 0;
@@ -58,7 +60,7 @@ foreach($players_online_data as $player)
     //  Se algum algum caracteres com tamanho diferente, é necessario fazer uma correção
     $outfitMember = $playerobj['looktype'] == 302 || $playerobj['looktype'] == 301 || $playerobj['looktype'] == 75 ? '': 'position:absolute;';
 
-    $players_rows .= '
+    $players_rows = '
     <TR BGCOLOR='.$bgcolor.'>
 		<TD height="40px" style="position:relative;"><span style="display:block; '. $outfitMember .' top:-30px; left:-20px;"><img src="https://outfits.ferobraglobal.com/animoutfit.php?id='.$playerobj['looktype'].'&addons='.$playerobj['lookaddons'].'&head='.$playerobj['lookhead'].'&body='.$playerobj['lookbody'].'&legs='.$playerobj['looklegs'].'&feet='.$playerobj['lookfeet'].'"> </span><br/></TD>
         <TD WIDTH=90%><img src="'.$imagem.'"> <A HREF="index.php?subtopic=characters&name='.urlencode($player['cast_name']).'">'.$player['cast_name'].'</A><br><small>Info: '.$playerobj['level'].' - '.$tu.'</small><br/></TD>
@@ -201,7 +203,7 @@ foreach($players_online_data as $player)
             <TD class="LabelV">Name</TD>
             <TD class="LabelV">Spectators</TD>
         </TR>
-    '.$players_rows.'</TABLE>
+    '.isset($players_rows).'</TABLE>
 			</div>
 			</tr>
 			</td>
