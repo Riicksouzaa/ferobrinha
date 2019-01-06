@@ -584,5 +584,30 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     <!-- float facebook like box start -->
     <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="<?=$config['social']['facebook']?>" async></script>
     <!-- float facebook like box end -->
+    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
+    <script>
+        var ad = document.createElement('div');
+        ad.innerHTML = '&nbsp;';
+        ad.className = 'adsbox';
+        document.body.appendChild(ad);
+        if(ad.offsetHeight === 0){
+            var adblock = ouibounce(false,{
+                cookieName: 'UsingAdBlock',
+                callback: function () {
+                    iziToast.show({
+                        title: "OPSSS!",
+                        message: "Opa, verifiquei aqui que você está utilizando <b>adblock</b>. Considere desativar o mesmo pois assim estará nos ajudando a trazer mais conteúdo de qualidade para comunidade tibiana.",
+                        timeout: 0,
+                        position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+                    });
+                }
+            });
+            adblock.fire();
+            adblock.disable({cookieExpire: 1})
+        }
+        ad.remove();
+    </script>
+   
+
 </body>
 </html>

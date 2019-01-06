@@ -62,6 +62,7 @@ if (!isset($_REQUEST['passwordchanged']) && $_REQUEST['passwordchanged'] != "don
         } else {
             $account_logged->setPassword($_POST['newpassword']);
             $account_logged->save();
+            Visitor::setPassword($_POST['newpassword']);
             header("Location: ?subtopic=accountmanagement&action=passowordchanged");
         }
     }
@@ -144,7 +145,7 @@ if (!isset($_REQUEST['passwordchanged']) && $_REQUEST['passwordchanged'] != "don
 			</tr>
 		</table>';
 } else{
-    Visitor::logout();
+    
     $main_content .= '
 				<div class="TableContainer" >
 					<table class="Table1" cellpadding="0" cellspacing="0" >
