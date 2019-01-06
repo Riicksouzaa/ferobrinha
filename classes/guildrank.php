@@ -100,6 +100,7 @@ class GuildRank extends ObjectData
         return $this->guild;
     }
     
+    /** @param $guild Guild */
     public function setGuild ($guild)
     {
         $this->guild = $guild;

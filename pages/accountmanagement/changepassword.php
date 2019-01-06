@@ -143,7 +143,8 @@ if (!isset($_REQUEST['passwordchanged']) && $_REQUEST['passwordchanged'] != "don
 				</td>
 			</tr>
 		</table>';
-} else
+} else{
+    Visitor::logout();
     $main_content .= '
 				<div class="TableContainer" >
 					<table class="Table1" cellpadding="0" cellspacing="0" >
@@ -187,3 +188,4 @@ if (!isset($_REQUEST['passwordchanged']) && $_REQUEST['passwordchanged'] != "don
 						</form>
 					</table>
 				</center>';
+}
