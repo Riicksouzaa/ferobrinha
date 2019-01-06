@@ -1,7 +1,8 @@
 <?php if (Website::getWebsiteConfig()->getValue('widget_rank')) { ?>
     <!-- TOP LEVEL -->
     <div id="TopLvl">
-        <!--<p class="rank_pbot_copyright"><a href="http://pbotwars.com.br/">design by pbot</a></p>-->
+<!--        <p class="rank_pbot_copyright"><a href="http://pbotwars.com.br/">design by pbot</a></p>-->
+        <p class="see_more_top_rank"><a href="./?subtopic=highscores">Ver todos</a></p>
         <p class="rank_copyright"><a href="https://codenome.com">WE ARE<br>Code nome</a></p>
         <h3 class="TopLvl_title">Top <?php $qtd = Website::getWebsiteConfig()->getValue('top_lvl_qtd');
             $qtd = ($qtd < 1 ? 1 : $qtd > 5 ? 5 : $qtd);
@@ -52,7 +53,7 @@
                     <br/>
                     &nbsp;&nbsp;&nbsp;<?= $player->getVocationName(); ?>
                 </small>
-                </a>
+                
                 <?php if ($a == 1) { ?>
                     <div><span class="firstlevel"><span id="firstlevel"></span></span></div>
                     <div class="rankinglevel">
@@ -85,6 +86,7 @@
                 $a++;
             }
             ?>
+            </a>
             </div>
             <?php
         } ?>

@@ -126,7 +126,6 @@
   padding: 0 0 40px 40px;
 }
 
-
 .rankinglevel span {
   float: left;
   display: block;
@@ -142,7 +141,7 @@
   background-position-x: -23px;
   top: 0;
   left: 58px;
-  z-index: 1
+  z-index: 3
 }
 
 .rankinglevel span.secondlevel {
@@ -152,7 +151,7 @@
   background-position-x: -4px;
   top: 0;
   left: 58px;
-  z-index: 1
+  z-index: 2
 }
 
 .rankinglevel span.thirdlevel {
@@ -166,7 +165,7 @@
 }
 
 .rankinglevel #firstlevel_nomount {
-  z-index: 100;
+  z-index: 103;
   background: transparent url(../images/themeboxes/t_yellow.png) no-repeat;
   background-size: 111%;
   position: absolute;
@@ -178,7 +177,7 @@
 }
 
 .rankinglevel #seccondlevel_nomount {
-  z-index: 100;
+  z-index: 102;
   background: transparent url(../images/themeboxes/t_red.png) no-repeat;
   background-size: 111%;
   position: absolute;
@@ -190,7 +189,7 @@
 }
 
 .rankinglevel #thirdlevel_nomount {
-  z-index: 100;
+  z-index: 101;
   background: transparent url(../images/themeboxes/t_blue.png) no-repeat;
   background-size: 111%;
   position: absolute;
@@ -202,7 +201,7 @@
 }
 
 .rankinglevel #firstlevel_mount {
-  z-index: 100;
+  z-index: 103;
   background: transparent url(../images/themeboxes/t_yellow.png) no-repeat;
   background-size: 100%;
   position: absolute;
@@ -214,7 +213,7 @@
 }
 
 .rankinglevel #seccondlevel_mount {
-  z-index: 100;
+  z-index: 102;
   background: transparent url(../images/themeboxes/t_red.png) no-repeat;
   background-size: 100%;
   position: absolute;
@@ -226,7 +225,7 @@
 }
 
 .rankinglevel #thirdlevel_mount {
-  z-index: 100;
+  z-index: 101;
   background: transparent url(../images/themeboxes/t_blue.png) no-repeat;
   background-size: 100%;
   position: absolute;
@@ -235,6 +234,23 @@
   transform: rotate(-19deg);
   top: -49px;
   left: -65px;
+}
+
+.see_more_top_rank {
+  z-index: 160;
+  width: 100%;
+  text-transform: uppercase;
+  font-family: Roboto, Sans-serif, serif;
+  font-size: .8em;
+  position: absolute;
+  bottom: 65px;
+  text-align: center;
+}
+
+.see_more_top_rank a {
+  color: #fff !important;
+  font-family: Roboto, Sans-serif, serif;
+  text-decoration: none;
 }
 
 .rank_copyright {

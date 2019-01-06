@@ -17,6 +17,7 @@ class Guild extends ObjectData
     public $data = array('name' => NULL, 'ownerid' => NULL, 'creationdata' => NULL, 'motd' => NULL, 'description' => NULL, 'create_ip' => NULL, 'guild_logo' => NULL);
     public $invitedPlayers;
     public $ranks;
+    /** @var Player $owner */
     public $owner;
     
     public function __construct ($search_text = NULL, $search_by = self::LOADTYPE_ID)
@@ -155,6 +156,7 @@ class Guild extends ObjectData
         return $this->owner;
     }
     
+    /** @param Player $owner */
     public function setOwner ($owner)
     {
         $this->owner = $owner;
@@ -262,6 +264,7 @@ class Guild extends ObjectData
         return $this->getInvitations();
     }
     
+    /** @param Player $player */
     public function invite ($player)
     {
         $this->addInvitation($player->getID());
@@ -274,6 +277,7 @@ class Guild extends ObjectData
             $this->getInvitations(TRUE);
     }
     
+    /** @param Player $player */
     public function deleteInvite ($player)
     {
         $this->removeInvitation($player->getID());
@@ -284,6 +288,7 @@ class Guild extends ObjectData
         $this->getDatabaseHandler()->query('DELETE FROM ' . $this->getDatabaseHandler()->tableName('guild_invites') . ' WHERE ' . $this->getDatabaseHandler()->fieldName('player_id') . ' = ' . $this->getDatabaseHandler()->quote($playerId) . ' AND ' . $this->getDatabaseHandler()->fieldName('guild_id') . ' = ' . $this->getDatabaseHandler()->quote($this->getID()));
     }
     
+    /** @param Player $player */
     public function acceptInvite ($player)
     {
         $ranks = new DatabaseList('GuildRank');
