@@ -14,8 +14,8 @@
 if ($config['site']['send_emails']) {
     
     $payeer_name = (($acc->getRLName() == '' || $acc->getRLName() == NULL) ? $acc->getName() : $acc->getRLName());
-    $subject = 'Sua compra de ' . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
-    $mailDescription = "Recibo da sua compra de " . ($doubleStatus ? '2x ' . $coinCount : $coinCount) . " " . $config['sale']['productName'] . "<br/> no website " . $config['server']['serverName'];
+    $subject = 'Sua compra de ' . ($doubleStatus() ? '2x ' . $coinCount : $coinCount) . ' ' . $config['sale']['productName'] . ' no website ' . $config['server']['serverName'];
+    $mailDescription = "Recibo da sua compra de " . ($doubleStatus() ? '2x ' . $coinCount : $coinCount) . " " . $config['sale']['productName'] . "<br/> no website " . $config['server']['serverName'];
     $mailBodyDescription = "Segue abaixo os dados para conferencia da sua compra.";
     $mailBody = "
     ==============================<br/>
@@ -27,8 +27,8 @@ if ($config['site']['send_emails']) {
     Pedido n: {$transaction_code}<br/>
     Account: {$name} <br/><br/>
     
-    " . ($doubleStatus ? 'Double Active:' : '') . "
-    " . ($doubleStatus ? '(' . $coinCount . '+' . $coinCount . ') Total: ' . ($coinCount * 2) : $coinCount) . " {$config['sale']['productName']}<br/><br/>
+    " . ($doubleStatus() ? 'Double Active:' : '') . "
+    " . ($doubleStatus() ? '(' . $coinCount . '+' . $coinCount . ') Total: ' . ($coinCount * 2) : $coinCount) . " {$config['sale']['productName']}<br/><br/>
     
     Subtotal: R$ " . number_format($price, '2', ',', '.') . " BRL<br/>
     Impostos/Taxas: R$ 0,00 BRL<br/>

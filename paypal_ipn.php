@@ -5,6 +5,9 @@
  * Date: 25/03/2018
  * Time: 00:05
  */
+
+use phpDocumentor\Reflection\Types\Boolean;
+
 /**
  * Login to client 11.50 made by Muuleek
  */
@@ -56,6 +59,10 @@ $issetTransactionOnDatabase = function ($tid) use ($SQL) {
         return FALSE;
     }
 };
+
+/**
+ * @return bool
+ */
 $doubleStatus = function () use ($SQL) {
     $q = $SQL->prepare("SELECT value FROM server_config WHERE config = 'double'");
     $q->execute([]);
