@@ -143,7 +143,7 @@ try {
                 }
                 $handle = fopen("paypal.log", "a");
                 $coins_old = $acc->getPremiumPoints();
-                $acc->setPremiumPoints($acc->getPremiumPoints() + ($doubleStatus ? $coinCount * 2 : $coinCount));
+                $acc->setPremiumPoints($acc->getPremiumPoints() + ($doubleStatus() ? $coinCount * 2 : $coinCount));
                 $acc->save();
                 $coins_new = $acc->getPremiumPoints();
                 fwrite($handle, $now . ":> status:" . $payment_status . ";accname:" . $acc_name . ";pid:" . $product_id . ";qnt:" . $coinCount . ";price:" . $price . ";saldo_anterior:" . $coins_old . ";novo_saldo:" . $coins_new . ";tid:" . $tid . "\r\n");
