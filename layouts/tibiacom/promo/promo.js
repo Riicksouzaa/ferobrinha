@@ -1,5 +1,5 @@
 function showPromo() {
-    ouibounce(false,{
+    var promo = ouibounce(false,{
         'cookieName':'promoDepressao',
         'aggressive': true,
         callback:function () {
@@ -7,6 +7,8 @@ function showPromo() {
             $('#promoloader').fadeIn();
         }
     });
+    promo.fire();
+    promo.destroy();
 }
 
 function closePromo() {
