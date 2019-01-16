@@ -7,7 +7,7 @@
                 <img class="promo-image" src="./layouts/tibiacom/images/promocoes/mega100.png"/>
             </a>
         </div>
-        <script src="./layouts/tibiacom/promo/promo.js"></script>
+        <script src="./layouts/tibiacom/promo/promo.js<?php echo $css_version;?>"></script>
         <script>
             $(document).ready(function () {
                 showPromo();
