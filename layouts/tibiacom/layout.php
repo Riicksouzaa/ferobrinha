@@ -624,7 +624,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
         });
     }
     </script>
-   
+   <?php include_once "promo/promo.php"; ?>
 
 </body>
 </html>
