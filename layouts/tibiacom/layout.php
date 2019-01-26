@@ -505,7 +505,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
 
     <script>
         // disable all control elements which are not part of the content container element
-        if (g_Deactivated == true) {
+        if (g_Deactivated === true) {
             $(document).ready(function() {
                 document.getElementById('Monster').setAttribute('onclick', '');
                 document.getElementById('PlayersOnline').setAttribute('onclick', '');
@@ -583,6 +583,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     <script src="<?php echo $layout_name; ?>/js/pace.min.js<?php echo $css_version;?>" data-pace-options='{ "elements": false, "startOnPageLoad": true, "ajax": false, "restartOnRequestAfter": false }'></script>
     <!-- float facebook like box start -->
     <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="<?=$config['social']['facebook']?>" async></script>
+    <script id="float_discord" src="<?=$layout_name?>/js/discord_float_plugin.js<?php echo $css_version;?>" data-id="<?=Website::getWebsiteConfig()->getValue('discord_widget_id');?>&theme=dark" async></script>
     <!-- float facebook like box end -->
     <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
     <script>var blockAdBlock = false;</script>
@@ -625,6 +626,5 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     }
     </script>
    <?php include_once "promo/promo.php"; ?>
-
 </body>
 </html>
