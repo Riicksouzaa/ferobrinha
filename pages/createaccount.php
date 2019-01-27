@@ -372,16 +372,15 @@ if (!$logged) {
                 $reg_name = $reg_account->getName();
                 $reg_email = $reg_account->getEMail();
                 $mailBody = '
-			<h3>Your account name and password!</h3>
-			<p>You or someone else registred on server <a href="' . $config['server']['url'] . '"><b>' . htmlspecialchars($config['server']['serverName']) . '</b></a> with this e-mail.</p>
+			<p>Você ou outra pessoa se registrou no <a href="' . $config['server']['url'] . '"><b>' . htmlspecialchars($config['server']['serverName']) . '</b></a> com esse e-mail, caso não, favor desconsiderar este.</p>
 			<p>Account name: <b>' . htmlspecialchars($reg_name) . '</b></p>			
 			<br />
-			<p>After login you can:</p>
-			Create new characters <br>
-			Change your current password <br>
-			Change your current e-mail <br>';
+			<p>Após fazer login você pode:</p>
+			Criar novos personagens<br>
+			Alterar sua senha<br>
+			Alterar seu e-mail atual<br>';
                 $subject = "Conta criada no website {$config['server']['serverName']}";
-                $mailDescription = "Bem vindo ao, {$config['server']['serverName']}";
+                $mailDescription = "Olá {$reg_name}, seja bem vindo ao {$config['server']['serverName']}.";
                 $mailBodyDescription = "Aqui estão os dados de criação de sua nova conta no {$config['server']['serverName']}";
                 if ($mail->send($reg_email, $reg_name, $subject, $mailDescription, $mailBodyDescription, $mailBody)) {
                     $_SESSION['account'] = $_POST['accountname'];

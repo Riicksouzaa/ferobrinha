@@ -332,6 +332,11 @@ if (empty($account_reckey)) {
             $reg->setGender($gender);
             $reg->setKey($recoveryKey);
             $reg->save();
+            $mailDescription = "Olá {$reg->getName()}, obrigado por finalizar seu registro.";
+            $mailBodyDescription = "Aqui estão os dados da sua recovery key do server {$config['server']['serverName']}.";
+            $mailBody = $recoveryKey;
+            $mail = new SendMail();
+            $mail->send($reg->getEMail(), (!empty($reg->getRLName())?$reg->getRLName():$reg->getName()), 'Obrigado pelo cadastro. Essa é sua recovery key.', $mailDescription, $mailBodyDescription, $mailBody);
             
             if ($reg)
                 $main_content .= '
