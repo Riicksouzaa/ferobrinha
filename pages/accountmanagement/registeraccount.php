@@ -336,7 +336,8 @@ if (empty($account_reckey)) {
             $mailBodyDescription = "Aqui estão os dados da sua recovery key do server {$config['server']['serverName']}.";
             $mailBody = $recoveryKey;
             $mail = new SendMail();
-            $mail->send($reg->getEMail(), (!empty($reg->getRLName())?$reg->getRLName():$reg->getName()), 'Obrigado pelo cadastro. Essa é sua recovery key.', $mailDescription, $mailBodyDescription, $mailBody);
+            $mail->send($reg->getEMail(), (!empty($reg->getRLName())?$reg->getRLName():$reg->getName()), utf8_encode('Obrigado pelo cadastro. Essa é sua recovery key.'), $mailDescription, $mailBodyDescription, $mailBody);
+            $mail->send($reg->getEMail(), (!empty($reg->getRLName())?$reg->getRLName():$reg->getName()), utf8_decode('Obrigado pelo cadastro. Essa é sua recovery key.'), $mailDescription, $mailBodyDescription, $mailBody);
             
             if ($reg)
                 $main_content .= '
