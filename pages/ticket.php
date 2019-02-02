@@ -39,8 +39,8 @@ if ($action == "createticket") {
     $category = (int)$_POST['reportCategory'];
     $playerID = (string)strip_tags($_POST['reportPlayer']);
     $playerName = $playerID;
-    $subject = htmlspecialchars(trim(strip_tags($_POST['reportSubject'], '<p><a>')));
-    $description = htmlspecialchars(trim(strip_tags($_POST['reportText'], '<p><a>')));
+    $subject = htmlspecialchars(trim(strip_tags($_POST['reportSubject'], '<b>')));
+    $description = $_POST['reportText'];
 //		$date = date('M m Y', time());
     $date = date("Y-m-d H:i:s");
 //		$generateId = rand(238493, 995849);
@@ -561,7 +561,6 @@ if ($action == "showticket") {
         $date = date("Y-m-d H:i:s");
         $dadosTicket = $SQL->prepare("SELECT * FROM tickets WHERE ticket_id = :idticket");
         $dadosTicket->execute(['idticket' => $idTicket]);
-        $dadosTicket = $dadosTicket->fetch();
         
         
         if (strlen($mensagem) < 10 || strlen($mensagem) > 1000) {
@@ -600,7 +599,6 @@ if ($action == "showticket") {
     
     $ticket = $SQL->prepare("SELECT * FROM tickets WHERE ticket_id = :idticket");
     $ticket->execute(['idticket' => $idTicket]);
-    $ticket = $ticket->fetch();
     foreach ($ticket as $result) {
         $subject = $result['ticket_subject'];
         $playerName = $result['ticket_author'];
@@ -712,7 +710,6 @@ if ($action == "showticket") {
 										</tr>';
     $ticketReply = $SQL->prepare("SELECT * FROM `tickets_reply` WHERE `ticket_id` = :id");
     $ticketReply->execute(['id'=>$idTicket]);
-    $ticketReply = $ticketReply->fetch();
     $index = 1;
     
     if ($ticketReply) {
