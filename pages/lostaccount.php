@@ -438,6 +438,10 @@ if ($config['site']['send_emails']) {
                 
                 $codeDate = time();
                 $idAccount = $account->getID();
+                $emailcode = $SQL->prepare("INSERT INTO links (account_id, code, code_date) VALUES (:accid, :ncode , :cdate)");
+                $emailcode->execute(['accid' => $idAccount, 'ncode'=> $newcode, 'cdate' => $codeDate]);
+                
+                
                 $emailcode = $SQL->query("INSERT INTO " . $SQL->tableName('links') . " (" . $SQL->fieldName('account_id') . ", " . $SQL->fieldName('code') . ", " . $SQL->fieldName('code_date') . ") VALUES ('$idAccount', '$newcode', '$codeDate')");
                 
                 if ($emailcode) {
@@ -554,8 +558,7 @@ if ($config['site']['send_emails']) {
             
             $getEmail = $SQL->prepare("SELECT `id` FROM `accounts` where email = :email");
             $getEmail->execute(['email'=> $email]);
-            
-//            $getEmail = $SQL->query("SELECT " . $SQL->fieldName('id') . " FROM " . $SQL->tableName('accounts') . " WHERE " . $SQL->fieldName('email') . " = '$email'")->fetchAll();
+            $getEmail = $getEmail->fetchAll();
             
             if (count($getEmail) >= 1)
                 $error = "The new email address is already assigned to an account. Please enter another email address.";
@@ -810,7 +813,10 @@ if ($config['site']['send_emails']) {
                 
                 $codeDate = time();
                 $idAccount = $account->getID();
-                $emailcode = $SQL->query("INSERT INTO " . $SQL->tableName('links') . " (" . $SQL->fieldName('account_id') . ", " . $SQL->fieldName('code') . ", " . $SQL->fieldName('code_date') . ") VALUES ('$idAccount', '$newcode', '$codeDate')");
+                
+                $emailcode = $SQL->prepare("INSERT INTO links (account_id, code, code_date) VALUES (:accid, :code, :code_date)");
+                $emailcode->execute(['accid'=> $idAccount, 'code'=> $newcode, 'code_date'=> $codeDate]);
+                $emailcode = $emailcode->fetchAll();
                 
                 $mailBody = '
 					<p>Dear ' . $config['server']['serverName'] . ' player,</p>
@@ -957,12 +963,16 @@ if ($config['site']['send_emails']) {
             if (empty($_POST['confirmationkey']))
                 $error = "Please enter a valid confirmation key.";
             
-            $key = $SQL->query("SELECT " . $SQL->fieldName('account_id') . " FROM " . $SQL->tableName('links') . " WHERE " . $SQL->fieldName('code') . " = '$confirmationkey'")->fetchAll();
+            $key = $SQL->prepare("SELECT account_id FROM links WHERE code = :confirmation_key");
+            $key->execute(['confirmation_key'=>$confirmationkey]);
+            $key = $key->fetchAll();
             
             if (count($key) == 0)
                 $error = "Please enter a valid confirmation key.";
             
-            $code_account = $SQL->query("SELECT " . $SQL->fieldName('account_id') . " FROM " . $SQL->tableName('links') . " WHERE " . $SQL->fieldName('account_id') . " = '$accountID'")->fetchAll();
+            $code_account = $SQL->prepare("SELECT account_id FROM links WHERE account_id = :accid");
+            $code_account->execute(['accid'=>$accountID]);
+            $code_account = $code_account->fetchAll();
             
             if (count($code_account) == 0)
                 $error = "Please enter a valid account name.";
@@ -979,7 +989,9 @@ if ($config['site']['send_emails']) {
                 $account->setPassword($newpass);
                 $account->save();
                 
-                $delCode = $SQL->query("DELETE FROM " . $SQL->tableName('links') . " WHERE " . $SQL->fieldName('code') . " = '$confirmationkey'");
+                $delCode = $SQL->prepare("DELETE FROM links WHERE code = :ckey");
+                $delCode->execute(['ckey'=> $confirmationkey]);
+                $delCode = $delCode->fetchAll();
                 
                 $mailBody = '
 						<html>
