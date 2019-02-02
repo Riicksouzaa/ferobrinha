@@ -341,7 +341,7 @@ if ($action == "createticket") {
                                                             <tr style="background-color:#D4C0A1;">
                                                                 <td class="LabelV"> Description </td>
                                                                 <td width="70%" style="word-wrap: break-word;">
-                                                                ' . htmlspecialchars($description) . '
+                                                                ' . htmlspecialchars_decode($description) . '
                                                                 </td>
                                                             </tr>
                                                         </tbody>
