@@ -552,7 +552,10 @@ if ($config['site']['send_emails']) {
             $account = new Account();
             $account->loadById($char->getAccountID());
             
-            $getEmail = $SQL->query("SELECT " . $SQL->fieldName('id') . " FROM " . $SQL->tableName('accounts') . " WHERE " . $SQL->fieldName('email') . " = '$email'")->fetchAll();
+            $getEmail = $SQL->prepare("SELECT `id` FROM `accounts` where email = :email");
+            $getEmail->execute(['email'=> $email]);
+            
+//            $getEmail = $SQL->query("SELECT " . $SQL->fieldName('id') . " FROM " . $SQL->tableName('accounts') . " WHERE " . $SQL->fieldName('email') . " = '$email'")->fetchAll();
             
             if (count($getEmail) >= 1)
                 $error = "The new email address is already assigned to an account. Please enter another email address.";
