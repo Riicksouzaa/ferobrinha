@@ -341,7 +341,7 @@ if ($action == "createticket") {
                                                             <tr style="background-color:#D4C0A1;">
                                                                 <td class="LabelV"> Description </td>
                                                                 <td width="70%" style="word-wrap: break-word;">
-                                                                ' . htmlspecialchars_decode($description) . '
+                                                                ' . htmlspecialchars(trim(strip_tags($description, '<p><a>'))) . '
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -557,7 +557,7 @@ if ($action == "createticket") {
 if ($action == "showticket") {
     
     $metodo = $_GET['do'];
-    $idTicket = $_GET['id'];
+    $idTicket = (int) $_GET['id'];
     
     if ($metodo == 'closeticket') {
         $date = date('M m Y', time());
@@ -565,8 +565,8 @@ if ($action == "showticket") {
     }
     
     if ($metodo == 'reply') {
-        $idTicket = $_GET['id'];
-        $mensagem = $_POST['reportText'];
+        $idTicket = (int) $_GET['id'];
+        $mensagem = htmlspecialchars(trim(strip_tags($_POST['reportText'], '<p><a>')));
         $date = date("Y-m-d H:i:s");
         $dadosTicket = $SQL->query("SELECT * FROM tickets WHERE ticket_id = $idTicket");
         
