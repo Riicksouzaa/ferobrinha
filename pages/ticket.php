@@ -39,8 +39,8 @@ if ($action == "createticket") {
     $category = (int)$_POST['reportCategory'];
     $playerID = (string)strip_tags($_POST['reportPlayer']);
     $playerName = $playerID;
-    $subject = htmlspecialchars(trim(strip_tags($_POST['reportSubject'], '<p><a>')));
-    $description = htmlspecialchars(trim(strip_tags($_POST['reportText'], '<p><a>')));
+    $subject = htmlspecialchars_decode(trim(strip_tags($_POST['reportSubject'], '<p><a>')));
+    $description = htmlspecialchars_decode(trim(strip_tags($_POST['reportText'], '<p><a>')));
 //		$date = date('M m Y', time());
     $date = date("Y-m-d H:i:s");
 //		$generateId = rand(238493, 995849);
@@ -566,7 +566,7 @@ if ($action == "showticket") {
     
     if ($metodo == 'reply') {
         $idTicket = (int) $_GET['id'];
-        $mensagem = htmlspecialchars(trim(strip_tags($_POST['reportText'], '<p><a>')));
+        $mensagem = htmlspecialchars_decode(trim(strip_tags($_POST['reportText'])));
         $date = date("Y-m-d H:i:s");
         $dadosTicket = $SQL->query("SELECT * FROM tickets WHERE ticket_id = $idTicket");
         
