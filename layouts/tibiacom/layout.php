@@ -366,7 +366,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                                                 <?php if(Website::getWebsiteConfig()->getValue('info_bar_cast')){?>
                                                     <?php
                                                     $playersCast = $SQL->query("SELECT count(*) as `players_cast`, sum(`spectators`) as `spectators` FROM `live_casts`");
-                                                    $playersCast->execute([]);
+                                                    $playersCast->execute();
                                                     $playersCast = $playersCast->fetchAll();
                                                     ?>
                                                     <a class="InfoBarBlock" href="./?subtopic=castsystem">

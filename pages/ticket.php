@@ -31,7 +31,7 @@ if (!$logged) {
 			</div>';
     return;
 }
-/** @var $action string*/
+/** @var $action string */
 if ($action == "createticket") {
     $categories = [1 => 'Help', 2 => 'Donate', 3 => 'Suggestions', 4 => 'Report Bug', 5 => 'Claims',
         6 => 'Banishment', 7 => 'Character Problem', 8 => 'Account Problem', 9 => 'Forum',
@@ -45,18 +45,7 @@ if ($action == "createticket") {
     $date = date("Y-m-d H:i:s");
 //		$generateId = rand(238493, 995849);
     $accid = $account_logged->getID();
-
-//	     $checkId = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_id` ='.$generateId.'");
-//	     foreach($checkId as $result){
-//	      $ticketId = $result['ticket_id'];
-//	     }
-//	     while ($ticketId <> ''){
-//	      $generateId = rand(238493, 995849);
-//	      $checkId = $SQL->query("SELECT * FROM `tickets` WHERE `ticket_id` ='.$generateId.'");
-//	      foreach($checkId as $result){
-//	       $ticketId = $result['ticket_id'];
-//	      }
-//	     }
+    
     if ($category > 0 && $categories[$category]) {
         $category = $categories[$category];
     } else {
@@ -262,7 +251,6 @@ if ($action == "createticket") {
         return;
     }
 
-//		$SQL->query("INSERT INTO `tickets`(`ticket_id`, `ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`)	VALUES ($generateId,'$subject','$playerName',$accid,'You',0,'$date','Not closed','Waiting','$category','$description')");
     $insert = $SQL->prepare("INSERT INTO `tickets`(`ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`) VALUES (:subject, :playerName, :accid, 'You', 0, :date, 'Not closed', 'Waiting', :category, :description)");
     $insert->execute(['subject' => $subject, 'playerName' => $playerName, 'accid' => $accid, 'date' => $date, 'category' => $category, 'description' => $description]);
     $generateId = $SQL->query("SELECT LAST_INSERT_ID() as id from `tickets`")->fetchAll()[0]['id'];
@@ -559,18 +547,21 @@ if ($action == "createticket") {
 if ($action == "showticket") {
     
     $metodo = $_GET['do'];
-    $idTicket = $_GET['id'];
+    $idTicket = (int)$_GET['id'];
     
     if ($metodo == 'closeticket') {
         $date = date('M m Y', time());
-        $SQL->query("UPDATE tickets SET ticket_status = 'Closed', ticket_ended = '$date' WHERE ticket_id = $idTicket");
+        $query = $SQL->prepare("UPDATE tickets SET ticket_status = 'Closed', ticket_ended = '$date' WHERE ticket_id = :idticket");
+        $query->execute(['idticket' => $idTicket]);
     }
     
     if ($metodo == 'reply') {
         $idTicket = $_GET['id'];
         $mensagem = $_POST['reportText'];
         $date = date("Y-m-d H:i:s");
-        $dadosTicket = $SQL->query("SELECT * FROM tickets WHERE ticket_id = $idTicket");
+        $dadosTicket = $SQL->prepare("SELECT * FROM tickets WHERE ticket_id = :idticket");
+        $dadosTicket->execute(['idticket' => $idTicket]);
+        $dadosTicket = $dadosTicket->fetch();
         
         
         if (strlen($mensagem) < 10 || strlen($mensagem) > 1000) {
@@ -595,16 +586,21 @@ if ($action == "showticket") {
                 }
             }
             
-            $SQL->query("INSERT INTO `tickets_reply`(`ticket_id`, `reply_author`, `reply_message`, `reply_date`) VALUES ($idTicket,'$replyAuthorTrue','$mensagem','$date')");
+            $query = $SQL->prepare("INSERT INTO `tickets_reply`(`ticket_id`, `reply_author`, `reply_message`, `reply_date`) VALUES ( :idticket, :replyAuthorTrue, :msg, :date )");
+            $query->execute(['idticket' => $idTicket, 'replyAuthorTrue' => $replyAuthorTrue, 'msg' => $mensagem, 'date' => $date]);
             if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
-                $SQL->query("UPDATE `tickets` SET `ticket_last_reply` = 'Staff', `ticket_admin_reply` = 1 WHERE ticket_id = $idTicket");
+                $query = $SQL->prepare("UPDATE `tickets` SET `ticket_last_reply` = 'Staff', `ticket_admin_reply` = 1 WHERE ticket_id = :id");
+                $query->execute(['id'=>$idTicket]);
             } else {
-                $SQL->query("UPDATE `tickets` SET `ticket_admin_reply` = 0, `ticket_last_reply`= 'You' WHERE ticket_id = $idTicket");
+                $SQL->prepare("UPDATE `tickets` SET `ticket_admin_reply` = 0, `ticket_last_reply`= 'You' WHERE ticket_id = :id");
+                $query->execute(['id'=>$idTicket]);
             }
         }
     }
     
-    $ticket = $SQL->query("SELECT * FROM tickets WHERE ticket_id = $idTicket");
+    $ticket = $SQL->prepare("SELECT * FROM tickets WHERE ticket_id = :idticket");
+    $ticket->execute(['idticket' => $idTicket]);
+    $ticket = $ticket->fetch();
     foreach ($ticket as $result) {
         $subject = $result['ticket_subject'];
         $playerName = $result['ticket_author'];
@@ -714,7 +710,9 @@ if ($action == "showticket") {
 												</div>
 											</td>
 										</tr>';
-    $ticketReply = $SQL->query("SELECT * FROM `tickets_reply` WHERE `ticket_id` = $idTicket");
+    $ticketReply = $SQL->prepare("SELECT * FROM `tickets_reply` WHERE `ticket_id` = :id");
+    $ticketReply->execute(['id'=>$idTicket]);
+    $ticketReply = $ticketReply->fetch();
     $index = 1;
     
     if ($ticketReply) {
