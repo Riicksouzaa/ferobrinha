@@ -66,6 +66,12 @@ function flushSession ()
             unset($_SESSION['now'], $_SESSION['valida'], $_SESSION['tries']);
         }
     }
+    if (isset($_SESSION['website_valida']) && isset($_SESSION['website_now']) && $_SESSION['website_tries']) {
+        $_SESSION['website_now'] = $now;
+        if ($_SESSION['website_now'] >= $_SESSION['website_valida']) {
+            unset($_SESSION['website_now'], $_SESSION['website_valida'], $_SESSION['website_tries']);
+        }
+    }
     if (isset($_REQUEST['storage_OrderServiceData']['PaymentMethodName']) && $_REQUEST['storage_OrderServiceData']['PaymentMethodName'] == 'transfer') {
         //do nothing
     } else {
@@ -102,6 +108,36 @@ function valida_multiplas_reqs ()
     }
 }
 
+
+/** Função utilizada para validar multiplas requisições. */
+function valida_website_multiple_req ()
+{
+    $timeout_time = Website::getWebsiteConfig()->getValue('website_timeout_time');
+    $date = new DateTime();
+    $now = $date->format('Y-m-d H:i:s');
+    $valid = date_add($date, date_interval_create_from_date_string($timeout_time . ' minutes'))->format('Y-m-d H:i:s');
+    $maxtries = Website::getWebsiteConfig()->getValue('website_max_req_tries');
+    flushSession();
+    $_SESSION['website_now'] = $now;
+    if (!isset($_SESSION['website_valida'])) {
+        $_SESSION['website_valida'] = $valid;
+    }
+    if (!isset($_SESSION['website_tries'])) {
+        $_SESSION['website_tries'] = 0;
+    }
+    if ($_SESSION['website_now'] < $_SESSION['website_valida']) {
+        if ($_SESSION['website_tries'] < $maxtries) {
+            $_SESSION['website_tries'] = $_SESSION['website_tries'] + 1;
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    } else {
+        unset($_SESSION['website_valida'], $_SESSION['website_tries']);
+        return FALSE;
+    }
+}
+
 flushSession();
 date_default_timezone_set('America/Sao_Paulo');
 
@@ -115,13 +151,19 @@ $now = $date->format('[d-m-Y H:i:s] ');
     fwrite($handle, $_SERVER['REMOTE_ADDR'].";".(isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'inexistente'));
     fwrite($handle, "\r\n<br/>");
 fclose($handle);
-// with ONLY_PAGE we return only page text, not layout
-if (in_array($_REQUEST['subtopic'], array("play", "refresh", "client_options_serverscript"))) {
-    echo $main_content;
-} else {
-    if (!ONLY_PAGE)
-        include_once('./system/load.layout.php');
-    else
+
+if(valida_website_multiple_req()){
+    if (in_array($_REQUEST['subtopic'], array("play", "refresh", "client_options_serverscript"))) {
         echo $main_content;
+    } else {
+        if (!ONLY_PAGE)
+            include_once('./system/load.layout.php');
+        else
+            echo $main_content;
+    }
+}else{
+    echo "Calma ae amigão. vai devagar nessas requisição ae.";
 }
+
+// with ONLY_PAGE we return only page text, not layout
 // LAYOUT END
