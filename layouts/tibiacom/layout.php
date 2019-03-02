@@ -145,8 +145,8 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
             "link",
             "image",
             "lists",
-            "preview",
-            "textcolor"
+            "preview"
+            // "textcolor"
         ],
         // toolbar: "undo redo | forecolor backcolor",
         a_plugin_option: false,
