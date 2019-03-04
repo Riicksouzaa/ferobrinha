@@ -21,6 +21,6 @@
     "stil/gd-text": "^1.1",
     "phpmailer/phpmailer": "^6.0",
     "pagseguro/pagseguro-php-sdk": "^4.2",
-    "tinymce/tinymce": ">= 4"
+    "tinymce/tinymce": "4.8.3"
   }
 }

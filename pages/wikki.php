@@ -289,7 +289,7 @@ var wikkiContentEdit = {
     inline: true,
     plugins: [
       'link',
-      'textcolor',
+//      'textcolor',
       'lists',
       'contextmenu',
       'autolink',
