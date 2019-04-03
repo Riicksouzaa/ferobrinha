@@ -48,8 +48,8 @@ $main_content .= '
 $getPayPalDonates = $SQL->query("SELECT p.* FROM paypal_transactions p where substring_index(item_number1, '-', 1) = '{$account_logged->getName()}' order by date desc")->fetchAll();
 $getPagseguroDonates = $SQL->query("SELECT * FROM `pagseguro_transactions` where `name` = '{$account_logged->getName()}' order by `data` desc")->fetchAll();
 
+$n = 0;
 if(!empty($getPayPalDonates)){
-    $n = 0;
     foreach ($getPayPalDonates as $payPalDonate){
         $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $date = new DateTime($payPalDonate['date']);
@@ -69,9 +69,7 @@ if(!empty($getPayPalDonates)){
                 ";
     }
 }
-
 if (count($getPagseguroDonates) > 0) {
-    $n = 0;
     foreach ($getPagseguroDonates as $pagseguro) {
         $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $date = new DateTime($pagseguro['data']);
@@ -91,7 +89,6 @@ if (count($getPagseguroDonates) > 0) {
     unset($n);
 }
 if (count($getHistoryDonate[0]) > 0) {
-    $n = 0;
     foreach ($getHistoryDonate as $doHistory) {
         $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $main_content .= '
