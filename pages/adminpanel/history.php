@@ -457,8 +457,8 @@ $main_content .= '
 																	<td class="LabelV">Valor</td>
 																	<td class="LabelV">Status</td>
 																</tr>';
-$get_Transfers = $SQL->query("SELECT * FROM `z_shop_donates` WHERE `method` = 'transfer' and `method` = 'picpay' and status = 'received' ORDER BY `date` DESC LIMIT 10")->fetchAll();
-$getCountTransfers = $SQL->query("SELECT COUNT(*) FROM `z_shop_donates` WHERE `method` = 'transfer' and `method` = 'picpay' and status = 'received'")->fetchColumn();
+$get_Transfers = $SQL->query("SELECT * FROM `z_shop_donates` WHERE `method` = 'transfer' and status = 'received' or `method` = 'picpay' and status = 'received' ORDER BY `date` DESC LIMIT 10")->fetchAll();
+$getCountTransfers = $SQL->query("SELECT COUNT(*) FROM `z_shop_donates` WHERE `method` = 'transfer' and status = 'received' or `method` = 'picpay' and status = 'received'")->fetchColumn();
 $n = 0;
 if ($getCountTransfers > 0)
     foreach ($get_Transfers as $transfer) {
