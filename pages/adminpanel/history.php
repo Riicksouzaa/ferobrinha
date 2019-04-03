@@ -35,7 +35,7 @@ function porcentagem_xn ($porcentagem, $total)
 {
     return ($porcentagem / 100) * $total;
 }
-
+setlocale(LC_TIME,"portuguese");
 $getBalance = $SQL->query("SELECT COALESCE(sum(abs(price)),0)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions pag where pag.status = 'delivered' and YEAR(pag.data) = YEAR(CURDATE()) and MONTH(pag.data) = MONTH(CURDATE()))+(select COALESCE(sum(abs(mc_gross)),0) q from paypal_transactions pay where pay.payment_status = 'Completed' and YEAR(pay.date) = YEAR(CURDATE()) and MONTH(pay.date) = MONTH(CURDATE())) as price FROM `z_shop_donates` a WHERE YEAR(FROM_UNIXTIME(a.date)) = YEAR(CURDATE()) AND MONTH(FROM_UNIXTIME(a.date)) = MONTH(CURDATE()) AND a.status = 'received'")->fetchAll();
 $profitTotal = $SQL->query("SELECT COALESCE(sum(abs(price)),0)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions b where b.status = 'delivered')+(select COALESCE(sum(abs(mc_gross)),0) q from paypal_transactions b where b.payment_status = 'Completed') as price FROM `z_shop_donates` a WHERE a.status = 'received'")->fetchAll();
 $main_content .= '
@@ -43,8 +43,7 @@ $main_content .= '
 																				<span class="BigBoldText">R$ ' . number_format($getBalance[0]['price'], 2, ',', '.') . '</span>
 																			</span>
 																			<small>
-																				<br>Saldo total de todas as doações realizadas no mês de ' . date('F') . '.<br>
-																				<!--(' . $config['server']['ownerName'] . ' possui 50% dos lucros, um total de <span class="red">R$ ' . number_format(porcentagem_xn(50, $somaBalance), 2, ',', '.') . '--></span>
+																				<br>Saldo total de todas as doações realizadas no mês de ' . strftime("%B") . '.<br></span>
 																			</small><br/>
 																			<small>O total geral em vendas em todos os meses foi de <span style="color: #1c6a12">R$ ' . number_format($profitTotal[0]['price'], 2, ',', '.') . '</span></small>
 																		</td>				
