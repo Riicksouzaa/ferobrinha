@@ -104,7 +104,7 @@ $updatepaypal = function ($payment_status, $txn_id) use ($SQL) {
 $insertpaypal = function ($payment_status, $payer_email, $payer_id, $item_number1, $mc_gross, $mc_currency, $txn_id) use ($SQL) {
     $date_now = date('Y-m-d H:i:s');
     $insert = $SQL->prepare("INSERT INTO paypal_transactions (payment_status, date, payer_email, payer_id, item_number1, mc_gross, mc_currency, txn_id) VALUES (:payment_status, :date_now , :payer_email, :payer_id, :item_number1, :mc_gross, :mc_currency, :txn_id)");
-    $insert->execute(['payment_status' => $payment_status, 'date' => $date_now, 'payer_email' => $payer_email, 'payer_id' => $payer_id, 'item_number1' => $item_number1, 'mc_gross' => $mc_gross, 'mc_currency' => $mc_currency, 'txn_id' => $txn_id]);
+    $insert->execute(['payment_status' => $payment_status, 'date_now' => $date_now, 'payer_email' => $payer_email, 'payer_id' => $payer_id, 'item_number1' => $item_number1, 'mc_gross' => $mc_gross, 'mc_currency' => $mc_currency, 'txn_id' => $txn_id]);
 };
 
 $log_post = function () {
@@ -178,7 +178,7 @@ try {
     } else {
         $handle = fopen("paypal.log", "a");
         $date = new DateTime();
-        $now = $date->format('d/m/Y H:i:s');
+        //$now = $date->format('d/m/Y H:i:s');
         fwrite($handle, $now . ":>verify_error;from:" . $_SERVER['REMOTE_ADDR'] . "\r\n");
         fclose($handle);
         header("Location: " . $config['base_url']);
