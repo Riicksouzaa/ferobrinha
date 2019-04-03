@@ -466,7 +466,7 @@ if ($getCountTransfers > 0)
         $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $main_content .= '
 																	<tr bgcolor="' . $bgcolor . '">
-																		<td>' . date("d/m/Y, H:i:s", $transfer['date']) . '</td>';
+																		<td>' . date("d/m/Y H:i:s", $transfer['date']) . '</td>';
         $main_content .= '
 																		<td>' . $transfer['reference'] . '</td>
 																		<td>' . $transfer['account_name'] . '</td>
