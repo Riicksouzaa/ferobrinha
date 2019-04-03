@@ -82,7 +82,7 @@ $main_content .= '
 						<div class="BoxFrameVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></div>
 						<div class="BoxFrameVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></div>
 						<table style="width:100%;" >
-							<td style="width:100%;text-align:center;" ><nobr>[<a href="#Ultimos+Servicos" >Últimos serviços comprados</a>]</nobr> <nobr>[<a href="#Confirmed" >Daoações confirmadas</a>]</nobr> <nobr>[<a href="#Pagseguro" >Pagseguro</a>]</nobr> <nobr>[<a href="#Bank+Transfer" >Transferência bancárias</a>]</nobr> <nobr>[<a href="#Paypal" >Paypal</a>]</nobr></td>
+							<td style="width:100%;text-align:center;" > <!--<nobr>[<a href="#Ultimos+Servicos" >Últimos serviços comprados</a>]</nobr>--> <nobr>[<a href="#Confirmed" >Daoações confirmadas</a>]</nobr> <nobr>[<a href="#Pagseguro" >Pagseguro</a>]</nobr> <nobr>[<a href="#Bank+Transfer" >Transferência bancárias</a>]</nobr> <nobr>[<a href="#Paypal" >Paypal</a>]</nobr></td>
 						</tr>
 					</table>
 				</div>
@@ -362,7 +362,7 @@ if ($getCountPagseguro > 0)
         $main_content .= '
 																		<td>' . $pagseguro['transaction_code'] . '</td>
 																		<td>' . $pagseguro['name'] . '</td>
-																		<td>R$' . number_format($pagseguro['payment_amount'], 2, ',', '.') . '</td>
+																		<td>R$ ' . number_format($pagseguro['payment_amount'], 2, ',', '.') . '</td>
 																		<td>' . $pagseguro['status'] . '</td>';
 //        $getReference = explode("-",$pagseguro['reference']);
 //        $pagseguroReference = $getReference[0];
@@ -466,11 +466,11 @@ if ($getCountTransfers > 0)
         $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $main_content .= '
 																	<tr bgcolor="' . $bgcolor . '">
-																		<td>' . date("M d Y, G:i:s", $transfer['date']) . '</td>';
+																		<td>' . date("d/m/Y, H:i:s", $transfer['date']) . '</td>';
         $main_content .= '
 																		<td>' . $transfer['reference'] . '</td>
 																		<td>' . $transfer['account_name'] . '</td>
-																		<td>' . number_format($transfer['price'], 2, ',', '.') . '</td>
+																		<td>R$ '. number_format($transfer['price'], 2, ',', '.') . '</td>
 																		<td>' . $transfer['status'] . '</td>';
         $main_content .= '
 																	</tr>';
@@ -574,7 +574,7 @@ if ($getCountPaypal > 0)
         $main_content .= '
 																		<td>' . $paypal['txn_id'] . '</td>
 																		<td>' . $acc_name . '</td>
-																		<td>' . number_format($paypal['mc_gross'], 2, ',', '.') . '</td>
+																		<td>R$ ' . number_format($paypal['mc_gross'], 2, ',', '.') . '</td>
 																		<td>' . $paypal['payment_status'] . '</td>';
         $main_content .= '
 																	</tr>';
