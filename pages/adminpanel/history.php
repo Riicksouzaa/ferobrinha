@@ -37,6 +37,7 @@ function porcentagem_xn ($porcentagem, $total)
 }
 
 $getBalance = $SQL->query("SELECT COALESCE(sum(abs(price)),0)+(select COALESCE(sum(abs(payment_amount)),0) q from pagseguro_transactions pag where pag.status = 'delivered' and YEAR(pag.data) = YEAR(CURDATE()) and MONTH(pag.data) = MONTH(CURDATE()))+(select COALESCE(sum(abs(mc_gross)),0) q from paypal_transactions pay where pay.payment_status = 'Completed' and YEAR(pay.date) = YEAR(CURDATE()) and MONTH(pay.date) = MONTH(CURDATE())) as price FROM `z_shop_donates` a WHERE YEAR(FROM_UNIXTIME(a.date)) = YEAR(CURDATE()) AND MONTH(FROM_UNIXTIME(a.date)) = MONTH(CURDATE()) AND a.status = 'received'")->fetchAll();
+var_dump($getBalance);
 //foreach ($getBalance as $balance) {
 //    $somaBalance += $balance['price'];
 //}
