@@ -429,7 +429,7 @@ $main_content .= '
 							<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
 							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
 							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
-							<div class="Text">10 últimas doações realizadas por transferência bancária</div>
+							<div class="Text">10 últimas doações realizadas por transferência bancária/picpay</div>
 							<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);"></span>
 							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
 							<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
@@ -457,8 +457,8 @@ $main_content .= '
 																	<td class="LabelV">Valor</td>
 																	<td class="LabelV">Status</td>
 																</tr>';
-$get_Transfers = $SQL->query("SELECT * FROM `z_shop_donates` WHERE `method` = 'banktransfer' ORDER BY `date` DESC LIMIT 10")->fetchAll();
-$getCountTransfers = $SQL->query("SELECT COUNT(*) FROM `z_shop_donates` WHERE `method` = 'banktransfer'")->fetchColumn();
+$get_Transfers = $SQL->query("SELECT * FROM `z_shop_donates` WHERE `method` = 'transfer' and `method` = 'picpay' and status = 'received' ORDER BY `date` DESC LIMIT 10")->fetchAll();
+$getCountTransfers = $SQL->query("SELECT COUNT(*) FROM `z_shop_donates` WHERE `method` = 'transfer' and `method` = 'picpay' and status = 'received'")->fetchColumn();
 $n = 0;
 if ($getCountTransfers > 0)
     foreach ($get_Transfers as $transfer) {
