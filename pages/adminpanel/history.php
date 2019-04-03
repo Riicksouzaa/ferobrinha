@@ -559,20 +559,22 @@ $main_content .= '
 																	<td class="LabelV">Valor</td>
 																	<td class="LabelV">Status</td>
 																</tr>';
-$get_Paypal = $SQL->query("SELECT * FROM `z_shop_donates` WHERE `method` = 'paypal' ORDER BY `date` DESC LIMIT 10")->fetchAll();
-$getCountPaypal = $SQL->query("SELECT COUNT(*) FROM `z_shop_donates` WHERE `method` = 'paypal'")->fetchColumn();
+$get_Paypal = $SQL->query("SELECT * FROM `paypal_transactions` WHERE `payment_status` = 'Completed' ORDER BY `date` DESC LIMIT 10")->fetchAll();
+$getCountPaypal = $SQL->query("SELECT COUNT(*) FROM `paypal_transactions` WHERE `payment_status` = 'Completed'")->fetchColumn();
 $n = 0;
 if ($getCountPaypal > 0)
     foreach ($get_Paypal as $paypal) {
+        $acc_name = explode('-', $paypal['item_number1']);
+        $acc_name = $acc_name[0];
         $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $main_content .= '
 																	<tr bgcolor="' . $bgcolor . '">
-																		<td>' . date("M d Y, G:i:s", $paypal['date']) . '</td>';
+																		<td>' . $paypal['date']. '</td>';
         $main_content .= '
-																		<td>' . $paypal['reference'] . '</td>
-																		<td>' . $paypal['account_name'] . '</td>
-																		<td>' . number_format($paypal['price'], 2, ',', '.') . '</td>
-																		<td>' . $paypal['status'] . '</td>';
+																		<td>' . $paypal['txn_id'] . '</td>
+																		<td>' . $acc_name . '</td>
+																		<td>' . number_format($paypal['mc_gross'], 2, ',', '.') . '</td>
+																		<td>' . $paypal['payment_status'] . '</td>';
         $main_content .= '
 																	</tr>';
     }
