@@ -69,7 +69,7 @@ if(!empty($getPayPalDonates)){
                 ";
     }
 }
-if (count($getPagseguroDonates) > 0) {
+if (!empty($getPagseguroDonates)) {
     foreach ($getPagseguroDonates as $pagseguro) {
         $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $date = new DateTime($pagseguro['data']);
@@ -85,10 +85,8 @@ if (count($getPagseguroDonates) > 0) {
                     </tr>
                 ";
     }
-    $main_content .= "<th/>";
-    unset($n);
 }
-if (count($getHistoryDonate[0]) > 0) {
+if (!empty($getHistoryDonate[0])) {
     foreach ($getHistoryDonate as $doHistory) {
         $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
         $main_content .= '
