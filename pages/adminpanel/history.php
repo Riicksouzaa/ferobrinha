@@ -93,6 +93,7 @@ $main_content .= '
 		</div>
 		<br/>';
 $main_content .= '
+<!--
 				<a name="Ultimos+Servicos" ></a>
 				<div class="TopButtonContainer" >
 					<div class="TopButton" >
@@ -197,7 +198,7 @@ $main_content .= '
 							</tr>
 						</tbody>
 					</table>
-				</div><br>';
+				</div><br>-->';
 $main_content .= '
 				<a name="Confirmed" ></a>
 				<div class="TopButtonContainer" >
