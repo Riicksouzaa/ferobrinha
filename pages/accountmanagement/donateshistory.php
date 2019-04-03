@@ -45,7 +45,31 @@ $main_content .= '
 																	<td class="LabelV">Status</td>
 																	<td class="LabelV"></td>
 																</tr>';
+$getPayPalDonates = $SQL->query("SELECT p.* FROM paypal_transactions p where substring_index(item_number1, '-', 1) = '{$account_logged->getName()}' order by date desc")->fetchAll();
 $getPagseguroDonates = $SQL->query("SELECT * FROM `pagseguro_transactions` where `name` = '{$account_logged->getName()}' order by `data` desc")->fetchAll();
+
+if(!empty($getPayPalDonates)){
+    $n = 0;
+    foreach ($getPayPalDonates as $payPalDonate){
+        $bgcolor = (($n++ % 2 == 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
+        $date = new DateTime($payPalDonate['date']);
+        $product_id = explode('-', $payPalDonate['item_number1']);
+        $product_id = $product_id[1];
+        $coinCount = array_values($config['donate']['offers'][$product_id])[0];
+        $main_content .= "
+                    <tr bgcolor='{$bgcolor}'>
+                        <td>" . $date->format('M d Y') . "</td>
+                        <td>{$payPalDonate['item_count']} Tibia Coins</td>
+                        <td>" . number_format($payPalDonate['mc_gross'], 2, '.', ',') . " BRL</td>
+                        <td>Paypal</td>
+                        <td></td>
+                        <td>{$payPalDonate['payment_status']}</td>
+                        <td></td>
+                    </tr>
+                ";
+    }
+}
+
 if (count($getPagseguroDonates) > 0) {
     $n = 0;
     foreach ($getPagseguroDonates as $pagseguro) {
