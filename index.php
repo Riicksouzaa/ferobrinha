@@ -52,6 +52,10 @@ include_once('./system/load.page.php');
 // LOAD PAGE END
 // LAYOUT
 
+setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+date_default_timezone_set('America/Sao_Paulo');
+
+
 
 /** Função responsável por limpar algumas sessions */
 function flushSession ()
@@ -139,8 +143,6 @@ function valida_website_multiple_req ()
 }
 
 flushSession();
-date_default_timezone_set('America/Sao_Paulo');
-
 $date = new DateTime();
 $now = $date->format('[d-m-Y H:i:s] ');
     $handle = fopen('full_log.log', 'a');
