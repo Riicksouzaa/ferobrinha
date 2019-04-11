@@ -3,6 +3,7 @@
 .cache/
 cache/*
 vendor/
+sitemaps/*.xml
 paypal.log
 create_user_mp.sh
 composer.lock
