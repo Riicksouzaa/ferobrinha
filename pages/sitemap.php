@@ -12,7 +12,7 @@ use Thepixeldeveloper\Sitemap\SitemapIndex;
 use Thepixeldeveloper\Sitemap\Url;
 use Thepixeldeveloper\Sitemap\Urlset;
 
-dd($config['base_url']);
+var_dump($config['base_url']);
 //header("Content-Type: text/xml; encoding=UTF-8");
 if ($config['base_url'] != Website::getWebsiteConfig()->getValue('realurl')) {
     $savefile = "C:/xampp/htdocs/global-website/production/ferobra-website/";
