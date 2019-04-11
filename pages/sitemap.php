@@ -21,8 +21,8 @@ if ($config['base_url'] != Website::getWebsiteConfig()->getValue('realurl')) {
 }
 
 /** SET SITEMAP URL */
-$indexloc = $config['base_url'] . 'sitemaps/sitemap-index.xml';
-$playersloc = $config['base_url'] . ('sitemaps/players-sitemap.xml');
+$indexloc = Website::getWebsiteConfig()->getValue('realurl') . 'sitemaps/sitemap-index.xml';
+$playersloc = Website::getWebsiteConfig()->getValue('realurl') . 'sitemaps/players-sitemap.xml';
 //$communityloc = $config['base_url'].('community-sitemap.xml');
 
 /** INSERT SITEMAP URL TO SITEMAP OBJECT */
@@ -46,10 +46,10 @@ fwrite($fp, $driver->output());
 fclose($fp);
 
 
-$loc = $config['base_url'];
+$loc = Website::getWebsiteConfig()->getValue('realurl');
 $lastMod = new DateTime('NOW');
 $changeFreq = "daily";
-$priority = 1;
+$priority = '1';
 
 $url = new Url($loc);
 $url->setLastMod($lastMod);
@@ -67,10 +67,10 @@ fwrite($fp, $xml->output());
 fclose($fp);
 
 
-$loc = $config['base_url'] . "?subtopic=characters&name=";
+$loc = Website::getWebsiteConfig()->getValue('realurl') . "?subtopic=characters&name=";
 $lastMod = new DateTime('NOW');
 $changeFreq = 'daily';
-$priority = 0.8;
+$priority = '0.8';
 $players = $SQL->query("SELECT * FROM players WHERE account_id != 1")->fetchAll();
 
 $urlset = new Urlset();
