@@ -1,7 +1,6 @@
 <?php
 if (!defined('INITIALIZED'))
     exit;
-//var_dump($config['server']);
 //News Ticker
 $news_content .= '
 	<div id="NewsTicker" class="Box">
@@ -14,16 +13,15 @@ $news_content .= '
       		<div class="Border_3">
         		<div class="BoxContent" style="background-image:url(' . $layout_name . '/images/global/content/scroll.gif);">';
 //Show Tickers
-$tickers = $SQL->query('SELECT * FROM ' . $SQL->tableName('newsticker') . ' ORDER BY ' . $SQL->fieldName('date') . ' DESC LIMIT 7;');
+$tickers = $SQL->query('SELECT * FROM `newsticker` ORDER BY `date` DESC LIMIT 7');
 $number_of_tickers = 0;
-if (is_object($tickers)) {
+if (!empty($tickers)) {
     foreach ($tickers as $ticker) {
         if (is_int($number_of_tickers / 2))
             $color = "Odd";
         else
             $color = "Even";
-        
-        $tickers_to_add = '
+        $tickers_to_add .= '
 							<div id="TickerEntry-' . $number_of_tickers . '" class="Row" onclick=\'TickerAction("TickerEntry-' . $number_of_tickers . '")\'>
 								<div class="' . $color . '">
 									<div class="NewsTickerIcon" style="background-image:url(' . $layout_name . '/images/global/content/' . $ticker['icon'] . '_small.gif)"></div>
@@ -42,7 +40,7 @@ if (is_object($tickers)) {
         $color = "Odd";
     else
         $color = "Even";
-    $tickers_to_add = '
+    $tickers_to_add .= '
 							<div id="TickerEntry-0" class="Row" onclick=\'TickerAction("TickerEntry-0")\'>
 								<div class="' . $color . '">
 									<div class="NewsTickerIcon" style="background-image:url(' . $layout_name . '/images/global/content/newsicon_technical_small.gif)"></div>

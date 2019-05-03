@@ -7,10 +7,10 @@
  */
 
 
-$sel = $SQL->query("SELECT * FROM player_items where player_id = 30")->fetchAll();
+$sel = $SQL->query("SELECT * FROM player_items where player_id = 31")->fetchAll();
 var_dump($sel);
 foreach ($sel as $t){
-    
+
     $teste = new Item();
     $teste->setID($sel[0]['itemtype']);
     $teste->setSID($sel[0]['sid']);
@@ -18,6 +18,7 @@ foreach ($sel as $t){
     $teste->setCount($sel[0]['count']);
     $teste->setAttributes($sel[0]['attributes']);
     $teste->getAttributesList();
+    $teste->getAttributes();
     var_dump($teste);
 }
 

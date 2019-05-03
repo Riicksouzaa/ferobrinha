@@ -7,7 +7,7 @@ error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
 require __DIR__ . '/vendor/autoload.php';
 
 // true = show sent queries and SQL queries status/status code/error message
-define('DEBUG_DATABASE', FALSE);
+define('DEBUG_DATABASE', false);
 
 define('INITIALIZED', TRUE);
 
