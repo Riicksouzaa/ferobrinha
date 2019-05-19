@@ -158,29 +158,29 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     });
 </script>
 <script>
-    var loginStatus=0;
+    let loginStatus=0;
     loginStatus='<?php if($logged){ ?>true<?php } else { ?>false<?php } ?>';
     <?php if ($_REQUEST['subtopic'] == 'accountmanagement' && $_REQUEST['action'] == 'donate'){?>
-    var activeSubmenuItem='donate';
+    let activeSubmenuItem='donate';
     <?php }elseif($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == 'buychar'){?>
-    var activeSubmenuItem='buychar';
+    let activeSubmenuItem='buychar';
     <?php }elseif($_REQUEST['subtopic'] == "accountmanagement" && $_REQUEST['action'] == 'sellchar'){?>
-    var activeSubmenuItem='sellchar';
+    let activeSubmenuItem='sellchar';
     <?php }elseif($_REQUEST['subtopic'] == "events"){?>
     <?php $ev = new Events();?>
     <?php $kappa = $ev->getArrGroupNames();?>
-    var activeSubmenuItem='<?php echo array_search($_REQUEST['name'],$kappa);?>';
+    let activeSubmenuItem='<?php echo array_search($_REQUEST['name'],$kappa);?>';
     <?php }else{?>
-    var activeSubmenuItem='<?php echo $subtopic; ?>';
+    let activeSubmenuItem='<?php echo $subtopic; ?>';
     <?php }?>
-    var JS_DIR_IMAGES=0;
+    let JS_DIR_IMAGES=0;
     JS_DIR_IMAGES='<?php echo $layout_name; ?>/images/';
-    var JS_DIR_ACCOUNT=0;
+    let JS_DIR_ACCOUNT=0;
     JS_DIR_ACCOUNT='';
-    var g_FormName='';
-    var g_FormField='';
-    var g_Deactivated=false;
-    var g_FlashClientInPopUp= true;
+    let g_FormName='';
+    let g_FormField='';
+    let g_Deactivated=false;
+    let g_FlashClientInPopUp= true;
 </script>
 <!--<script>
     if(top.location != window.location) {
@@ -194,11 +194,11 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     <script type="text/javascript">
         function openGameWindow(a_URL)
         {
-            var Height = 768;
-            var Width = 1024;
-            var Top = (screen.height - Height) / 2;
-            var Left = (screen.width - Width) / 2;
-            var NewWindow = window.open(a_URL + '&window=2',
+            let Height = 768;
+            let Width = 1024;
+            let Top = (screen.height - Height) / 2;
+            let Left = (screen.width - Width) / 2;
+            let NewWindow = window.open(a_URL + '&window=2',
                 "Tibia",
                 "width=" + Width + ",height=" + Height + ",top=" + Top + ",left=" + Left + ",dependent=no,hotkeys=no,location=no,menubar=no,resizable=yes,scrollbars=no,status=no,toolbar=no"
             );
@@ -216,8 +216,8 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     <?php if($_REQUEST['subtopic'] != "accountmanagement" && $_REQUEST['action'] != "donate"){?>
     <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
     <script>
-        var modal = document.getElementById('ouibounce-modal');
-        var bounce = ouibounce($("#ouibounce-modal")[0],
+        let modal = document.getElementById('ouibounce-modal');
+        let bounce = ouibounce($("#ouibounce-modal")[0],
             {
                 cookieName:"bounceFire",
                 cookieExpire:1,
@@ -556,7 +556,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     </script>
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
+            let js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
             js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&autoLogAppEvents=1&version=v2.12&appId=1722335358003085';
@@ -587,7 +587,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     <script id="float_discord" src="<?=$layout_name?>/js/discord_float_plugin.js<?php echo $css_version;?>" data-id="<?=Website::getWebsiteConfig()->getValue('discord_widget_id');?>&theme=dark" async></script>
     <!-- float facebook like box end -->
     <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
-    <script>var blockAdBlock = false;</script>
+    <script>let blockAdBlock = false;</script>
     <script src="<?php echo $layout_name; ?>/js/blockadblock.js<?php echo $css_version;?>"></script>
     <script>
     blockAdBlock = new BlockAdBlock({
@@ -599,7 +599,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     }
     
     function adBlockDetected() {
-        var adblock = ouibounce(false,{
+        let adblock = ouibounce(false,{
             cookieName: 'UsingAdBlock',
             callback: function () {
                 iziToast.show({

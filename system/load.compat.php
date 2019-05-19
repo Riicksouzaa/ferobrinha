@@ -46,7 +46,7 @@ if (!ONLY_PAGE) {
     if (Visitor::isLogged())
         $group_id_of_acc_logged = Visitor::getAccount()->getPageAccess();
 }
-/** @var string $layout_name ./layouts/ */
+/** @var string $layout_name ./layouts/tibiacom/ */
 $layout_name = './layouts/' . Website::getWebsiteConfig()->getValue('layout');
 /**
  * @param string $position Center || Left || Right

@@ -407,8 +407,8 @@ if ($_POST['type']) {
     $main_content .= "
 <script>
 $('#select_player_bank').submit(function() {
-    var form = $(this);
-    var data = form.serialize();
+    let form = $(this);
+    let data = form.serialize();
     var url = form.attr('action');
     var type = form.attr('method');
     $.ajax({

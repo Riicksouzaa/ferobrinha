@@ -39,7 +39,7 @@ if ($action == "") {
 														<TD WIDTH=56><B>&#160;</B></TD>
 													</TR>';
     $showed_guilds = 1;
-    if (count($guilds_list) > 0) {
+    if (!empty($guilds_list)) {
         foreach ($guilds_list as $guild) {
             if (is_int($showed_guilds / 2)) {
                 $bgcolor = $config['site']['darkborder'];
@@ -692,7 +692,7 @@ if ($action == "view") {
 												<div class="TableContentContainer" >
 													<table class="TableContent" width="100%" >';
         $invited_list = $guild->listInvites();
-        if (count($invited_list) == 0)
+        if (empty($invited_list))
             $main_content .= '
 														<TR BGCOLOR=#F1E0C6>
 															<TD>No invited characters found.</TD>
@@ -706,7 +706,7 @@ if ($action == "view") {
             $show_accept_invite = 0;
             $showed_invited = 1;
             foreach ($invited_list as $invited_player) {
-                if (count($account_players) > 0)
+                if (!empty($account_players))
                     foreach ($account_players as $player_from_acc)
                         if ($player_from_acc->getName() == $invited_player->getName())
                             $show_accept_invite++;
@@ -830,7 +830,7 @@ if ($action == "create") {
                         $array_of_player_nig[] = $player->getName();
         }
     }
-    if (count($array_of_player_nig) == 0)
+    if (empty($array_of_player_nig))
         $guild_errors[] = 'On your account all characters are in guilds or have too low level to create new guild.';
     if ($todo == "save") {
         if (!check_guild_name($guild_name)) {
@@ -913,7 +913,7 @@ if ($action == "create") {
 								<tr>
 									<td style="border:0px;" >';
         if ($logged)
-            if (count($array_of_player_nig) > 0)
+            if (!empty($array_of_player_nig))
                 $main_content .= '
 												<input type="hidden" name=action value=create >';
         $main_content .= '
@@ -1036,7 +1036,7 @@ if ($action == "create") {
 														<TD>Leader:</TD>
 														<TD>
 															<SELECT NAME="leader">';
-            if (count($array_of_player_nig) > 0) {
+            if (!empty($array_of_player_nig)) {
                 sort($array_of_player_nig);
                 foreach ($array_of_player_nig as $nick)
                     $main_content .= '<OPTION>' . htmlspecialchars($nick) . '</OPTION>';
@@ -1150,7 +1150,7 @@ if ($action == "invite") {
         }
         if (empty($guild_errors)) {
             $invited_list = $guild->listInvites();
-            if (count($invited_list) > 0)
+            if (!empty($invited_list))
                 foreach ($invited_list as $invited)
                     if ($invited->getName() == $player->getName())
                         $guild_errors[] = '<b>' . htmlspecialchars($player->getName()) . '</b> is already invited to your guild.';
@@ -1324,7 +1324,7 @@ if ($action == "invite") {
 				</table>
 			</div>';
     $invited_list = $guild->listInvites();
-    if (count($invited_list) > 0) {
+    if (!empty($invited_list)) {
         $main_content .= '
 				<BR>
 				If you want to cancel an invitation, select the according character and click on "Submit".<BR><BR>
@@ -1571,7 +1571,7 @@ if ($action == "leave") {
 								<td><div class="InnerTableContainer" >
 										<table style="width:100%;" >
 											<TR>';
-            if (count($array_of_player_ig) > 0) {
+            if (!empty($array_of_player_ig)) {
                 $main_content .= '
 												<TD BGCOLOR=#D4C0A1>';
                 sort($array_of_player_ig);
@@ -1665,7 +1665,7 @@ if ($action == "join") {
         if (empty($guild_errors)) {
             $is_invited = FALSE;
             $invited_list = $guild->listInvites();
-            if (count($invited_list) > 0) {
+            if (!empty($invited_list)) {
                 foreach ($invited_list as $invited) {
                     if ($invited->getName() == $player->getName()) {
                         $is_invited = TRUE;
@@ -1681,7 +1681,7 @@ if ($action == "join") {
             $acc_invited = FALSE;
             $account_players = $account_logged->getPlayers();
             $invited_list = $guild->listInvites();
-            if (count($invited_list) > 0) {
+            if (!empty($invited_list)) {
                 foreach ($invited_list as $invited) {
                     foreach ($account_players as $player_from_acc) {
                         if ($invited->getName() == $player_from_acc->getName()) {
@@ -1805,7 +1805,7 @@ if ($action == "join") {
 								<td><div class="InnerTableContainer" >
 										<table style="width:100%;" >
 											<TR>';
-            if (count($list_of_invited_players) > 0) {
+            if (!empty($list_of_invited_players)) {
                 $main_content .= '
 												<TD BGCOLOR=#D4C0A1>';
                 sort($list_of_invited_players);
@@ -2291,7 +2291,7 @@ if ($action == "members") {
                 $ranks[$rid]['1'] = $rank->getName();
                 $rid++;
                 $players_with_rank = $rank->getPlayersList();
-                if (count($players_with_rank) > 0) {
+                if (!empty($players_with_rank)) {
                     foreach ($players_with_rank as $player) {
                         if ($guild->getOwner()->getId() != $player->getId() || $guild_leader) {
                             $players_with_lower_rank[$sid]['0'] = htmlspecialchars($player->getName());
@@ -2448,7 +2448,7 @@ if ($action == "members") {
                         $ranks[$rid]['1'] = $rank->getName();
                         $rid++;
                         $players_with_rank = $rank->getPlayersList();
-                        if (count($players_with_rank) > 0) {
+                        if (!empty($players_with_rank)) {
                             foreach ($players_with_rank as $player) {
                                 if ($guild->getOwner()->getId() != $player->getId() || $guild_leader) {
                                     $players_with_lower_rank[$sid]['0'] = htmlspecialchars($player->getName());
