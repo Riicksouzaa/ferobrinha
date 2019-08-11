@@ -85,7 +85,7 @@ $details->setShipping(0)
 
 $amount = new \PayPal\Api\Amount();
 $amount->setTotal($price)
-    ->setCurrency('BRL')
+    ->setCurrency($config['paypal']['currency'])
     ->setDetails($details);
 
 $notify_url = $config['paypal']['notify_url'];

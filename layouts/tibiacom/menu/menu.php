@@ -6,7 +6,7 @@
     <?php include_once "menuitem/forum.php"; ?>
     <?php include_once "menuitem/account.php"; ?>
     <?php include_once "menuitem/library.php"; ?>
-    <?php include_once "menuitem/events.php"; ?>
+    <?php //include_once "menuitem/events.php"; ?>
     <?php include_once "menuitem/support.php"; ?>
     <?php include_once "menuitem/shop.php"; ?>
     <div id="MenuBottom"

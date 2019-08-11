@@ -273,7 +273,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                         <div id="LeftArtwork">
                             <a href="./?subtopic=latestnews">
                                 <img id="TibiaLogoArtworkTop"
-                                     src="<?php echo $layout_name; ?>/images/global/header/tibia-logo-artwork-top.png"
+                                     src="<?php echo $layout_name; ?>/images/global/header/<?=Website::getWebsiteConfig()->getValue('websitelogo')?>"
                                      alt="<?php echo $config['server']['serverName']?>"
                                      name="<?php echo $config['server']['serverName']?>"
                                 >
