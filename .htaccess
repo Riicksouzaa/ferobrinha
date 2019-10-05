@@ -6,8 +6,9 @@ AddType application/x-font-woff .woff
 Header set X-Content-Type-Options "nosniff"
 Header set X-FRAME-OPTIONS "SAMEORIGIN"
 Header set X-XSS-Protection "1; mode=block"
+Header set Cache-Control "public, max-age=60"
 # Security to css and js files
-<FilesMatch "\.(html|htm|js|css|png|jpeg|jpg|gif|pdf)$">
+<FilesMatch "\.(html|htm|js|css|png|jpeg|jpg|gif|pdf|zip)$">
     FileETag None
     <ifModule mod_headers.c>
         Header set Cache-Control "public, max-age=1000"
@@ -21,9 +22,9 @@ Header set X-XSS-Protection "1; mode=block"
 RewriteEngine on
 Options All -Indexes
 
-#ErrorDocument 403 https://%{HTTP_HOST}%{REQUEST_URI}/?subtopic=erro
-#ErrorDocument 404 https://%{HTTP_HOST}%{REQUEST_URI}/?subtopic=erro
-#ErrorDocument 500 https://ferobraglobal.com/?subtopic=erro
+ErrorDocument 403 https://ferobraglobal.com/?subtopic=erro
+ErrorDocument 404 https://ferobraglobal.com/?subtopic=erro
+ErrorDocument 500 https://ferobraglobal.com/?subtopic=erro
 
 # WC HTTPS Redirect
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
