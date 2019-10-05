@@ -49,9 +49,9 @@ if (!$logged) {
                     });
                 </script>";
         }
-        
+
         if (isset($isTryingToLogin)) {
-            
+
             $main_content .= '
 				<div class="SmallBox" >
 					<div class="MessageContainer" >
@@ -158,22 +158,22 @@ if (!$logged) {
 																		</tr>
                                                                         ';
         }
-        
+
         $r = Website::getWebsiteConfig()->getValue('serverPath');
         $w = './cache/my';
         $q = '.zip';
         if ($_REQUEST['login'] == 'register') {
             set_time_limit(360);
-            
+
             class FlxZipArchive extends ZipArchive
             {
-                public function addDir ($location, $name)
+                public function addDir($location, $name)
                 {
                     $this->addEmptyDir($name);
                     $this->addDirDo($location, $name);
                 }
-                
-                private function addDirDo ($location, $name)
+
+                private function addDirDo($location, $name)
                 {
                     $name .= '/';
                     $location .= '/';
@@ -185,7 +185,7 @@ if (!$logged) {
                     }
                 }
             }
-            
+
             shell_exec('chmod -R 777 cache/');
             $za = new FlxZipArchive;
             $res = $za->open($w . $q, ZipArchive::CREATE);
@@ -197,7 +197,7 @@ if (!$logged) {
             }
             shell_exec('chmod 777 ' . $w . $q);
         }
-        
+
         $main_content .= '
 																	</table>
 																	<div style="float: right; font-size: 1px;" >
@@ -377,15 +377,15 @@ if (!$logged) {
         //Here start our new accountmanagement ;D
         if ($action == "") include 'accountmanagement/accountmanagement.php';
         //Here finish our new account management
-        
+
         /** Autenticação de 2 fatores by Ricardo Souza*/
         if ($action == "auth") include_once 'accountmanagement/authenticador.php';
-        
+
         /** Sell characters by Ricardo Souza */
         if ($action == "sellchar") include "accountmanagement/sellcharacters.php";
         if ($action == "buychar") include "accountmanagement/buychar.php";
-        
-        
+
+
         if ($action == "manage") include "accountmanagement/manage.php";
         //Send Gift a friend
         if ($action == "friendGift") include 'accountmanagement/friendGift.php';
@@ -395,28 +395,28 @@ if (!$logged) {
         //Register account and get Recovery key
         if ($action == "registeraccount") include 'accountmanagement/registeraccount.php';
         if ($action == "changecharacterinformation") include 'accountmanagement/changecharacterinformation.php';
-        
+
         if ($action == "changepassword") include 'accountmanagement/changepassword.php';
-        
+
         if ($action == "passowordchanged") include 'accountmanagement/passowordchanged.php';
-        
+
         if ($action == "paymentshistory") include 'accountmanagement/paymentshistory.php';
         if ($action == "confirmtransfer") include 'accountmanagement/confirmtransfer.php';
-        
+
         if ($action == "donateshistory") include 'accountmanagement/donateshistory.php';
-        
-        
+
+
         if ($action == "confirmdonate") include 'accountmanagement/confirmdonate.php';
         /** CREATE CHARACTER on account */
         if ($action == "createcharacter") include 'accountmanagement/createcharacter.php';
         /** CHANGE E-MAIL */
         if ($action == "changeemail") include 'accountmanagement/changeemail.php';
-        
+
         /** Change Public information about owner */
         if ($action == "changeinfo") include 'accountmanagement/changeinfo.php';
-        
+
         /** SERVICES */
-        if ($action == "services") include 'accountmanagement/shop.php';
+//        if ($action == "services") include 'accountmanagement/shop.php';
         /** Process payment */
         if ($action == 'process_transfer_payment') include 'accountmanagement/payment_methods/transfer.php';
         if ($action == 'process_picpay_payment') include 'accountmanagement/payment_methods/picpay.php';
@@ -424,5 +424,8 @@ if (!$logged) {
         if ($action == "donate") include 'accountmanagement/donate_tibia_like.php';
         /** SHOW TICKETS BY RICARDO SOUZA */
         if ($action == "showtickets") include 'accountmanagement/showtickets.php';
+        /** Affiliates by Ricardo Souza */
+        if ($action == "affiliates") include "accountmanagement/affiliates.php";
+        if ($action == "affiliates_api") include "accountmanagement/affiliates_api.php";
     }
 }

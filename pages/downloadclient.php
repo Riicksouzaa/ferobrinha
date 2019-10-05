@@ -79,27 +79,24 @@ if (isset($_REQUEST['step']) && $_REQUEST['step'] == "downloadagreement") {
 														<div class="TableContentContainer">
 															<table class="TableContent" width="100%">
 																<tr>
-																	<td><table style="width:100%;text-align:center">
-																	<center><h1>Official ' . $config['server']['serverName'] . ' Client</h1></center>
-																			<tr>
-																				<td>
-																					<img style="width: 90; height: 90px; border: 0px;" src="' . $layout_name . '/images/account/download_windows.png"/>
-																				</td>
-																				<td>
-																					<img style="width: 90; height: 90px; border: 0px;" src="' . $layout_name . '/images/account/download_windows.png"/>
-																				</td>
-																			</tr>
-																			<tr>
-																			<td valign="top">
-																					<a href="https://mega.nz/#!VDYGDTja!o4bzMZWcGVKD8zDd8LLCWRIUHksbpWgBzkW_AZuT8i8" target="_blank" type="application/octet-stream" target="_top">Download Tibia 11.50<br/>Windows Client</a>
-																				</td>
-																				<td valign="top">
-																					<a href="https://mega.nz/#!8GRHia7a!OT21iqxZ0_PNAp2KpmdPELXxOM7LEicQZnw4To0IImE" target="_blank" type="application/octet-stream" target="_top">Download Tibia 10.00<br/>Windows Client</a>
-																				</td>
-																			</tr>
-																			<tr>
-																				<td colspan="2" >[<span class="HelpLink" style="width: 18px; height: 18px;" ><a href="/common/tibiaclientrequirements.php" target="_blank" ><span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Requirements:\', \'<p><b>Minimum:</b><ul><li>OS: Windows XP SP3</li><li>Processor: 1.5 GHz Pentium 4 or equivalent with SSE2 instruction set support</li><li>Memory: 1GB RAM</li><li>Graphics: 128MB; if DirectX 9c or OpenGL 2.1 are not supported, only software renderer mode is available (no light effects)</li><li>Hard Drive: min. 150 MB</li></ul><b>Recommended:</b><ul><li>OS: System: Windows 7 or newer</li><li>Processor: 2.5 GHz Intel Core i3 processor or equivalent</li><li>Memory: 4GB RAM</li><li>Graphics: 512MB; OpenGL 2.1 support</li><li>Hard Drive: min. 150 MB</li><ul></ul>\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >system requirements</span></a></span>]</td>
-																			</tr>
+																	<td>
+																	<table style="width:100%;text-align:center">
+                                                                        <center>
+                                                                            <h1>Official ' . $config['server']['serverName'] . ' Client</h1>
+                                                                        </center>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                <img style="width: 90; height: 90px; border: 0px;" src="' . $layout_name . '/images/account/download_windows.png"/>
+                                                                            </td>                                                                            
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                <a href="https://gitlab.com/lolgoiania/lolgoianiaclient/-/archive/master/lolgoianiaclient-master.zip" target="_blank" type="application/octet-stream" target="_top">Download Tibia 12 <br/>Windows Client</a>
+                                                                            </td>                                                                            
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>[<span class="HelpLink" style="width: 18px; height: 18px;" ><a href="/common/tibiaclientrequirements.php" target="_blank" ><span class="HelperDivIndicator" onMouseOver="ActivateHelperDiv($(this), \'Requirements:\', \'<p><b>Minimum:</b><ul><li>OS: Windows XP SP3</li><li>Processor: 1.5 GHz Pentium 4 or equivalent with SSE2 instruction set support</li><li>Memory: 1GB RAM</li><li>Graphics: 128MB; if DirectX 9c or OpenGL 2.1 are not supported, only software renderer mode is available (no light effects)</li><li>Hard Drive: min. 150 MB</li></ul><b>Recommended:</b><ul><li>OS: System: Windows 7 or newer</li><li>Processor: 2.5 GHz Intel Core i3 processor or equivalent</li><li>Memory: 4GB RAM</li><li>Graphics: 512MB; OpenGL 2.1 support</li><li>Hard Drive: min. 150 MB</li><ul></ul>\', \'\');" onMouseOut="$(\'#HelperDivContainer\').hide();" >system requirements</span></a></span>]</td>
+                                                                        </tr>
 																		</table>
 																	</td>
 																</tr>

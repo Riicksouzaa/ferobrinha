@@ -48,6 +48,44 @@ if (!ONLY_PAGE) {
 }
 /** @var string $layout_name ./layouts/tibiacom/ */
 $layout_name = './layouts/' . Website::getWebsiteConfig()->getValue('layout');
+
+
+$make_multiple_buttons = function (array $buttons) {
+    $button = '<div class="SubmitButtonRow">';
+    foreach ($buttons as $key => $value) {
+        $button .= $value;
+    }
+    $button .= '</div>';
+
+    return $button;
+};
+
+/**
+ * @param bool $multiple
+ * @param string $id
+ * @param string $type submit|test|testtt
+ * @param string $position
+ * @param string $color _red || _green
+ * @return string
+ */
+$make_custom_button = function ($multiple = false, $id = 'custom_button', $type = 'submit', $position = 'Center', $color = null) use ($layout_name) {
+    $button = ($multiple ? '' : '<div class="SubmitButtonRow">');
+    $button .= '
+        <div class="' . $position . 'Button">
+            <div class="BigButton" style="background-image:url(./layouts/tibiacom/images/global/buttons/sbutton' . $color . '.gif)">
+               <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);">
+                  <div class="BigButtonOver" style="background-image:url(./layouts/tibiacom/images/global/buttons/sbutton' . $color . '_over.gif);"></div>
+                  <input id="' . $id . '" class="ButtonText" type="image" name="Submit" alt="Submit" src="./layouts/tibiacom/images/global/buttons/_sbutton_' . $type . '.gif">
+               </div>
+            </div>
+        </div>
+    ';
+    $button .= ($multiple ? '' : '</div>');
+
+    return $button;
+};
+
+
 /**
  * @param string $position Center || Left || Right
  * @return string
@@ -93,27 +131,27 @@ foreach ($layout_ini as $key => $value)
     $config['site'][$key] = $value;
 
 //###################### FUNCTIONS ######################
-function microtime_float ()
+function microtime_float()
 {
     return microtime(TRUE);
 }
 
-function isPremium ($premdays, $lastday)
+function isPremium($premdays, $lastday)
 {
     return Functions::isPremium($premdays, $lastday);
 }
 
-function saveconfig_ini ($config)
+function saveconfig_ini($config)
 {
     new Error_Critic('', 'function <i>saveconfig_ini</i> is deprecated. Do not use it.');
 }
 
-function password_ency ($password, $account = NULL)
+function password_ency($password, $account = NULL)
 {
     new Error_Critic('', 'function <i>password_ency</i> is deprecated. Do not use it.');
 }
 
-function check_name ($name)
+function check_name($name)
 {
     $name = (string)$name;
     $temp = strspn("$name", "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM- [ ] '");
@@ -121,11 +159,11 @@ function check_name ($name)
         return FALSE;
     if (strlen($name) > 25)
         return FALSE;
-    
+
     return TRUE;
 }
 
-function check_account_name ($name)
+function check_account_name($name)
 {
     $name = (string)$name;
     $temp = strspn("$name", "QWERTYUIOPASDFGHJKLZXCVBNM0123456789");
@@ -135,11 +173,11 @@ function check_account_name ($name)
         return FALSE;
     if (strlen($name) > 32)
         return FALSE;
-    
+
     return TRUE;
 }
 
-function check_name_new_char ($name)
+function check_name_new_char($name)
 {
     $name = (string)$name;
     $name_to_check = strtolower($name);
@@ -180,11 +218,11 @@ function check_name_new_char ($name)
         return FALSE;
     if (strlen($name) > 25)
         return FALSE;
-    
+
     return TRUE;
 }
 
-function check_rank_name ($name)
+function check_rank_name($name)
 {
     $name = (string)$name;
     $temp = strspn("$name", "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-[ ] ");
@@ -194,11 +232,11 @@ function check_rank_name ($name)
         return FALSE;
     if (strlen($name) > 60)
         return FALSE;
-    
+
     return TRUE;
 }
 
-function check_guild_name ($name)
+function check_guild_name($name)
 {
     $name = (string)$name;
     $words_blocked = array('--', "''", "' ", " '", '- ', ' -', "-'", "'-", '  ');
@@ -209,15 +247,15 @@ function check_guild_name ($name)
         return FALSE;
     if (strlen($name) > 60)
         return FALSE;
-    
+
     foreach ($words_blocked as $word)
         if (!(strpos($name, $word) === FALSE))
             return FALSE;
-    
+
     return TRUE;
 }
 
-function check_password ($pass)
+function check_password($pass)
 {
     $pass = (string)$pass;
     $temp = strspn("$pass", "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890");
@@ -225,30 +263,30 @@ function check_password ($pass)
         return FALSE;
     if (strlen($pass) > 40)
         return FALSE;
-    
+
     return TRUE;
 }
 
-function check_mail ($email)
+function check_mail($email)
 {
     $email = (string)$email;
     $ok = "/[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,4}/";
     return (preg_match($ok, $email)) ? TRUE : FALSE;
 }
 
-function items_on_player ($characterid, $pid)
+function items_on_player($characterid, $pid)
 {
     new Error_Critic('', 'function <i>items_on_player</i> is deprecated. Do not use it. It used too many queries!');
 }
 
-function getReason ($reasonId)
+function getReason($reasonId)
 {
     return Functions::getBanReasonName($reasonId);
 }
 
 //################### DISPLAY FUNCTIONS #####################
 //return shorter text (news ticker)
-function short_text ($text, $chars_limit)
+function short_text($text, $chars_limit)
 {
     if (strlen($text) > $chars_limit)
         return substr($text, 0, strrpos(substr($text, 0, $chars_limit), " ")) . '...';
@@ -257,13 +295,13 @@ function short_text ($text, $chars_limit)
 }
 
 //return text to news msg
-function news_place ()
+function news_place()
 {
     return '';
 }
 
 //set monster of week
-function logo_monster ()
+function logo_monster()
 {
     new Error_Critic('', 'function <i>logo_monster</i> is deprecated. Do not use it!');
 }

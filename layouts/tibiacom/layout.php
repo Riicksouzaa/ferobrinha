@@ -32,7 +32,7 @@ if(!defined('INITIALIZED'))
     <meta property="og:image:height" content="<?php if($_REQUEST['subtopic'] == "characters" && isset($_REQUEST['name'])){echo '500';}else{echo '800';}?>"/>
     <meta property="og:locale" content="pt_BR"/>
     <!-- ##FIM META TAGS OPENGRAPH-->
-    
+
     <!-- META TAGS FACEBOOK-->
     <meta property="fb:app_id" content="<?=$config['social']['fbappid']?>"/>
     <!-- ##FIM META TAGS FACEBOOK-->
@@ -226,7 +226,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                     $("#ouibounce-modal").show();
                 }
             });
-        
+
         $('body').on('click', function() {
             $('#ouibounce-modal').hide();
         });
@@ -244,19 +244,19 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
             <div class="modal-title">
                 <h3>Perae Karai...</h3>
             </div>
-    
+
             <div class="modal-body">
                 <p>Valeu ai por esperar!</p>
                 <br>
                 <p>Eai meu bom... Beleza? Então, ta afim de usar esse website em seus projetos? Ele é bem maneiro e com alguns recursos únicos, um deles é o Pagseguro com lightbox, onde os usuários não precisam sair do site pra finalizar suas doações ao server.</p>
                 <br>
                 <p>Caso tenha interesse você pode mandar um e-mail para: <a href="mailto:souzaariick@gmail.com">souzaariick@gmail.com</a>.</p>
-    
+
                 <form>
                     <p class="form-notice">*Estou aguardando seu contato!</p>
                 </form>
             </div>
-    
+
             <div class="modal-footer">
                 <p>no thanks</p>
             </div>
@@ -279,7 +279,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                                 >
                             </a>
                         </div>
-    
+
                         <div id="Loginbox">
                             <div id="LoginTop" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-top.gif)"></div>
                             <div id="BorderLeft" class="LoginBorder" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif)"></div>
@@ -305,7 +305,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                             <div id="BorderRight" class="LoginBorder" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif)"></div>
                             <div id="LoginBottom" class="Loginstatus" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif)"></div>
                         </div>
-    
+
                         <div class="SmallMenuBox" style="top: 4px;" >
                             <div id="LoginTop" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-top.gif)" ></div>
                             <div id="BorderLeft" class="LoginBorder" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif); height: 39px;" ></div>
@@ -315,9 +315,9 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                             <div id="BorderRight" class="LoginBorder" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/chain.gif); height: 39px;" ></div>
                             <div id="LoginBottom" class="Loginstatus" style="background-image:url(<?php echo $layout_name; ?>/images/global/general/box-bottom.gif); top: 39px;" ></div>
                         </div>
-                        
+
                         <?php include_once "menu/menu.php";?>
-                        
+
                         <script>InitializePage();</script>
                     </div>
                     <div id="ContentColumn">
@@ -325,14 +325,14 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                             <div id="ContentHelper">
                                 <div id="preload">
                                     <?php
-        
+
                                     if ( ! session_id() ) @ session_start();
-        
+
                                     $last = null;
                                     if (!isset($_SESSION)) {
                                         $_SESSION = [];
                                     }
-        
+
                                     if (isset($_SESSION['server_status_last_check'])) {
                                         $last = $_SESSION['server_status_last_check'];
                                     }
@@ -340,9 +340,9 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                                         $_SESSION['server_status_last_check'] = time();
                                         $_SESSION['server_status'] = $config['status']['serverStatus_online'];
                                     }
-                                    
+
                                     $infobar = Website::getWebsiteConfig()->getValue('info_bar_active');
-        
+
                                     if($_SESSION['server_status'] == 1){
                                         $qtd_players_online = $SQL->prepare("SELECT count(*) as total from `players_online`");
                                         $qtd_players_online->execute([]);
@@ -526,7 +526,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     </script>
     <script>
         $(document).ready(function(){
-    
+
             //Check to see if the window is top if not then display button
             $(window).scroll(function(){
                 if ($(this).scrollTop() > 100) {
@@ -535,13 +535,13 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                     $('.scrollToTop').fadeOut();
                 }
             });
-    
+
             //Click event to scroll to top
             $('.scrollToTop').click(function(){
                 $('html, body').animate({scrollTop : 0},800);
                 return false;
             });
-    
+
         });
     </script>
     <div class="scrollToTop"><!--<p class="scrollToTopText">BACK</p>--></div>
@@ -577,7 +577,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-    
+
             gtag('config', 'UA-110963342-1');
         </script>
     <?php } ?>
@@ -589,6 +589,10 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
     <script>let blockAdBlock = false;</script>
     <script src="<?php echo $layout_name; ?>/js/blockadblock.js<?php echo $css_version;?>"></script>
+
+    <?php if($_REQUEST['subtopic']=='accountmanagement' && $_REQUEST['action']=='affiliates'){?>
+        <script src="<?php echo $layout_name; ?>/js/affiliates.js<?php echo $css_version;?>"></script>
+    <?php } ?>
     <script>
     blockAdBlock = new BlockAdBlock({
         checkOnLoad: true,
@@ -597,7 +601,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     function adBlockNotDetected() {
         //do nothing
     }
-    
+
     function adBlockDetected() {
         let adblock = ouibounce(false,{
             cookieName: 'UsingAdBlock',

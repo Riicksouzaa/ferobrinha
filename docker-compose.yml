@@ -1,0 +1,88 @@
+version: '2'
+services:
+
+
+  #THE FORGOTTEN SERVER
+  server:
+    image: riicksouzaa/tfs
+    container_name: server
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: server
+      SERVICE_TAGS: dev
+    working_dir: /srv
+    links:
+      - database
+    networks:
+      - app-network
+
+  #PHP Service
+  website:
+    image: riicksouzaa/premium-gesior:latest
+    container_name: website
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: website
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    links:
+      - database
+    volumes:
+      - ./:/var/www
+      - ../server:/usr/local/server
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  #Nginx Service
+  webserver:
+    image: jwilder/nginx-proxy
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8090:8090"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock
+    environment:
+      VIRTUAL_PROTO: https
+      VIRTUAL_PORT: 443
+    networks:
+      - app-network
+    depends_on:
+      - website
+
+  #MySQL Service
+  database:
+    image: mariadb:latest
+    container_name: database
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3308:3308"
+    environment:
+      MYSQL_DATABASE: premium-gesior
+      MYSQL_ROOT_PASSWORD: gesior
+      SERVICE_NAME: database
+      SERVICE_TAGS: dev
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ./database/data.sql:/docker-entrypoint-initdb.d/db.sql
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:

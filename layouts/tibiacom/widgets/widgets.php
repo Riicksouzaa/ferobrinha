@@ -13,3 +13,4 @@ include_once "widget_Serverinfobox.php";
 include_once "widget_NetworksBox.php";
 include_once "widget_CurrentPollBox.php";
 include_once "widget_CastleWarBox.php";
+include_once "widget_TibiaClips.php";
