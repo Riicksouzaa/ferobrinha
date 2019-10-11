@@ -113,6 +113,11 @@ if (!isset($_REQUEST['step'])) {
 																check to hide your account information</td>
 														</tr>
 														<tr>
+															<td class="LabelV" >Hide Itens:</td>
+															<td style="width:80%;" ><input type="checkbox" name="accountItemvisible" ' . (($playerComment->isItemHidden()) ? "checked=checked" : "") . '  value="1" />
+																check to hide your account items information</td>
+														</tr>
+														<tr>
 															<td class="LabelV" ><span >Comment:</span></td>
 															<td style="width:80%;" ><textarea name="comment" rows="10" cols="50" wrap="virtual" >' . $playerComment->getComment() . '</textarea></td>
 														</tr>
@@ -226,9 +231,11 @@ if ($_REQUEST['step'] == "change") {
         $comment = trim(stripslashes($_POST['comment']));
         $signature = trim(stripslashes($_POST['signature']));
         $hidden = (int)$_POST['accountvisible'];
+        $hiddenItem = (int)$_POST['accountItemvisible'];
         $charChangeInfo->setComment($comment);
         $charChangeInfo->setSignature($signature);
         $charChangeInfo->setHidden($hidden);
+        $charChangeInfo->setHideItem($hiddenItem);
         $charChangeInfo->save();
         $main_content .= '
 					<div class="TableContainer" >

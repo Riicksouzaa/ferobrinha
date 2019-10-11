@@ -407,10 +407,26 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                                                 </a>
                                                 <?php }?>
                                                 <?php if(Website::getWebsiteConfig()->getValue('info_bar_online')){?>
-                                                <a style="float: right" href="<?php echo $config['base_url']?>?subtopic=worlds">
+                                                <a  style="float: right; min-width: 107px" href="<?php echo $config['base_url']?>?subtopic=worlds">
                                                     <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
                                                     <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>>
                                                         <span class="InfoBarSmallElement show_online_data"><?php echo $players_online; ?></span>
+
+                                                        <?php $maxPlayers = ($config['server']['maxPlayers'] == 0 ? 500 : $config['server']['maxPlayers']);?>
+                                                        <?php $qtdOnline = ($qtd_players_online["total"] == null ? 0 : $qtd_players_online["total"]);?>
+                                                        <?php $serverStatus = $_SESSION['server_status'];?>
+                                                            <table class="InfoBarSmallElement" style="margin-left: 18px;background-color: black;width: 85%;" cellspacing="2">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td style="background: <?php if($serverStatus != 1 ){echo 'red';} elseif($qtdOnline >= $maxPlayers){ echo 'red';} elseif($qtdOnline >= $maxPlayers/6*1){ echo 'green';} else { echo 'black'; }?>;padding: 1px; border: 1px solid #ffffff;"></td>
+                                                                    <td style="background: <?php if($serverStatus != 1 ){echo 'red';} elseif($qtdOnline >= $maxPlayers){ echo 'red';} elseif($qtdOnline >= $maxPlayers/6*2){ echo 'green';} else { echo 'black'; }?>;padding: 1px; border: 1px solid #ffffff;"></td>
+                                                                    <td style="background: <?php if($serverStatus != 1 ){echo 'red';} elseif($qtdOnline >= $maxPlayers){ echo 'red';} elseif($qtdOnline >= $maxPlayers/6*3){ echo 'green';} else { echo 'black'; }?>;padding: 1px; border: 1px solid #ffffff;"></td>
+                                                                    <td style="background: <?php if($serverStatus != 1 ){echo 'red';} elseif($qtdOnline >= $maxPlayers){ echo 'red';} elseif($qtdOnline >= $maxPlayers/6*4){ echo 'green';} else { echo 'black'; }?>;padding: 1px; border: 1px solid #ffffff;"></td>
+                                                                    <td style="background: <?php if($serverStatus != 1 ){echo 'red';} elseif($qtdOnline >= $maxPlayers){ echo 'red';} elseif($qtdOnline >= $maxPlayers/6*5){ echo 'green';} else { echo 'black'; }?>;padding: 1px; border: 1px solid #ffffff;"></td>
+                                                                    <td style="background: <?php if($serverStatus != 1 ){echo 'red';} elseif($qtdOnline >= $maxPlayers){ echo 'red';} elseif($qtdOnline >= $maxPlayers/6*6){ echo 'green';} else { echo 'black'; }?>;padding: 1px; border: 1px solid #ffffff;"></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
                                                     </span>
                                                 </a>
                                                 <?php }?>

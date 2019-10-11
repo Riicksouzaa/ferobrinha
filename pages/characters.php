@@ -13,9 +13,9 @@ if (!empty($name)) {
     if ($player->isLoaded()) {
         $rows_number = 0;
         $account = $player->getAccount();
-        
+
         $main_content .= '<div class="TableContainer" >';
-        $fb_link = '<div class="fb-share-button" data-href="'.Website::getWebsiteConfig()->getValue('base_url').'/?subtopic=characters&name='.urlencode($name).'" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u='.Website::getWebsiteConfig()->getValue('base_url').'/?subtopic=characters&name='.urlencode($name).'&src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartilhar</a></div>';
+        $fb_link = '<div class="fb-share-button" data-href="' . Website::getWebsiteConfig()->getValue('base_url') . '/?subtopic=characters&name=' . urlencode($name) . '" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=' . Website::getWebsiteConfig()->getValue('base_url') . '/?subtopic=characters&name=' . urlencode($name) . '&src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartilhar</a></div>';
         $main_content .= $make_content_header("Character Information", $fb_link);
         $main_content .= $make_table_header('Table3', '', TRUE);
         $insell = $SQL->query("SELECT * FROM account_character_sale WHERE id_player = {$player->getID()}")->rowCount();
@@ -55,25 +55,25 @@ if (!empty($name)) {
 					<td>Sex:</td>
 					<td>' . htmlspecialchars((($player->getSex() == 0) ? 'Female' : 'Male')) . '</td>
 				</tr>';
-        
+
         $main_content .= '
 				<tr >
 					<td>Vocation:</td>
 					<td>' . htmlspecialchars(Website::getVocationName($player->getVocation())) . '</td>
 				</tr>';
-        
+
         $main_content .= '
 				<tr >
 					<td>Level:</td>
 					<td>' . htmlspecialchars($player->getLevel()) . '</td>
 				</tr>';
-        
+
         $main_content .= '
 				<tr >
 					<td>World:</td>
 					<td>' . htmlspecialchars($config['server']['serverName']) . '</td>
 				</tr>';
-        
+
         $main_content .= '
 				<tr >
 					<td>Residence:</td>
@@ -82,21 +82,21 @@ if (!empty($name)) {
         if ($player->getMarriageStatus() > 0) {
             $player_married = new Player();
             $player_married->loadById($player->getMarriage());
-            
+
             $main_content .= '
 					<tr >
 						<td>Married to:</td>
 						<td><a href="?subtopic=characters&name=' . urlencode($player_married->getName()) . '">' . htmlspecialchars($player_married->getName()) . '</a></td>
 					</tr>';
         }
-        
+
         $house = $SQL->query("SELECT * FROM `houses` WHERE `owner` = '" . $player->getID() . "'")->fetch();
         if (!empty($house[0])) {
-            
+
             $main_content .= '<TR ><TD>House:</TD><TD>';
             $main_content .= $house['name'] . ' (' . $towns_list[$house['town_id']] . ')' . '</TD></TR>';
         }
-        
+
         $rank_of_player = $player->getRank();
         if (!empty($rank_of_player)) {
             $main_content .= '
@@ -106,13 +106,13 @@ if (!empty($name)) {
 						</td>
                     </tr>';
         }
-        
+
         $main_content .= '
 				<tr >
 					<td>Last login:</td>
 					<td>' . (($player->getLastLogin() > 0) ? date("j F Y, g:i a", $player->getLastLogin()) : 'Never logged in.') . '</td>
 				</tr>';
-        
+
         $comment = $player->getComment();
         $newlines = array("\r\n", "\n", "\r");
         $comment_with_lines = str_replace($newlines, '<br />', $comment, $count);
@@ -125,7 +125,7 @@ if (!empty($name)) {
 						<td>' . $comment . '</td>
 					</tr>';
         }
-        
+
         if ($account->getPremDays() > 0) {
             $main_content .= '
 					<tr >
@@ -148,11 +148,17 @@ if (!empty($name)) {
         $main_content .= '</tr>';
         $main_content .= $make_table_footer();
         $main_content .= '</div></br>';
-        
+
         //Plus Account Information
         include_once "system/load.newclasses.php";
         $verifica_item_id = function ($pid) use ($player) {
-            $kalabok = (array_keys($player->getItems()->getItem($pid)) === []?'':array_keys($player->getItems()->getItem($pid))[0]);
+            $kalabok = (array_keys($player->getItems()->getItem($pid)) === [] ? '' : array_keys($player->getItems()->getItem($pid))[0]);
+
+
+            $hidden = $player->isItemHidden();
+            if($hidden){
+                return '<td style="background-color: #d4c0a1; text-align: center;"><img src="./layouts/tibiacom/images/shop/items/hidden.png" class="CharItems"></td>';
+            }
             if ($player->getItems()->getItem($pid)[$kalabok]->data['itemtype'] == NULL) {
                 return '<td style="background-color: #d4c0a1; text-align: center;"><img src="./layouts/tibiacom/images/shop/items/' . $pid . '.gif" class="CharItems"></td>';
             } else {
@@ -163,16 +169,16 @@ if (!empty($name)) {
         $player_info = $player->data;
         $mount_id = $player->getStorage('10002011');
         $cur_outfit = "<img style='text-decoration:none;margin: 0 0 0 -13px;' class='outfitImgsell2' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''>";
-        
+
         $cur_exp = $player->getExperience();
         $cur_lvl_exp = $player->getExpForLevel($player->getLevel());
         $cur_real_exp = $cur_exp - $cur_lvl_exp;
         $next_lvl_exp = $player->getExpForLevel($player->getLevel() + 1);
         $next_lvl_exp_need = $next_lvl_exp - $cur_lvl_exp;
-        
+
         $next_lvl_percent = (float)round(((($cur_real_exp / $next_lvl_exp_need) * 100)), 2, PHP_ROUND_HALF_DOWN);
         $next_lvl_percent = ($next_lvl_percent == 100 ? 99.99 : $next_lvl_percent);
-        
+
         $plus_content = '<div class="account_plus_information">';
         $plus_content .= '
             <div class="TableContentAndRightShadow1" style="background-image:url(./layouts/tibiacom/images/global/content/table-shadow-rm.gif);">
@@ -215,6 +221,7 @@ if (!empty($name)) {
                                             </td>
                                         </tr>
                                         <tr>';
+
         $plus_content .= $verifica_item_id(2);
         $plus_content .= $verifica_item_id(1);
         $plus_content .= $verifica_item_id(3);
@@ -330,7 +337,7 @@ if (!empty($name)) {
 //            $main_content .=$make_table_footer();
 //            $main_content .="</div><br/>";
         //#End Plus Account Information
-        
+
         //quest list
         if (isset($config['site']['quests']) && is_array($config['site']['quests']) && count($config['site']['quests']) > 0) {
             //$main_content .= '<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=100%><TR BGCOLOR="'.$config['site']['vdarkborder'].'"><TD align="left" COLSPAN=2 CLASS=white><B>Quests</B></TD></TD align="right"></TD></TR>';
@@ -353,13 +360,13 @@ if (!empty($name)) {
             $main_content .= '</div><br>';
         }
         //#endquestlist
-        
+
         //deaths list
         $player_deaths = new DatabaseList('PlayerDeath');
         $player_deaths->setFilter(new SQL_Filter(new SQL_Filter(new SQL_Field('player_id'), SQL_Filter::EQUAL, $player->getId()), SQL_Filter::CRITERIUM_AND, new SQL_Filter(new SQL_Field('id', 'players'), SQL_Filter::EQUAL, new SQL_Field('player_id', 'player_deaths'))));
         $player_deaths->addOrder(new SQL_Order(new SQL_Field('time'), SQL_Order::DESC));
         $player_deaths->setLimit(5);
-        
+
         foreach ($player_deaths as $death) {
             $bgcolor = (($number_of_rows++ % 2 != 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
             $deads++;
@@ -377,10 +384,10 @@ if (!empty($name)) {
             $main_content .= "</div><br/>";
             //$main_content .= '<table border="0" cellspacing="1" cellpadding="4" width="100%"><tr bgcolor="'.$config['site']['vdarkborder'].'"><td colspan="2" class="white" ><b>Character Deaths</b></td></tr>' . $dead_add_content . '</table><br />';
         }
-        
+
         if ($insell == 0) {
             if (!$player->isHidden()) {
-                
+
                 $main_content .= "<div class='TableContainer'>";
                 $main_content .= $make_content_header("Account Information");
                 $main_content .= $make_table_header('Table3', '', TRUE);
@@ -394,7 +401,7 @@ if (!empty($name)) {
                             $accountTitle = $loytitle;
                         }
                     }
-                    
+
                     $bgcolor = (($number_of_rows++ % 2 != 1) ? $config['site']['darkborder'] : $config['site']['lightborder']);
                     $main_content .= '<tr  ><td width="20%">Loyalty Title:</td><td>' . $accountTitle . ' of ' . $config['server']['serverName'] . '</td></tr>';
                 }
@@ -411,7 +418,7 @@ if (!empty($name)) {
         }
         if ($insell == 0) {
             if (!$player->isHidden()) {
-                
+
                 $main_content .= "<div class='TableContainer'>";
                 $main_content .= $make_content_header("Characters");
                 $main_content .= $make_table_header('Table3', '', TRUE);
@@ -427,7 +434,7 @@ if (!empty($name)) {
                             $player_list_status = '<font class="red"><strong>offline</strong></font>';
                         else
                             $player_list_status = '<font class="green"><strong>online</strong></font>';
-                        
+
                         $main_content .= '
 								<tr >
 									<td width="35%">' . $player_number . '. ' . htmlspecialchars($player_list->getName()) . '</td>

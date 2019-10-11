@@ -81,7 +81,6 @@ services:
 #Docker Networks
 networks:
   app-network:
-    driver: bridge
 
 #Volumes
 volumes:
