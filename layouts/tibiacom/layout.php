@@ -411,10 +411,10 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                                                     <img class="InfoBarBigLogo" src="layouts/tibiacom/images/global/header/info/icon-players-online.png">
                                                     <span class="InfoBarNumbers" <?php if($_REQUEST['subtopic'] == 'characters' && $_REQUEST['name']){ echo "style='top:0'"; }?>>
                                                         <span class="InfoBarSmallElement show_online_data"><?php echo $players_online; ?></span>
-
-                                                        <?php $maxPlayers = ($config['server']['maxPlayers'] == 0 ? 500 : $config['server']['maxPlayers']);?>
-                                                        <?php $qtdOnline = ($qtd_players_online["total"] == null ? 0 : $qtd_players_online["total"]);?>
-                                                        <?php $serverStatus = $_SESSION['server_status'];?>
+                                                        <?php if(Website::getWebsiteConfig()->getValue('info_bar_online_botton_table')){?>
+                                                            <?php $maxPlayers = ($config['server']['maxPlayers'] == 0 ? 500 : $config['server']['maxPlayers']);?>
+                                                            <?php $qtdOnline = ($qtd_players_online["total"] == null ? 0 : $qtd_players_online["total"]);?>
+                                                            <?php $serverStatus = $_SESSION['server_status'];?>
                                                             <table class="InfoBarSmallElement" style="margin-left: 18px;background-color: black;width: 85%;" cellspacing="2">
                                                                 <tbody>
                                                                 <tr>
@@ -427,6 +427,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
+                                                        <?php } ?>
                                                     </span>
                                                 </a>
                                                 <?php }?>
