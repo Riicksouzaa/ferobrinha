@@ -126,9 +126,9 @@ foreach (Website::getVocations() as $vocation) {
     $vocation_name[$vocation->getId()] = $vocation->getName();
 }
 
-$layout_ini = parse_ini_file($layout_name . '/layout_config.ini');
-foreach ($layout_ini as $key => $value)
-    $config['site'][$key] = $value;
+//$layout_ini = parse_ini_file($layout_name . '/layout_config.ini');
+//foreach ($layout_ini as $key => $value)
+//    $config['site'][$key] = $value;
 
 //###################### FUNCTIONS ######################
 function microtime_float()

@@ -361,6 +361,7 @@ if (!$logged) {
             $reg_account->setName(strtoupper($_POST['accountname']));
             $reg_account->setPassword($_POST['password1']);
             $reg_account->setEMail($_POST['email']);
+            $reg_account->setPremDays(Website::getWebsiteConfig()->getValue('newaccount_premdays'));
             $reg_account->setCreateDate(time());
             if (Visitor::getIP() != FALSE) {
                 $reg_account->setCreateIP(Visitor::getIP());
