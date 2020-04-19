@@ -156,7 +156,7 @@ if (!empty($name)) {
 
 
             $hidden = $player->isItemHidden();
-            if($hidden){
+            if ($hidden) {
                 return '<td style="background-color: #d4c0a1; text-align: center;"><img src="./layouts/tibiacom/images/shop/items/hidden.png" class="CharItems"></td>';
             }
             if ($player->getItems()->getItem($pid)[$kalabok]->data['itemtype'] == NULL) {
@@ -170,12 +170,12 @@ if (!empty($name)) {
         $mount_id = $player->getStorage('10002011');
         //TODO HANDLE IMAGE CHOOSE
         $class = 'outfitImageCharacterInfo';
-        if($player->haveBorder($player->getActiveBorder())){
-            $border = "<img style='display: flex; position: relative; max-width: 155px' src='./layouts/tibiacom/images/borders/b".$player->getActiveBorder().".png' />";
+        if ($player->haveBorder($player->getActiveBorder())) {
+            $border = "<img style='display: flex; position: relative; max-width: 155px' src='./layouts/tibiacom/images/borders/b" . (!empty($player->getActiveBorder()) ? $player->getActiveBorder() : 1) . ".png' />";
             $class = null;
         }
 
-        $cur_outfit = "<img style='text-decoration:none;' class='".( !empty($class) ? $class : "outfitImgsell2")."' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''>";
+        $cur_outfit = "<img style='text-decoration:none;' class='" . (!empty($class) ? $class : "outfitImgsell2") . "' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''>";
 
         $cur_exp = $player->getExperience();
         $cur_lvl_exp = $player->getExpForLevel($player->getLevel());
@@ -216,7 +216,7 @@ if (!empty($name)) {
                                     <tbody>
                                         <tr bgcolor="#D4C0A1"  >
                                             <td align="center" width="100px"><b>Current<br>outfit:</b></td>                                            
-                                            <td style="display: inline-flex;align-items: center;position: relative;">'. (!empty($border) ? $border : '') . $cur_outfit .'</td>
+                                            <td style="display: inline-flex;align-items: center;position: relative;">' . (!empty($border) ? $border : '') . $cur_outfit . '</td>
                                         </tr>
                                     </tbody>
                                 </table>
