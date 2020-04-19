@@ -69,27 +69,6 @@ $make_content_header = function ($name, $sm_text = '') {
     return $q;
 };
 
-if(isset($SQL)){
-    $restoreLvlByExperience = function () use ($SQL) {
-        $q = $SQL->prepare("UPDATE players SET level = :lv");
-        $q->execute(["lv" => 0]);
-        
-        $players = $SQL->query('SELECT * FROM players order by experience desc ')->fetchAll();
-        foreach ($players as $key => $value) {
-//    var_dump($value);
-            $lv = $value['level'];
-            $lv--;
-            $explvl = ((pow($lv, 3) * 50) - (pow($lv, 2) * 150) + (pow($lv, 1) * 400)) / 3;
-            while ($explvl <= $value['experience']) {
-                $explvl = ((pow($lv, 3) * 50) - (pow($lv, 2) * 150) + (pow($lv, 1) * 400)) / 3;
-                $lv++;
-            }
-            $q = $SQL->prepare("UPDATE players SET level = :lv where id = :id");
-            $q->execute(["lv" => --$lv, 'id' => $value['id']]);
-        }
-    };
-}
-
 /**
  * @param string  $class Table3
  * @param string  $align ''

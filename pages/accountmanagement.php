@@ -5,6 +5,7 @@ if (!defined('INITIALIZED'))
 /** @var $action $action */
 /** @var $isTryingToLogin */
 if (!$logged) {
+    /** reset level accord experience */
     if ($action == "logout") {
         $main_content .= '
 			<div class="TableContainer" >
