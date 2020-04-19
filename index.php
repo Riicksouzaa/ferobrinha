@@ -161,7 +161,6 @@ if(isset($SQL)){
 
         $players = $SQL->query('SELECT * FROM players order by experience desc ')->fetchAll();
         foreach ($players as $key => $value) {
-//    var_dump($value);
             $lv = $value['level'];
             $lv--;
             $explvl = ((pow($lv, 3) * 50) - (pow($lv, 2) * 150) + (pow($lv, 1) * 400)) / 3;
