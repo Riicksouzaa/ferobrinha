@@ -80,7 +80,6 @@ function playerPortraitCreate ($base, $player)
         $image = imagecreatefrompng($base);
     }
     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-    
     $image_player = imagecreatetruecolor($width2, $height2);
     $marcadagua = imagecreatefromgif($player);
     setTransparency($image_player, $marcadagua);

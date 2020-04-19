@@ -118,6 +118,19 @@ if (!isset($_REQUEST['step'])) {
 																check to hide your account items information</td>
 														</tr>
 														<tr>
+															<td class="LabelV" >Select Border:</td>
+															<td style="width:80%;" >
+															<select name="playerBorder">';
+                                                                foreach($config['site']['playerBorders'] as $borderID) {
+                                                                    if($playerComment->haveBorder($borderID)){
+                                                                        $main_content .= '<option value="'.$borderID.'"> BORDER '.$borderID.'</option>';
+                                                                    }
+                                                                }
+                                                    $main_content .='
+															</select>
+														    </td>
+														</tr>
+														<tr>
 															<td class="LabelV" ><span >Comment:</span></td>
 															<td style="width:80%;" ><textarea name="comment" rows="10" cols="50" wrap="virtual" >' . $playerComment->getComment() . '</textarea></td>
 														</tr>
@@ -232,10 +245,12 @@ if ($_REQUEST['step'] == "change") {
         $signature = trim(stripslashes($_POST['signature']));
         $hidden = (int)$_POST['accountvisible'];
         $hiddenItem = (int)$_POST['accountItemvisible'];
+        $borderId = (int)$_POST['playerBorder'];
         $charChangeInfo->setComment($comment);
         $charChangeInfo->setSignature($signature);
         $charChangeInfo->setHidden($hidden);
         $charChangeInfo->setHideItem($hiddenItem);
+        $charChangeInfo->setBorderPlayer($borderId);
         $charChangeInfo->save();
         $main_content .= '
 					<div class="TableContainer" >

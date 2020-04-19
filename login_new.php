@@ -1,6 +1,8 @@
 <?php
 
+
 require 'config/config.php';
+
 
 // comment to show E_NOTICE [undefinied variable etc.], comment if you want make script and see all errors
 error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
@@ -8,6 +10,7 @@ error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
 // true = show sent queries and SQL queries status/status code/error message
 define('DEBUG_DATABASE', false);
 define('INITIALIZED', true);
+
 
 if (!defined('ONLY_PAGE'))
     define('ONLY_PAGE', true);
@@ -45,6 +48,7 @@ $eventlist["lastupdatetimestamp"] = 1566535079;
 
 
 $input = json_decode(file_get_contents("php://input"));
+
 switch ($input->type ? $input->type : '') {
 
     case "cacheinfo":
@@ -290,7 +294,7 @@ switch ($input->type ? $input->type : '') {
         $playerData["worlds"] = $worlds;
         $playerData["characters"] = $characters;
         $data["playdata"] = $playerData;
-        $data["survey"] = $survey;
+//        $data["survey"] = $survey;
 
         echo json_encode($data);
 }

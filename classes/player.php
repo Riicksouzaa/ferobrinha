@@ -8,10 +8,10 @@ class Player extends ObjectData
     const LOADTYPE_NAME = 'name';
     const LOADTYPE_ACCOUNT_ID = 'account_id';
     public static $table = 'players';
-    public static $fields = array('id', 'name', 'group_id', 'account_id', 'level', 'vocation', 'health', 'healthmax', 'experience', 'lookbody', 'lookfeet', 'lookhead', 'looklegs', 'looktype', 'lookaddons', 'maglevel', 'mana', 'manamax', 'manaspent', 'soul', 'town_id', 'posx', 'posy', 'posz', 'conditions', 'cap', 'sex', 'lastlogin', 'lastip', 'save', 'skull', 'skulltime', 'lastlogout', 'blessings', 'deletion', 'deleted', 'balance', 'stamina', 'skill_fist', 'skill_fist_tries', 'skill_club', 'skill_club_tries', 'skill_sword', 'skill_sword_tries', 'skill_axe', 'skill_axe_tries', 'skill_dist', 'skill_dist_tries', 'skill_shielding', 'skill_shielding_tries', 'skill_fishing', 'skill_fishing_tries', 'create_ip', 'create_date', 'comment', 'hide_char', 'hide_char_items', 'signature', 'marriage_status', 'marriage_spouse', 'loyalty_ranking');
+    public static $fields = array('id', 'name', 'group_id', 'account_id', 'level', 'vocation', 'health', 'healthmax', 'experience', 'lookbody', 'lookfeet', 'lookhead', 'looklegs', 'looktype', 'lookaddons', 'maglevel', 'mana', 'manamax', 'manaspent', 'soul', 'town_id', 'posx', 'posy', 'posz', 'conditions', 'cap', 'sex', 'lastlogin', 'lastip', 'save', 'skull', 'skulltime', 'lastlogout', 'blessings', 'deletion', 'deleted', 'balance', 'stamina', 'skill_fist', 'skill_fist_tries', 'skill_club', 'skill_club_tries', 'skill_sword', 'skill_sword_tries', 'skill_axe', 'skill_axe_tries', 'skill_dist', 'skill_dist_tries', 'skill_shielding', 'skill_shielding_tries', 'skill_fishing', 'skill_fishing_tries', 'create_ip', 'create_date', 'comment', 'hide_char', 'hide_char_items', 'border_id', 'signature', 'marriage_status', 'marriage_spouse', 'loyalty_ranking');
     public static $skillNames = array('fist', 'club', 'sword', 'axe', 'dist', 'shielding', 'fishing');
     public static $onlineList;
-    public $data = array('name' => NULL, 'group_id' => NULL, 'account_id' => NULL, 'level' => NULL, 'vocation' => NULL, 'health' => NULL, 'healthmax' => NULL, 'experience' => NULL, 'lookbody' => NULL, 'lookfeet' => NULL, 'lookhead' => NULL, 'looklegs' => NULL, 'looktype' => NULL, 'lookaddons' => NULL, 'maglevel' => NULL, 'mana' => NULL, 'manamax' => NULL, 'manaspent' => NULL, 'soul' => NULL, 'town_id' => NULL, 'posx' => NULL, 'posy' => NULL, 'posz' => NULL, 'conditions' => NULL, 'cap' => NULL, 'sex' => NULL, 'lastlogin' => NULL, 'lastip' => NULL, 'save' => NULL, 'skull' => NULL, 'skulltime' => NULL, 'lastlogout' => NULL, 'blessings' => NULL, 'deletion' => NULL, 'deleted' => NULL, 'balance' => NULL, 'stamina' => NULL, 'skill_fist' => NULL, 'skill_fist_tries' => NULL, 'skill_club' => NULL, 'skill_club_tries' => NULL, 'skill_sword' => NULL, 'skill_sword_tries' => NULL, 'skill_axe' => NULL, 'skill_axe_tries' => NULL, 'skill_dist' => NULL, 'skill_dist_tries' => NULL, 'skill_shielding' => NULL, 'skill_shielding_tries' => NULL, 'skill_fishing' => NULL, 'skill_fishing_tries' => NULL, 'create_ip' => NULL, 'create_date' => NULL, 'comment' => NULL, 'hide_char' => NULL, 'hide_char_items' => NULL, 'signature' => NULL, 'marriage_status' => NULL, 'marriage_spouse' => NULL, 'loyalty_ranking' => NULL);
+    public $data = array('name' => NULL, 'group_id' => NULL, 'account_id' => NULL, 'level' => NULL, 'vocation' => NULL, 'health' => NULL, 'healthmax' => NULL, 'experience' => NULL, 'lookbody' => NULL, 'lookfeet' => NULL, 'lookhead' => NULL, 'looklegs' => NULL, 'looktype' => NULL, 'lookaddons' => NULL, 'maglevel' => NULL, 'mana' => NULL, 'manamax' => NULL, 'manaspent' => NULL, 'soul' => NULL, 'town_id' => NULL, 'posx' => NULL, 'posy' => NULL, 'posz' => NULL, 'conditions' => NULL, 'cap' => NULL, 'sex' => NULL, 'lastlogin' => NULL, 'lastip' => NULL, 'save' => NULL, 'skull' => NULL, 'skulltime' => NULL, 'lastlogout' => NULL, 'blessings' => NULL, 'deletion' => NULL, 'deleted' => NULL, 'balance' => NULL, 'stamina' => NULL, 'skill_fist' => NULL, 'skill_fist_tries' => NULL, 'skill_club' => NULL, 'skill_club_tries' => NULL, 'skill_sword' => NULL, 'skill_sword_tries' => NULL, 'skill_axe' => NULL, 'skill_axe_tries' => NULL, 'skill_dist' => NULL, 'skill_dist_tries' => NULL, 'skill_shielding' => NULL, 'skill_shielding_tries' => NULL, 'skill_fishing' => NULL, 'skill_fishing_tries' => NULL, 'create_ip' => NULL, 'create_date' => NULL, 'comment' => NULL, 'hide_char' => NULL, 'hide_char_items' => NULL, 'border_id' => null, 'signature' => NULL, 'marriage_status' => NULL, 'marriage_spouse' => NULL, 'loyalty_ranking' => NULL);
     public $items;
     public $storages;
     public $depot_items;
@@ -110,6 +110,10 @@ class Player extends ObjectData
             return $this->storages[$key];
         else
             return NULL;
+    }
+
+    public function haveBorder($borderID){
+        return true;
     }
 
     public function getItems($forceReload = FALSE)
@@ -909,7 +913,7 @@ class Player extends ObjectData
         /**
          * ALTER TABLE `players` ADD COLUMN `hide_char_items` TINYINT(1) NOT NULL DEFAULT 0 AFTER `hide_char`;
          */
-        $hue = Website::getDBHandle()->prepare("SHOW COLUMNS FROM `accounts` LIKE `hide_char_items`");
+        $hue = Website::getDBHandle()->prepare("SHOW COLUMNS FROM `players` LIKE `hide_char_items`");
         $hue->execute([]);
 
         $result = $hue->fetchAll();
@@ -922,8 +926,26 @@ class Player extends ObjectData
         $this->data['hide_char_items'] = (int)$value;
     }
 
+    public function setBorderPlayer($borderID){
+        $exists = Website::getDBHandle()->prepare("SHOW COLUMNS FROM `players` LIKE `border_id`");
+        $exists->execute([]);
+
+        $result = $exists->fetchAll();
+        if (empty($result)) {
+            $createTable = Website::getDBHandle()->prepare("ALTER TABLE `players` ADD COLUMN `border_id` INT(11) NULL DEFAULT NULL");
+            $createTable->execute([]);
+        }
+
+        $this->data['border_id'] = (int) $borderID;
+    }
+
     public function getOnline()
     {
         return self::isPlayerOnline($this->getID());
+    }
+
+    public function getActiveBorder()
+    {
+        return $this->data['border_id'];
     }
 }

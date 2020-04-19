@@ -717,10 +717,19 @@ body {
   width: 64px;
   height: 64px;
   position: relative;
-  top: -15px;
-  left: -11px;
+  top: 29px;
+  left: -48px;
   margin-left: -64px;
   margin-top: -64px;
+}
+
+.outfitImageCharacterInfo {
+  background: no-repeat right bottom;
+  width: 64px;
+  height: 64px;
+  margin-left: -27px;
+  margin-top: -21px;
+  position: initial;
 }
 
 .outfitImgsell {
@@ -4099,7 +4108,7 @@ table.fixed td {
   vertical-align: middle;
 }
 
-#TransferConditionsContainer{
+#TransferConditionsContainer {
   width: 100%;
   padding: 7px;
 }

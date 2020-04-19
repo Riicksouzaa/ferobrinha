@@ -4,6 +4,8 @@
 cache/*
 vendor/
 sitemaps/*.xml
+images/house/*.png
+SQL_UTIL
 paypal.log
 create_user_mp.sh
 composer.lock
@@ -13,3 +15,4 @@ twitch.sh
 sitemaps.sh
 full_log.log
 /layouts/tibiacom/css/*.map
+!cache/*.gitkeep

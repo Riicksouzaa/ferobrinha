@@ -168,7 +168,14 @@ if (!empty($name)) {
         };
         $player_info = $player->data;
         $mount_id = $player->getStorage('10002011');
-        $cur_outfit = "<img style='text-decoration:none;margin: 0 0 0 -13px;' class='outfitImgsell2' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''>";
+        //TODO HANDLE IMAGE CHOOSE
+        $class = 'outfitImageCharacterInfo';
+        if($player->haveBorder($player->getActiveBorder())){
+            $border = "<img style='display: flex; position: relative; max-width: 155px' src='./layouts/tibiacom/images/borders/b".$player->getActiveBorder().".png' />";
+            $class = null;
+        }
+
+        $cur_outfit = "<img style='text-decoration:none;' class='".( !empty($class) ? $class : "outfitImgsell2")."' src='https://outfits.ferobraglobal.com/animoutfit.php?id={$player_info['looktype']}&addons={$player_info['lookaddons']}&head={$player_info['lookhead']}&body={$player_info['lookbody']}&legs={$player_info['looklegs']}&feet={$player_info['lookfeet']}&mount=" . ($mount_id == NULL ? 0 : $mount_id) . "' alt='' name=''>";
 
         $cur_exp = $player->getExperience();
         $cur_lvl_exp = $player->getExpForLevel($player->getLevel());
@@ -207,9 +214,9 @@ if (!empty($name)) {
                             <td style="padding-right: 5px;">
                                 <table width="100%" class="Table30">
                                     <tbody>
-                                        <tr bgcolor="#D4C0A1">
-                                            <td align="center" width="100px"><b>Current<br>outfit:</b></td>
-                                            <td>' . $cur_outfit . '</td>
+                                        <tr bgcolor="#D4C0A1"  >
+                                            <td align="center" width="100px"><b>Current<br>outfit:</b></td>                                            
+                                            <td style="display: inline-flex;align-items: center;position: relative;">'. (!empty($border) ? $border : '') . $cur_outfit .'</td>
                                         </tr>
                                     </tbody>
                                 </table>
