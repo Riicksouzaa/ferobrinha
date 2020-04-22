@@ -45,7 +45,8 @@ if ($action == "createticket") {
     $date = date("Y-m-d H:i:s");
 //		$generateId = rand(238493, 995849);
     $accid = $account_logged->getID();
-    
+
+
     if ($category > 0 && $categories[$category]) {
         $category = $categories[$category];
     } else {
@@ -87,7 +88,7 @@ if ($action == "createticket") {
 			</center>';
         return;
     }
-    
+
     if (!$playerID) {
         $main_content .= '
 			<div class="TableContainer" >
@@ -125,10 +126,10 @@ if ($action == "createticket") {
 						</div>
 					</div></a>
 			</center>';
-        
+
         return;
     }
-    
+
     if (isset($account_logged)) {
         if ($playerName == "") {
             $main_content .= '
@@ -170,7 +171,7 @@ if ($action == "createticket") {
             return;
         }
     }
-    
+
     if (strlen($subject) == 0 || strlen($subject) > 40) {
         $main_content .= '
 			<div class="TableContainer" >
@@ -210,7 +211,7 @@ if ($action == "createticket") {
 			</center>';
         return;
     }
-    
+
     if (strlen($description) == 0 || strlen($description) > 1000) {
         $main_content .= '
 						<div class="TableContainer" >
@@ -251,6 +252,47 @@ if ($action == "createticket") {
         return;
     }
 
+    $verificaTicket = $SQL->prepare("SELECT * FROM tickets where ticket_author = {$playerName} and ticket_description = {$description}");
+    $result = $verificaTicket->rowCount();
+    if ($result > 0) {
+        $main_content .= '
+						<div class="TableContainer" >
+				<table class="Table1" cellpadding="0" cellspacing="0" >
+					<div class="CaptionContainer" >
+						<div class="CaptionInnerContainer" > 
+							<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+							<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
+							<span class="CaptionVerticalLeft" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
+							<div class="Text">Error</div>
+							<span class="CaptionVerticalRight" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-vertical.gif);" /></span>
+							<span class="CaptionBorderBottom" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
+						</div>
+					</div>
+					<tr>
+						<td><div class="InnerTableContainer" >
+								<table style="width:100%;" >
+									<tr>
+										<td>Já foi registrado um ticket com essa descrição.</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<br>
+			<center>
+			<a href="?subtopic=ticket"><div class="BigButton" style="background-image:url(' . $layout_name . '/images/global/buttons/sbutton.gif)">
+						<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="visibility: hidden; background-image: url(&quot;' . $layout_name . '/images/global/buttons/sbutton_over.gif&quot;);"></div>
+							<input class="ButtonText" type="image" name="Back" alt="Back" src="' . $layout_name . '/images/global/buttons/_sbutton_back.gif">
+						</div>
+					</div></a>
+			</center>';
+        return;
+    }
     $insert = $SQL->prepare("INSERT INTO `tickets`(`ticket_subject`, `ticket_author`, `ticket_author_acc_id`,`ticket_last_reply`, `ticket_admin_reply`,`ticket_date`, `ticket_ended`, `ticket_status`, `ticket_category`, `ticket_description`) VALUES (:subject, :playerName, :accid, 'You', 0, :date, 'Not closed', 'Waiting', :category, :description)");
     $insert->execute(['subject' => $subject, 'playerName' => $playerName, 'accid' => $accid, 'date' => $date, 'category' => $category, 'description' => $description]);
     $generateId = $SQL->query("SELECT LAST_INSERT_ID() as id from `tickets`")->fetchAll()[0]['id'];
@@ -545,33 +587,33 @@ if ($action == "createticket") {
 }
 
 if ($action == "showticket") {
-    
+
     $metodo = $_GET['do'];
     $idTicket = (int)$_GET['id'];
-    
+
     if ($metodo == 'closeticket') {
         $date = date('M m Y', time());
         $query = $SQL->prepare("UPDATE tickets SET ticket_status = 'Closed', ticket_ended = '$date' WHERE ticket_id = :idticket");
         $query->execute(['idticket' => $idTicket]);
     }
-    
+
     if ($metodo == 'reply') {
         $idTicket = $_GET['id'];
         $mensagem = $_POST['reportText'];
         $date = date("Y-m-d H:i:s");
         $dadosTicket = $SQL->prepare("SELECT * FROM tickets WHERE ticket_id = :idticket");
         $dadosTicket->execute(['idticket' => $idTicket]);
-        
-        
+
+
         if (strlen($mensagem) < 10 || strlen($mensagem) > 1000) {
             $main_content .= "<center><h2>Description need to have 10 up to 1000 characters.</h2></center>";
-            
+
         } else {
             foreach ($dadosTicket as $resultado) {
                 $replyAuthor = $resultado['ticket_author'];
                 $replyAuthorId = $resultado['ticket_author_acc_id'];
             }
-            
+
             if ($replyAuthorId == $account_logged->getID()) {
                 $replyAuthorTrue = $replyAuthor;
             } else {
@@ -584,19 +626,19 @@ if ($action == "showticket") {
                     }
                 }
             }
-            
+
             $query = $SQL->prepare("INSERT INTO `tickets_reply`(`ticket_id`, `reply_author`, `reply_message`, `reply_date`) VALUES ( :idticket, :replyAuthorTrue, :msg, :date )");
             $query->execute(['idticket' => $idTicket, 'replyAuthorTrue' => $replyAuthorTrue, 'msg' => $mensagem, 'date' => $date]);
             if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
                 $query = $SQL->prepare("UPDATE `tickets` SET `ticket_last_reply` = 'Staff', `ticket_admin_reply` = 1 WHERE ticket_id = :id");
-                $query->execute(['id'=>$idTicket]);
+                $query->execute(['id' => $idTicket]);
             } else {
                 $SQL->prepare("UPDATE `tickets` SET `ticket_admin_reply` = 0, `ticket_last_reply`= 'You' WHERE ticket_id = :id");
-                $query->execute(['id'=>$idTicket]);
+                $query->execute(['id' => $idTicket]);
             }
         }
     }
-    
+
     $ticket = $SQL->prepare("SELECT * FROM tickets WHERE ticket_id = :idticket");
     $ticket->execute(['idticket' => $idTicket]);
     foreach ($ticket as $result) {
@@ -609,15 +651,15 @@ if ($action == "showticket") {
         $description = $result['ticket_description'];
         $authorid = $result['ticket_author_acc_id'];
     }
-    
+
     if ($authorid != $account_logged->getID()) {
         if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
-        
+
         } else {
             return;
         }
     }
-    
+
     $main_content .= '<div class="BoxContent" style="background-image:url(' . $layout_name . '/images/global/content/scroll.gif)">
 		<center>
 				<table>
@@ -676,7 +718,7 @@ if ($action == "showticket") {
 																<td width="80%">' . $ended . '</td>
 																</tr>
 															<tr style="background-color:#D4C0A1;"><td class="LabelV"> Status </td>';
-    
+
     if ($status == 'Waiting') {
         $main_content .= '<td><font color="gray"><b>' . $status . '</b></font></td>';
     }
@@ -709,9 +751,9 @@ if ($action == "showticket") {
 											</td>
 										</tr>';
     $ticketReply = $SQL->prepare("SELECT * FROM `tickets_reply` WHERE `ticket_id` = :id");
-    $ticketReply->execute(['id'=>$idTicket]);
+    $ticketReply->execute(['id' => $idTicket]);
     $index = 1;
-    
+
     if ($ticketReply) {
         foreach ($ticketReply as $resultadoReply) {
             $player = new Player();
@@ -805,7 +847,7 @@ if ($action == "showticket") {
 							</td>
 						</tr>
 					</tbody></table></div>';
-    
+
     if ($status != 'Closed') {
         $main_content .= '
 					<form action="?subtopic=ticket&amp;action=showticket&amp;do=reply&amp;id=' . $idTicket . '" method="post">
@@ -880,7 +922,7 @@ if ($action == "showticket") {
 						</div>
 					</form>';
     }
-    
+
     $main_content .= '<br><br>
 				<table border="0" width="100%">
 				<tbody><tr>
@@ -896,7 +938,7 @@ if ($action == "showticket") {
 				</tr>
 			</tbody></table></div>';
     return;
-    
+
 }
 
 if ($action == '') {
@@ -987,7 +1029,7 @@ if ($action == '') {
 																				<td class="LabelV" width="30%">Character</td>
 																				<td>
 																					<select name="reportPlayer">';
-    
+
     if (isset($account_logged)) {
         $characters = $account_logged->getPlayersList();
         foreach ($characters as $char) {
