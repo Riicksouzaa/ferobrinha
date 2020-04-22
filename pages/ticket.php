@@ -252,7 +252,8 @@ if ($action == "createticket") {
         return;
     }
 
-    $verificaTicket = $SQL->prepare("SELECT * FROM tickets where ticket_author = {$playerName} and ticket_description = {$description}");
+    $verificaTicket = $SQL->prepare("SELECT * FROM tickets where ticket_subject = :subject and ticket_author = :playerName and ticket_description = :description ");
+    $verificaTicket->execute(['playerName' => $playerName, 'description' => $description, 'subject' => $subject]);
     $result = $verificaTicket->rowCount();
     if ($result > 0) {
         $main_content .= '
@@ -275,7 +276,7 @@ if ($action == "createticket") {
 						<td><div class="InnerTableContainer" >
 								<table style="width:100%;" >
 									<tr>
-										<td>Já foi registrado um ticket com essa descrição.</td>
+										<td>Você já registrou um ticket com essa descrição.</td>
 									</tr>
 								</table>
 							</div>
