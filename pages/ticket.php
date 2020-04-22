@@ -628,14 +628,19 @@ if ($action == "showticket") {
                 }
             }
 
-            $query = $SQL->prepare("INSERT INTO `tickets_reply`(`ticket_id`, `reply_author`, `reply_message`, `reply_date`) VALUES ( :idticket, :replyAuthorTrue, :msg, :date )");
-            $query->execute(['idticket' => $idTicket, 'replyAuthorTrue' => $replyAuthorTrue, 'msg' => $mensagem, 'date' => $date]);
-            if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
-                $query = $SQL->prepare("UPDATE `tickets` SET `ticket_last_reply` = 'Staff', `ticket_admin_reply` = 1 WHERE ticket_id = :id");
-                $query->execute(['id' => $idTicket]);
-            } else {
-                $SQL->prepare("UPDATE `tickets` SET `ticket_admin_reply` = 0, `ticket_last_reply`= 'You' WHERE ticket_id = :id");
-                $query->execute(['id' => $idTicket]);
+            $verificacao = $SQL->prepare("select * from tickets_reply where reply_author = :reply_author and ticket_id = :ticket_id and reply_message = :reply_message");
+            $verificacao->execute(["reply_author" => $replyAuthorTrue, "ticket_id" => $idTicket, "reply_message" => $mensagem]);
+            $result = $verificacao->rowCount();
+            if ($result == 0) {
+                $query = $SQL->prepare("INSERT INTO `tickets_reply`(`ticket_id`, `reply_author`, `reply_message`, `reply_date`) VALUES ( :idticket, :replyAuthorTrue, :msg, :date )");
+                $query->execute(['idticket' => $idTicket, 'replyAuthorTrue' => $replyAuthorTrue, 'msg' => $mensagem, 'date' => $date]);
+                if ($group_id_of_acc_logged >= $config['site']['access_admin_panel']) {
+                    $query = $SQL->prepare("UPDATE `tickets` SET `ticket_last_reply` = 'Staff', `ticket_admin_reply` = 1 WHERE ticket_id = :id");
+                    $query->execute(['id' => $idTicket]);
+                } else {
+                    $SQL->prepare("UPDATE `tickets` SET `ticket_admin_reply` = 0, `ticket_last_reply`= 'You' WHERE ticket_id = :id");
+                    $query->execute(['id' => $idTicket]);
+                }
             }
         }
     }
