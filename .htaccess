@@ -19,6 +19,10 @@ Header set Cache-Control "public, max-age=60"
     </ifModule>
 </FilesMatch>
 #
+<FilesMatch "\.(ini|psd|log|sh)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
 RewriteEngine on
 Options All -Indexes
 #
