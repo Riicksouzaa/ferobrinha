@@ -30,11 +30,11 @@
                         position: absolute;
                         left: -36px;
                         margin-top: -20px;
-                        background: url(https://outfits.ferobraglobal.com/' . $out_anim . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . ') no-repeat 0 0;
+                        background: url(https://outfits.ferobraglobal.com/' . $out_anim . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . $currentMount . ') no-repeat 0 0;
                     }
 
                     .topleveltext:hover > .outfitImgtoplevel'.$player->getID().' {
-                        background: url(https://outfits.ferobraglobal.com/' . 'animoutfit' . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . (($currentMount && $player->getLookType() < 948) ? $currentMount : 0) . ') no-repeat 0 0;
+                        background: url(https://outfits.ferobraglobal.com/' . 'animoutfit' . '.php?id=' . $player->getLookType() . '&addons=' . (($player->getLookType() >= 950 && $player->getLookType() <= 952) ? 0 : $player->getLookAddons()) . '&head=' . $player->getLookHead() . '&body=' . $player->getLookBody() . '&legs=' . $player->getLookLegs() . '&feet=' . $player->getLookFeet() . '&mount=' . $currentMount . ') no-repeat 0 0;
                     }';?>
 
                 </style>
