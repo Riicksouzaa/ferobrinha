@@ -206,7 +206,7 @@ if ($_POST['savecharacter'] != 1) {
             $newchar_errors[] .= 'You have too many characters on your account <b>(' . $number_of_players_on_account . '/' . $config['site']['max_players_per_account'] . ')</b>!';
     }
     if (empty($newchar_errors)) {
-        $char_to_copy_name = "Rook Sample";
+        $char_to_copy_name = $config['site']['newchar_vocations'][$newchar_vocation];
         $char_to_copy = new Player();
         $char_to_copy->find($char_to_copy_name);
         if (!$char_to_copy->isLoaded())
