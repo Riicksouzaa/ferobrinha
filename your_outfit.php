@@ -182,6 +182,8 @@ if (isset($_REQUEST['name'])) {
 //    $box->setBox(0, 400, $w, $h);
 //    $box->draw("Level: {$p->getLevel()}"); // Text to draw
 
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
     header('Content-Type: image/png');
     imagepng($im, NULL, 9, PNG_ALL_FILTERS);
     imagedestroy($im);
