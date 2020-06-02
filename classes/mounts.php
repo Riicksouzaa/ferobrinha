@@ -140,7 +140,7 @@ class Mounts
     /**
      * @return mixed
      */
-    private function getMounts ()
+    public function getMounts ()
     {
         return $this->mountsbyid;
     }
