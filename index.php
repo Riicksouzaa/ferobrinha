@@ -173,7 +173,7 @@ if(isset($SQL)){
         }
     };
 
-    if ($_REQUEST['action'] == "resetPlayerLevel") {
+    if (isset($_REQUEST['action']) == "resetPlayerLevel") {
         $restoreLvlByExperience();
     }
 }
