@@ -19,7 +19,7 @@ if (Website::getWebsiteConfig()->getValue('widget_tibiaClips')) { ?>
     </div>
     <div class="Themebox">
         <div id="opensModal" style="width: 195px; height: 150px; position: absolute"></div>
-        <iframe src="https://player.twitch.tv/?channel=<?=Website::getWebsiteConfig()->getValue('tibialcips_streamName');?>"
+        <iframe src="https://player.twitch.tv/?channel=<?=Website::getWebsiteConfig()->getValue('tibialcips_streamName');?>&parent=<?=Website::getWebsiteConfig()->getValue('tibialcips_parentName');?>"
                 height="150"
                 width="195"
                 frameborder="false"
