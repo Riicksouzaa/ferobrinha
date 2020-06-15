@@ -10,6 +10,7 @@ if (Website::getWebsiteConfig()->getValue('widget_tibiaClips')) { ?>
 
     <script>
         let $streamName = "<?=Website::getWebsiteConfig()->getValue('tibialcips_streamName');?>";
+        let $parentName = "<?=Website::getWebsiteConfig()->getValue('tibialcips_parentName');?>";
         let $modalTitle = "<?=Website::getWebsiteConfig()->getValue('tibialcips_modalTitle');?>";
         let $modalSubTitle = "<?=Website::getWebsiteConfig()->getValue('tibialcips_modalSubtitle');?>";
     </script>

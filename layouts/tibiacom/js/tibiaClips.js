@@ -35,7 +35,7 @@ $('#troleiANajila').iziModal({
     icon: 'icon-settings_system_daydream',
     overlayClose: true,
     iframe: true,
-    iframeURL: 'https://player.twitch.tv/?channel=' + $streamName,
+    iframeURL: 'https://player.twitch.tv/?channel=' + $streamName + '&parent=' + $parentName,
     iframeHeight: 500,
     fullscreen: true,
     openFullscreen: false,
