@@ -3,6 +3,8 @@ if (!defined('INITIALIZED')) {
     exit;
 }
 
+//var_dump(Website::getServerConfig());
+
 if (Website::getServerConfig()->isSetKey('mysqlHost')) {
     define('SERVERCONFIG_SQL_HOST', 'mysqlHost');
     define('SERVERCONFIG_SQL_PORT', 'mysqlPort');
