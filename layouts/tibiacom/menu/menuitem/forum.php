@@ -15,8 +15,7 @@
                                                 </span>
                                                 <div id="forum_Icon" class="Icon"
                                                      style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-forum.gif);"></div>
-                                                <div id="forum_Label" class="Label"
-                                                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-forum.gif);"></div>
+                                                <div id="forum_Label" class="Label left-text">Forum</div>
                                                 <div id="forum_Extend" class="Extend"
                                                      style="background-image: url(<?php echo $layout_name; ?>/images/global/general/plus.gif);"></div>
                                             </div>

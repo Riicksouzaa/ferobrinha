@@ -15,8 +15,7 @@
                                                 </span>
                                                 <div id="news_Icon" class="Icon"
                                                      style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-news.gif);"></div>
-                                                <div id="news_Label" class="Label"
-                                                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-news.gif);"></div>
+                                                <div id="news_Label" class="Label left-text">News</div>
                                                 <div id="news_Extend" class="Extend"
                                                      style="background-image: url(<?php echo $layout_name; ?>/images/global/general/minus.gif);"></div>
                                             </div>

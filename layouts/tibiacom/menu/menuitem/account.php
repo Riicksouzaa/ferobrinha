@@ -15,8 +15,7 @@
                 </span>
                 <div id="account_Icon" class="Icon"
                      style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-account.gif);"></div>
-                <div id="account_Label" class="Label"
-                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-account.gif);"></div>
+                <div id="account_Label" class="Label left-text">Account</div>
                 <div id="account_Extend" class="Extend"
                      style="background-image: url(<?php echo $layout_name; ?>/images/global/general/plus.gif);"></div>
             </div>

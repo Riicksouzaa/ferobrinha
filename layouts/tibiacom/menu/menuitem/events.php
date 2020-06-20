@@ -14,8 +14,7 @@
                 </span>
                 <div id="events_Icon" class="Icon"
                      style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-events.png);"></div>
-                <div id="events_Label" class="Label"
-                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-eventos.png);"></div>
+                <div id="events_Label" class="Label left-text">Events</div>
                 <div id="events_Extend" class="Extend"
                      style="background-image: url(<?php echo $layout_name; ?>/images/global/general/plus.gif);"></div>
             </div>

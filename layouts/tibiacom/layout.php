@@ -469,7 +469,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                                         elseif($_REQUEST['subtopic'] == "tankyou")
                                             $headline = "Thank You";
                                         ?>
-                                        <img id="ContentBoxHeadline" class="Title" src="headline.php?text=<?PHP echo ucwords(str_replace('_', ' ', strtolower($headline))); ?>" alt="Contentbox headline">
+                                        <div class="ContentBoxHeadline header-text"><?PHP echo ucwords(str_replace('_', ' ', strtolower($headline))); ?></div>
                                         <div class="Border_2">
                                             <div class="Border_3">
                                                 <div class="BoxContent" style="background-image:url(<?php echo $layout_name; ?>/images/global/content/scroll.gif);">

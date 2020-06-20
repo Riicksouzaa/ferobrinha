@@ -15,8 +15,7 @@
                                                 </span>
                                                 <div id="community_Icon" class="Icon"
                                                      style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-community.gif);"></div>
-                                                <div id="community_Label" class="Label"
-                                                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-community.gif);"></div>
+                                                <div id="community_Label" class="Label left-text">Community</div>
                                                 <div id="community_Extend" class="Extend"
                                                      style="background-image: url(<?php echo $layout_name; ?>/images/global/general/plus.gif);"></div>
                                             </div>

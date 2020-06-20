@@ -8,7 +8,7 @@ $news_content .= '
 		<div class="Corner-tr" style="background-image:url(' . $layout_name . '/images/global/content/corner-tr.gif);"></div>
 		<div class="Border_1" style="background-image:url(' . $layout_name . '/images/global/content/border-1.gif);"></div>
 		<div class="BorderTitleText" style="background-image:url(' . $layout_name . '/images/global/content/title-background-green.gif);"></div>
-    	<img id="ContentBoxHeadline" class="Title" src="headline.php?text=News Ticker" alt="Contentbox headline">
+    	<div class="ContentBoxHeadline header-text">News Ticker</div>
     	<div class="Border_2">
       		<div class="Border_3">
         		<div class="BoxContent" style="background-image:url(' . $layout_name . '/images/global/content/scroll.gif);">';
@@ -72,7 +72,7 @@ $news_content .= '
 			<div class="Corner-tr" style="background-image:url(' . $layout_name . '/images/global/content/corner-tr.gif);"></div>
 			<div class="Border_1" style="background-image:url(' . $layout_name . '/images/global/content/border-1.gif);"></div>
 			<div class="BorderTitleText" style="background-image:url(' . $layout_name . '/images/global/content/title-background-green.gif);"></div>
-			<img id="ContentBoxHeadline" class="Title" src="headline.php?text=Featured Article" alt="Contentbox headline">
+			<div class="ContentBoxHeadline header-text">Featured Article</div>
     		<div class="Border_2">
       			<div class="Border_3">
         			<div class="BoxContent" style="background-image:url(' . $layout_name . '/images/global/content/scroll.gif);">

@@ -15,8 +15,7 @@
                 </span>
                 <div id="shop_Icon" class="Icon"
                      style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-shops.gif);"></div>
-                <div id="shop_Label" class="Label"
-                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-shops.gif);"></div>
+                <div id="shop_Label" class="Label left-text">Shop</div>
                 <div id="shop_Extend" class="Extend"
                      style="background-image: url(<?php echo $layout_name; ?>/images/global/general/plus.gif);"></div>
             </div>

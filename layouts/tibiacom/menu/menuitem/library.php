@@ -15,8 +15,7 @@
                 </span>
                 <div id="library_Icon" class="Icon"
                      style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/icon-library.gif);"></div>
-                <div id="library_Label" class="Label"
-                     style="background-image:url(<?php echo $layout_name; ?>/images/global/menu/label-library.gif);"></div>
+                <div id="library_Label" class="Label left-text">Library</div>
                 <div id="library_Extend" class="Extend"
                      style="background-image: url(<?php echo $layout_name; ?>/images/global/general/plus.gif);"></div>
             </div>
