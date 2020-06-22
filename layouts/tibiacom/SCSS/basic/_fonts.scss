@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Fondamento&display=swap');
-
 @font-face {
   font-family: 'Martel';
   src: url('Martel.ttf.woff') format('woff'),
@@ -9,6 +7,8 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@import url('https://fonts.googleapis.com/css?family=Fondamento&display=swap');
 
 .header-text {
   z-index: 99;
