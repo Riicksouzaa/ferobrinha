@@ -7,7 +7,6 @@
       "homepage": "http://codenome.com",
       "role": "Developer"
     }
-
   ],
   "license": "GPL-3.0+",
   "require": {
@@ -20,6 +19,26 @@
     "phpmailer/phpmailer": "^6.0",
     "pagseguro/pagseguro-php-sdk": "^4.2",
     "tinymce/tinymce": "4.8.3",
-    "mashape/unirest-php": "^3.0"
+    "mashape/unirest-php": "^3.0",
+    "guzzlehttp/guzzle": "~6.0",
+    "muvasco/picpay-php-sdk": "^1.0"
+  },
+  "repositories": {
+    "picpay-php-sdk": {
+      "type": "package",
+      "package": {
+        "name": "muvasco/picpay-php-sdk",
+        "version": "1.0",
+        "dist": {
+          "url": "https://github.com/muvasco/picpay-php-sdk/archive/master.zip",
+          "type": "zip"
+        }
+      }
+    }
+  },
+  "autoload": {
+    "psr-0": {
+      "Picpay\\": "vendor/muvasco/picpay-php-sdk/src"
+    }
   }
 }

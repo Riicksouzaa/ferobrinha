@@ -607,6 +607,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     <script>let blockAdBlock = false;</script>
     <script src="<?php echo $layout_name; ?>/js/blockadblock.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/stream-online.js<?php echo $css_version;?>"></script>
+    <script src="<?php echo $layout_name; ?>/js/picpayPaymentTracker.js<?php echo $css_version;?>"></script>
 
     <?php if($_REQUEST['subtopic']=='accountmanagement' && $_REQUEST['action']=='affiliates'){?>
         <script src="<?php echo $layout_name; ?>/js/affiliates.js<?php echo $css_version;?>"></script>
