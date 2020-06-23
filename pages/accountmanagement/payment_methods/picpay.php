@@ -15,7 +15,8 @@ if ($_POST['pic']) {
         $coinCount = array_values($config['donate']['offers'][intval($product_id)])[0];
 
 
-        $my_date_time = date("Y-m-d H:i:s", strtotime("+1 hours"));
+        $my_date_time = new DateTime('now');
+        $my_date_time->add(new DateInterval('PT1H'));
         $formated_date = date_format($my_date_time, 'c');
 
         $kk = [
