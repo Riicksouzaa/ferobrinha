@@ -24,6 +24,12 @@ $hehe = file_get_contents('php://input');
 $notification = json_decode($hehe, true);
 $referenceId = $notification['referenceId'];
 
+$handle = fopen('picpay.log', 'a');
+fwrite($handle, "-------------------------\r\n");
+fwrite($handle, $referenceId ." > " . $notification['authorizationId'] . "\r\n");
+fwrite($handle, "-------------------------\r\n");
+fclose($handle);
+
 try {
     $statusRequest = new StatusRequest($seller, $referenceId);
     $statusResponse = $statusRequest->execute();

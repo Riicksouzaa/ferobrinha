@@ -14,12 +14,16 @@ if ($_POST['pic']) {
         $price = array_keys($config['donate']['offers'][intval($product_id)])[0];
         $coinCount = array_values($config['donate']['offers'][intval($product_id)])[0];
 
+
+        $my_date_time = date("Y-m-d H:i:s", strtotime("+1 hours"));
+        $formated_date = date_format($my_date_time, 'c');
+
         $kk = [
             "referenceId" => $account_logged->getName() . '-' . $_POST['pic'] . '-' . $now,
-            "callbackUrl" => $config['site']['realurl'].'picpay',
-            "returnUrl" => $config['site']['realurl'].'?subtopic=accountmanagement',
+            "callbackUrl" => $config['picpay']['callbackUrl'],
+            "returnUrl" => $config['picpay']['returnUrl'],
             "value"=> $price/100,
-            "expiresAt" => "2022-05-01T16:00:00-03:00",
+            "expiresAt" => $formated_date,
             "buyer" => [
                 "firstName" => $account_logged->getName(),
                 "lastName" => $account_logged->getRLName(),
