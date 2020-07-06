@@ -1,11 +1,16 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Fondamento&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @font-face {
   font-family: "Martel";
   src: url("Martel.ttf.woff") format("woff"), url("Martel.ttf.svg#Martel") format("svg"), url("Martel.ttf.eot"), url("Martel.ttf.eot?#iefix") format("embedded-opentype");
   font-weight: normal;
   font-style: normal;
 }
+* {
+  font-family: "Roboto", sans-serif;
+}
+
 .header-text {
   z-index: 99;
   padding: 5px;

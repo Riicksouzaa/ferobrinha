@@ -33,7 +33,6 @@ else
     $action = '';
 
 $logged = FALSE;
-/** @var Account $account_logged */
 $account_logged = new Account();
 $group_id_of_acc_logged = 0;
 // with ONLY_PAGE option we want disable useless SQL queries
@@ -46,7 +45,7 @@ if (!ONLY_PAGE) {
     if (Visitor::isLogged())
         $group_id_of_acc_logged = Visitor::getAccount()->getPageAccess();
 }
-/** @var string $layout_name ./layouts/tibiacom/ */
+
 $layout_name = './layouts/' . Website::getWebsiteConfig()->getValue('layout');
 
 

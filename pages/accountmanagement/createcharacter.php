@@ -37,7 +37,7 @@ $main_content .= '
                             }
                 </script>
                 ';
-if($facc){
+if(empty($account_logged->getPlayers()->data)){
     $main_content.='
     <script>
         iziToast.show({
