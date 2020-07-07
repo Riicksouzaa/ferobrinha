@@ -1,6 +1,10 @@
 before_script:
-    - cd /var/www/souzaariick/premium-gesior && composer install
+    - composer install
+
+stages:
+    - deploy
 
 deploy:
-  script:
-    - cd /var/www/souzaariick/premium-gesior && git pull
+    stage: deploy
+    script:
+    - git pull
