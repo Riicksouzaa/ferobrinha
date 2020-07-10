@@ -187,6 +187,9 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
         g_FlashClientInPopUp = false;
     }
 </script>-->
+<script src="https://cdn.jsdelivr.net/npm/jquery-bez@1.0.11/src/jquery.bez.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+<script src="<?php echo $layout_name; ?>/js/pace.min.js<?php echo $css_version;?>" data-pace-options='{ "elements": false, "startOnPageLoad": true, "ajax": false, "restartOnRequestAfter": false }'></script>
 <script src="<?php echo $layout_name; ?>/js/generic.js<?php echo $css_version;?>"></script>
 <script src="<?php echo $layout_name; ?>/js/initialize.js<?php echo $css_version;?>"></script>
 <!--<script src="<?php echo $layout_name; ?>/js/swfobject.js<?php echo $css_version;?>" ></script>-->
@@ -242,13 +245,18 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
         <div class="underlay"></div>
         <div class="modal">
             <div class="modal-title">
-                <h3>Perae Karai...</h3>
+                <h3>Opaaaaaaa apareci...</h3>
             </div>
 
             <div class="modal-body">
-                <p>Valeu ai por esperar!</p>
+                <p>Eu apareci por aqui em!</p>
                 <br>
-                <p>Eai meu bom... Beleza? Então, ta afim de usar esse website em seus projetos? Ele é bem maneiro e com alguns recursos únicos, um deles é o Pagseguro com lightbox, onde os usuários não precisam sair do site pra finalizar suas doações ao server.</p>
+                <p>
+                    Olá meu querido, você foi contemplado com uma propaganda diferenciada. <br>
+                    Sim, isso aqui é um recurso desse lindo website. <br>
+                    Você pode utiliza-lo gratuitamente pois o mesmo foi liberado na interweb. <br>
+                    Mas caso precise de novos sistemas ou aprender como tudo isso aqui funciona estarei disponível para um bate-papo.
+                </p>
                 <br>
                 <p>Caso tenha interesse você pode mandar um e-mail para: <a href="mailto:souzaariick@gmail.com">souzaariick@gmail.com</a>.</p>
 
@@ -598,7 +606,6 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
             gtag('config', 'UA-110963342-1');
         </script>
     <?php } ?>
-    <script src="<?php echo $layout_name; ?>/js/pace.min.js<?php echo $css_version;?>" data-pace-options='{ "elements": false, "startOnPageLoad": true, "ajax": false, "restartOnRequestAfter": false }'></script>
     <!-- float facebook like box start -->
     <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="<?=$config['social']['facebook']?>" async></script>
     <script id="float_discord" src="<?=$layout_name?>/js/discord_float_plugin.js<?php echo $css_version;?>" data-id="<?=Website::getWebsiteConfig()->getValue('discord_widget_id');?>&theme=dark" async></script>

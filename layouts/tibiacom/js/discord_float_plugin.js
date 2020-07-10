@@ -42,7 +42,7 @@
             visibility:'visible',
             backgroundColor:'rgb(33, 33, 39)',
             borderRadius:'30px',
-            zIndex:2147483647
+            zIndex:900
         };
 
         w.find('iframe').attr({width:cfg.width, height:cfg.height, allowtransparency:true, frameborder:0}).attr('src', iframe);

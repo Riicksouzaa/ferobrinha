@@ -251,17 +251,17 @@ function MenuItemAction(sourceId) {
     sessionStorage.SessionName = time;
     sessionStorage.setItem("time", time);
     //console.log(sessionStorage.getItem("time"), sessionStorage.getItem("timed"));
-    if(sessionStorage.getItem("time") >= sessionStorage.getItem("timed") || sessionStorage.getItem("timed") == null)
-    if (menu[0][sourceId] === '1') {
-        CloseMenuItem(sourceId);
-    } else {
-        $.each(menu[0], function (index, value) {
-            if (value === '1') {
-                CloseMenuItem(index);
-            }
-        });
-        OpenMenuItem(sourceId);
-    }
+    if (sessionStorage.getItem("time") >= sessionStorage.getItem("timed") || sessionStorage.getItem("timed") == null)
+        if (menu[0][sourceId] === '1') {
+            CloseMenuItem(sourceId);
+        } else {
+            $.each(menu[0], function (index, value) {
+                if (value === '1') {
+                    CloseMenuItem(index);
+                }
+            });
+            OpenMenuItem(sourceId);
+        }
 }
 
 function OpenMenuItem(sourceId) {
