@@ -216,121 +216,6 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
 
 <div class="se-pre-con"></div>
 <div id="preloader"><div class="p">CODENOME</div></div>
-<?php if(Website::getWebsiteConfig()->getValue('ouibounce_isActive')){?>
-    <?php if($_REQUEST['subtopic'] == "latestnews" || !isset($_REQUEST['subtopic'])){?>
-    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
-    <script>
-        let paceBounce = ouibounce(false,
-            {
-                cookieName:"paceBounce",
-                cookieExpire:1,
-                sitewide:true,
-                // aggressive: true,
-                callback:function (){
-                    paceOptions = {
-                        ajax: true,
-                        document: true,
-                        eventLag: false
-                    };
-                    $("#preloader").show()
-                    $(".p").show()
-                    $(".pace").show()
-                    setTimeout(function(){
-                        Pace.start()
-                    }, 3000);
-
-                    Pace.on('done', function() {
-
-                        $('.p').delay(500).animate({top: '30%', opacity: '0'}, 3000, $.bez([0.19,1,0.22,1]));
-                        $('#preloader').delay(1500).animate({top: '-100%'}, 2000, $.bez([0.19,1,0.22,1]));
-
-                        TweenMax.from("#MainHelper1", 2, {
-                            delay: 1.0,
-                            y: 30,
-                            opacity: 0.3,
-                            ease: Expo.easeInOut
-                        })
-
-                    });
-                }
-            });
-        function getCookie(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for(var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-        if(getCookie("paceBounce")){
-            // Pace.start()
-        }
-        paceBounce.fire();
-        paceBounce.disable();
-    </script>
-    <?php }?>
-    <?php if($_REQUEST['subtopic'] != "accountmanagement" && $_REQUEST['action'] != "donate"){?>
-    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
-    <script>
-        let modal = document.getElementById('ouibounce-modal');
-        let bounce = ouibounce($("#ouibounce-modal")[0],
-            {
-                cookieName:"bounceFire",
-                cookieExpire:1,
-                sitewide:true,
-                callback:function (){
-                    $("#ouibounce-modal").show();
-                }
-            });
-
-        $('body').on('click', function() {
-            $('#ouibounce-modal').hide();
-        });
-        $('#ouibounce-modal .modal-footer').on('click', function() {
-            $('#ouibounce-modal').hide();
-        });
-        $('#ouibounce-modal .modal').on('click', function(e) {
-            e.stopPropagation();
-        });
-    </script>
-    <!-- Ouibounce Modal -->
-    <div id="ouibounce-modal">
-        <div class="underlay"></div>
-        <div class="modal">
-            <div class="modal-title">
-                <h3>Opaaaaaaa apareci...</h3>
-            </div>
-
-            <div class="modal-body">
-                <p>Eu apareci por aqui em!</p>
-                <br>
-                <p>
-                    Olá meu querido, você foi contemplado com uma propaganda diferenciada. <br>
-                    Sim, isso aqui é um recurso desse lindo website. <br>
-                    Você pode utiliza-lo gratuitamente pois o mesmo foi liberado na interweb. <br>
-                    Mas caso precise de novos sistemas ou aprender como tudo isso aqui funciona estarei disponível para um bate-papo.
-                </p>
-                <br>
-                <p>Caso tenha interesse você pode mandar um e-mail para: <a href="mailto:souzaariick@gmail.com">souzaariick@gmail.com</a>.</p>
-
-                <form>
-                    <p class="form-notice">*Estou aguardando seu contato!</p>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <p>no thanks</p>
-            </div>
-        </div>
-    </div>
-    <?php }?>
-<?php }?>
     <div id="DeactivationContainer" onclick="DisableDeactivationContainer();"></div>
     <div id="MainHelper1">
         <div id="MainHelper2">
@@ -670,14 +555,15 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     <script id="float_discord" src="<?=$layout_name?>/js/discord_float_plugin.js<?php echo $css_version;?>" data-id="<?=Website::getWebsiteConfig()->getValue('discord_widget_id');?>&theme=dark" async></script>
     <!-- float facebook like box end -->
     <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
-    <script>let blockAdBlock = false;</script>
-    <script src="<?php echo $layout_name; ?>/js/blockadblock.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/stream-online.js<?php echo $css_version;?>"></script>
     <script src="<?php echo $layout_name; ?>/js/picpayPaymentTracker.js<?php echo $css_version;?>"></script>
 
     <?php if($_REQUEST['subtopic']=='accountmanagement' && $_REQUEST['action']=='affiliates'){?>
         <script src="<?php echo $layout_name; ?>/js/affiliates.js<?php echo $css_version;?>"></script>
     <?php } ?>
+    <script>let blockAdBlock = false</script>
+    <script src="<?php echo $layout_name; ?>/js/bl.js<?php echo $css_version;?>"></script>
+
     <script>
     blockAdBlock = new BlockAdBlock({
         checkOnLoad: true,
@@ -690,6 +576,8 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
     function adBlockDetected() {
         let adblock = ouibounce(false,{
             cookieName: 'UsingAdBlock',
+            delay: 900,
+            timer: 20 * 1000,
             callback: function () {
                 iziToast.show({
                     title: "OPSSS!",
@@ -699,7 +587,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                 });
             }
         });
-        adblock.fire();
+        adblock.fire({timer: 20 * 1000});
         adblock.disable({cookieExpire: 1});
     }
 
@@ -715,6 +603,127 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
         });
     }
     </script>
+<?php if(Website::getWebsiteConfig()->getValue('ouibounce_isActive')){?>
+    <?php if($_REQUEST['subtopic'] == "latestnews" || !isset($_REQUEST['subtopic'])){?>
+    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
+    <script>
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return undefined;
+        }
+        if(getCookie("codenomeLoader") === undefined){
+
+            let paceBounce = ouibounce(false,
+                {
+                    cookieName:"codenomeLoader",
+                    cookieExpire:1,
+                    sitewide:false,
+                    aggressive: true,
+                    callback:function (){
+                        paceOptions = {
+                            ajax: true,
+                            document: true,
+                            catchupTime : 100000,
+                            maxProgressPerFrame:10,
+                            ghostTime: Number.MAX_SAFE_INTEGER,
+                            checkInterval :{
+                                checkInterval: 100000
+                            },
+                            eventLag : {
+                                minSamples: 100,
+                                sampleCount: 30000000,
+                                lagThreshold: 0.1
+                            }
+                        };
+                        $("#preloader").show()
+                        $(".p").show()
+
+                        Pace.start()
+                        Pace.on('done', function() {
+
+                            $('.p').delay(500).animate({top: '30%', opacity: '0'}, 3000, $.bez([0.19,1,0.22,1]));
+                            $('#preloader').delay(1500).animate({top: '-100%'}, 2000, $.bez([0.19,1,0.22,1]));
+
+                            TweenMax.from("#MainHelper1", 2, {
+                                delay: 1.0,
+                                y: 0,
+                                opacity: 1,
+                                ease: Expo.easeInOut
+                            })
+                        });
+                    }
+                });
+            paceBounce.fire();
+            paceBounce.disable();
+        }
+    </script>
+<?php }?>
+<?php if($_REQUEST['subtopic'] != "accountmanagement" && $_REQUEST['action'] != "donate"){?>
+    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
+    <script>
+        let modal = document.getElementById('ouibounce-modal');
+        let bounce = ouibounce($("#ouibounce-modal")[0],
+            {
+                cookieName:"bounceFire",
+                cookieExpire:1,
+                sitewide:true,
+                callback:function (){
+                    $("#ouibounce-modal").show();
+                }
+            });
+
+        $('body').on('click', function() {
+            $('#ouibounce-modal').hide();
+        });
+        $('#ouibounce-modal .modal-footer').on('click', function() {
+            $('#ouibounce-modal').hide();
+        });
+        $('#ouibounce-modal .modal').on('click', function(e) {
+            e.stopPropagation();
+        });
+    </script>
+    <!-- Ouibounce Modal -->
+    <div id="ouibounce-modal">
+        <div class="underlay"></div>
+        <div class="modal">
+            <div class="modal-title">
+                <h3>Opaaaaaaa apareci...</h3>
+            </div>
+
+            <div class="modal-body">
+                <p>Eu apareci por aqui em!</p>
+                <br>
+                <p>
+                    Olá meu querido, você foi contemplado com uma propaganda diferenciada. <br>
+                    Sim, isso aqui é um recurso desse lindo website. <br>
+                    Você pode utiliza-lo gratuitamente pois o mesmo foi liberado na interweb. <br>
+                    Mas caso precise de novos sistemas ou aprender como tudo isso aqui funciona estarei disponível para um bate-papo.
+                </p>
+                <br>
+                <p>Caso tenha interesse você pode mandar um e-mail para: <a href="mailto:souzaariick@gmail.com">souzaariick@gmail.com</a>.</p>
+
+                <form>
+                    <p class="form-notice">*Estou aguardando seu contato!</p>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p>no thanks</p>
+            </div>
+        </div>
+    </div>
+<?php }?>
+<?php }?>
    <?php include_once "promo/promo.php"; ?>
 </body>
 </html>

@@ -9337,12 +9337,13 @@ footer .copyright {
   border: 0;
   height: 2px;
   overflow: hidden;
+  background: #00acc1;
 }
 
 .pace .pace-progress {
   box-sizing: border-box;
   transform: translate3d(0, 0, 0);
-  max-width: 400px;
+  max-width: 500px;
   position: absolute;
   z-index: 6002;
   display: block;
@@ -9360,7 +9361,6 @@ footer .copyright {
 #preloader {
   width: 100%;
   display: none;
-  height: 100vh;
   background: black;
   overflow: hidden;
   position: fixed;
@@ -9371,7 +9371,6 @@ footer .copyright {
 .p {
   font-family: Anurati, Sans-serif, serif;
   position: absolute;
-  display: none;
   top: 40%;
   left: 50%;
   font-size: 4em;
