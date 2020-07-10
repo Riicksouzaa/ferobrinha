@@ -2,8 +2,14 @@
 @import url("https://fonts.googleapis.com/css?family=Fondamento&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @font-face {
-  font-family: "Martel";
+  font-family: Martel;
   src: url("Martel.ttf.woff") format("woff"), url("Martel.ttf.svg#Martel") format("svg"), url("Martel.ttf.eot"), url("Martel.ttf.eot?#iefix") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: Anurati;
+  src: url("Anurati-Regular.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
