@@ -35,7 +35,7 @@ if (!empty($tickers)) {
 							</div>';
         $number_of_tickers++;
     }
-}else{
+} else {
     if (is_int($number_of_tickers / 2))
         $color = "Odd";
     else
@@ -94,7 +94,7 @@ $news_content .= '
 //End Featured Article
 
 //Functions
-function replaceSmile ($text, $smile)
+function replaceSmile($text, $smile)
 {
     $smileys = array(
         ':p' => 1,
@@ -117,10 +117,10 @@ function replaceSmile ($text, $smile)
     }
 }
 
-function replaceAll ($text, $smile)
+function replaceAll($text, $smile)
 {
     $rows = 0;
-    
+
     while (stripos($text, '[code]') !== FALSE && stripos($text, '[/code]') !== FALSE) {
         $code = substr($text, stripos($text, '[code]') + 6, stripos($text, '[/code]') - stripos($text, '[code]') - 6);
         if (!is_int($rows / 2)) {
@@ -174,7 +174,7 @@ function replaceAll ($text, $smile)
     return replaceSmile($text, $smile);
 }
 
-function showPost ($topic, $text, $smile)
+function showPost($topic, $text, $smile)
 {
     $post = '';
     if (!empty($topic))
@@ -184,9 +184,10 @@ function showPost ($topic, $text, $smile)
 }
 
 //End Functions
-
+$guildsPower = $SQL->query('SELECT g.id as id, g.name as name, COALESCE(SUM(`pd`.`unjustified`),0) as `frags` FROM `players` p LEFT JOIN `player_deaths` pd ON `pd`.`killed_by` = `p`.`name` INNER JOIN `guild_membership` gm ON `p`.`id` = `gm`.`player_id` LEFT JOIN `guilds` g ON `gm`.`guild_id` = `g`.`id` GROUP BY g.id ORDER BY `frags` DESC, g.`id` ASC LIMIT 0, 4')->fetchAll();
 //Most Powerfull Guilds
-$main_content .= '
+if (!empty($guildsPower)) {
+    $main_content .= '
 <div class="InnerTableContainer">
     <div class="TableShadowContainerRightTop">
         <div class="TableShadowRightTop" style="background-image: url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
@@ -204,14 +205,13 @@ $main_content .= '
                             </div>
                             <table border="0" cellspacing="3" cellpadding="4" width="100%">
                                 <tr>';
-$guildsPower = $SQL->query('SELECT g.id as id, g.name as name, COALESCE(SUM(`pd`.`unjustified`),0) as `frags` FROM `players` p LEFT JOIN `player_deaths` pd ON `pd`.`killed_by` = `p`.`name` INNER JOIN `guild_membership` gm ON `p`.`id` = `gm`.`player_id` LEFT JOIN `guilds` g ON `gm`.`guild_id` = `g`.`id` GROUP BY g.id ORDER BY `frags` DESC, g.`id` ASC LIMIT 0, 4')->fetchAll();
-foreach ($guildsPower as $guildp) {
-    $main_content .= '
+    foreach ($guildsPower as $guildp) {
+        $main_content .= '
                                 <td style="text-align: center;">
                                     <a href="?subtopic=guilds&action=view&GuildName=' . $guildp['name'] . '"><img src="guild_image.php?id=' . $guildp['id'] . '" width="64" height="64" border="0"/><br />' . $guildp['name'] . '</a><br />' . $guildp['frags'] . ' kills
                                 </td>';
-}
-$main_content .= '
+    }
+    $main_content .= '
                                 </tr>
                             </table>
                         </td>
@@ -228,6 +228,7 @@ $main_content .= '
     </div>
 </div>
 <br />';
+}
 //Most Powerfull Guilds End
 
 //Here start news
@@ -253,7 +254,7 @@ if (isset($last_threads[0])) {
         $main_content .= '
 					<p align="right"><a href="?subtopic=forum&action=show_thread&id=' . $thread['id'] . '">» Comment on this news</a></p>
 				</td>';
-        
+
         $main_content .= '
 				<td>
 					<img src="' . $layout_name . '/images/global/general/blank.gif" width=10 height=1 border=0 alt=\'\' />
