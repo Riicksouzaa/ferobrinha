@@ -223,7 +223,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
         let paceBounce = ouibounce(false,
             {
                 cookieName:"paceBounce",
-                cookieExpire:50,
+                cookieExpire:1,
                 sitewide:true,
                 // aggressive: true,
                 callback:function (){
