@@ -9337,7 +9337,7 @@ footer .copyright {
   border: 0;
   height: 2px;
   overflow: hidden;
-  background: #00acc1;
+  background: #fff;
 }
 
 .pace .pace-progress {
@@ -9376,6 +9376,21 @@ footer .copyright {
   font-size: 4em;
   transform: translate(-50%, -50%);
   color: #fff;
+}
+
+.ml16 {
+  color: #fff;
+  padding: 5px 0;
+  font-weight: 800;
+  font-size: 1em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.ml16 .letter {
+  display: inline-block;
+  line-height: 1em;
+  font-family: Anurati, Sans-serif, serif;
 }
 
 /*# sourceMappingURL=ferobra.css.map */

@@ -215,7 +215,11 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
 <div class="se-pre-con"></div>
-<div id="preloader"><div class="p">CODENOME</div></div>
+<div id="preloader"><div class="p"><p class="ml16">CODENOME</p></div></div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+
     <div id="DeactivationContainer" onclick="DisableDeactivationContainer();"></div>
     <div id="MainHelper1">
         <div id="MainHelper2">
@@ -630,36 +634,63 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
                     sitewide:false,
                     aggressive: true,
                     callback:function (){
-                        paceOptions = {
+                        Pace.paceOptions = {
                             ajax: true,
                             document: true,
-                            catchupTime : 100000,
-                            maxProgressPerFrame:10,
+                            initialRate:1,
+                            catchupTime : 10000,
+                            minTime:1000,
+                            maxProgressPerFrame:1,
                             ghostTime: Number.MAX_SAFE_INTEGER,
                             checkInterval :{
-                                checkInterval: 100000
+                                checkInterval: 10000
                             },
                             eventLag : {
-                                minSamples: 100,
-                                sampleCount: 30000000,
-                                lagThreshold: 0.1
+                                minSamples: 10,
+                                sampleCount: 300000000,
+                                lagThreshold: 1
                             }
                         };
                         $("#preloader").show()
                         $(".p").show()
 
+                        var textWrapper = document.querySelector('.ml16');
+                        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+                        anime.timeline({loop: false})
+                            .add({
+                                targets: '.ml16 .letter',
+                                translateY: [-100,0],
+                                easing: "easeOutExpo",
+                                duration: 1400,
+                                delay: (el, i) => 30 * i
+                            }).add({
+                            targets: '.ml16',
+                            opacity: .8,
+                            duration: 500,
+                            easing: "easeOutExpo",
+                            delay: 1000
+                        });
                         Pace.start()
                         Pace.on('done', function() {
-
+                            anime.timeline({loop: false})
+                                .add({
+                                    targets: '.ml16 .letter',
+                                    translateY: [0,-100],
+                                    easing: "easeOutExpo",
+                                    duration: 600,
+                                    delay: (el, i) => 30 * i
+                                }).add({
+                                targets: '.ml16',
+                                opacity: 0,
+                                duration: 100,
+                                easing: "easeOutExpo",
+                                delay: 1000
+                            });
+                            $('#MainHelper1').delay(0).animate({top: '100%'}, 0, $.bez([0.19,1,0.22,1]));
                             $('.p').delay(500).animate({top: '30%', opacity: '0'}, 3000, $.bez([0.19,1,0.22,1]));
-                            $('#preloader').delay(1500).animate({top: '-100%'}, 2000, $.bez([0.19,1,0.22,1]));
-
-                            TweenMax.from("#MainHelper1", 2, {
-                                delay: 1.0,
-                                y: 0,
-                                opacity: 1,
-                                ease: Expo.easeInOut
-                            })
+                            $('#preloader').delay(500).animate({top: '-100%'}, 2000, $.bez([0.19,1,0.22,1]));
+                            $('#MainHelper1').delay(0).animate({top: '0'}, 2000, $.bez([0.19,1,0.22,1]));
                         });
                     }
                 });
