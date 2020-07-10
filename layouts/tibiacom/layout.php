@@ -189,7 +189,7 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
 </script>-->
 <script src="https://cdn.jsdelivr.net/npm/jquery-bez@1.0.11/src/jquery.bez.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
-<script src="<?php echo $layout_name; ?>/js/pace.min.js<?php echo $css_version;?>" data-pace-options='{ "elements": false, "startOnPageLoad": true, "ajax": false, "restartOnRequestAfter": false }'></script>
+<script src="<?php echo $layout_name; ?>/js/pace.min.js<?php echo $css_version;?>" data-pace-options='{ "startOnPageLoad": false, "ajax": false}'></script>
 <script src="<?php echo $layout_name; ?>/js/generic.js<?php echo $css_version;?>"></script>
 <script src="<?php echo $layout_name; ?>/js/initialize.js<?php echo $css_version;?>"></script>
 <!--<script src="<?php echo $layout_name; ?>/js/swfobject.js<?php echo $css_version;?>" ></script>-->
@@ -215,7 +215,66 @@ if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
 <div class="se-pre-con"></div>
+<div id="preloader"><div class="p">CODENOME</div></div>
 <?php if(Website::getWebsiteConfig()->getValue('ouibounce_isActive')){?>
+    <?php if($_REQUEST['subtopic'] == "latestnews" || !isset($_REQUEST['subtopic'])){?>
+    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
+    <script>
+        let paceBounce = ouibounce(false,
+            {
+                cookieName:"paceBounce",
+                cookieExpire:50,
+                sitewide:true,
+                // aggressive: true,
+                callback:function (){
+                    paceOptions = {
+                        ajax: true,
+                        document: true,
+                        eventLag: false
+                    };
+                    $("#preloader").show()
+                    $(".p").show()
+                    $(".pace").show()
+                    setTimeout(function(){
+                        Pace.start()
+                    }, 3000);
+
+                    Pace.on('done', function() {
+
+                        $('.p').delay(500).animate({top: '30%', opacity: '0'}, 3000, $.bez([0.19,1,0.22,1]));
+                        $('#preloader').delay(1500).animate({top: '-100%'}, 2000, $.bez([0.19,1,0.22,1]));
+
+                        TweenMax.from("#MainHelper1", 2, {
+                            delay: 1.0,
+                            y: 30,
+                            opacity: 0.3,
+                            ease: Expo.easeInOut
+                        })
+
+                    });
+                }
+            });
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        if(getCookie("paceBounce")){
+            // Pace.start()
+        }
+        paceBounce.fire();
+        paceBounce.disable();
+    </script>
+    <?php }?>
     <?php if($_REQUEST['subtopic'] != "accountmanagement" && $_REQUEST['action'] != "donate"){?>
     <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
     <script>

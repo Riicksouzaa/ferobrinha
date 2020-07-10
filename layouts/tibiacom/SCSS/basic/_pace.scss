@@ -1,5 +1,5 @@
 /* This is a compiled file, you should be editing the file in the templates directory */
-
+/*
 .pace {
     -webkit-pointer-events: none;
     pointer-events: none;
@@ -24,23 +24,22 @@
     height: 3px;
 }
 
+*/
 
-/**
 .pace {
     pointer-events: none;
     user-select: none;
-    z-index: 2247483648;
+    z-index: 6000;
     position: fixed;
     margin: auto;
-    top: 0;
+    top: 30%;
     left: 0;
     right: 0;
     bottom: 0;
-    width: 400px;
+    width: 500px;
     border: 0;
-    height: 1px;
+    height: 2px;
     overflow: hidden;
-    background: #fafafa;
 }
 
 .pace .pace-progress {
@@ -49,7 +48,7 @@
 
     max-width: 400px;
     position: absolute;
-    z-index: 2247483648;
+    z-index: 6002;
     display: block;
     top: 0;
     right: 100%;
@@ -64,19 +63,22 @@
 
 #preloader {
     width: 100%;
+    display: none;
     height: 100vh;
     background: rgba(0,0,0,1);
     overflow: hidden;
     position: fixed;
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-    z-index: 2247483648;
+    z-index: 3000;
 }
 
 .p{
+    font-family: Anurati, Sans-serif, serif;
     position: absolute;
+    display: none;
     top: 40%;
     left: 50%;
+    font-size: 4em;
     transform: translate(-50%, -50%);
     color: #fff;
 }
-*/

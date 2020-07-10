@@ -27,7 +27,7 @@
                 <div class="modal-content">
                     <!--Header-->
                     <div class="modal-header">
-                        <p class="heading">Quer usar esse lindo website em seu projeto?</p>
+                        <p class="heading">hello!</p>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="white-text">&times;</span>
@@ -44,22 +44,17 @@
                             </div>
 
                             <div class="col-9">
-                                <p>
-                                    Pois bem, venho por meio deste lhe oferecer uma oferta imperdível.<br><br>
-                                    Todo o conteúdo deste website sairá por uma bagatela de R$300,00.<br><br>
-                                    Isso mesmo, você irá utilizar toda a segurança e beneficios deste website pagando apenas um cafézinho por dia.
-                                    <br>
-                                </p>
-                                <h2>De: <span class="badge badge-primary"><s>R$880,00</s></span>
-                                    <br>Por: <span class="badge">R$300,00</span></h2>
+                                Você caiu no bait do ferobrinha hahaha.
+                                <h2>De: <span class="badge badge-primary"><s>Uiui</s></span>
+                                    <br>Por: <span class="badge">au au</span></h2>
                             </div>
                         </div>
                     </div>
 
                     <!--Footer-->
                     <div class="modal-footer justify-content-center">
-                        <a href="https://api.whatsapp.com/send?phone=+5562999340570&text=Olá, vi sobre a promoção do ferobra. Tenho interesse em comprar. Como devo proceder?" type="button" class="btn btn-danger">Quero comprar agora! <i class="far fa-gem ml-1 white-text"></i></a>
-                        <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Não obrigado.</a>
+                        <a href="https://api.whatsapp.com/send?phone=+5562999340570&text=Oi Ricardin PHP, vamos conversar??" type="button" class="btn btn-danger">Tú é!?!? <i class="far fa-gem ml-1 white-text"></i></a>
+                        <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">QueroNau.</a>
                     </div>
                 </div>
                 <!--/.Content-->
@@ -93,6 +88,9 @@
         <script src="./layouts/tibiacom/promo/promo.js<?php echo $css_version; ?>"></script>
         <script>
             $(document).ready(function () {
+                console.log("chamei")
+                Pace.stop()
+                Pace.bar.render()
                 showPromo();
             });
             $('#promoloader').on('click', function () {
