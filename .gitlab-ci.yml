@@ -1,11 +1,14 @@
-before_script:
-    - composer install
-
 stages:
     - deploy
-
 deploy:
     stage: deploy
+    only:
+        refs:
+            - master
+    variables:
+        GIT_CLEAN_FLAGS: -ffdx -e application/logs/
     script:
-        - find . -type f -exec chmod 644 {} +
-        - find . -type d -exec chmod 755 {} +
+        - composer install
+    cache:
+        paths:
+            - vendor/
