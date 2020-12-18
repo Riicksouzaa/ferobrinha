@@ -35,6 +35,6 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteCond %{HTTPS} !=on
 #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 #RewriteCond %{HTTP_HOST}%{REQUEST_URI} ^www\.(.*)
-RewriteRule (.*) http://%1/$1 [R=301,L]
-RewriteCond $1 !^(index\.php|css|js|assets|img|static|uploads|favicon\.ico)
-RewriteRule ^(.*)$ $1 [L]
+#RewriteRule (.*) http://%1/$1 [R=301,L]
+#RewriteCond $1 !^(index\.php|css|js|assets|img|static|uploads|favicon\.ico)
+#RewriteRule ^(.*)$ $1 [L]
