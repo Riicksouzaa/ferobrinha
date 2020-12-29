@@ -4,10 +4,9 @@
 <!--        <p class="rank_pbot_copyright"><a href="http://pbotwars.com.br/">design by pbot</a></p>-->
         <p class="see_more_top_rank"><a href="./?subtopic=highscores">Ver todos</a></p>
         <p class="rank_copyright"><a href="https://codenome.com">WE ARE<br>Code nome</a></p>
-        <!--<h3 class="TopLvl_title">Top <?php $qtd = Website::getWebsiteConfig()->getValue('top_lvl_qtd');
+        <h3 class="TopLvl_title">Top <?php $qtd = Website::getWebsiteConfig()->getValue('top_lvl_qtd');
             $qtd = $qtd < 1 ? 1 : ($qtd > 5 ? 5 : $qtd);
-            echo $qtd; ?> Experience</h3>-->
-            <h3 class="TopLvl_title">Qualquer outra coisa</h3>
+            echo $qtd; ?> Experience</h3>
         <?php
         $a = 1;
         $group_inactive = Website::getWebsiteConfig()->getValue('top_lvl_group_inactive');
