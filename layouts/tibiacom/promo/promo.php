@@ -63,15 +63,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <script>
-            //Swal.fire({
-            //    title: 'Sweet!',
-            //    text: 'Modal with a custom image.',
-            //    imageUrl: "./layouts/tibiacom/images/promocoes/<?//= Website::getWebsiteConfig()->getValue('promo_imagename') ?>//",
-            //    // imageWidth: 400,
-            //    // imageHeight: 200,
-            //    imageAlt: 'Custom image',
-            //    animation: true
-            //});
             $("#ModalDanger").modal('show');
         </script>
     <?php } ?>

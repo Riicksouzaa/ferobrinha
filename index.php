@@ -29,7 +29,7 @@ include_once('./system/load.init.php');
 
 // DATABASE
 include_once('./system/load.database.php');
-if (DEBUG_DATABASE){
+if (DEBUG_DATABASE) {
     Website::getDBHandle()->setPrintQueries(TRUE);
 }
 // DATABASE END
@@ -56,9 +56,8 @@ setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
 
-
 /** Função responsável por limpar algumas sessions */
-function flushSession ()
+function flushSession()
 {
     $date = new DateTime();
     $now = $date->format('Y-m-d H:i:s');
@@ -84,7 +83,7 @@ function flushSession ()
 }
 
 /** Função utilizada para validar multiplas requisições. */
-function valida_multiplas_reqs ()
+function valida_multiplas_reqs()
 {
     $timeout_time = Website::getWebsiteConfig()->getValue('timeout_time');
     $date = new DateTime();
@@ -114,7 +113,7 @@ function valida_multiplas_reqs ()
 
 
 /** Função utilizada para validar multiplas requisições. */
-function valida_website_multiple_req ()
+function valida_website_multiple_req()
 {
     $timeout_time = Website::getWebsiteConfig()->getValue('website_timeout_time');
     $date = new DateTime();
@@ -145,16 +144,16 @@ function valida_website_multiple_req ()
 flushSession();
 $date = new DateTime();
 $now = $date->format('[d-m-Y H:i:s] ');
-    $handle = fopen('full_log.log', 'a');
-    fwrite($handle, $now.':> ');
-    foreach ($_REQUEST as $key => $value) {
-        fwrite($handle, $key . "=>" . $value . ";");
-    }
-    fwrite($handle, $_SERVER['REMOTE_ADDR'].";".(isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'inexistente'));
-    fwrite($handle, "\r\n<br/>");
+$handle = fopen('full_log.log', 'a');
+fwrite($handle, $now . ':> ');
+foreach ($_REQUEST as $key => $value) {
+    fwrite($handle, $key . "=>" . $value . ";");
+}
+fwrite($handle, $_SERVER['REMOTE_ADDR'] . ";" . (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'inexistente'));
+fwrite($handle, "\r\n<br/>");
 fclose($handle);
 
-if(isset($SQL)){
+if (isset($SQL)) {
     $restoreLvlByExperience = function () use ($SQL) {
         $q = $SQL->prepare("UPDATE players SET level = :lv");
         $q->execute(["lv" => 0]);
@@ -178,7 +177,7 @@ if(isset($SQL)){
     }
 }
 
-if(valida_website_multiple_req()){
+if (valida_website_multiple_req()) {
     if (in_array($_REQUEST['subtopic'], array("play", "refresh", "client_options_serverscript"))) {
         echo $main_content;
     } else {
@@ -187,7 +186,7 @@ if(valida_website_multiple_req()){
         else
             echo $main_content;
     }
-}else{
+} else {
     echo "Calma ae amigão. vai devagar nessas requisição ae.";
 }
 
