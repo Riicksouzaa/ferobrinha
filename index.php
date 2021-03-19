@@ -144,7 +144,7 @@ function valida_website_multiple_req()
 flushSession();
 $date = new DateTime();
 $now = $date->format('[d-m-Y H:i:s] ');
-$handle = fopen('full_log.log', 'a');
+$handle = fopen(__DIR__ . '/logs/full_log.log', 'a');
 fwrite($handle, $now . ':> ');
 foreach ($_REQUEST as $key => $value) {
     fwrite($handle, $key . "=>" . $value . ";");

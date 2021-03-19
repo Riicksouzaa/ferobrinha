@@ -6,7 +6,8 @@ deploy:
         refs:
             - master
     variables:
-        GIT_CLEAN_FLAGS: -ffdx -e application/logs/
+        GIT_CLEAN_FLAGS:
+            -ffdx -e logs/
     script:
         - composer install
     cache:
