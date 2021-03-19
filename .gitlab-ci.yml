@@ -8,6 +8,7 @@ deploy:
     variables:
         GIT_CLEAN_FLAGS:
             -ffdx -e logs/
+            -ffdx -e cache/
     script:
         - composer install
     cache:
