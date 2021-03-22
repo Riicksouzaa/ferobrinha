@@ -1,44 +1,47 @@
 {
-  "description": "Gesior premium with composer",
-  "authors": [
-    {
-      "name": "Ricardo Souza",
-      "email": "ricardo@codenome.com",
-      "homepage": "http://codenome.com",
-      "role": "Developer"
-    }
-  ],
-  "license": "GPL-3.0+",
-  "require": {
-    "robthree/twofactorauth": "^1.6",
-    "paypal/rest-api-sdk-php": "*",
-    "thepixeldeveloper/sitemap": "^5.1",
-    "mercadopago/sdk": "0.5.2",
-    "mercadopago/dx-php": "dev-master",
-    "stil/gd-text": "^1.1",
-    "phpmailer/phpmailer": "^6.0",
-    "pagseguro/pagseguro-php-sdk": "^4.2",
-    "tinymce/tinymce": "4.8.3",
-    "mashape/unirest-php": "^3.0",
-    "guzzlehttp/guzzle": "~6.0",
-    "muvasco/picpay-php-sdk": "^1.0"
-  },
-  "repositories": {
-    "picpay-php-sdk": {
-      "type": "package",
-      "package": {
-        "name": "muvasco/picpay-php-sdk",
-        "version": "1.0",
-        "dist": {
-          "url": "https://github.com/muvasco/picpay-php-sdk/archive/master.zip",
-          "type": "zip"
+    "description": "Gesior premium with composer",
+    "authors": [
+        {
+            "name": "Ricardo Souza",
+            "email": "ricardo@codenome.com",
+            "homepage": "http://codenome.com",
+            "role": "Developer"
         }
-      }
+    ],
+    "license": "GPL-3.0+",
+    "require": {
+        "robthree/twofactorauth": "^1.6",
+        "paypal/rest-api-sdk-php": "*",
+        "thepixeldeveloper/sitemap": "^5.1",
+        "mercadopago/sdk": "0.5.2",
+        "mercadopago/dx-php": "dev-master",
+        "stil/gd-text": "^1.1",
+        "phpmailer/phpmailer": "^6.0",
+        "pagseguro/pagseguro-php-sdk": "^4.2",
+        "tinymce/tinymce": "4.8.3",
+        "mashape/unirest-php": "^3.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "muvasco/picpay-php-sdk": "^1.0",
+        "ext-simplexml": "*",
+        "ext-json": "*",
+        "ext-libxml": "*"
+    },
+    "repositories": {
+        "picpay-php-sdk": {
+            "type": "package",
+            "package": {
+                "name": "muvasco/picpay-php-sdk",
+                "version": "1.0",
+                "dist": {
+                    "url": "https://github.com/muvasco/picpay-php-sdk/archive/master.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    },
+    "autoload": {
+        "psr-0": {
+            "Picpay\\": "vendor/muvasco/picpay-php-sdk/src"
+        }
     }
-  },
-  "autoload": {
-    "psr-0": {
-      "Picpay\\": "vendor/muvasco/picpay-php-sdk/src"
-    }
-  }
 }

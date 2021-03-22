@@ -9,13 +9,13 @@
 class Events
 {
     private $events;
-    
-    public function __construct ()
+
+    public function __construct()
     {
         $this->loadFromFile(Website::getWebsiteConfig()->getValue('Events_path'));
     }
-    
-    private function loadFromFile ($file)
+
+    private function loadFromFile($file)
     {
         if (Website::fileExists($file)) {
             $xml = simplexml_load_file($file, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -23,7 +23,7 @@ class Events
             $events = json_decode($json, TRUE)['globalevent'];
             foreach ($events as $event) {
                 $event = $event['@attributes'];
-                if($event['isevent'] === 'true'){
+                if ($event['isevent'] === 'true') {
                     $newEvent[$event['group']][] = $event;
                 }
             }
@@ -32,31 +32,38 @@ class Events
             new Error_Critic('#Ev-1', "<b>ERROR: #Ev-1:</b> Class::Events - GlobalEvent File not exists in {$file}.");
         }
     }
-    
-    private function setEvents ($events)
+
+    private function setEvents($events)
     {
         $this->events = $events;
         return $this;
     }
-    
-    public function getEvents(){
+
+    public function getEvents()
+    {
         return $this->events;
     }
-    
-    public function getArrGroupNames(){
+
+    public function getArrGroupNames()
+    {
         $arr = $this->events;
-        foreach ($arr as $key=>$value){
-            $q[] = $key;
+        $q = [];
+        if (!empty($arr)) {
+            foreach ($arr as $key => $value) {
+                $q[] = $key;
+            }
         }
         return $q;
     }
-    
-    public function getEventByName($name){
+
+    public function getEventByName($name)
+    {
         return $this->events[$name];
     }
-    
-    public function getEventByGroup($group){
+
+    public function getEventByGroup($group)
+    {
         return $this->events[$group];
     }
-    
+
 }
