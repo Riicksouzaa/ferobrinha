@@ -70,14 +70,14 @@ class Mounts
     public function getMountsByClientId($client_id)
     {
         $id = (int)$client_id;
-        $mounts = $this->getMountsbycliid();
+        $mounts = $this->getMountsByCliId();
         return $mounts[$id];
     }
 
     /**
      * @return mixed
      */
-    private function getMountsbycliid()
+    private function getMountsByCliId()
     {
         return $this->mountsbycliid;
     }
