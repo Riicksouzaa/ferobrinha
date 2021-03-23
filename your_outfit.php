@@ -112,10 +112,11 @@ if (isset($_REQUEST['name'])) {
 
     };
     $randomLookType = $randomizeLook();
-    while ($randomLookType == 0){
+    while ($randomLookType == 0) {
         $randomLookType = $randomizeLook();
     }
-    $randomMount = (rand(0, (int)array_pop($mounts->getMounts())['id'] - 20));
+    $array = $mounts->getMounts();
+    $randomMount = (rand(0, (int)array_pop($array)['id'] - 20));
     $randomAddon = rand(0, 3);
     $randomColors = rand(0, 255);
     $name = $_REQUEST['name'];

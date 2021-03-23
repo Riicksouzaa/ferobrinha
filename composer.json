@@ -24,7 +24,8 @@
         "muvasco/picpay-php-sdk": "^1.0",
         "ext-simplexml": "*",
         "ext-json": "*",
-        "ext-libxml": "*"
+        "ext-libxml": "*",
+        "ext-gd": "*"
     },
     "repositories": {
         "picpay-php-sdk": {
