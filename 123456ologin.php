@@ -50,7 +50,7 @@ $FinalDate1 = new DateTime("2019-08-23 00:00:00", new DateTimeZone("Europe/Berli
 
 
 
-        
+
                 $campaign = [
         [
                 'startdate' => $startdate1 ->getTimestamp(),
@@ -125,7 +125,7 @@ case "news":
         'publishdate' => time(),
         'type' => 'REGULAR',
         ]];
-        
+
         $schedule['categorycounts'] = $categorycounts;
         $schedule['gamenews'] = $gamenews;
         $schedule['isreturner'] = false;
@@ -133,7 +133,7 @@ case "news":
     break;
 
     case "categorycounts":
-        
+
                 $gamenews = [
         [
                 'campaignid' => 0,
@@ -153,23 +153,23 @@ case "news":
         break;
 
     case "boostedcreature":
-        
+
         //youburromen? EU NAO SEI ISSO  TESTE AI  EPA tinha um errinho ali kkk vê agr
-        
-		$result = $SQL->prepare("SELECT `value` FROM `global_storage` WHERE `key` = '56541'");
+
+        $result = $SQL->prepare("SELECT `value` FROM `global_storage` WHERE `key` = '56541'");
 		$result->execute([]);
 
 		$raceid = $result->fetchAll();
-        
+
         $boostedcreature["boostedcreature"] = true;
         $boostedcreature["raceid"] = (int)$raceid[0]['value'];
-        
 
-       /// EU JA DISSE QUE VOCE É GOSTOSO?
+
+        /// EU JA DISSE QUE VOCE É GOSTOSO?
         echo json_encode($boostedcreature);
         break;
-                
-        case "login":
+
+    case "login":
 
 
 # Declare variables with array structure
@@ -183,7 +183,7 @@ function sendError($msg){
     $ret = array();
     $ret["errorCode"] = 3;
     $ret["errorMessage"] = $msg;
-    
+
     die(json_encode($ret));
 }
 
@@ -207,8 +207,8 @@ if ($isCasting) {
         foreach($casts as $cast) {
                 $character = new Player();
                 $character->load($cast['player_id']);
-                
-                if ($character->isLoaded()) {
+
+            if ($character->isLoaded()) {
                 $level = $character->getLevel();
                 $outfitid = $character->getLookType();
                 $headcolor = $character->getLookHead();
@@ -218,26 +218,26 @@ if ($isCasting) {
                 $addonflags = $character->getLookAddons();
                 settype($level, "int");
                 settype($outfitid, "int");
-                settype($headcolor, "int"); 
-                settype($torsocolor, "int"); 
-                settype($legscolor, "int"); 
-                settype($detailcolor, "int"); 
-                settype($addonflags, "int"); 
-                $char = array("worldid" => 0, 
-                                                "name" => $character->getName(), 
-                                                "ismale" => (($character->getSex() == 1) ? true : false), 
-                                                "tutorial" => false, 
-                                                "outfitid" => $outfitid, 
-                                                "level" => $level,
-                                                "headcolor" => $headcolor,
-                                                "torsocolor" => $torsocolor,
-                                                "legscolor" => $legscolor,
-                                                "detailcolor" => $detailcolor,
-                                                "addonflags" => $addonflags,
-                                                "vocation" => $character->getVocationName(),
-                                                "ishidden" => (($character->isHidden() == 1) ? true : false));
-                        $characters[] = $char;
-                }                        
+                settype($headcolor, "int");
+                settype($torsocolor, "int");
+                settype($legscolor, "int");
+                settype($detailcolor, "int");
+                settype($addonflags, "int");
+                $char = array("worldid" => 0,
+                    "name" => $character->getName(),
+                    "ismale" => $character->getSex() == 1,
+                    "tutorial" => false,
+                    "outfitid" => $outfitid,
+                    "level" => $level,
+                    "headcolor" => $headcolor,
+                    "torsocolor" => $torsocolor,
+                    "legscolor" => $legscolor,
+                    "detailcolor" => $detailcolor,
+                    "addonflags" => $addonflags,
+                    "vocation" => $character->getVocationName(),
+                    "ishidden" => $character->isHidden() == 1);
+                $characters[] = $char;
+            }
         }
         $port = 7173;
         $lastLogin = 0;
@@ -246,59 +246,59 @@ if ($isCasting) {
 } else {
         $account = new Account();
         $account->find($accountName);
-        
-        if (!$account->isLoaded())
+
+    if (!$account->isLoaded())
                 sendError("Failed to get account. Try again!");
         if ($account->getPassword() != Website::encryptPassword($password))
                 sendError("The password for this account is wrong. Try again!");
-        
-        foreach($account->getPlayersList() as $character) {
-                $level = $character->getLevel();
-                $outfitid = $character->getLookType();
-                $headcolor = $character->getLookHead();
-                $torsocolor = $character->getLookBody();
-                $legscolor = $character->getLookLegs();
-                $detailcolor = $character->getLookFeet();
-                $addonflags = $character->getLookAddons();
-                settype($level, "int");
-                settype($outfitid, "int");
-                settype($headcolor, "int"); 
-                settype($torsocolor, "int"); 
-                settype($legscolor, "int"); 
-                settype($detailcolor, "int"); 
-                settype($addonflags, "int"); 
-                $char = array("worldid" => 0, 
-                                                "name" => $character->getName(), 
-                                                "ismale" => (($character->getSex() == 1) ? true : false), 
-                                                "tutorial" => false, 
-                                                "outfitid" => $outfitid, 
-                                                "level" => $level,
-                                                "headcolor" => $headcolor,
-                                                "torsocolor" => $torsocolor,
-                                                "legscolor" => $legscolor,
-                                                "detailcolor" => $detailcolor,
-                                                "addonflags" => $addonflags,
-                                                "vocation" => $character->getVocation(),
-                                                "ishidden" => (($character->isHidden() == 1) ? true : false));
-                $characters[] = $char;
-        }
-        
-        $lastLogin = $account->getLastLogin();
-        $premiumAccount = ($account->isPremium()) ? true : false;
-        $timePremium = time() + ($account->getPremDays() * 86400);
+
+    foreach($account->getPlayersList() as $character) {
+        $level = $character->getLevel();
+        $outfitid = $character->getLookType();
+        $headcolor = $character->getLookHead();
+        $torsocolor = $character->getLookBody();
+        $legscolor = $character->getLookLegs();
+        $detailcolor = $character->getLookFeet();
+        $addonflags = $character->getLookAddons();
+        settype($level, "int");
+        settype($outfitid, "int");
+        settype($headcolor, "int");
+        settype($torsocolor, "int");
+        settype($legscolor, "int");
+        settype($detailcolor, "int");
+        settype($addonflags, "int");
+        $char = array("worldid" => 0,
+            "name" => $character->getName(),
+            "ismale" => $character->getSex() == 1,
+            "tutorial" => false,
+            "outfitid" => $outfitid,
+            "level" => $level,
+            "headcolor" => $headcolor,
+            "torsocolor" => $torsocolor,
+            "legscolor" => $legscolor,
+            "detailcolor" => $detailcolor,
+            "addonflags" => $addonflags,
+            "vocation" => $character->getVocation(),
+            "ishidden" => $character->isHidden() == 1);
+        $characters[] = $char;
+    }
+
+    $lastLogin = $account->getLastLogin();
+    $premiumAccount = $account->isPremium();
+    $timePremium = time() + ($account->getPremDays() * 86400);
 }
 $session = array(
-        "fpstracking" => false,
-        "optiontracking" => false,
-        "isreturner" => true,
-        "returnernotification" => false,
-        "showrewardnews" => false,
-        "sessionkey" => $accountName . "\n" . $password,
-        "lastlogintime" => $lastLogin,
+    "fpstracking" => false,
+    "optiontracking" => false,
+    "isreturner" => true,
+    "returnernotification" => false,
+    "showrewardnews" => false,
+    "sessionkey" => $accountName . "\n" . $password,
+    "lastlogintime" => $lastLogin,
     "ispremium" => $premiumAccount,
     "premiumuntil" => $timePremium,
-    "status" => "active",        
-        "stayloggedin" => true
+    "status" => "active",
+    "stayloggedin" => true
 );
 
         if ($config['server']['worldType'] == "pvp") {

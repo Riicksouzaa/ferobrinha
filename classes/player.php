@@ -40,7 +40,7 @@ class Player extends ObjectData
 
     public function loadById($id)
     {
-        $this->load($id, self::LOADTYPE_ID);
+        $this->load($id);
     }
 
     public function save($forceInsert = FALSE)
@@ -71,8 +71,7 @@ class Player extends ObjectData
     public function getDepotItems()
     {
         $player_id = $this->getID();
-        $depot_items = $this->getDatabaseHandler()->query("SELECT *, sum(count) as real_count FROM player_depotitems where player_id = $player_id group by itemtype ORDER BY player_id ASC")->fetchAll();
-        return $depot_items;
+        return $this->getDatabaseHandler()->query("SELECT *, sum(count) as real_count FROM player_depotitems where player_id = $player_id group by itemtype ORDER BY player_id ASC")->fetchAll();
     }
 
     public function getID()

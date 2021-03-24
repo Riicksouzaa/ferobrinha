@@ -187,7 +187,7 @@ switch ($input->type ? $input->type : '') {
                     settype($addonflags, "int");
                     $char = array("worldid" => 0,
                         "name" => $character->getName(),
-                        "ismale" => (($character->getSex() == 1) ? true : false),
+                        "ismale" => $character->getSex() == 1,
                         "tutorial" => false,
                         "outfitid" => $outfitid,
                         "level" => $level,
@@ -197,7 +197,7 @@ switch ($input->type ? $input->type : '') {
                         "detailcolor" => $detailcolor,
                         "addonflags" => $addonflags,
                         "vocation" => $character->getVocationName(),
-                        "ishidden" => (($character->isHidden() == 1) ? true : false));
+                        "ishidden" => $character->isHidden() == 1);
                     $characters[] = $char;
                 }
             }
@@ -231,7 +231,7 @@ switch ($input->type ? $input->type : '') {
                 settype($addonflags, "int");
                 $char = array("worldid" => 0,
                     "name" => $character->getName(),
-                    "ismale" => (($character->getSex() == 1) ? true : false),
+                    "ismale" => $character->getSex() == 1,
                     "tutorial" => false,
                     "outfitid" => $outfitid,
                     "level" => $level,
@@ -241,12 +241,12 @@ switch ($input->type ? $input->type : '') {
                     "detailcolor" => $detailcolor,
                     "addonflags" => $addonflags,
                     "vocation" => $character->getVocation(),
-                    "ishidden" => (($character->isHidden() == 1) ? true : false));
+                    "ishidden" => $character->isHidden() == 1);
                 $characters[] = $char;
             }
 
             $lastLogin = $account->getLastLogin();
-            $premiumAccount = ($account->isPremium()) ? true : false;
+            $premiumAccount = $account->isPremium();
             $timePremium = time() + ($account->getPremDays() * 86400);
         }
         $session = array(

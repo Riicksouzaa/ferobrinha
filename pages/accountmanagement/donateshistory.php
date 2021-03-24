@@ -60,7 +60,7 @@ if(!empty($getPayPalDonates)){
                     <tr bgcolor='{$bgcolor}'>
                         <td>" . $date->format('M d Y') . "</td>
                         <td>{$payPalDonate['item_count']} Tibia Coins</td>
-                        <td>" . number_format($payPalDonate['mc_gross'], 2, '.', ',') . " BRL</td>
+                        <td>" . number_format($payPalDonate['mc_gross'], 2) . " BRL</td>
                         <td>Paypal</td>
                         <td></td>
                         <td>{$payPalDonate['payment_status']}</td>
@@ -77,7 +77,7 @@ if (!empty($getPagseguroDonates)) {
                     <tr bgcolor='{$bgcolor}'>
                         <td>" . $date->format('M d Y') . "</td>
                         <td>{$pagseguro['item_count']} Tibia Coins</td>
-                        <td>" . number_format($pagseguro['payment_amount'], 2, '.', ',') . " BRL</td>
+                        <td>" . number_format($pagseguro['payment_amount'], 2) . " BRL</td>
                         <td>pagseguro</td>
                         <td></td>
                         <td>{$pagseguro['status']}</td>

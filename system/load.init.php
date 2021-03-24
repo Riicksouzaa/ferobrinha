@@ -49,7 +49,7 @@ $make_content_header = function ($name, $sm_text = '') {
     if ($sm_text && $sm_text != '') {
         $sm_text = '<div style="float: right"><small><span>' . $sm_text . '</small></span></div>';
     }
-    $q = '
+    return '
 <div class="CaptionContainer">
     <div class="CaptionInnerContainer">
         <span class="CaptionEdgeLeftTop" style="background-image:url(./layouts/tibiacom/images/global/content/box-frame-edge.gif);"></span>
@@ -66,7 +66,6 @@ $make_content_header = function ($name, $sm_text = '') {
     </div>
 </div>
   ';
-    return $q;
 };
 
 /**
@@ -77,7 +76,7 @@ $make_content_header = function ($name, $sm_text = '') {
  * @return string
  */
 $make_table_header = function ($class = 'Table3', $align = '', $stripped = FALSE) {
-    $q = '
+    return '
 <table class="' . $class . '" cellpadding="0" cellspacing="0" align="' . $align . '">
     <tbody>
         <tr>
@@ -94,7 +93,6 @@ $make_table_header = function ($class = 'Table3', $align = '', $stripped = FALSE
                                         <div class="TableContentContainer">
                                             <table class="TableContent' . ($stripped ? ' TableStripped ' : ' ') . '" width="100%">
                                                 <tbody>';
-    return $q;
 };
 
 /**
@@ -102,7 +100,7 @@ $make_table_header = function ($class = 'Table3', $align = '', $stripped = FALSE
  * @return string
  */
 $make_table_footer = function () {
-    $q = '
+    return '
                                                 </tbody>
                                             </table>
                                         </div>
@@ -122,7 +120,6 @@ $make_table_footer = function () {
         </tr>
     </tbody>
 </table>';
-    return $q;
 };
 
 /**
@@ -130,7 +127,7 @@ $make_table_footer = function () {
  * @return string
  */
 $make_double_archs = function ($title) {
-    $html = '
+    return '
 <div style="text-align: -webkit-center !important;">
     <table>
         <tbody>
@@ -143,7 +140,6 @@ $make_double_archs = function ($title) {
     </table>
 </div>
   ';
-    return $html;
 };
 
 // remove magic quotes, to make it compatible with some bad PHP configurations, 'stripslashes' in scripts is not needed anymore!

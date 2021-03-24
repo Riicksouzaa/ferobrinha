@@ -280,7 +280,7 @@ function items_on_player($characterid, $pid)
 
 function getReason($reasonId)
 {
-    return Functions::getBanReasonName($reasonId);
+    return (new Functions)->getBanReasonName($reasonId);
 }
 
 //################### DISPLAY FUNCTIONS #####################

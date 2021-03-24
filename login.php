@@ -106,19 +106,19 @@ if ($isCasting) {
 		settype($detailcolor, "int");
 		settype($addonflags, "int");
 		$char = array("worldid" => 0,
-						"name" => $character->getName(),
-						"ismale" => (($character->getSex() == 1) ? true : false),
-						"tutorial" => false,
-						"outfitid" => $outfitid,
-						"level" => $level,
-						"headcolor" => $headcolor,
-						"torsocolor" => $torsocolor,
-						"legscolor" => $legscolor,
-						"detailcolor" => $detailcolor,
-						"addonflags" => $addonflags,
-						"vocation" => $character->getVocationName(),
-						"ishidden" => (($character->isHidden() == 1) ? true : false));
-			$characters[] = $char;
+            "name" => $character->getName(),
+            "ismale" => $character->getSex() == 1,
+            "tutorial" => false,
+            "outfitid" => $outfitid,
+            "level" => $level,
+            "headcolor" => $headcolor,
+            "torsocolor" => $torsocolor,
+            "legscolor" => $legscolor,
+            "detailcolor" => $detailcolor,
+            "addonflags" => $addonflags,
+            "vocation" => $character->getVocationName(),
+            "ishidden" => $character->isHidden() == 1);
+            $characters[] = $char;
 		}
 	}
 	$port = 7173;
@@ -150,24 +150,24 @@ if ($isCasting) {
 		settype($detailcolor, "int");
 		settype($addonflags, "int");
 		$char = array("worldid" => 0,
-						"name" => $character->getName(),
-						"ismale" => (($character->getSex() == 1) ? true : false),
-						"tutorial" => false,
-						"outfitid" => $outfitid,
-						"level" => $level,
-						"headcolor" => $headcolor,
-						"torsocolor" => $torsocolor,
-						"legscolor" => $legscolor,
-						"detailcolor" => $detailcolor,
-						"addonflags" => $addonflags,
-						"vocation" => $character->getVocationName(),
-						"ishidden" => (($character->isHidden() == 1) ? true : false));
-		$characters[] = $char;
-	}
+            "name" => $character->getName(),
+            "ismale" => $character->getSex() == 1,
+            "tutorial" => false,
+            "outfitid" => $outfitid,
+            "level" => $level,
+            "headcolor" => $headcolor,
+            "torsocolor" => $torsocolor,
+            "legscolor" => $legscolor,
+            "detailcolor" => $detailcolor,
+            "addonflags" => $addonflags,
+            "vocation" => $character->getVocationName(),
+            "ishidden" => $character->isHidden() == 1);
+        $characters[] = $char;
+    }
 
-	$lastLogin = $account->getLastLogin();
-	$premiumAccount = ($account->isPremium()) ? true : false;
-	$timePremium = time() + ($account->getPremDays() * 86400);
+    $lastLogin = $account->getLastLogin();
+    $premiumAccount = $account->isPremium();
+    $timePremium = time() + ($account->getPremDays() * 86400);
 }
 $session = array(
 	"fpstracking" => false,

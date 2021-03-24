@@ -39,7 +39,7 @@ function sendError ($msg)
     $ret = array();
     $ret["errorCode"] = 3;
     $ret["errorMessage"] = $msg;
-    
+
     die(json_encode($ret));
 }
 
@@ -63,9 +63,9 @@ if ($isCasting) {
     foreach ($casts as $cast) {
         $character = new Player();
         $character->load($cast['player_id']);
-        
+
         if ($character->isLoaded()) {
-            $char = array("worldid" => 0, "name" => $character->getName(), "ismale" => (($character->getSex() == 1) ? TRUE : FALSE), "tutorial" => FALSE);
+            $char = array("worldid" => 0, "name" => $character->getName(), "ismale" => $character->getSex() == 1, "tutorial" => FALSE);
             $characters[] = $char;
         }
     }
@@ -76,19 +76,19 @@ if ($isCasting) {
 } else {
     $account = new Account();
     $account->find($accountName);
-    
+
     if (!$account->isLoaded())
         sendError("Failed to get account. Try again!");
     if ($account->getPassword() != Website::encryptPassword($password))
         sendError("The password for this account is wrong. Try again!");
-    
+
     foreach ($account->getPlayersList() as $character) {
-        $char = array("worldid" => 0, "name" => $character->getName(), "ismale" => (($character->getSex() == 1) ? TRUE : FALSE), "tutorial" => FALSE);
+        $char = array("worldid" => 0, "name" => $character->getName(), "ismale" => $character->getSex() == 1, "tutorial" => FALSE);
         $characters[] = $char;
     }
-    
+
     $lastLogin = $account->getLastLogin();
-    $premiumAccount = ($account->isPremium()) ? TRUE : FALSE;
+    $premiumAccount = $account->isPremium();
     $timePremium = time() + ($account->getPremDays() * 86400);
 }
 $session = array(

@@ -95,7 +95,7 @@ if($isCasting){
         $character->load($cast['player_id']);
 
         if ($character->isLoaded()) {
-            $char = array("worldid" => 0, "name" => $character->getName(), "ismale" => (($character->getSex() == 1) ? true : false), "tutorial" => false);
+            $char = array("worldid" => 0, "name" => $character->getName(), "ismale" => $character->getSex() == 1, "tutorial" => false);
             $characters[] = $char;
         }
     }
@@ -119,13 +119,13 @@ if($isCasting){
         $char = [
             "worldid" => 0,
             "name" => $character->getName(),
-            "ismale" => (($character->getSex() == 1) ? true : false),
+            "ismale" => $character->getSex() == 1,
             "tutorial" => false
         ];
         $characters[] = $char;
     }
     $lastLogin = $account->getLastLogin();
-    $premiumAccount = ($account->isPremium()) ? true : false;
+    $premiumAccount = $account->isPremium();
     $timePremium = time() + ($account->getPremDays() * 86400);
 }
 $session = [

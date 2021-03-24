@@ -11,10 +11,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class SendMail extends Website
 {
-    
+
     private $mail;
-    private $template;
-    
+
     /**
      * SendMail constructor.
      */
@@ -35,7 +34,7 @@ class SendMail extends Website
             echo 'Message could not be sent. Mailer Error: ', $this->mail->ErrorInfo;
         }
     }
-    
+
     /**
      * @param $sendTo
      * @param $nameSendTo
@@ -52,12 +51,12 @@ class SendMail extends Website
             /** Recipients */
             $this->mail->setFrom(Website::getWebsiteConfig()->getValue('smtp_user'), "Contato - " . $config['server']['serverName']);
             $this->mail->addAddress($sendTo, $nameSendTo);     // Add a recipient
-            
+
             /** Content */
             $this->mail->isHTML(TRUE);                                  // Set email format to HTML
             $this->mail->Subject = $subject;
             $this->mail->Body = $this->makeTemplate($mailDescription, $nameSendTo, $mailBodyDescription, $mailBody);
-            
+
             /** Enviar */
             if($this->mail->send()){
                 return TRUE;
@@ -68,8 +67,8 @@ class SendMail extends Website
             echo 'Message could not be sent. Mailer Error: ', $this->mail->ErrorInfo;
         }
     }
-    
-    
+
+
     /**
      * @param $mailDescription
      * @param $nameSendTo
@@ -80,7 +79,7 @@ class SendMail extends Website
     private function makeTemplate ($mailDescription, $nameSendTo, $mailBodyDescription, $mailBody)
     {
         global $config;
-        
+
         $templateHeader = "
 <div marginwidth='0' marginheight='0' style='margin:0;padding:0;height:100%;width:100%;background-color:#f7f7f7'>
     <center>
@@ -189,11 +188,11 @@ class SendMail extends Website
         </table>
     </center>
 </div>";
-        
-        $this->template = $templateHeader;
-        $this->template .= $templateBody;
-        $this->template .= $templateFooter;
-        
-        return $this->template;
+
+        $template = $templateHeader;
+        $template .= $templateBody;
+        $template .= $templateFooter;
+
+        return $template;
     }
 }

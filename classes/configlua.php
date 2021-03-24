@@ -5,13 +5,13 @@ if (!defined('INITIALIZED'))
 class ConfigLUA extends Errors // NOT SAFE CLASS, LUA CONFIG CAN BE EXECUTED AS PHP CODE
 {
     private $config;
-    
+
     public function __construct ($path = FALSE)
     {
         if ($path)
             $this->loadFromFile($path);
     }
-    
+
     public function loadFromFile ($path)
     {
         if (Website::fileExists($path)) {
@@ -21,7 +21,7 @@ class ConfigLUA extends Errors // NOT SAFE CLASS, LUA CONFIG CAN BE EXECUTED AS 
             new Error_Critic('#C-2', 'ERROR: <b>#C-2</b> : Class::ConfigLUA - LUA config file doesn\'t exist. Path: <b>' . $path . '</b>');
         }
     }
-    
+
     public function loadFromString ($string)
     {
         $lines = explode("\n", $string);
@@ -37,7 +37,7 @@ class ConfigLUA extends Errors // NOT SAFE CLASS, LUA CONFIG CAN BE EXECUTED AS 
                         elseif (in_array(substr($value, 0, 1), array("'", '"')) && in_array(substr($value, -1, 1), array("'", '"')))
                             $this->config[$key] = (string)substr(substr($value, 1), 0, -1);
                         elseif (in_array($value, array('true', 'false')))
-                            $this->config[$key] = ($value == 'true') ? TRUE : FALSE;
+                            $this->config[$key] = $value == 'true';
                         else {
                             foreach ($this->config as $tmp_key => $tmp_value) // load values definied by other keys, like: dailyFragsToBlackSkull = dailyFragsToRedSkull
                                 $value = str_replace($tmp_key, $tmp_value, $value);
@@ -52,12 +52,12 @@ class ConfigLUA extends Errors // NOT SAFE CLASS, LUA CONFIG CAN BE EXECUTED AS 
                 }
             }
     }
-    
+
     public function fileExists ($path)
     {
         return Website::fileExists($path);
     }
-    
+
     public function getValue ($key)
     {
         if (isset($this->config[$key]))
@@ -65,12 +65,12 @@ class ConfigLUA extends Errors // NOT SAFE CLASS, LUA CONFIG CAN BE EXECUTED AS 
         else
             new Error_Critic('#C-3', 'ERROR: <b>#C-3</b> : Class::ConfigLUA - Key <b>' . $key . '</b> doesn\'t exist.');
     }
-    
+
     public function isSetKey ($key)
     {
         return isset($this->config[$key]);
     }
-    
+
     public function getConfig ()
     {
         return $this->config;

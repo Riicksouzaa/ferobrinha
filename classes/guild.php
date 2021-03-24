@@ -6,7 +6,7 @@ class Guild extends ObjectData
 {
     const LOADTYPE_ID = 'id';
     const LOADTYPE_NAME = 'name';
-    
+
     const LEVEL_NOT_IN_GUILD = 0;
     const LEVEL_MEMBER = 1;
     const LEVEL_VICE = 2;
@@ -19,13 +19,13 @@ class Guild extends ObjectData
     public $ranks;
     /** @var Player $owner */
     public $owner;
-    
+
     public function __construct ($search_text = NULL, $search_by = self::LOADTYPE_ID)
     {
         if ($search_text != NULL)
             $this->load($search_text, $search_by);
     }
-    
+
     public function load ($search_text, $search_by = self::LOADTYPE_ID)
     {
         if (in_array($search_by, self::$fields))
@@ -35,15 +35,15 @@ class Guild extends ObjectData
         $fieldsArray = array();
         foreach (self::$fields as $fieldName)
             $fieldsArray[] = $this->getDatabaseHandler()->fieldName($fieldName);
-        
+
         $this->data = $this->getDatabaseHandler()->query('SELECT ' . implode(', ', $fieldsArray) . ' FROM ' . $this->getDatabaseHandler()->tableName(self::$table) . ' WHERE ' . $search_string)->fetch();
     }
-    
+
     public function loadById ($id)
     {
-        return $this->load($id, self::LOADTYPE_ID);
+        return $this->load($id);
     }
-    
+
     public function save ($forceInsert = FALSE)
     {
         if (!isset($this->data['id']) || $forceInsert) {
@@ -63,12 +63,12 @@ class Guild extends ObjectData
             $this->getDatabaseHandler()->query('UPDATE ' . $this->getDatabaseHandler()->tableName(self::$table) . ' SET ' . implode(', ', $updates) . ' WHERE ' . $this->getDatabaseHandler()->fieldName('id') . ' = ' . $this->getDatabaseHandler()->quote($this->data['id']));
         }
     }
-    
+
     public function setID ($value)
     {
         $this->data['id'] = $value;
     }
-    
+
     public function kickPlayer ($playerId)
     {
         if ($playerId == $this->getOwnerID())
@@ -81,12 +81,12 @@ class Guild extends ObjectData
             }
         }
     }
-    
+
     public function getOwnerID ()
     {
         return $this->data['ownerid'];
     }
-    
+
     public function delete ()
     {
         if ($this->isLoaded()) {
@@ -103,7 +103,7 @@ class Guild extends ObjectData
         } else
             new Error_Critic('', __METHOD__ . '() - cannot delete, guild not loaded');
     }
-    
+
     public function getRanks ($forceReload = FALSE)
     {
         if (!isset($this->ranks) || $forceReload) {
@@ -112,20 +112,20 @@ class Guild extends ObjectData
             $ranks->addOrder(new SQL_Order(new SQL_Field('level'), SQL_Order::DESC));
             $this->ranks = $ranks;
         }
-        
+
         return $this->ranks;
     }
-    
+
     public function getID ()
     {
         return $this->data['id'];
     }
-    
+
     public function getInvitedPlayers ($forceReload = FALSE)
     {
         return $this->getInvitations($forceReload);
     }
-    
+
     public function getInvitations ($forceReload = FALSE)
     {
         if (!isset($this->invitedPlayers) || $forceReload) {
@@ -138,86 +138,86 @@ class Guild extends ObjectData
         }
         return $this->invitedPlayers;
     }
-    
+
     public function isInvited ($playerId, $forceReload = FALSE)
     {
         foreach ($this->getInvitations($forceReload) as $invitedPlayer)
             if ($invitedPlayer->getID() == $playerId)
                 return TRUE;
-        
+
         return FALSE;
     }
-    
+
     public function getOwner ($forceReload = FALSE)
     {
         if (!isset($this->owner) || $forceReload)
             $this->owner = new Player($this->getOwnerID());
-        
+
         return $this->owner;
     }
-    
+
     /** @param Player $owner */
     public function setOwner ($owner)
     {
         $this->owner = $owner;
         $this->setOwnerID($owner->getID());
     }
-    
+
     public function setOwnerID ($value)
     {
         $this->data['ownerid'] = $value;
     }
-    
+
     public function getGuildLogoLink ()
     {
         return 'guild_image.php?id=' . $this->getID();
     }
-    
+
     public function setName ($value)
     {
         $this->data['name'] = $value;
     }
-    
+
     public function getCreationData ()
     {
         return $this->data['creationdata'];
     }
-    
+
     public function setCreationData ($value)
     {
         $this->data['creationdata'] = $value;
     }
-    
+
     public function getMOTD ()
     {
         return $this->data['motd'];
     }
-    
+
     public function setMOTD ($value)
     {
         $this->data['motd'] = $value;
     }
-    
+
     public function setCreateIP ($value)
     {
         $this->data['create_ip'] = $value;
     }
-    
+
     public function getCreateIP ()
     {
         return $this->data['create_ip'];
     }
-    
+
     public function getDescription ()
     {
         return $this->data['description'];
     }
-    
+
     public function setDescription ($value)
     {
         $this->data['description'] = $value;
     }
-    
+
     /*
      * Custom AAC fields
      * create_ip , INT, default 0
@@ -229,32 +229,32 @@ class Guild extends ObjectData
     {
         return $this->data['guild_logo'];
     }
-    
+
     public function setGuildLogo ($mimeType, $fileData)
     {
         $this->data['guild_logo'] = time() . ';data:' . $mimeType . ';base64,' . base64_encode($fileData);
     }
-    
+
     public function setCreateDate ($value)
     {
         $this->data['creationdata'] = $value;
     }
-    
+
     public function getCreateDate ()
     {
         return $this->data['creationdata'];
     }
-    
+
     public function getGuildRanksList ()
     {
         return $this->getRanks();
     }
-    
+
     public function getGuildRanks ()
     {
         return $this->getRanks();
     }
-    
+
     /*
      * for compability with old scripts
     */
@@ -263,31 +263,31 @@ class Guild extends ObjectData
     {
         return $this->getInvitations();
     }
-    
+
     /** @param Player $player */
     public function invite ($player)
     {
         $this->addInvitation($player->getID());
     }
-    
+
     public function addInvitation ($playerId, $reloadInvites = FALSE)
     {
         $this->getDatabaseHandler()->query('INSERT INTO ' . $this->getDatabaseHandler()->tableName('guild_invites') . ' (' . $this->getDatabaseHandler()->fieldName('player_id') . ', ' . $this->getDatabaseHandler()->fieldName('guild_id') . ', ' . $this->getDatabaseHandler()->fieldName('date') . ') VALUES (' . $this->getDatabaseHandler()->quote($playerId) . ', ' . $this->getDatabaseHandler()->quote($this->getID()) . ', ' . time() . ')');
         if ($reloadInvites)
             $this->getInvitations(TRUE);
     }
-    
+
     /** @param Player $player */
     public function deleteInvite ($player)
     {
         $this->removeInvitation($player->getID());
     }
-    
+
     public function removeInvitation ($playerId)
     {
         $this->getDatabaseHandler()->query('DELETE FROM ' . $this->getDatabaseHandler()->tableName('guild_invites') . ' WHERE ' . $this->getDatabaseHandler()->fieldName('player_id') . ' = ' . $this->getDatabaseHandler()->quote($playerId) . ' AND ' . $this->getDatabaseHandler()->fieldName('guild_id') . ' = ' . $this->getDatabaseHandler()->quote($this->getID()));
     }
-    
+
     /** @param Player $player */
     public function acceptInvite ($player)
     {
@@ -302,17 +302,17 @@ class Guild extends ObjectData
         } else
             new Error_Critic('', 'There is no rank in guild <b>' . htmlspecialchars($this->getName()) . '</b>, cannot add player <b>' . htmlspecialchars($player->getName()) . '</b> to guild.');
     }
-    
+
     public function getName ()
     {
         return $this->data['name'];
     }
-    
+
     public function find ($name)
     {
         $this->loadByName($name);
     }
-    
+
     public function loadByName ($name)
     {
         return $this->load($name, self::LOADTYPE_NAME);

@@ -20,103 +20,103 @@ class Item
     public $data = array('pid' => NULL, 'sid' => NULL, 'itemtype' => NULL, 'count' => NULL, 'attributes' => NULL);
     /** @var ItemAttributes */
     public $attributes;
-    
-    public function __construct ($data = NULL)
+
+    public function __construct($data = NULL)
     {
         if ($data != NULL)
             $this->loadData($data);
     }
-    
-    public function loadData (&$data)
+
+    public function loadData($data)
     {
         $this->data = $data;
     }
-    
-    public static function addField ($name)
+
+    public static function addField($name)
     {
         if (!in_array($name, self::$fields))
             self::$fields[] = $name;
     }
-    
+
     public static function removeField ($name)
     {
         if (in_array($name, self::$fields))
             unset(self::$fields[$name]);
     }
-    
+
     public static function getFieldsList ()
     {
         return self::$fields;
     }
-    
+
     public function getPID ()
     {
         return $this->data['pid'];
     }
-    
+
     public function setPID ($value)
     {
         $this->data['pid'] = $value;
     }
-    
+
     public function getSID ()
     {
         return $this->data['sid'];
     }
-    
+
     public function setSID ($value)
     {
         $this->data['sid'] = $value;
     }
-    
+
     public function getID ()
     {
         return $this->data['itemtype'];
     }
-    
+
     public function setID ($value)
     {
         $this->data['itemtype'] = $value;
     }
-    
+
     public function getCount ()
     {
         return $this->data['count'];
     }
-    
+
     public function setCount ($value)
     {
         $this->data['count'] = $value;
     }
-    
+
     public function getAttributesList ()
     {
         $this->loadAttributes();
         return $this->attributes->getAttributesList();
     }
-    
+
     public function loadAttributes ()
     {
         if (!isset($this->attributes))
             $this->attributes = new ItemAttributes($this->getAttributes());
     }
-    
+
     public function getAttributes ()
     {
         return $this->data['attributes'];
     }
-    
+
     public function setAttributes ($value)
     {
         $this->data['attributes'] = $value;
     }
-    
+
     public function hasAttribute ($attributeName)
     {
         $this->loadAttributes();
         return $this->attributes->hasAttribute($attributeName);
     }
-    
+
     public function getAttribute ($attributeName)
     {
         $this->loadAttributes();

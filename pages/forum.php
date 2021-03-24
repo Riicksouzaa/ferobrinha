@@ -196,14 +196,13 @@ function showPreview ($topic, $text, $smile)
 
 function showErrorMsg ($msg)
 {
-    $showmsg = '
+    return '
 <table border=0 cellpadding=2 cellspacing=0 width=100% style="width: 99%; border-radius:5px; border:1px dashed #b71313; background-color:#fcbebe; padding:2px">
 	<tr>
 	    <td>' . $msg . '</td>
 	</tr>
 </table>
 ';
-    return $showmsg;
 }
 
 function showNotLoggedIn ($show_time = FALSE)
@@ -244,7 +243,7 @@ if ($action == '') {
 				<td colspan=1 align="center"><b>Threads</b></td>
 				<td colspan=1 align="center"><b>Last Post</b></td>
 			</tr>';
-    
+
     $info = $SQL->query("SELECT " . $SQL->fieldName('section') . ", COUNT(" . $SQL->fieldName('id') . ") AS 'threads', SUM(" . $SQL->fieldName('replies') . ") AS 'replies' FROM " . $SQL->tableName('z_forum') . " WHERE " . $SQL->fieldName('first_post') . " = " . $SQL->fieldName('id') . " GROUP BY " . $SQL->fieldName('section') . "")->fetchAll();
     foreach ($info as $data)
         $counters[$data['section']] = array('threads' => $data['threads'], 'posts' => $data['replies'] + $data['threads']);
@@ -256,7 +255,7 @@ if ($action == '') {
             $bgcolor = $config['site']['lightborder'];
         }
         $number_of_rows++;
-        
+
         $main_content .= '
 			<tr bgcolor="' . $bgcolor . '">
 				<td class="ff_std"><img src="./images/forum/boards/' . $id . '.png"></td>
@@ -273,7 +272,7 @@ if ($action == '') {
 				</td>
 			</tr>
 			';
-    
+
     }
     $main_content .= '
 			<tr>
@@ -294,11 +293,11 @@ if ($action == 'show_board') {
         else
             $links_to_pages .= '<b>' . ($i + 1) . ' </b>';
     }
-    
+
     if (!$logged) {
         $main_content .= showNotLoggedIn();
     }
-    
+
     $main_content .= $make_table_header("Table5", "right");
     $main_content .= '
 		<TR>
@@ -308,7 +307,7 @@ if ($action == 'show_board') {
 		</TR>
 	';
     $main_content .= $make_table_footer();
-    
+
     if ($logged) {
         $main_content .= $make_table_header("Table5");
         $main_content .= '
@@ -319,11 +318,11 @@ if ($action == 'show_board') {
 	';
         $main_content .= $make_table_footer();
     }
-    
+
     $last_threads = $SQL->query("SELECT " . $SQL->tableName('players') . "." . $SQL->fieldName('name') . ", " . $SQL->tableName('players') . "." . $SQL->fieldName('signature') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_text') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_topic') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('last_post') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('replies') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('views') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('icon_id') . " FROM " . $SQL->tableName('players') . ", " . $SQL->tableName('z_forum') . " WHERE " . $SQL->tableName('players') . "." . $SQL->fieldName('id') . " = " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . " AND " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('section') . " = " . (int)$section_id . " AND " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . " = " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . " ORDER BY " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('last_post') . " DESC LIMIT " . $threads_per_page . " OFFSET " . ($page * $threads_per_page))->fetchAll();
-    
+
     if (isset($last_threads[0])) {
-        
+
         $main_content .= "<br/><br/><br/><div class='TableContainer'>";
         $main_content .= $make_content_header("Topic in forum: " . $sections[$section_id], 'Page: <b>' . $links_to_pages . '</b>');
         $main_content .= $make_table_header();
@@ -358,7 +357,7 @@ if ($action == 'show_board') {
                 $bgcolor = $config['site']['darkborder'];
             }
             $number_of_rows++;
-            
+
             $main_content .= '
 				<tr>
 					<td colspan=1 align="center" >
@@ -379,19 +378,19 @@ if ($action == 'show_board') {
             $main_content .= '
 					</td>
 					<td colspan=1 align="left">';
-            
+
             if ($logged && $group_id_of_acc_logged >= $group_not_blocked)
-                
+
                 $main_content .= '
 					<a href="?subtopic=forum&action=remove_post&id=' . $thread['id'] . '" onclick="return confirm(\'Are you sure you want remove thread > ' . htmlspecialchars($thread['post_topic']) . ' <?\')"><font color="red">[REMOVE]</font></a> ';
-            
+
             $main_content .= '
 				<a href="?subtopic=forum&action=show_thread&id=' . $thread['id'] . '">' . htmlspecialchars($thread['post_topic']) . '</a></td>
 				<td colspan=1 align="center"><a href="?subtopic=characters&name=' . urlencode($thread['name']) . '">' . $thread['name'] . '</a></td>
 				<td colspan=1 align="center">' . (int)$thread['replies'] . '</td>
 				<td colspan=1 align="center">' . (int)$thread['views'] . '</td>
 				<td colspan=1 align="left">';
-            
+
             if ($thread['last_post'] > 0) {
                 $last_post = $SQL->query("SELECT " . $SQL->tableName('players') . "." . $SQL->fieldName('name') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . " FROM " . $SQL->tableName('players') . ", " . $SQL->tableName('z_forum') . " WHERE " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . " = " . (int)$thread['id'] . " AND " . $SQL->tableName('players') . "." . $SQL->fieldName('id') . " = " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . " ORDER BY " . $SQL->fieldName('post_date') . " DESC LIMIT 1")->fetch();
                 if (isset($last_post['name']))
@@ -408,11 +407,11 @@ if ($action == 'show_board') {
                 <tr>
 					<td colspan=7 align="left"><b>All times are CEST.</b></td>
 				</tr>';
-        
+
         $main_content .= $make_table_footer();
         $main_content .= "</div>";
-        
-        
+
+
         if ($logged) {
             $main_content .= $make_table_header("Table5");
             $main_content .= '
@@ -490,48 +489,48 @@ if ($action == 'show_thread') {
             else
                 $links_to_pages .= '<b>' . ($i + 1) . ' </b>';
         }
-        
-        $threads = $SQL->query("SELECT 
-									" . $SQL->tableName('players') . "." . $SQL->fieldName('name') . ", 
-									" . $SQL->tableName('players') . "." . $SQL->fieldName('group_id') . ", 
-									" . $SQL->tableName('players') . "." . $SQL->fieldName('town_id') . ", 
-									" . $SQL->tableName('players') . "." . $SQL->fieldName('account_id') . ",  
-									" . $SQL->tableName('players') . "." . $SQL->fieldName('vocation') . ", 
-									" . $SQL->tableName('players') . "." . $SQL->fieldName('level') . ", 
-									" . $SQL->tableName('players') . "." . $SQL->fieldName('signature') . ", 
+
+        $threads = $SQL->query("SELECT
+									" . $SQL->tableName('players') . "." . $SQL->fieldName('name') . ",
+									" . $SQL->tableName('players') . "." . $SQL->fieldName('group_id') . ",
+									" . $SQL->tableName('players') . "." . $SQL->fieldName('town_id') . ",
+									" . $SQL->tableName('players') . "." . $SQL->fieldName('account_id') . ",
+									" . $SQL->tableName('players') . "." . $SQL->fieldName('vocation') . ",
+									" . $SQL->tableName('players') . "." . $SQL->fieldName('level') . ",
+									" . $SQL->tableName('players') . "." . $SQL->fieldName('signature') . ",
 									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . ",
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('section') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('icon_id') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_text') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_topic') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_smile') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_aid') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('last_edit_aid') . ", 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('edit_date') . " 
-						FROM 
-									" . $SQL->tableName('players') . ", 
-									" . $SQL->tableName('z_forum') . " 
-						WHERE 
-									" . $SQL->tableName('players') . "." . $SQL->fieldName('id') . " 
-						= 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . " 
-						AND 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . " 
-						= 
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('section') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('icon_id') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_text') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_topic') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_smile') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_aid') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('last_edit_aid') . ",
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('edit_date') . "
+						FROM
+									" . $SQL->tableName('players') . ",
+									" . $SQL->tableName('z_forum') . "
+						WHERE
+									" . $SQL->tableName('players') . "." . $SQL->fieldName('id') . "
+						=
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . "
+						AND
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . "
+						=
 									" . (int)$thread_id . "
-						ORDER BY 
-									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . " 
-						LIMIT 
+						ORDER BY
+									" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . "
+						LIMIT
 									" . $posts_per_page . "
-						OFFSET 
+						OFFSET
 									" . ($page * $posts_per_page))->fetchAll();
         $section_id = $threads[0]['section'];
         if (isset($threads[0]['name']))
             $SQL->query("UPDATE " . $SQL->tableName('z_forum') . " SET " . $SQL->fieldName('views') . "=" . $SQL->fieldName('views') . "+1 WHERE " . $SQL->fieldName('id') . " = " . (int)$thread_id);
-        
+
         if (!$logged) {
             $main_content .= showNotLoggedIn();
         }
@@ -540,7 +539,7 @@ if ($action == 'show_thread') {
 				<TR>
 					<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
 					<TD WIDTH=100% ALIGN=right>
-						<a href="?subtopic=forum" >Community Boards</a> | 
+						<a href="?subtopic=forum" >Community Boards</a> |
 						<a href="?subtopic=forum&action=show_board&id=' . $threads[0]['section'] . '">' . $sections[$threads[0]['section']] . '</a> | <b style="word-break: break-all;">' . htmlspecialchars($thread_name['post_topic']) . '</b>
 					</TD>
 					<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
@@ -595,7 +594,7 @@ if ($action == 'show_thread') {
             $main_content .= '<b><a href="?subtopic=characters&name=' . urlencode($thread['name']) . '">' . htmlspecialchars($thread['name']) . '</a></b><br>';
             $p = new Player();
             $p->loadByName($thread['name']);
-            
+
             if ($thread['group_id'] >= 3) {
                 $main_content .= '<img class="CipPostIcon" src="' . $layout_name . '/images/global/forum/cip_post_icon.gif" /><br>';
                 $main_content .= '<font class="ff_smallinfo">Community Manager<br/>';
@@ -605,7 +604,7 @@ if ($action == 'show_thread') {
             $main_content .= '
 								</font><br>
 								<font class="ff_infotext">Inhabitant of ' . $config['server']['serverName'] . '<br>
-								Vocation: ' . htmlspecialchars(Website::getVocationName($thread['vocation'], $thread['promotion'])) . '<br>
+								Vocation: ' . htmlspecialchars(Website::getVocationName($thread['vocation'])) . '<br>
 								Level: ' . $thread['level'] . '<br>
 								<br>';
             $rank = new GuildRank($thread['rank_id']);
@@ -614,9 +613,9 @@ if ($action == 'show_thread') {
                 if ($guild->isLoaded())
                     $main_content .= '<font class="ff_smallinfo">' . htmlspecialchars($rank->getName()) . ' of the <a href="?subtopic=guilds&action=show&guild=' . $guild->getId() . '" >' . htmlspecialchars($guild->getName()) . '</a> (Larissa)</font><br>';
             }
-            
+
             $posts = $SQL->query("SELECT COUNT(" . $SQL->fieldName('id') . ") AS 'posts' FROM " . $SQL->tableName('z_forum') . " WHERE " . $SQL->fieldName('author_aid') . "=" . (int)$thread['account_id'])->fetch();
-            
+
             $main_content .= '
 				<br />Posts: ' . (int)$posts['posts'] . '<br /></font></div>
 				<div class="PostText" >';
@@ -626,7 +625,7 @@ if ($action == 'show_thread') {
 				';
             $main_content .= '
 				' . showPost(htmlspecialchars($thread['post_topic']), $thread['post_text'], $thread['post_smile']);
-            
+
             if (!empty($thread['signature'])) {
                 $main_content .= '
 				<br />________________<br />' . $thread['signature'];
@@ -639,7 +638,7 @@ if ($action == 'show_thread') {
 				<div class="PostLower" >
 					<div class="PostDetailsHelper" >
 						<div class="PostDetails" ><img src="' . $layout_name . '/images/global/forum/logo_oldpost.gif" border=0 width=14 height=11>' . date('d.m.y H:i:s', $thread['post_date']);
-            
+
             if ($thread['edit_date'] > 0) {
                 if ($thread['last_edit_aid'] != $thread['author_aid'])
                     $main_content .= '<br />Edited by moderator';
@@ -648,13 +647,13 @@ if ($action == 'show_thread') {
                 $main_content .= '<br />on ' . date('d.m.y H:i:s', $thread['edit_date']);
             }
             $main_content .= '</div></div>';
-            
+
             $main_content .= '
 				<div class="PostActions" >
 					<div class="AdditionalBox" >Post #' . $thread['id'] . '</div>';
-            
+
             if ($logged && $group_id_of_acc_logged >= $group_not_blocked)
-                
+
                 if ($thread['first_post'] != $thread['id'])
                     $main_content .= '
 					<a href="?subtopic=forum&action=remove_post&id=' . $thread['id'] . '" onclick="return confirm(\'Are you sure you want remove post of ' . htmlspecialchars($thread['name']) . '?\')">
@@ -665,15 +664,15 @@ if ($action == 'show_thread') {
 					<a href="?subtopic=forum&action=remove_post&id=' . $thread['id'] . '" onclick="return confirm(\'Are you sure you want remove thread > ' . htmlspecialchars($thread['post_topic']) . ' <?\')">
 						<font color="red">REMOVE THREAD</font>
 					</a>';
-            
+
             if ($logged && ($thread['account_id'] == $account_logged->getId() || $group_id_of_acc_logged >= $group_not_blocked))
-                
+
                 $main_content .= '
 					<br/><a href="?subtopic=forum&action=edit_post&id=' . $thread['id'] . '">Edit Post</a>';
             if ($logged)
                 $main_content .= '
 					<br/><a href="?subtopic=forum&action=new_post&thread_id=' . $thread_id . '&quote=' . $thread['id'] . '">Quote</a>';
-            
+
             $main_content .= '
 				</div>';
             if ($thread['group_id'] >= 3)
@@ -728,7 +727,7 @@ if ($action == 'show_thread') {
     } else {
         $main_content .= 'Thread with this ID does not exits.';
     }
-    
+
 }
 
 /** remove os posts */
@@ -760,13 +759,13 @@ if ($action == 'new_post') {
             $players_from_account = $SQL->query("SELECT " . $SQL->tableName('players') . "." . $SQL->fieldName('name') . ", " . $SQL->tableName('players') . "." . $SQL->fieldName('id') . " FROM " . $SQL->tableName('players') . " WHERE " . $SQL->tableName('players') . "." . $SQL->fieldName('account_id') . " = " . (int)$account_logged->getId())->fetchAll();
             $thread_id = (int)$_REQUEST['thread_id'];
             $thread = $SQL->query("SELECT " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_topic') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('section') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('icon_id') . " FROM " . $SQL->tableName('z_forum') . " WHERE " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . " = " . (int)$thread_id . " AND " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . " = " . (int)$thread_id . " LIMIT 1")->fetch();
-            
+
             $main_content .= $make_table_header("Table5", "right");
             $main_content .= '
 					<TR>
 						<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
 						<TD WIDTH=100% ALIGN=right>
-							<a href="?subtopic=forum" >Community Boards</a> | 
+							<a href="?subtopic=forum" >Community Boards</a> |
 							<a href="?subtopic=forum&action=show_board&id=' . $thread['section'] . '">' . $sections[$thread['section']] . '</a> |
 							<a href="?subtopic=forum&action=show_thread&id=' . $thread_id . '">' . htmlspecialchars($thread['post_topic']) . '</a> |
 							<b>Post New Reply</b></TD>
@@ -775,7 +774,7 @@ if ($action == 'new_post') {
 			';
             $main_content .= $make_table_footer();
             $main_content .= '<br/><br/><br/>';
-            
+
             if (isset($_POST['preview_new_post'])) {
                 $main_content .= "<div class='TableContainer'>";
                 $main_content .= $make_content_header("Message Preview");
@@ -793,7 +792,7 @@ if ($action == 'new_post') {
                 $main_content .= "</div>";
                 $main_content .= "<br/>";
             }
-            
+
             if (isset($thread['id'])) {
                 $quote = (int)$_REQUEST['quote'];
                 $text = trim(codeLower($_REQUEST['text']));
@@ -851,32 +850,32 @@ if ($action == 'new_post') {
 											" . $SQL->fieldName('post_smile') . ",
 											" . $SQL->fieldName('post_date') . ",
 											" . $SQL->fieldName('last_edit_aid') . ",
-											" . $SQL->fieldName('edit_date') . ", 
-											" . $SQL->fieldName('post_ip') . ", 
+											" . $SQL->fieldName('edit_date') . ",
+											" . $SQL->fieldName('post_ip') . ",
 											" . $SQL->fieldName('icon_id') . "
 									) VALUES (
 											'" . $thread['id'] . "',
-											'0', 
+											'0',
 											'" . $thread['section'] . "',
-											'0', 
-											'0', 
+											'0',
+											'0',
 											'" . $account_logged->getId() . "',
 											'" . (int)$char_id . "',
 											" . $SQL->quote($text) . ",
 											" . $SQL->quote($post_topic) . ",
 											'" . (int)$smile . "',
 											'" . time() . "',
-											'0', 
-											'0', 
+											'0',
+											'0',
 											'" . $_SERVER['REMOTE_ADDR'] . "',
 											'" . (int)$forum_iconid . "'
 									)
 							");
-                        
+
                         $SQL->query("UPDATE " . $SQL->tableName('z_forum') . " SET " . $SQL->fieldName('replies') . "=" . $SQL->fieldName('replies') . "+1, " . $SQL->fieldName('last_post') . "=" . time() . " WHERE " . $SQL->fieldName('id') . " = " . (int)$thread_id);
-                        
+
                         $post_page = $SQL->query("SELECT COUNT(" . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . ") AS posts_count FROM " . $SQL->tableName('players') . ", " . $SQL->tableName('z_forum') . " WHERE " . $SQL->tableName('players') . "." . $SQL->fieldName('id') . " = " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . " AND " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . " <= " . time() . " AND " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . " = " . (int)$thread['id'])->fetch();
-                        
+
                         $page = (int)ceil($post_page['posts_count'] / $threads_per_page) - 1;
                         header('Location: ?subtopic=forum&action=show_thread&id=' . $thread_id . '&page=' . $page);
                         $main_content .= '<br />Thank you for posting.<br /><a href="?subtopic=forum&action=show_thread&id=' . $thread_id . '">GO BACK TO LAST THREAD</a>';
@@ -889,7 +888,7 @@ if ($action == 'new_post') {
                             $main_content .= '<br />* ' . $error;
                         $main_content .= '</font><br />';
                     }
-                    
+
                     $main_content .= "<div class='TableContainer'>";
                     $main_content .= $make_content_header("Post New Reply");
                     $main_content .= $make_table_header();
@@ -1040,10 +1039,10 @@ if ($action == 'new_post') {
                     $main_content .= $make_table_footer();
                     $main_content .= "</div>";
                     $main_content .= '<br/>';
-                    
+
                     $threads = $SQL->query("SELECT " . $SQL->tableName('players') . "." . $SQL->fieldName('name') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_text') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_topic') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_smile') . " FROM " . $SQL->tableName('players') . ", " . $SQL->tableName('z_forum') . " WHERE " . $SQL->tableName('players') . "." . $SQL->fieldName('id') . " = " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . " AND " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . " = " . (int)$thread_id . " ORDER BY " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . " DESC LIMIT 10")->fetchAll();
-                    
-                    
+
+
                     $main_content .= "<div class='TableContainer'>";
                     $main_content .= $make_content_header("Thread Review (newest first)");
                     $main_content .= $make_table_header();
@@ -1082,25 +1081,25 @@ if ($action == 'edit_post') {
             $thread = $SQL->query("SELECT " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_aid') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_topic') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_date') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_text') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_smile') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('section') . " FROM " . $SQL->tableName('z_forum') . " WHERE " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . " = " . (int)$post_id . " LIMIT 1")->fetch();
             if (isset($thread['id'])) {
                 $first_post = $SQL->query("SELECT " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_guid') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('author_aid') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('first_post') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_topic') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_text') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('post_smile') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . ", " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('section') . " FROM " . $SQL->tableName('z_forum') . " WHERE " . $SQL->tableName('z_forum') . "." . $SQL->fieldName('id') . " = " . (int)$thread['first_post'] . " LIMIT 1")->fetch();
-                
-                
+
+
                 $main_content .= $make_table_header("Table5", "right");
                 $main_content .= '
 					<TR>
 						<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
 						<TD WIDTH=100% ALIGN=right>
-							<a href="?subtopic=forum" >Community Boards</a> | 
+							<a href="?subtopic=forum" >Community Boards</a> |
 							<a href="?subtopic=forum&action=show_board&id=' . $thread['section'] . '">' . $sections[$thread['section']] . '</a> |
 							<a href="?subtopic=forum&action=show_thread&id=' . $thread['first_post'] . '">' . htmlspecialchars($first_post['post_topic']) . '</a> |
-							<b><a href="http://forum.tibia.com/forum/?action=thread&amp;postid=35335511#post35335511" >Post</a></b> | 
+							<b><a href="http://forum.tibia.com/forum/?action=thread&amp;postid=35335511#post35335511" >Post</a></b> |
 							<b>Edit Post</b></TD>
 						<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
 					</TR>';
                 $main_content .= $make_table_footer();
                 $main_content .= '<br/><br/><br/>';
-                
+
                 if (isset($_POST['preview_edit_post'])) {
-                    
+
                     $main_content .= "<div class='TableContainer'>";
                     $main_content .= $make_content_header("Message Preview");
                     $main_content .= $make_table_header();
@@ -1117,7 +1116,7 @@ if ($action == 'edit_post') {
                     $main_content .= "</div>";
                     $main_content .= "<br/>";
                 }
-                
+
                 if ($account_logged->getId() == $thread['author_aid'] || $group_id_of_acc_logged >= $group_not_blocked) {
                     $players_from_account = $SQL->query("SELECT " . $SQL->tableName('players') . "." . $SQL->fieldName('name') . ", " . $SQL->tableName('players') . "." . $SQL->fieldName('id') . " FROM " . $SQL->tableName('players') . " WHERE " . $SQL->tableName('players') . "." . $SQL->fieldName('account_id') . " = " . (int)$account_logged->getId())->fetchAll();
                     $saved = FALSE;
@@ -1177,11 +1176,11 @@ if ($action == 'edit_post') {
                                 $main_content .= '<br />* ' . $error;
                             $main_content .= '</font>';
                         }
-                        
+
                         $main_content .= "<div class='TableContainer'>";
                         $main_content .= $make_content_header("Edit Post");
                         $main_content .= $make_table_header();
-                        
+
                         $main_content .= '
 							<table border=0 cellpadding=4 cellspacing=1>
 							<form action="?" method="POST">
@@ -1307,7 +1306,7 @@ if ($action == 'edit_post') {
                             $main_content .= ' checked="checked"';
                         $main_content .= '/><strong>Disable Smileys in This Post</strong> </td>
 					</tr>
-				
+
 					<tr>
 						<td  class="ff_std" colspan=2 align="center" ><br>
 							<input type=submit name="preview_edit_post" value="Preview Changes"  >
@@ -1318,7 +1317,7 @@ if ($action == 'edit_post') {
 						</td>
 					</tr>
 			</form>';
-                        
+
                         $main_content .= $make_table_footer();
                         $main_content .= "</div>";
                     }
@@ -1337,24 +1336,24 @@ if ($action == 'new_topic') {
     if ($logged) {
         if (canPost($account_logged) || $group_id_of_acc_logged >= $group_not_blocked) {
             $players_from_account = $SQL->query("SELECT " . $SQL->tableName('players') . "." . $SQL->fieldName('name') . ", " . $SQL->tableName('players') . "." . $SQL->fieldName('id') . " FROM " . $SQL->tableName('players') . " WHERE " . $SQL->tableName('players') . "." . $SQL->fieldName('account_id') . " = " . (int)$account_logged->getId())->fetchAll();
-            
+
             $section_id = (int)$_REQUEST['section_id'];
-            
+
             $main_content .= $make_table_header("Table5", "right");
             $main_content .= '
 					<TR>
 						<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
 						<TD WIDTH=100% ALIGN=right>
-							<a href="?subtopic=forum" >Community Boards</a> | 
+							<a href="?subtopic=forum" >Community Boards</a> |
 							<a href="?subtopic=forum&action=show_board&id=' . $section_id . '">' . $sections[$section_id] . '</a> |
 							<b>Post New Thread</b></TD>
 						<TD><IMG SRC="' . $layout_name . '/images/global/general/blank.gif" WIDTH=10 HEIGHT=1 BORDER=0></TD>
 					</TR>';
             $main_content .= $make_table_footer();
             $main_content .= '<br/><br/><br/>';
-            
+
             if (isset($_POST['preview_new_topic'])) {
-                
+
                 $main_content .= "<div class='TableContainer'>";
                 $main_content .= $make_content_header("Message Preview");
                 $main_content .= $make_table_header();
@@ -1370,7 +1369,7 @@ if ($action == 'new_topic') {
                 $main_content .= "</div>";
                 $main_content .= '<br/>';
             }
-            
+
             if (isset($sections[$section_id])) {
                 if ($section_id == 1 && $group_id_of_acc_logged < $group_not_blocked) {
                     $errors[] = showErrorMsg('Only moderators and admins can post on news board.');
@@ -1382,7 +1381,7 @@ if ($action == 'new_topic') {
                 $post_topic = trim($_REQUEST['topic']);
                 $smile = (int)$_REQUEST['smile'];
                 $saved = FALSE;
-                
+
                 if (isset($_POST['save_topic']) && $_POST['save'] == "save") {
                     $lenght = 0;
                     for ($i = 0; $i <= strlen($post_topic); $i++) {
@@ -1414,13 +1413,13 @@ if ($action == 'new_topic') {
                         if ($last_post + $post_interval - time() > 0 && $group_id_of_acc_logged < $group_not_blocked)
                             $errors[] = showErrorMsg('You can post one time per ' . $post_interval . ' seconds. Next post after ' . ($last_post + $post_interval - time()) . ' second(s).');
                     }
-                    
+
                     if (isset($_POST['save_topic'])) {
                         if (empty($errors)) {
                             $saved = TRUE;
                             $account_logged->set('last_post', time());
                             $account_logged->save();
-                            
+
                             $insert_topic = $SQL->query("INSERT INTO " . $SQL->tableName('z_forum') . " (
 													" . $SQL->fieldName('first_post') . " ,
 													" . $SQL->fieldName('last_post') . " ,
@@ -1434,33 +1433,33 @@ if ($action == 'new_topic') {
 													" . $SQL->fieldName('post_smile') . " ,
 													" . $SQL->fieldName('post_date') . " ,
 													" . $SQL->fieldName('last_edit_aid') . " ,
-													" . $SQL->fieldName('edit_date') . ", 
-													" . $SQL->fieldName('post_ip') . ", 
+													" . $SQL->fieldName('edit_date') . ",
+													" . $SQL->fieldName('post_ip') . ",
 													" . $SQL->fieldName('icon_id') . ",
 													" . $SQL->fieldName('news_icon') . "
 										) VALUES (
-													'0', 
+													'0',
 													'" . time() . "',
 													'" . (int)$section_id . "',
-													'0', 
-													'0', 
+													'0',
+													'0',
 													'" . $account_logged->getId() . "',
 													'" . (int)$char_id . "',
 													" . $SQL->quote($text) . ",
 													" . $SQL->quote($post_topic) . ",
 													'" . (int)$smile . "',
 													'" . time() . "',
-													'0', 
-													'0', 
+													'0',
+													'0',
 													'" . $_SERVER['REMOTE_ADDR'] . "',
 													'" . (int )$forum_iconid . "',
 													" . $SQL->quote($_POST['news_icon']) . "
 										)"
                             );
-                            
+
                             if (!$insert_topic)
-                                $main_content .= mysql_error();
-                            
+                                $main_content .= "error";
+
                             $thread_id = $SQL->lastInsertId();
                             $SQL->query("UPDATE " . $SQL->tableName('z_forum') . " SET " . $SQL->fieldName('first_post') . "=" . (int)$thread_id . " WHERE " . $SQL->fieldName('id') . " = " . (int)$thread_id);
                             header('Location: ?subtopic=forum&action=show_thread&id=' . $thread_id);
@@ -1507,7 +1506,7 @@ if ($action == 'new_topic') {
                                     <input type="text" name="topic" value="' . htmlspecialchars($post_topic) . '" size="40" maxlength="60" />
                                 </td>
                             </tr>';
-                    
+
                     $main_content .= '
                             <tr>
                                 <td  bgcolor="#D4C0A1" class="ff_std" colspan=1 align="left" valign="top" ><b>Thread Icon:</b></td>
@@ -1549,7 +1548,7 @@ if ($action == 'new_topic') {
                                     <input type=radio name="forum_iconid" value="0" checked>
                                     &nbsp;No Icon</td>
                             </tr>';
-                    
+
                     if ($section_id == 1 && $group_id_of_acc_logged >= $group_not_blocked)
                         $main_content .= '
                             <tr>
@@ -1637,7 +1636,7 @@ if ($action == 'new_topic') {
                                 </td>
                             </tr>
                         </FORM>';
-                    
+
                     $main_content .= $make_table_footer();
                     $main_content .= "</div>";
                 }

@@ -107,8 +107,7 @@ if (isset($_REQUEST['name'])) {
     $outfits = new Outfits();
     $mounts = new Mounts();
     $randomizeLook = function () use ($outfits) {
-        $randomLookType = (int)(array_rand($outfits->getOutfitsByType(rand(1, 2))));
-        return $randomLookType;
+        return (int)(array_rand($outfits->getOutfitsByType(rand(1, 2))));
 
     };
     $randomLookType = $randomizeLook();

@@ -28,7 +28,7 @@ if (DEBUG_DATABASE)
 if (isset($_REQUEST['tcode'])) {
     $tcode = $_REQUEST['tcode'];
     $code_status = $SQL->prepare("SELECT * FROM `pagseguro_transactions` WHERE `transaction_code` = :tcode");
-    $code_status->execute(['tcode'=>$tcode]);
+    $code_status->execute(['tcode' => $tcode]);
     $code_status = $code_status->fetchAll();
     $count = count($code_status);
     $code_status = $code_status[0];
@@ -37,7 +37,7 @@ if (isset($_REQUEST['tcode'])) {
         <div class="TableContainer" >
 			<table class="Table1" cellpadding="0" cellspacing="0">
 				<div class="CaptionContainer" >
-					<div class="CaptionInnerContainer" > 
+					<div class="CaptionInnerContainer" >
 						<span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 						<span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);" /></span>
 						<span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);" ></span>
@@ -53,7 +53,7 @@ if (isset($_REQUEST['tcode'])) {
 					<td>
 						<div class="InnerTableContainer" >
 							<table style="width:100%;" >
-								<p>You have been donated ' . $code_status["item_count"] . ' ' . $config['pagseguro']['produtoNome'] . ' on ' . date("d/m/Y", time($code_status["data"])) . '.</p>
+								<p>You have been donated ' . $code_status["item_count"] . ' ' . $config['pagseguro']['produtoNome'] . ' on ' . date("d/m/Y", $code_status["data"]) . '.</p>
 							</table>
 						</div>
 					</td>
@@ -63,7 +63,7 @@ if (isset($_REQUEST['tcode'])) {
 		<br/>
 		<div class="TableContainer">
             <div class="CaptionContainer">
-                <div class="CaptionInnerContainer"> 
+                <div class="CaptionInnerContainer">
                     <span class="CaptionEdgeLeftTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
                     <span class="CaptionEdgeRightTop" style="background-image:url(' . $layout_name . '/images/global/content/box-frame-edge.gif);"></span>
                     <span class="CaptionBorderTop" style="background-image:url(' . $layout_name . '/images/global/content/table-headline-border.gif);"></span>
@@ -90,17 +90,17 @@ if (isset($_REQUEST['tcode'])) {
                                                 <div class="TableContentContainer" >
                                                     <table class="TableContent" width="100%">
                                                         <tr bgcolor="#D4C0A1">
-                                                            <td class="LabelV">Date</td>                                                            
+                                                            <td class="LabelV">Date</td>
                                                             <td class="LabelV">Account Name</td>
                                                             <td class="LabelV">Value</td>
                                                             <td class="LabelV">Status</td>
                                                         </tr>
                                                         <tr bgcolor="#F1E0C6">
-                                                            <td>' . date("d/m/Y", time($code_status["data"])) . '</td>
+                                                            <td>' . date("d/m/Y", $code_status["data"]) . '</td>
                                                             <td>' . $code_status["name"] . '</td>
                                                             <td>R$ ' . $code_status["payment_amount"] . '.00</td>
                                                             <td>' . $code_status["status"] . '</td>
-                                                        </tr>   
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>

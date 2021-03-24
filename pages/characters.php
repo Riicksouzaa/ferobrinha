@@ -215,7 +215,7 @@ if (!empty($name)) {
                                 <table width="100%" class="Table30">
                                     <tbody>
                                         <tr bgcolor="#D4C0A1"  >
-                                            <td align="center" width="100px"><b>Current<br>outfit:</b></td>                                            
+                                            <td align="center" width="100px"><b>Current<br>outfit:</b></td>
                                             <td style="display: inline-flex;align-items: center;position: relative;">' . (!empty($border) ? $border : '') . $cur_outfit . '</td>
                                         </tr>
                                     </tbody>
@@ -259,18 +259,18 @@ if (!empty($name)) {
                                         <tr bgcolor="#F1E0C6" style="text-align: center">
                                             <td width="80px"><b>Health:</b></td>
                                             <td>
-                                                ' . $player->getHealth() . '/' . $player->getHealthMax() . '(' . (round(($player->getHealth() / $player->getHealthMax()), 2, PHP_ROUND_HALF_UP) * 100) . '%)
+                                                ' . $player->getHealth() . '/' . $player->getHealthMax() . '(' . (round(($player->getHealth() / $player->getHealthMax()), 2) * 100) . '%)
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' . (round(($player->getHealth() / $player->getHealthMax()), 2, PHP_ROUND_HALF_UP) * 100) . '" aria-valuemin="0" aria-valuemax="100" style=" width:' . (($player->getHealth() / $player->getHealthMax()) * 100) . '%;" ></div>
+                                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' . (round(($player->getHealth() / $player->getHealthMax()), 2) * 100) . '" aria-valuemin="0" aria-valuemax="100" style=" width:' . (($player->getHealth() / $player->getHealthMax()) * 100) . '%;" ></div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr bgcolor="#D4C0A1" style="text-align: center">
                                             <td><b>Mana:</b></td>
                                             <td>
-                                                ' . $player->getMana() . '/' . $player->getManaMax() . ' (' . (round(($player->getMana() / $player->getManaMax()), 2, PHP_ROUND_HALF_UP) * 100) . '%)
+                                                ' . $player->getMana() . '/' . $player->getManaMax() . ' (' . (round(($player->getMana() / $player->getManaMax()), 2) * 100) . '%)
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-default" role="progressbar" aria-valuenow="' . (round(($player->getMana() / $player->getManaMax()), 2, PHP_ROUND_HALF_UP) * 100) . '" aria-valuemin="0" aria-valuemax="100" style="width:' . (($player->getMana() / $player->getManaMax()) * 100) . '%"></div>
+                                                    <div class="progress-bar bg-default" role="progressbar" aria-valuenow="' . (round(($player->getMana() / $player->getManaMax()), 2) * 100) . '" aria-valuemin="0" aria-valuemax="100" style="width:' . (($player->getMana() / $player->getManaMax()) * 100) . '%"></div>
                                                 </div>
                                             </td>
                                         </tr>

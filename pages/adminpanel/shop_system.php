@@ -16,11 +16,9 @@ function ajax ($msg, $status)
     $aj = [];
     $aj['msg'] = $msg;
     $aj['status'] = $status;
-    
+
     return $aj;
 }
-
-;
 
 /**
  * @param $name
@@ -71,7 +69,7 @@ $update_category = function ($id, $name, $desc, $button, $hide = 0) use ($SQL) {
     $hide = (int)$hide;
     $update = $SQL->prepare("UPDATE z_shop_category  SET name = :name,`desc` = :desc, button = :button, hide = :hide WHERE id = :id");
     $update->execute(['id' => $id, 'name' => $name, 'desc' => $desc, 'button' => $button, 'hide' => $hide]);
-    
+
 };
 
 
