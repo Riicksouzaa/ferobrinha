@@ -171,7 +171,7 @@ if (!empty($name)) {
         //TODO HANDLE IMAGE CHOOSE
         $class = 'outfitImageCharacterInfo';
         if ($player->haveBorder($player->getActiveBorder())) {
-            $border = "<img style='display: flex; position: relative; max-width: 155px' src='./layouts/tibiacom/images/borders/b" . (!empty($player->getActiveBorder()) ? $player->getActiveBorder() : 1) . ".png' />";
+            $border = "<img style='display: flex; position: relative; max-width: 130px' src='./layouts/tibiacom/images/borders/b" . (!empty($player->getActiveBorder()) ? $player->getActiveBorder() : 1) . ".png' />";
             $class = null;
         }
 
