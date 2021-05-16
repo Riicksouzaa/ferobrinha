@@ -137,27 +137,30 @@ if(!defined('INITIALIZED'))
 
 <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<!--<script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.core.js--><?php //echo $css_version;?><!--" ></script>-->
-<!--<script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.widgets.js--><?php //echo $css_version;?><!--" ></script>-->
-<script src="<?php echo $layout_name; ?>/js/jquery-ui.min.js<?php echo $css_version;?>" ></script>
-<script src="<?php echo $layout_name; ?>/js/jquery.mask.js<?php echo $css_version;?>"></script>
-<script src="<?php echo $layout_name; ?>/js/ajaxcip.js<?php echo $css_version;?>"></script>
-<?php if($subtopic == 'adminpanel'){?>
-    <script src="<?php echo $layout_name; ?>/js/ajaxmonteiro.js<?php echo $css_version;?>"></script>
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<!--<script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.core.js-->
+<?php //echo $css_version;?><!--" ></script>-->
+<!--<script src="--><?php //echo $layout_name; ?><!--/js/jquery-ui.widgets.js-->
+<?php //echo $css_version;?><!--" ></script>-->
+<script src="<?php echo $layout_name; ?>/js/jquery-ui.min.js<?php echo $css_version; ?>"></script>
+<script src="<?php echo $layout_name; ?>/js/jquery.mask.js<?php echo $css_version; ?>"></script>
+<script src="<?php echo $layout_name; ?>/js/ajaxcip.js<?php echo $css_version; ?>"></script>
+<?php if ($subtopic == 'adminpanel') { ?>
+    <script src="<?php echo $layout_name; ?>/js/ajaxmonteiro.js<?php echo $css_version; ?>"></script>
 <?php } ?>
-<script src="<?php echo $layout_name; ?>/js/iziModal.min.js<?php echo $css_version;?>"></script>
+<script src="<?php echo $layout_name; ?>/js/iziModal.min.js<?php echo $css_version; ?>"></script>
+<script src="<?php echo $layout_name; ?>/js/bootstrap.min.js<?php echo $css_version; ?>"></script>
 <!--Tiny Editor -->
 <script type="text/javascript" src="./vendor/tinymce/tinymce/tinymce.min.js"></script>
 <!--    <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=vct6772xi5zrh195yd6scyhdke2ldwlubrpqq024580vr62v'></script>-->
-<script src="<?php echo $layout_name; ?>/js/iziToast.min.js<?php echo $css_version;?>"></script>
+<script src="<?php echo $layout_name; ?>/js/iziToast.min.js<?php echo $css_version; ?>"></script>
 <?php
-if($_REQUEST['subtopic'] == "createaccount") echo '<script src="'.$layout_name.'/js/create_character.js'.$css_version.'"></script>';
+if ($_REQUEST['subtopic'] == "createaccount") echo '<script src="' . $layout_name . '/js/create_character.js' . $css_version . '"></script>';
 ?>
 <script type="text/javascript">
     iziToast.settings({
-        icon:'material-icons',
+        icon: 'material-icons',
         titleSize:'10pt',
         titleColor:'#5A2800',
         messageSize:'10pt',
