@@ -586,21 +586,24 @@ if ($_REQUEST['subtopic'] == "createaccount") echo '<script src="' . $layout_nam
             gtag('config', 'UA-110963342-1');
         </script>
     <?php } ?>
-    <!-- float facebook like box start -->
-    <script id="float_fb" src="<?=$layout_name?>/js/fb_float_plugin.js<?php echo $css_version;?>" data-href="<?=$config['social']['facebook']?>" async></script>
-    <script id="float_discord" src="<?=$layout_name?>/js/discord_float_plugin.js<?php echo $css_version;?>" data-id="<?=Website::getWebsiteConfig()->getValue('discord_widget_id');?>&theme=dark" async></script>
-    <!-- float facebook like box end -->
-    <script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/js/stream-online.js<?php echo $css_version;?>"></script>
-    <script src="<?php echo $layout_name; ?>/js/picpayPaymentTracker.js<?php echo $css_version;?>"></script>
+<!-- float facebook like box start -->
+<script id="float_fb" src="<?= $layout_name ?>/js/fb_float_plugin.js<?php echo $css_version; ?>"
+        data-href="<?= $config['social']['facebook'] ?>" async></script>
+<script id="float_discord" src="<?= $layout_name ?>/js/discord_float_plugin.js<?php echo $css_version; ?>"
+        data-id="<?= Website::getWebsiteConfig()->getValue('discord_widget_id'); ?>&theme=dark" async></script>
+<!-- float facebook like box end -->
+<script src="<?php echo $layout_name; ?>/js/ouibounce.min.js<?php echo $css_version; ?>"></script>
+<script src="<?php echo $layout_name; ?>/js/stream-online.js<?php echo $css_version; ?>"></script>
+<script src="<?php echo $layout_name; ?>/js/picpayPaymentTracker.js<?php echo $css_version; ?>"></script>
+<script src="<?php echo $layout_name; ?>/js/kramerzin.js<?php echo $css_version; ?>"></script>
 
-    <?php if($_REQUEST['subtopic']=='accountmanagement' && $_REQUEST['action']=='affiliates'){?>
-        <script src="<?php echo $layout_name; ?>/js/affiliates.js<?php echo $css_version;?>"></script>
-    <?php } ?>
-    <script>let blockAdBlock = false</script>
-    <script src="<?php echo $layout_name; ?>/js/bl.js<?php echo $css_version;?>"></script>
+<?php if ($_REQUEST['subtopic'] == 'accountmanagement' && $_REQUEST['action'] == 'affiliates') { ?>
+    <script src="<?php echo $layout_name; ?>/js/affiliates.js<?php echo $css_version; ?>"></script>
+<?php } ?>
+<script>let blockAdBlock = false</script>
+<script src="<?php echo $layout_name; ?>/js/bl.js<?php echo $css_version; ?>"></script>
 
-    <script>
+<script>
     blockAdBlock = new BlockAdBlock({
         checkOnLoad: true,
         resetOnEnd: true
