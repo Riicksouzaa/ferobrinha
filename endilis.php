@@ -1,6 +1,6 @@
 <?php
 
-$file = __DIR__ . "curioso.json";
+$file = __DIR__ . "/curioso.json";
 
 $json = json_decode(file_get_contents($file), TRUE);
 
