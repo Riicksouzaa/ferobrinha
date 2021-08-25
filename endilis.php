@@ -8,6 +8,6 @@ $newjson = array("cu" => $json["cu"]++, "curioso" => $json["curioso"]++);
 
 file_put_contents($file, json_encode($newjson));
 
-echo $file;
+var_dump($json);
 
 
