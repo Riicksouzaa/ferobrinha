@@ -9,7 +9,7 @@
 class Outfits
 {
     private $outfits;
-    
+
     /**
      * outfits constructor.
      */
@@ -17,7 +17,7 @@ class Outfits
     {
         $this->loadFromFile(Website::getWebsiteConfig()->getValue('Outfits_path'));
     }
-    
+
     public function loadFromFile ($file)
     {
         if (Website::fileExists($file)) {
@@ -34,7 +34,7 @@ class Outfits
             new Error_Critic('#O-1', "<b>ERROR: #O-1:</b> Class::Outfits - Outfit File not exists in {$file}.");
         }
     }
-    
+
     /**
      * @param mixed $outfits
      * @return Outfits
@@ -44,7 +44,7 @@ class Outfits
         $this->outfits = $outfits;
         return $this;
     }
-    
+
     public function getPlayerOutfitsByPlayerId ($player_id)
     {
         $player = new Player();
@@ -78,7 +78,7 @@ class Outfits
             return FALSE;
         }
     }
-    
+
     public function getOutfitByLooktype ($type, $looktype)
     {
         $type = (int)$type;
@@ -86,7 +86,7 @@ class Outfits
         $outfits = $this->getOutfitsByType($type);
         return $outfits[$looktype];
     }
-    
+
     /**
      * @param $type
      * @return mixed
@@ -94,11 +94,11 @@ class Outfits
     public function getOutfitsByType ($type)
     {
         $type = (int)$type;
-        ($type == 0 ? 0 : 1);
+        $type = ($type == 0 ? 0 : 1);
         $outfits = $this->getOutfits();
         return $outfits[$type];
     }
-    
+
     /**
      * @return mixed
      */

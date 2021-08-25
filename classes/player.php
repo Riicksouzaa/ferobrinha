@@ -111,7 +111,8 @@ class Player extends ObjectData
             return NULL;
     }
 
-    public function haveBorder($borderID){
+    public function haveBorder($borderID)
+    {
         return true;
     }
 
@@ -379,6 +380,11 @@ class Player extends ObjectData
     public function getVocationName()
     {
         $voc = $this->getVocation();
+        return $this->getVocationByVocationId($voc);
+    }
+
+    public function getVocationByVocationId($voc)
+    {
         switch ($voc) {
             case 0:
                 $voc = "No Vocation";
@@ -410,6 +416,7 @@ class Player extends ObjectData
             default:
                 break;
         }
+
         return $voc;
     }
 
@@ -925,7 +932,8 @@ class Player extends ObjectData
         $this->data['hide_char_items'] = (int)$value;
     }
 
-    public function setBorderPlayer($borderID){
+    public function setBorderPlayer($borderID)
+    {
         $exists = Website::getDBHandle()->prepare("SHOW COLUMNS FROM `players` LIKE `border_id`");
         $exists->execute([]);
 
@@ -935,7 +943,7 @@ class Player extends ObjectData
             $createTable->execute([]);
         }
 
-        $this->data['border_id'] = (int) $borderID;
+        $this->data['border_id'] = (int)$borderID;
     }
 
     public function getOnline()

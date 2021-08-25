@@ -103,65 +103,69 @@ function playerPortraitCreate($base, $player)
     return $image_p;
 }
 
-if (isset($_REQUEST['name'])) {
-    $outfits = new Outfits();
-    $mounts = new Mounts();
-    $randomizeLook = function () use ($outfits) {
-        return (int)(array_rand($outfits->getOutfitsByType(rand(1, 2))));
-
-    };
-    $randomLookType = $randomizeLook();
-    while ($randomLookType == 0) {
+/**
+ * @return array
+ */
+function createImage(): array
+{
+    if (isset($_REQUEST['name'])) {
+        $outfits = new Outfits();
+        $mounts = new Mounts();
+        $player = new Player();
+        $randomizeLook = function () use ($outfits) {
+            return (int)(array_rand($outfits->getOutfitsByType(rand(1, 2))));
+        };
         $randomLookType = $randomizeLook();
+        while ($randomLookType == 0) {
+            $randomLookType = $randomizeLook();
+        }
+        $array = $mounts->getMounts();
+        $randomMount = (rand(0, (int)array_pop($array)['id'] - 20));
+        $randomAddon = rand(0, 3);
+        $randomColors = rand(0, 255);
+        $name = $_REQUEST['name'];
+        $url1 = 'images/bg.png';
+        $url2 = "https://outfits.ferobraglobal.com/animoutfit.php?id={$randomLookType}&addons={$randomAddon}&head={$randomColors}&body={$randomColors}&legs={$randomColors}&feet={$randomColors}&mount={$randomMount}";
+        $player_portrait = playerPortraitCreate($url1, $url2);
+
+        $voc = rand(0, 8);
+        $voc = $player->getVocationByVocationId($voc);
+
+        $width = imagesx($player_portrait);
+        $height = imagesy($player_portrait);
+
+        $player_portrait = makeBox($player_portrait, $randomMount, $width, $height, $name, $voc);
+//    $box->setBox(0, 400, $w, $h);
+//    $box->draw("Level: {$p->getLevel()}"); // Text to draw
+
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header('Content-Type: image/png');
+        imagepng($player_portrait, NULL, 9, PNG_ALL_FILTERS);
+        imagedestroy($player_portrait);
     }
-    $array = $mounts->getMounts();
-    $randomMount = (rand(0, (int)array_pop($array)['id'] - 20));
-    $randomAddon = rand(0, 3);
-    $randomColors = rand(0, 255);
-    $name = $_REQUEST['name'];
-    $url1 = 'images/bg.png';
-    $url2 = "https://outfits.ferobraglobal.com/animoutfit.php?id={$randomLookType}&addons={$randomAddon}&head={$randomColors}&body={$randomColors}&legs={$randomColors}&feet={$randomColors}&mount={$randomMount}";
-    $player_portrait = playerPortraitCreate($url1, $url2);
+    return array($array, $player_portrait);
+}
 
-    $voc = rand(0, 8);
-    switch ($voc) {
-        case 0:
-            $voc = "No Vocation";
-            break;
-        case 1:
-            $voc = "Sorcerer";
-            break;
-        case 2:
-            $voc = "Druid";
-            break;
-        case 3:
-            $voc = "Paladin";
-            break;
-        case 4:
-            $voc = "Knight";
-            break;
-        case 5:
-            $voc = "Master Sorcerer";
-            break;
-        case 6:
-            $voc = "Elder Druid";
-            break;
-        case 7:
-            $voc = "Royal Paladin";
-            break;
-        case 8:
-            $voc = "Elite Knight";
-            break;
-        default:
-            break;
-    }
 
-    $im = $player_portrait;
+function printAndSaveToDropbox()
+{
+    let dropbox = __callDropboxApi()
+}
 
-    $w = imagesx($im);
-    $h = imagesy($im);
-
-    $box = new Box($im);
+/**
+ * @param $player_portrait
+ * @param int $randomMount
+ * @param $width
+ * @param $height
+ * @param $name
+ * @param $voc
+ * @return mixed
+ */
+function makeBox($player_portrait, int $randomMount, $width, $height, $name, $voc)
+{
+    $box = new Box($player_portrait);
     $box->setFontFace(__DIR__ . "/images/martel.ttf"); // http://www.dafont.com/elevant-by-pelash.font
     $box->setFontColor(new Color(240, 209, 164));
     $box->setStrokeColor(new Color(1, 1, 1)); // Set stroke color
@@ -170,22 +174,16 @@ if (isset($_REQUEST['name'])) {
     $box->setTextAlign('center', 'center');
     $box->setFontSize(30);
     if ($randomMount != 0) {
-        $box->setBox(0, -90, $w, $h);
+        $box->setBox(0, -90, $width, $height);
     } else {
-        $box->setBox(0, -60, $w, $h);
+        $box->setBox(0, -60, $width, $height);
     }
     $box->draw(ucfirst($name)); // Text to draw
     $box->setFontSize(30);
-    $box->setBox(0, 40, $w, $h);
+    $box->setBox(0, 40, $width, $height);
     $box->draw(ucfirst($voc)); // Text to draw
     $box->setFontFace(__DIR__ . '/images/Roboto-Regular.ttf');
-//    $box->setBox(0, 400, $w, $h);
-//    $box->draw("Level: {$p->getLevel()}"); // Text to draw
-
-    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    header("Pragma: no-cache");
-    header('Content-Type: image/png');
-    imagepng($im, NULL, 9, PNG_ALL_FILTERS);
-    imagedestroy($im);
+    return $player_portrait;
 }
+
+list($array, $player_portrait) = createImage();
