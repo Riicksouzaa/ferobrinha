@@ -14,6 +14,7 @@ deploy:
             -ffdx -e cache/
     script:
         - composer install
+        - cp -rf . /var/www/souzaariick/production/$CI_PROJECT_NAME
     cache:
         paths:
             - vendor/
