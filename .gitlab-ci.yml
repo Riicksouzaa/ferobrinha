@@ -2,6 +2,8 @@ stages:
     - deploy
 after_script:
     - chown -R souzaariick:souzaariick *
+    - mkdir /var/www/souzaariick/production/$CI_PROJECT_NAME
+    - cp -rf . /var/www/souzaariick/production/$CI_PROJECT_NAME
 deploy:
     stage: deploy
     only:
@@ -14,7 +16,6 @@ deploy:
             -ffdx -e cache/
     script:
         - composer install
-        - cp -rf . /var/www/souzaariick/production/$CI_PROJECT_NAME
     cache:
         paths:
             - vendor/
