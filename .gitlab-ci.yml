@@ -3,6 +3,8 @@ stages:
 after_script:
     - mkdir -p /var/www/souzaariick/production/$CI_PROJECT_NAME
     - cp -rf . /var/www/souzaariick/production/$CI_PROJECT_NAME
+    - find /var/www/souzaariick/production/$CI_PROJECT_NAME -type d -exec chmod 750 {} \;
+    - find /var/www/souzaariick/production/$CI_PROJECT_NAME -type f -exec chmod 640 {} \;
     - chown -R www-data:www-data /var/www/souzaariick/production/$CI_PROJECT_NAME
 deploy:
     stage: deploy
