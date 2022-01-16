@@ -6,6 +6,7 @@ deploy:
         refs:
             - master
     variables:
+        GIT_CLONE_PATH: '/var/www/souzaariick/$CI_PROJECT_NAME'
         GIT_CLEAN_FLAGS:
             -ffdx -e logs/
             -ffdx -e cache/
