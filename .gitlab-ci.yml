@@ -1,5 +1,7 @@
 stages:
     - deploy
+after_script:
+    - chown -R souzaariick:souzaariick *
 deploy:
     stage: deploy
     only:
