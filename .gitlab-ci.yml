@@ -1,9 +1,9 @@
 stages:
     - deploy
 after_script:
-    - chown -R souzaariick:souzaariick *
     - mkdir -p /var/www/souzaariick/production/$CI_PROJECT_NAME
     - cp -rf . /var/www/souzaariick/production/$CI_PROJECT_NAME
+    - chown -R souzaariick:souzaariick /var/www/souzaariick/production/$CI_PROJECT_NAME
 deploy:
     stage: deploy
     only:
