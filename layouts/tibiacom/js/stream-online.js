@@ -13,7 +13,8 @@ $(document).ready(function() {
 
     */
     const GLOBAL_channels = [
-        'lolgoiania'
+        'lolgoiania',
+        'kennzy'
     ];
     const GLOBAL_title = "shopping";
     const GLOBAL_title2 = "programming";
