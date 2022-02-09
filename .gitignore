@@ -17,4 +17,4 @@ full_log.log
 !cache/*.gitkeep
 curioso.json
 .git-rewrite/
-./config/config.php
+config/config.php
