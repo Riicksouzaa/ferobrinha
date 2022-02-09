@@ -115,7 +115,7 @@ $(document).ready(function() {
         GLOBAL_channels.forEach((c, i) => i == 0 ? ch = c : ch+=`&user_login=${c}`);
         console.log(ch);
         $.ajax({
-            url: "https://api.twitch.tv/helix/streams?user_login=lolgoiania",
+            url: `https://api.twitch.tv/helix/streams?user_login=${c}`,
             dataType: 'json',
             headers: {
                 'Authorization': 'Bearer bvcvpqfzpp3hiltbea94f1uiagn9gl',
