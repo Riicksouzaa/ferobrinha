@@ -5,14 +5,6 @@ tests ci-cd
 
 ## Intro
 
-### PT-BR
-
-- Bem vindo ao tutorial de instalação desse lindo website feito com amor e carinho pra vcs meus queridos tibianos.
-- Lembrando que o Projeto todo em si não é de minha autoria ele tem diversos participantes.
-- Essa se trata de uma versão Estável do produto, isso não a deixa livre de bugs.
-- Se encontrar bugs ou tiver interesse que seja desenvolvido alguma nova funcionalidade fique a vontade para abrir um Issue.
-- sem mais delongas segue o tutorial.
-
 #### EN
 
 - Welcome to the installation tutorial of this beautiful website made with love and care for you my dear Tibians.
@@ -30,10 +22,12 @@ tests ci-cd
 ### How to install
 
 - Clone the Ferobra Premium Gesior From Github.
-- change the permission for write in /cache.
+- improve security for your project
 
 ```bash
-sudo chmod -R 777 /cache
+find PROJECT_PATH -type d -exec chmod 775 {} \;
+find PROJECT_PATH -type f -exec chmod 644 {} \;
+chown -R www-data:www-data PROJECT_PATH
 ```
 
 ### Tips and Tricks
@@ -68,11 +62,11 @@ and search for something like this:
 ### PHP NEEDS THAT FOLLOWING
 
 ```bash
-sudo apt-get install php5-gd
-sudo apt-get install php5-curl
+sudo apt-get install php-gd
+sudo apt-get install php-curl
 ```
 
-Make sure curl is enabled in the php.ini file. For me it's in /etc/php5/apache2/php.ini, if you can't find it, this line might be in /etc/php5/conf.d/curl.ini. Make sure the line :
+Make sure curl is enabled in the php.ini file. For me it's in /etc/php/apache2/php.ini, if you can't find it, this line might be in /etc/php/conf.d/curl.ini. Make sure the line :
 extension=curl.so
 
 now restart apache.:
@@ -86,6 +80,23 @@ or
 ```bash
 sudo service apache2 restart
 ```
+
+## COMPOSER
+
+Make sure to install all composer dependency on this website.
+
+```bash
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+mv composer.phar /usr/local/bin/composer
+```
+
+after that go to your project folder and run
+```bash
+composer install
+```
+
 
 ## Main Dev
 
