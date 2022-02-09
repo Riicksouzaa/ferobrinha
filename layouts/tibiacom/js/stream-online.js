@@ -118,7 +118,7 @@ $(document).ready(function() {
             url: "https://api.twitch.tv/helix/streams?user_login=lolgoiania",
             dataType: 'json',
             headers: {
-                'Authorization': 'Bearer jlhwwz43qd9u6u7f7us3i9sf6v12br',
+                'Authorization': 'Bearer bvcvpqfzpp3hiltbea94f1uiagn9gl',
                 'Client-ID': 'jlhwwz43qd9u6u7f7us3i9sf6v12br'
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
