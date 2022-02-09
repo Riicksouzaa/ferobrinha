@@ -24,7 +24,8 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-gd": "*",
-        "ext-zip": "*"
+        "ext-zip": "*",
+        "ext-curl": "*"
     },
     "repositories": {
         "picpay-php-sdk": {
